@@ -7,6 +7,7 @@ import { createScorm } from './scorm.js';
 import { createTracker, questionsOf, stepsOf } from './tracker.js';
 import { escapeHtml, inline, plainText, rich } from './format.js';
 import { renderBlock } from './screens/blocks.js';
+import { wireVideos } from './screens/common.js';
 import { renderText } from './screens/text.js';
 import { renderScene } from './screens/scene.js';
 import { renderQuiz } from './screens/quiz.js';
@@ -206,6 +207,7 @@ async function start() {
     els.notice.textContent = notice;
     els.pagerMsg.textContent = '';
     els.screen.replaceChildren(render(screen, ctx));
+    wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
     updateChrome();
 

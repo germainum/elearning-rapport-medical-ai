@@ -47,17 +47,82 @@ export function videoFigure(video, asset) {
          <div class="prose">${rich(video.transcript)}</div>
        </details>`
     : '';
+  // Début à une seconde donnée : fragment média (#t=) + repositionnement au chargement (voir wireVideos)
+  const start = Number(video.start) > 0 ? Number(video.start) : 0;
+  const src = asset(video.src) + (start ? `#t=${start}` : '');
+  const data = `${start ? ` data-start="${start}"` : ''}${video.autoplay ? ' data-autoplay' : ''}`;
   return `
     <figure class="video">
-      <video class="video__player" controls preload="metadata" playsinline
+      <video class="video__player" controls preload="metadata" playsinline${data}
         aria-label="${escapeHtml(video.title)}"${video.poster ? ` poster="${escapeHtml(asset(video.poster))}"` : ''}>
-        <source src="${escapeHtml(asset(video.src))}" type="video/mp4">
+        <source src="${escapeHtml(src)}" type="video/mp4">
         ${captions}
         <p>Votre navigateur ne peut pas lire cette vidéo : sa transcription est disponible ci-dessous.</p>
       </video>
+      <button type="button" class="btn btn--primary btn--small video__unmute" hidden>Activer le son</button>
       <figcaption class="video__caption">${meta}</figcaption>
       ${transcript}
     </figure>`;
+}
+
+// Lecture automatique une seule fois par session et par vidéo (pas à chaque retour sur l'écran)
+const autoplayed = new Set();
+
+/**
+ * Comportements des vidéos d'un écran, à appeler une fois l'écran inséré dans la page :
+ * - « start » : la lecture commence à la seconde indiquée (première lecture seulement) ;
+ * - sous-titres affichés par défaut ;
+ * - « autoplay » : lecture automatique, sauf si l'utilisateur a demandé moins d'animations.
+ *   Les navigateurs bloquent la lecture automatique avec le son : on lance alors la vidéo en
+ *   sourdine (sous-titres visibles) et on affiche un bouton « Activer le son ».
+ */
+export function wireVideos(root) {
+  for (const player of root.querySelectorAll('.video__player')) {
+    const start = Number(player.dataset.start) || 0;
+    const unmute = player.parentElement.querySelector('.video__unmute');
+
+    const showCaptions = () => {
+      for (const track of player.textTracks) {
+        if (track.kind === 'captions') track.mode = 'showing';
+      }
+    };
+    showCaptions();
+    player.addEventListener('loadedmetadata', showCaptions, { once: true });
+
+    if (start) {
+      const seek = () => {
+        if (player.currentTime < start) player.currentTime = start;
+      };
+      if (player.readyState >= 1) seek();
+      else player.addEventListener('loadedmetadata', seek, { once: true });
+    }
+
+    unmute.addEventListener('click', () => {
+      player.muted = false;
+      unmute.hidden = true;
+      player.focus();
+    });
+    // Son réactivé par les contrôles natifs : le bouton n'a plus lieu d'être
+    player.addEventListener('volumechange', () => {
+      if (!player.muted) unmute.hidden = true;
+    });
+
+    const key = player.querySelector('source')?.getAttribute('src');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('autoplay' in player.dataset) || reducedMotion || autoplayed.has(key)) continue;
+    autoplayed.add(key);
+    player.play().catch(() => {
+      player.muted = true;
+      return player
+        .play()
+        .then(() => {
+          unmute.hidden = false;
+        })
+        .catch(() => {
+          // Lecture automatique refusée même en sourdine : l'apprenant lance la vidéo lui-même
+        });
+    });
+  }
 }
 
 /**

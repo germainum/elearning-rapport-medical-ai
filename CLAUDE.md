@@ -66,6 +66,10 @@ transcription **horodatée fournie par l'OAI** (`docs/video-transcription-horoda
 par `scripts/captions-from-timestamps.js`. `scripts/make-captions.js` (minutages estimés) ne sert
 qu'en dernier recours, sans horodatage. Le serveur local gère les
 requêtes partielles (Range), nécessaires à la lecture vidéo.
+Vidéo d'introduction : `start: 8` (le contenu commence à 8 s, comme les sous-titres) et `autoplay: true`.
+Lecture automatique : une fois par session, essai avec le son puis repli **en sourdine** + bouton « Activer le son »
+(les navigateurs et l'iframe du LMS bloquent souvent le son sans interaction) ; désactivée si `prefers-reduced-motion`.
+Logique dans `wireVideos` (`src/js/screens/common.js`), appelée par `app.js` après l'insertion de l'écran.
 Pièce jointe : bloc `attachment` (PDF dans `content/documents/`). Avec `preview`, ouvre une fenêtre
 modale avec l'aperçu HTML du formulaire et un bouton « Télécharger le PDF » (attribut `download`).
 Choix délibéré : pas de PDF dans une iframe (non affiché sur Android, première page seule sur iOS).

@@ -164,6 +164,11 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   Sans horodatage, `node scripts/make-captions.js transcription.txt sortie.vtt <début_s> <fin_s>`
   produit un premier jet aux minutages estimés, à vérifier.
   Une vidéo peut aussi être placée dans une scène, comme bloc `{ "type": "video", … }`.
+  - `"start": 8` : la lecture commence à la 8ᵉ seconde (première lecture seulement).
+  - `"autoplay": true` : la vidéo démarre seule à l'ouverture de l'écran, une fois par session.
+    Les navigateurs bloquent souvent le démarrage avec le son : la vidéo démarre alors **en sourdine**,
+    sous-titres affichés, avec un bouton « Activer le son ». Pas de lecture automatique si
+    l'utilisateur a demandé à réduire les animations (réglage du système).
 - `journey` (facultatif) affiche une **frise de parcours** sous le texte, en ligne sur grand écran et
   en colonne sur mobile :
 

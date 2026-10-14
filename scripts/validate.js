@@ -43,11 +43,11 @@ const ALLOWED_KEYS = {
   text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video', 'journey'],
   journey: ['title', 'steps'],
   journeyStep: ['icon', 'label', 'text'],
-  video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript'],
+  video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
   writingBlock: ['type', 'id', 'prompt', 'placeholder', 'model', 'checklist'],
   attachmentBlock: ['type', 'title', 'src', 'meta', 'label', 'preview'],
   preview: ['title', 'reference', 'fields', 'items', 'footer'],
-  videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript'],
+  videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
   scene: [...SCREEN_COMMON_KEYS, 'blocks'],
   quiz: [...SCREEN_COMMON_KEYS, 'body', 'questions'],
   summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'messages'],
@@ -154,6 +154,10 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     if (!isText(video.title)) error(where, '« title » (titre de la vidéo, lu par les lecteurs d\'écran) est obligatoire.');
     if (video.duration !== undefined && !isText(video.duration)) error(where, '« duration » doit être un texte (ex. "2 min 30").');
     if (video.poster !== undefined) checkFile(video.poster, where, 'poster', IMAGE_EXTENSIONS, 'png, jpg, gif, svg ou webp');
+    if (video.start !== undefined && !(typeof video.start === 'number' && video.start >= 0)) {
+      error(where, '« start » doit être un nombre de secondes (ex. 8).');
+    }
+    if (video.autoplay !== undefined && typeof video.autoplay !== 'boolean') error(where, '« autoplay » doit valoir true ou false.');
     if (video.transcript === undefined) {
       warn(where, 'pas de « transcript » : ajoutez la transcription pour les personnes qui ne peuvent pas regarder la vidéo.');
     } else if (!isRichText(video.transcript)) {

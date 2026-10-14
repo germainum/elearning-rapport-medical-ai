@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -264,6 +264,8 @@
         "captions": "videos/rapport-medical-oai.fr.vtt",
         "title": "Comment remplir un rapport médical pour l'assurance-invalidité",
         "duration": "2 min 30",
+        "start": 8,
+        "autoplay": true,
         "transcript": [
           "Bonjour et bienvenue dans cette vidéo. Votre patient a déposé une demande de prestations AI et vous devez remplir un questionnaire médical.",
           "**Pourquoi l'AI vous sollicite ?** En tant que médecin traitant, vous êtes la première source de renseignements médicaux pour l'AI. Vous connaissez les antécédents et la situation médicale actuelle de votre patient. Vous avez posé un diagnostic et vous êtes en mesure d'évaluer la gravité, les conséquences et l'évolution de son atteinte à la santé. Ces éléments font de vous le partenaire essentiel qui contribue au succès des mesures de réadaptation et aux décisions sur les prestations de l'AI.",

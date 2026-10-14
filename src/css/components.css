@@ -788,6 +788,11 @@ button.toc__item:hover {
   box-shadow: var(--shadow-card);
 }
 
+/* Lecture automatique en sourdine : bouton bien visible pour réactiver le son */
+.video__unmute {
+  justify-self: start;
+}
+
 .video__caption {
   font-size: var(--font-size-small);
   font-weight: 600;
