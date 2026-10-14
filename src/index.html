@@ -52,6 +52,13 @@
           </div>
           <div class="app-header__actions">
             <span class="progress-pill" id="progress-pill" aria-hidden="true"></span>
+            <button type="button" class="btn btn--ghost btn--small btn--icon" id="glossary-toggle" aria-haspopup="dialog" title="Ouvrir le glossaire" hidden>
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9 8h6M9 11.5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+              <span class="btn__label">Glossaire</span>
+            </button>
             <button type="button" class="btn btn--ghost btn--small btn--icon" id="file-toggle" aria-haspopup="dialog" title="Revoir le dossier patient" hidden>
               <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
               <path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -124,6 +131,19 @@
       <button type="button" class="btn btn--ghost btn--small" id="file-close">Fermer</button>
     </div>
     <div class="file-dialog__body" id="file-dialog-body"></div>
+  </dialog>
+
+  <dialog class="file-dialog file-dialog--wide glossary-dialog" id="glossary-dialog" aria-labelledby="glossary-dialog-title">
+    <div class="file-dialog__header glossary-dialog__header">
+      <h2 class="file-dialog__title" id="glossary-dialog-title">Glossaire</h2>
+      <button type="button" class="btn btn--ghost btn--small" id="glossary-close">Fermer</button>
+      <div class="glossary-search">
+        <label class="glossary-search__label" for="glossary-search">Rechercher un terme</label>
+        <input class="glossary-search__input" id="glossary-search" type="search" autocomplete="off" spellcheck="false">
+        <p class="glossary-search__count" id="glossary-count" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="file-dialog__body glossary" id="glossary-body"></div>
   </dialog>
 </body>
 </html>

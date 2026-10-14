@@ -34,7 +34,7 @@ const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'section'];
 
 const ALLOWED_KEYS = {
-  module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
+  module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
   logo: ['src', 'alt'],
   patientFile: ['title', 'subtitle', 'body', 'data', 'image'],
   patientFileBlock: ['type'],
@@ -405,6 +405,33 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       checkKeys(module.help, ['title', 'body'], 'help');
       if (!isText(module.help.title)) error('help', '« title » est obligatoire (ex. "Une question ?").');
       if (!isRichText(module.help.body)) error('help', '« body » est obligatoire.');
+    }
+  }
+  if (module.glossary !== undefined) {
+    const glossary = module.glossary;
+    if (!isObject(glossary)) {
+      error('module', '« glossary » doit être un objet { "title": …, "sections": […] }.');
+    } else {
+      checkKeys(glossary, ['title', 'source', 'sections'], 'glossary');
+      if (glossary.title !== undefined && !isText(glossary.title)) error('glossary', '« title » doit être un texte.');
+      if (glossary.source !== undefined && !isText(glossary.source)) error('glossary', '« source » doit être un texte.');
+      if (!Array.isArray(glossary.sections) || glossary.sections.length === 0) {
+        error('glossary', '« sections » doit contenir au moins une rubrique { "title": …, "terms": […] }.');
+      } else {
+        glossary.sections.forEach((section, i) => {
+          const at = `glossary › rubrique ${i + 1}`;
+          if (!isObject(section)) return error(at, 'doit être un objet { "title": …, "terms": […] }.');
+          checkKeys(section, ['title', 'terms'], at);
+          if (!isText(section.title)) error(at, '« title » est obligatoire.');
+          if (!Array.isArray(section.terms) || section.terms.length === 0) return error(at, '« terms » doit contenir au moins un terme.');
+          section.terms.forEach((entry, j) => {
+            const entryAt = `${at} › terme ${j + 1}`;
+            if (!isObject(entry)) return error(entryAt, 'doit être un objet { "term": …, "definition": … }.');
+            checkKeys(entry, ['term', 'definition'], entryAt);
+            if (!isText(entry.term) || !isText(entry.definition)) error(entryAt, '« term » et « definition » sont obligatoires.');
+          });
+        });
+      }
     }
   }
   if (module.logo !== undefined) {

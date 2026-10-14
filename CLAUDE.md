@@ -79,6 +79,10 @@ récurrent** suit le parcours — `cabinet-courrier.svg` (courrier), `consultati
 `redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-c.svg` (second cas, psychosocial).
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
 Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
+Glossaire : champ `glossary` à la racine (43 termes en 6 rubriques, repris du « Glossaire et notions clés —
+assurance-invalidité » de l'OAI Vaud, fourni le 14.10.2026). Bouton « Glossaire » du bandeau, à toutes les tailles
+d'écran → `<dialog>` avec recherche insensible aux accents et compteur annoncé (`role="status"`).
+Sur ≤ 360 px, la progression du bandeau passe en forme courte « 10/35 » (forme longue lue par les lecteurs d'écran).
 Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback par conséquence.
 
 ### Couche SCORM isolée

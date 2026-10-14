@@ -256,6 +256,39 @@
   }
 }
 
+.progress-text__short {
+  display: none;
+}
+
+/* Très petits écrans (≤ 360 px) : « 10/35 » à côté de trois boutons-icônes */
+@media (max-width: 22.5rem) {
+  .app-header__inner,
+  .app-header__actions {
+    gap: var(--space-1);
+  }
+
+  .app-header__logo {
+    height: 1.25rem;
+  }
+
+  .app-header__logo + .app-header__text {
+    padding-left: var(--space-2);
+  }
+
+  .progress-text__long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .progress-text__short {
+    display: inline;
+  }
+}
+
 /* ---------- Sommaire : frise de progression ---------- */
 
 .toc {
@@ -510,6 +543,79 @@ button.toc__item:hover {
 
 .file-dialog__body {
   padding: var(--space-5) var(--space-4);
+}
+
+/* ---------- Glossaire ---------- */
+
+.glossary-search {
+  display: grid;
+  flex-basis: 100%;
+  gap: var(--space-1);
+}
+
+.glossary-search__label {
+  font-size: var(--font-size-small);
+  font-weight: 700;
+}
+
+.glossary-search__input {
+  width: 100%;
+  min-height: var(--tap-size);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.glossary-search__count {
+  margin: 0;
+  font-size: var(--font-size-small);
+  color: var(--color-muted);
+}
+
+.glossary {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.glossary__section-title {
+  margin-bottom: var(--space-3);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.glossary__list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.glossary__entry {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.glossary__term {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.glossary__definition {
+  margin: var(--space-1) 0 0;
+}
+
+.glossary__empty,
+.glossary__source {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
 }
 
 /* ---------- Zone principale ---------- */

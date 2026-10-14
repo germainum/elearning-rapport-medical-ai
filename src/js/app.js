@@ -36,6 +36,13 @@ const els = {
   fileDialog: byId('file-dialog'),
   fileDialogBody: byId('file-dialog-body'),
   fileClose: byId('file-close'),
+  glossaryToggle: byId('glossary-toggle'),
+  glossaryDialog: byId('glossary-dialog'),
+  glossaryTitle: byId('glossary-dialog-title'),
+  glossaryClose: byId('glossary-close'),
+  glossaryBody: byId('glossary-body'),
+  glossarySearch: byId('glossary-search'),
+  glossaryCount: byId('glossary-count'),
   tocToggle: byId('toc-toggle'),
   toc: byId('toc'),
   tocList: byId('toc-list'),
@@ -85,6 +92,7 @@ async function start() {
     els.sideLogo.remove();
   }
   renderSidebarIntro(module);
+  setupGlossary(module.glossary);
 
   const scorm = createScorm({
     storageKey: `scorm-simule:${module.id}`,
@@ -217,7 +225,8 @@ async function start() {
   function updateChrome() {
     const total = screens.length;
     const done = screens.filter((_, i) => tracker.isScreenDone(i)).length;
-    els.progressText.textContent = `Écran ${index + 1} sur ${total}`;
+    // Forme courte « 10/35 » sur les très petits écrans ; la forme longue reste lue par les lecteurs d'écran
+    els.progressText.innerHTML = `<span class="progress-text__long">Écran ${index + 1} sur ${total}</span><span class="progress-text__short" aria-hidden="true">${index + 1}/${total}</span>`;
     els.progressBar.style.width = `${Math.round((done / total) * 100)}%`;
     els.progressPill.textContent = `${index + 1} / ${total}`;
     els.sideProgress.textContent = `${done} / ${total}`;
@@ -464,6 +473,63 @@ function renderSidebarIntro(module) {
     els.helpCardBody.innerHTML = rich(module.help.body);
     els.helpCard.hidden = false;
   }
+}
+
+/* ---------- Glossaire : fenêtre consultable à tout moment, avec recherche ---------- */
+
+// Recherche insensible à la casse et aux accents
+const normalize = (text) => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+function setupGlossary(glossary) {
+  if (!glossary) return;
+  els.glossaryToggle.hidden = false;
+  els.glossaryTitle.textContent = plainText(glossary.title ?? 'Glossaire');
+  const total = glossary.sections.reduce((n, section) => n + section.terms.length, 0);
+
+  const entryHtml = (entry) => `
+    <div class="glossary__entry" data-search="${escapeHtml(normalize(`${plainText(entry.term)} ${plainText(entry.definition)}`))}">
+      <dt class="glossary__term">${inline(entry.term)}</dt>
+      <dd class="glossary__definition">${inline(entry.definition)}</dd>
+    </div>`;
+  const sectionHtml = (section) => `
+    <section class="glossary__section">
+      <h3 class="glossary__section-title">${inline(section.title)}</h3>
+      <dl class="glossary__list">${section.terms.map(entryHtml).join('')}</dl>
+    </section>`;
+  els.glossaryBody.innerHTML = `
+    ${glossary.sections.map(sectionHtml).join('')}
+    <p class="glossary__empty" hidden>Aucun terme ne correspond à votre recherche.</p>
+    ${glossary.source ? `<p class="glossary__source">Source : ${inline(glossary.source)}</p>` : ''}`;
+
+  const entries = [...els.glossaryBody.querySelectorAll('.glossary__entry')];
+  const sections = [...els.glossaryBody.querySelectorAll('.glossary__section')];
+  const empty = els.glossaryBody.querySelector('.glossary__empty');
+
+  function filter() {
+    const query = normalize(els.glossarySearch.value.trim());
+    let shown = 0;
+    for (const entry of entries) {
+      const match = !query || entry.dataset.search.includes(query);
+      entry.hidden = !match;
+      if (match) shown++;
+    }
+    for (const section of sections) section.hidden = !section.querySelector('.glossary__entry:not([hidden])');
+    empty.hidden = shown > 0;
+    els.glossaryCount.textContent = query ? `${shown} terme${shown > 1 ? 's' : ''} sur ${total}` : `${total} termes`;
+  }
+
+  els.glossarySearch.addEventListener('input', filter);
+  filter();
+  els.glossaryToggle.addEventListener('click', () => {
+    els.glossaryDialog.showModal();
+    els.glossarySearch.focus();
+  });
+  els.glossaryClose.addEventListener('click', () => els.glossaryDialog.close());
+  // Clic sur le fond assombri : ferme la fenêtre
+  els.glossaryDialog.addEventListener('click', (event) => {
+    if (event.target === els.glossaryDialog) els.glossaryDialog.close();
+  });
+  els.glossaryDialog.addEventListener('close', () => els.glossaryToggle.focus());
 }
 
 async function loadModule() {

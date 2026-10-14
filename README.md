@@ -97,6 +97,10 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 
 - `storyTitle` : fil rouge affiché dans le bandeau, à côté de la progression (facultatif).
 - `help` : carte d'aide en bas du panneau de gauche sur ordinateur, `{ "title": "Une question ?", "body": ["…"] }` (facultatif).
+- `glossary` : glossaire consultable à tout moment par le bouton « Glossaire » du bandeau, dans une
+  fenêtre avec recherche (insensible aux accents). Facultatif :
+  `{ "title": "Glossaire", "source": "…", "sections": [{ "title": "Rubrique", "terms": [{ "term": "Invalidité", "definition": "…" }] }] }`.
+  Les définitions acceptent le gras, l'italique et les liens.
 - `logo` : logo affiché en haut à gauche, `{ "src": "images/logo-aivd.png", "alt": "AI VD – Office de l'assurance-invalidité pour le canton de Vaud" }` (facultatif).
 - `form` : en-tête affiché sur chaque « extrait du formulaire » (voir les blocs `form`).
 - `passingScore` : seuil de réussite en pourcentage (80 si absent).
