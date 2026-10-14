@@ -144,6 +144,7 @@ async function start() {
     moduleId: module.id,
     form: module.form,
     patientFile: module.patientFile,
+    logo: module.logo,
     asset: (src) => `content/${src}`,
     getAnswer: (questionId) => tracker.getAnswer(questionId),
     result: () => tracker.result(passingScore),

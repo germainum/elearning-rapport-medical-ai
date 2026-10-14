@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -325,12 +325,17 @@
           "type": "document",
           "kind": "courrier",
           "title": "Office de l'assurance-invalidité pour le canton de Vaud",
-          "subtitle": "Concerne : Mme R., née en 1979 · courrier fictif",
+          "sender": ["Avenue du Général-Guisan 8", "1800 Vevey", "Tél. 021 925 24 24 · www.aivd.ch"],
+          "recipient": ["Cabinet de médecine générale", "À l'attention du médecin traitant", "1000 Lausanne"],
+          "date": "Vevey, le 1er octobre 2026",
+          "subtitle": "Concerne : Mme R., née en 1979 · demande de prestations AI",
           "body": [
             "Docteur, ",
             "Votre patiente a déposé une demande de prestations de l'assurance-invalidité. Afin d'examiner son droit aux prestations, nous vous prions de bien vouloir remplir le rapport médical ci-joint, y compris ses deux annexes, et de nous le retourner, accompagné des documents médicaux utiles.",
-            "Nous vous remercions de votre collaboration."
-          ]
+            "Nous vous remercions de votre collaboration et vous prions d'agréer, Docteur, nos salutations distinguées."
+          ],
+          "signature": ["Office AI du canton de Vaud", "*Courrier fictif*"],
+          "enclosures": "Annexe : rapport médical somatique, formulaire 002.099 (6 pages)"
         },
         {
           "type": "attachment",

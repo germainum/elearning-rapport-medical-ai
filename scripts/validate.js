@@ -52,7 +52,7 @@ const ALLOWED_KEYS = {
   quiz: [...SCREEN_COMMON_KEYS, 'body', 'questions'],
   summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'messages'],
   textBlock: ['type', 'title', 'body', 'image'],
-  documentBlock: ['type', 'kind', 'title', 'subtitle', 'body', 'data', 'image'],
+  documentBlock: ['type', 'kind', 'title', 'subtitle', 'body', 'data', 'image', 'sender', 'recipient', 'date', 'signature', 'enclosures'],
   formBlock: ['type', 'title', 'reference', 'items'],
   formItem: ['number', 'label', 'answer', 'field', 'details'],
   formSection: ['section'],
@@ -309,6 +309,12 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
           if (block.body === undefined && block.data === undefined) error(at, 'ajoutez au moins « body » ou « data ».');
           if (block.data !== undefined) checkData(block.data, at);
           if (block.image !== undefined) checkImage(block.image, `${at} › image`);
+          // Champs propres au courrier (allure de lettre) : texte ou liste de lignes
+          for (const key of ['sender', 'recipient', 'date', 'signature', 'enclosures']) {
+            if (block[key] === undefined) continue;
+            if (block.kind !== 'courrier') error(at, `« ${key} » n'est utilisé que pour un document "courrier".`);
+            else if (!isRichText(block[key])) error(at, `« ${key} » doit être un texte ou une liste de lignes.`);
+          }
           break;
 
         case 'patientFile':

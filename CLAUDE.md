@@ -70,6 +70,9 @@ Vidéo d'introduction : `start: 8` (le contenu commence à 8 s, comme les sous-t
 Lecture automatique : une fois par session, essai avec le son puis repli **en sourdine** + bouton « Activer le son »
 (les navigateurs et l'iframe du LMS bloquent souvent le son sans interaction) ; désactivée si `prefers-reduced-motion`.
 Logique dans `wireVideos` (`src/js/screens/common.js`), appelée par `app.js` après l'insertion de l'écran.
+Courrier : document `kind: "courrier"` rendu comme une **lettre reçue** (`letter()` dans `blocks.js`) : en-tête avec logo
+AI VD et adresse de Vevey, destinataire, date, « Concerne », signature, annexes ; enveloppe, timbre vert et plis
+en CSS décoratif ; pièce jointe suivante « agrafée » (trombone). Rien n'est pivoté.
 Pièce jointe : bloc `attachment` (PDF dans `content/documents/`). Avec `preview`, ouvre une fenêtre
 modale avec l'aperçu HTML du formulaire et un bouton « Télécharger le PDF » (attribut `download`).
 Choix délibéré : pas de PDF dans une iframe (non affiché sur Android, première page seule sur iOS).

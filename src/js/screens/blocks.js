@@ -81,6 +81,34 @@ function wireAttachment(element, block, ctx) {
   });
 }
 
+/**
+ * Courrier reçu : feuille de papier sortie de son enveloppe (en-tête avec logo, expéditeur, destinataire,
+ * lieu et date, « Concerne », corps, signature, annexes). Les plis et l'enveloppe sont décoratifs (CSS).
+ */
+function letter(block, ctx) {
+  const lines = (value) => [].concat(value ?? []).map(inline).join('<br>');
+  const logo = ctx.logo ? `<img class="letter__logo" src="${escapeHtml(ctx.asset(ctx.logo.src))}" alt="${escapeHtml(ctx.logo.alt ?? '')}">` : '';
+  const enclosures = [].concat(block.enclosures ?? []);
+  return `
+    <section class="letter" aria-label="Courrier reçu">
+      <div class="letter__paper">
+        <header class="letter__head">
+          ${logo}
+          <div class="letter__sender">
+            <h3 class="letter__from">${inline(block.title)}</h3>
+            ${block.sender ? `<address>${lines(block.sender)}</address>` : ''}
+          </div>
+        </header>
+        ${block.recipient ? `<address class="letter__recipient">${lines(block.recipient)}</address>` : ''}
+        ${block.date ? `<p class="letter__date">${inline(block.date)}</p>` : ''}
+        ${block.subtitle ? `<p class="letter__reference">${inline(block.subtitle)}</p>` : ''}
+        ${block.body ? `<div class="letter__body">${rich(block.body)}</div>` : ''}
+        ${block.signature ? `<p class="letter__signature">${lines(block.signature)}</p>` : ''}
+        ${enclosures.length ? `<p class="letter__enclosures">${enclosures.map(inline).join('<br>')}</p>` : ''}
+      </div>
+    </section>`;
+}
+
 /** Questions numérotées d'un formulaire (« 2.5 », « 3 »…) : vides, remplies (« exemple de réponse ») ou explicatives. */
 function formItems(items) {
   return items
@@ -208,6 +236,7 @@ const BLOCKS = {
   /** Pièce du dossier : fiche patient, courrier reçu, note. */
   document(block, ctx) {
     const kind = block.kind ?? 'dossier';
+    if (kind === 'courrier') return letter(block, ctx);
     const data = block.data?.length
       ? `<dl class="doc__data">${block.data
           .map((item) => `<div class="doc__datum"><dt>${inline(item.label)}</dt><dd>${inline(item.value)}</dd></div>`)

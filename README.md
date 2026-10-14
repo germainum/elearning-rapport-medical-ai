@@ -223,6 +223,11 @@ Les blocs possibles :
 | `attachment` | pièce jointe PDF : avec `preview`, le bouton ouvre une fenêtre (aperçu du formulaire + « Télécharger le PDF ») ; sans `preview`, il ouvre le PDF dans un nouvel onglet | `title`, `src` (`documents/…pdf`), `meta` (ex. « PDF · 2 pages · 129 Ko »), `label` (texte du bouton), `preview` : `{ "fields": [champs d'en-tête], "items": [questions comme dans `form`, avec `details` facultatif], "footer": [lignes de pied] }` |
 | `patientFile` | la fiche du patient définie à la racine (voir ci-dessous) | aucun autre champ : `{ "type": "patientFile" }` |
 | `document` | pièce du dossier : fiche patient, courrier reçu, note | `kind` (`"dossier"`, `"courrier"` ou `"note"`), `title`, `subtitle`, `body`, `data` (liste de `{ "label", "value" }`), `image` (portrait) |
+
+Un document `"kind": "courrier"` s'affiche comme une **lettre reçue** (logo du module, enveloppe, plis du papier) :
+`title` = expéditeur, `sender` (adresse), `recipient` (destinataire), `date` (« Vevey, le … »), `subtitle` (ligne
+« Concerne : … »), `body`, `signature`, `enclosures` (« Annexe : … »). Un bloc `attachment` placé juste après
+apparaît agrafé sous la lettre.
 | `form`     | extrait du formulaire, vide ou rempli | `items` : liste de `{ "number", "label", "answer" }` |
 | `callout`  | encadré « À retenir » | `title` (facultatif), `body` |
 | `question` | question à choix unique ou multiple | mêmes champs qu'une question de QCM, plus `"type": "question"` |
