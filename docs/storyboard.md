@@ -1,4 +1,8 @@
-# Storyboard : « Remplir le rapport médical du médecin traitant »
+# Storyboard : « Remplir le rapport médical AI » (formulaire 002.099)
+
+> **14.10.2026 : la formation suit désormais le « Rapport médical somatique : Réadaptation
+> professionnelle / Rente » (002.099, 6 pages).** Voir la dernière section. Les sections plus anciennes
+> décrivent l'ancienne version fondée sur le 002.099 MT (questions 1 à 12) et restent pour l'historique.
 
 **Statut : proposition à valider par l'OAI Vaud.** Les erreurs fréquentes, leurs conséquences et les
 délais ci-dessous sont des hypothèses de travail. Tout ce qui est marqué ⚠ doit être confirmé ou
@@ -10,7 +14,7 @@ l'activité habituelle et dans une activité adaptée), les cinq besoins de l'Of
 des éléments cliniques objectifs, et le fait qu'un rapport précis évite des expertises. Restent ⚠ :
 le cas fictif, les bonnes réponses détaillées et les délais.
 
-- **Objectif** : à la fin du module, le médecin généraliste sait remplir le formulaire 002.099 MT de
+- **Objectif** : à la fin du module, le médecin généraliste sait remplir le formulaire 002.099 de
   façon à ce que l'OAI puisse décider sans le relancer.
 - **Public** : médecins généralistes installés dans le canton de Vaud.
 - **Durée visée** : 12 à 15 minutes.
@@ -172,3 +176,36 @@ Source : `docs/source-atelier-rapport-medical.md` (atelier SMR du 05.09.2024). A
   du contexte psychosocial (anamnèse oui, motif d'incapacité non). ⚠ Formulations à valider.
 - **Synthèse** : les **3 piliers** (diagnostic, limitations, capacité de travail) et le psychosocial.
 - Durée portée à 25 minutes (13 écrans, 13 questions).
+
+## Restructuration sur le formulaire 002.099 complet (14.10.2026) ⚠ à valider
+
+Source : `docs/formulaire-002099.md` (intitulés exacts). 14 écrans, 13 questions, ~25 minutes.
+
+| Écran | Formulaire | Question notée |
+|---|---|---|
+| Courrier | aperçu complet (5 sections + 2 annexes) | À quoi sert le rapport |
+| Informations générales | 1.1 à 1.3 | Périodes d'incapacité (1.3) |
+| Antécédents, symptômes, constats | 2.1 à 2.4 | Constats objectifs et médication avec dosage |
+| Diagnostics | 2.5 et 2.6 | Avec incidence (2.5) / sans incidence (2.6 : l'hypertension) |
+| Pronostic et plan de traitement | 2.7 et 2.8 | Pronostic sur 100 % |
+| Situation professionnelle | 3.1 à 3.3 | Exigences du poste (3.3) |
+| Limitations | 3.4 + annexe des travaux exigibles | Formulation mesurable |
+| Potentiel de réadaptation | 4.1 à 4.5 (+ 3.5, 3.6 en encadré) | Heures par jour, habituelle / adaptée |
+| Aptitude à la réadaptation | annexe page 6 | Contre-indication à une mesure de réinsertion |
+| Relecture | annexes, section 5 « Divers » | Pièces jointes, usage de « Divers » |
+| Second cas : M. C. | 3.4, 2.1, 4.4 | Limitations ; place du contexte psychosocial |
+
+- **Supprimé** : le cas de M. B. (atteinte psychique), le formulaire étant **somatique**. Les capacités
+  psychiques restent abordées par l'annexe des travaux exigibles (concentration, compréhension,
+  adaptation, résistance) et l'état dépressif réactionnel de M. C.
+- **Dossier de Mme R. complété** pour les nouvelles questions : suivi mensuel, chirurgien orthopédiste,
+  poste en rotation d'équipes, langues (français, portugais), famille, voiture.
+- ⚠ **Réponses modèles à valider** : 1.1–1.3, 2.1–2.8 (HTA codée I10 en 2.6), 3.1–3.4, annexe des
+  travaux exigibles (4 h/jour, 5 kg, etc.), 4.1–4.5 (4 h par jour = 50 % sur un 100 %), annexe réadaptation.
+- ⚠ **4.5 tâches ménagères** : l'encadré dit que pour une personne à temps partiel l'Office AI tient
+  aussi compte des empêchements dans le ménage (méthode mixte). Formulation à confirmer.
+- ⚠ **4.4 obstacles** : le module admet d'y signaler le contexte psychosocial s'il freine la
+  réadaptation, sans en faire une limitation. À confirmer.
+- ⚠ **3.6 capacité de conduire** : encadré seulement, pas de question. À compléter si l'OAI le souhaite.
+- La page 5 n'a pas de titre sur le formulaire : le module l'appelle « Annexe : travaux exigibles dans
+  une activité adaptée ».

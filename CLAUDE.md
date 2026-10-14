@@ -6,8 +6,12 @@
 - **LMS** : MOS Chorus (MindOnSite). Le module tourne dans une **iframe**.
 - **Producteur** : Office AI du canton de Vaud (**AI = assurance-invalidité**, OAI Vaud).
 - **Objectif pédagogique** : apprendre aux **médecins généralistes vaudois** à remplir le
-  **Rapport médical du médecin traitant** (formulaire OAI **002.099 MT**, v. 09.2023).
-  Intitulés exacts : `docs/formulaire-002099-MT.md` (à citer tels quels, ne pas reformuler).
+  **Rapport médical somatique : Réadaptation professionnelle / Rente** (formulaire OAI **002.099**, v. 09.2023,
+  6 pages : 5 sections + annexe des travaux exigibles + annexe sur l'aptitude à la réadaptation).
+  Décision du 14.10.2026 : toute la formation suit ce formulaire (il remplace le 002.099 MT, 1 page).
+  Les écrans suivent les sections : 1 informations générales, 2.1–2.4, 2.5–2.6, 2.7–2.8, 3.1–3.3, 3.4 + annexe
+  des travaux exigibles, 4 (+ 3.5, 3.6), annexe réadaptation, relecture (section 5), second cas M. C.
+  Intitulés exacts : `docs/formulaire-002099.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins
   traitants) `docs/source-faq-aivd.md` (FAQ « Corps médical » d'aivd.ch) et
@@ -62,14 +66,14 @@ requêtes partielles (Range), nécessaires à la lecture vidéo.
 Pièce jointe : bloc `attachment` (PDF dans `content/documents/`). Avec `preview`, ouvre une fenêtre
 modale avec l'aperçu HTML du formulaire et un bouton « Télécharger le PDF » (attribut `download`).
 Choix délibéré : pas de PDF dans une iframe (non affiché sur Android, première page seule sur iOS).
-Le formulaire 002.099 MT y est joint au courrier : `content/documents/rapport-medical-mt-002099.pdf`
-(PDF standard 2 pages exporté de Word — jamais de PDF XFA, illisible dans les navigateurs).
+Le formulaire 002.099 y est joint au courrier : `content/documents/rapport-medical-002099.pdf`
+(PDF standard 6 pages exporté de Word — jamais de PDF XFA, illisible dans les navigateurs).
 Fiche patient : définie une fois à la racine (`patientFile`), affichée dans une scène par le bloc
 `{ "type": "patientFile" }` et consultable ensuite à tout moment via le bouton « Dossier patient » du bandeau
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).
 Illustrations (`content/images/`, style plat, traits noirs, palette AI VD) : un **médecin généraliste
 récurrent** suit le parcours — `cabinet-courrier.svg` (courrier), `consultation.svg` (anamnèse),
-`redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-b.svg`, `m-c.svg` (troisième cas, psychosocial).
+`redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-c.svg` (second cas, psychosocial).
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
 Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
 Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback par conséquence.
@@ -186,7 +190,7 @@ src/js/app.js              démarrage, navigation, sommaire, liaison tracker ↔
 src/js/format.js           échappement HTML + mini-formatage
 src/js/screens/*.js        un fichier par type d'écran (text, scene, quiz, summary)
                            + blocks.js (blocs de scène) + question.js (partagé) + common.js
-docs/formulaire-002099-MT.md  intitulés exacts du formulaire (référence de contenu)
+docs/formulaire-002099.md  intitulés exacts du formulaire (référence de contenu)
 docs/storyboard.md         scénario pédagogique, hypothèses ⚠ à valider par l'OAI
 scripts/validate.js        validation du schéma (messages en français)
 scripts/build.js           validation, staging (build/package), manifeste, zip (dist/)

@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "rapport-medical-mt",
-  "version": "0.16.0",
-  "title": "Le rapport médical du médecin traitant",
-  "description": "Remplir le formulaire AI 002.099 MT, question par question, à partir d'un cas fictif.",
+  "id": "rapport-medical-ai",
+  "version": "0.17.0",
+  "title": "Le rapport médical AI",
+  "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), section par section, à partir d'un cas fictif.",
   "language": "fr",
   "author": "Office AI du canton de Vaud",
   "durationMinutes": 25,
@@ -17,23 +17,28 @@
     ]
   },
   "logo": { "src": "images/logo-aivd.png", "alt": "AI VD – Office de l'assurance-invalidité pour le canton de Vaud" },
-  "form": { "title": "Rapport médical du médecin traitant", "reference": "Formulaire 002.099 MT · v. 09.2023" },
+  "form": {
+    "title": "Rapport médical somatique : Réadaptation professionnelle / Rente",
+    "reference": "Formulaire 002.099 · v. 09.2023"
+  },
   "patientFile": {
     "title": "Mme R., 47 ans",
     "subtitle": "Patiente du cabinet depuis 2014",
     "image": { "src": "images/mme-r.svg", "decorative": true },
     "body": [
-      "Douleurs lombaires résiduelles à l'effort et en position assise prolongée. Ne peut plus porter de charges lourdes ni mobiliser des résidents."
+      "Douleurs lombaires résiduelles à l'effort et en position assise prolongée. Ne peut plus porter de charges lourdes ni mobiliser des résidents.",
+      "Mariée, une fille de 16 ans. Parle français et portugais. Se rend au travail en voiture."
     ],
     "data": [
-      { "label": "Profession", "value": "Aide-soignante en EMS, 80 %" },
+      { "label": "Profession", "value": "Aide-soignante en EMS, 80 %, depuis 2006" },
       {
         "label": "Poste",
-        "value": "Soins de base, mobilisation de résidents, port de charges, travail debout, horaires irréguliers"
+        "value": "Soins de base, mobilisation de résidents, port de charges, travail debout, horaires en rotation"
       },
       { "label": "Diagnostic principal", "value": "Lombosciatalgie droite sur hernie discale L5-S1" },
-      { "label": "Opération", "value": "Cure de hernie discale le 10.02.2026" },
+      { "label": "Opération", "value": "Cure de hernie discale le 10.02.2026 (chirurgien orthopédiste)" },
       { "label": "Arrêt de travail", "value": "100 % depuis le 12.01.2026" },
+      { "label": "Suivi", "value": "Consultation mensuelle, dernier contrôle le 05.10.2026" },
       { "label": "Traitement", "value": "Physiothérapie 2×/semaine, paracétamol" },
       { "label": "Autre", "value": "Hypertension traitée, bien contrôlée" }
     ]
@@ -69,9 +74,9 @@
       },
       "body": [
         "*Contenu provisoire : cas fictif, bonnes réponses et conséquences à valider par l'Office AI du canton de Vaud.*",
-        "Votre patient a déposé une demande de prestations AI : l'Office AI vous adresse le **Rapport médical du médecin traitant** (formulaire 002.099 MT). La vidéo ci-dessus explique pourquoi votre rapport compte autant.",
+        "Votre patient a déposé une demande de prestations AI : l'Office AI vous adresse le **Rapport médical somatique : Réadaptation professionnelle / Rente** (formulaire 002.099). La vidéo ci-dessus explique pourquoi votre rapport compte autant.",
         "**Le saviez-vous ?** En 2021, **87 % des décisions** rendues par l'Office AI du canton de Vaud se fondaient sur l'avis du médecin traitant.",
-        "Dans ce module, vous remplissez ensuite le rapport de Mme R., question par question. Comptez environ 25 minutes."
+        "Dans ce module, vous remplissez le rapport de Mme R., section par section, puis ses deux annexes. Comptez environ 25 minutes."
       ],
       "journey": {
         "title": "Votre parcours dans ce module",
@@ -81,7 +86,7 @@
           {
             "icon": "redaction",
             "label": "La rédaction",
-            "text": "Question par question, du diagnostic au pronostic."
+            "text": "Section par section, des informations générales aux annexes."
           },
           { "icon": "envoi", "label": "L'envoi", "text": "Pièces jointes, relecture, envoi papier ou MedAI." },
           { "icon": "decision", "label": "La suite à l'AI", "text": "Un rapport précis, une décision plus rapide." }
@@ -93,7 +98,7 @@
       "type": "scene",
       "kicker": "Mme R., 47 ans",
       "title": "Un courrier de l'Office AI",
-      "continueLabel": "Commencer par les diagnostics",
+      "continueLabel": "Commencer par les informations générales",
       "blocks": [
         {
           "type": "text",
@@ -113,47 +118,156 @@
           "subtitle": "Concerne : Mme R., née en 1979 · courrier fictif",
           "body": [
             "Docteur, ",
-            "Votre patiente a déposé une demande de prestations de l'assurance-invalidité. Afin d'examiner son droit aux prestations, nous vous prions de bien vouloir remplir le rapport médical ci-joint et de nous le retourner, accompagné des documents médicaux utiles.",
+            "Votre patiente a déposé une demande de prestations de l'assurance-invalidité. Afin d'examiner son droit aux prestations, nous vous prions de bien vouloir remplir le rapport médical ci-joint, y compris ses deux annexes, et de nous le retourner, accompagné des documents médicaux utiles.",
             "Nous vous remercions de votre collaboration."
           ]
         },
         {
           "type": "attachment",
-          "title": "Rapport médical du médecin traitant (formulaire 002.099 MT)",
-          "meta": "PDF · 2 pages · 129 Ko",
-          "src": "documents/rapport-medical-mt-002099.pdf",
+          "title": "Rapport médical somatique : Réadaptation professionnelle / Rente (formulaire 002.099)",
+          "meta": "PDF · 6 pages · 190 Ko",
+          "src": "documents/rapport-medical-002099.pdf",
           "label": "Voir le formulaire",
           "preview": {
-            "fields": ["Coordonnées du médecin traitant :", "NSS :", "Nom et prénom de l'assuré :"],
+            "fields": ["Numéro d'assuré :", "Personne assurée :", "Date de naissance :"],
             "items": [
+              { "section": "1 Informations générales" },
               {
-                "number": 1,
-                "label": "Quels sont les diagnostics précis ayant une répercussion sur la capacité de travail ? Depuis quand ?"
+                "number": "1.1",
+                "label": "Le traitement ambulatoire / hospitalier que vous avez dispensé a eu lieu",
+                "details": [
+                  "du ………… au …………",
+                  "Date du dernier contrôle que vous avez effectué",
+                  "Des contrôles ont été effectués précédemment par",
+                  "Des contrôles ont été effectués à une date ultérieure par"
+                ]
               },
-              { "number": 2, "label": "Quels sont l'anamnèse et le status correspondants ?" },
-              { "number": 3, "label": "Quels sont les traitements actuels et la compliance à ces derniers ?" },
-              { "number": 4, "label": "Quelles sont les limitations fonctionnelles à prendre en compte ?" },
+              { "number": "1.2", "label": "A quelle fréquence voyez-vous le patient / la patiente actuellement ?" },
               {
-                "number": 5,
-                "label": "Quelle est la capacité de travail dans l'activité habituelle (sur un 100%) ? Depuis quand ?",
-                "details": "…………% depuis le : ………………………"
+                "number": "1.3",
+                "label": "Quelle est, jusqu'à aujourd'hui, l'évolution de l'incapacité de travail attestée médicalement (en pour cent) ?",
+                "details": [
+                  "…… % de ………… à …………",
+                  "Pour quelles activités avez-vous attesté une incapacité de travail ?",
+                  "Y a-t-il d'autres intervenants (médecins spécialistes, hôpitaux ou thérapeutes) ?",
+                  "Veuillez joindre les copies des rapports existants."
+                ]
+              },
+              { "section": "2 Situation médicale" },
+              {
+                "number": "2.1",
+                "label": "Antécédents médicaux et évolution de la situation du patient/de la patiente"
+              },
+              { "number": "2.2", "label": "Situation et symptômes médicaux actuels" },
+              { "number": "2.3", "label": "Médication actuelle (y compris le dosage)" },
+              {
+                "number": "2.4",
+                "label": "Constats médicaux complets sur la base des examens que vous avez pratiqués"
               },
               {
-                "number": 6,
-                "label": "Quelle est la capacité de travail exigible dans une activité adaptée ? Depuis quand ?",
-                "details": "…………% depuis le : ………………………"
+                "number": "2.5",
+                "label": "Diagnostics ayant une incidence sur la capacité de travail",
+                "details": [
+                  "(pour les affections psychiatriques, veuillez indiquer le code CIM-10 ou DSM-5.)",
+                  "Diagnostics · Depuis"
+                ]
               },
               {
-                "number": 7,
-                "label": "Si la capacité de travail n'est pas entière, merci de nous en préciser les raisons :"
+                "number": "2.6",
+                "label": "Diagnostics sans incidence sur la capacité de travail",
+                "details": ["Quand ces diagnostics ont-ils été posés ?", "Diagnostics · Depuis"]
               },
               {
-                "number": 8,
-                "field": false,
-                "label": "Une mesure de réinsertion de l'AI n'est pas une mesure thérapeutique (ergothérapie, etc.), c'est une mesure visant à mobiliser une personne atteinte dans sa santé dans le but de reconstruire une capacité de travail : de 8 heures par semaine sans obligation de rendement au début, avec l'objectif d'augmenter progressivement jusqu'à obtenir une capacité de travail d'au moins 50%."
+                "number": "2.7",
+                "label": "Votre pronostic sur la capacité de travail du patient/de la patiente sur un taux de 100%"
               },
               {
-                "number": 9,
+                "number": "2.8",
+                "label": "Prochaines mesures que vous envisagez / votre plan de traitement (thérapies, opérations chirurgicales, médication)"
+              },
+              { "section": "3 Situation professionnelle" },
+              {
+                "number": "3.1",
+                "label": "Quelle est l'activité actuelle de votre patient / votre patiente ?",
+                "details": "☐ Je ne suis pas en mesure de répondre à cette question"
+              },
+              {
+                "number": "3.2",
+                "label": "Quelles sont les informations dont vous disposez sur la situation professionnelle de votre patient / votre patiente ?",
+                "details": "☐ Aucune information"
+              },
+              {
+                "number": "3.3",
+                "label": "A quelles exigences votre patient/patiente doit-il/elle faire face dans son activité professionnelle ?",
+                "details": [
+                  "(par exemple : effort physique / activité alternée / répétitive / fonction de cadre / travail par rotation d'équipes / travail en équipe / contact avec les clients, ou toute autre particularité.)",
+                  "☐ Je ne suis pas en mesure de répondre à cette question",
+                  "Au cas où vous disposez d'une description du poste, veuillez en joindre une copie."
+                ]
+              },
+              {
+                "number": "3.4",
+                "label": "Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?",
+                "details": [
+                  "Veuillez décrire les limitations fonctionnelles.",
+                  "☐ Je ne suis pas en mesure de répondre à cette question"
+                ]
+              },
+              {
+                "number": "3.5",
+                "label": "Votre patient/votre patiente dispose-t-il/elle de ressources qui pourraient être utiles pour sa réinsertion ?",
+                "details": [
+                  "(par exemple : connaissances linguistiques / formations continues / activités de la vie quotidienne / activités bénévoles / hobbys / temps libre / contacts avec des amis / voyages)",
+                  "☐ Je ne suis pas en mesure de répondre à cette question"
+                ]
+              },
+              {
+                "number": "3.6",
+                "label": "Avez-vous des doutes quant à sa capacité de conduire ? Lesquels ?",
+                "details": "☐ Je ne suis pas en mesure de répondre à cette question"
+              },
+              { "section": "4 Potentiel de réadaptation" },
+              {
+                "number": "4.1",
+                "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans l'activité qu'il/elle a exercée jusqu'ici ?",
+                "details": "☐ Je ne suis pas en mesure de répondre à cette question"
+              },
+              {
+                "number": "4.2",
+                "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans une activité qui tienne compte de l'atteinte à sa santé ?"
+              },
+              {
+                "number": "4.3",
+                "label": "Votre pronostic sur le potentiel de réadaptation du patient/de la patiente. Capacité de travail sur un taux de 100% (même si le taux contractuel est inférieur)."
+              },
+              { "number": "4.4", "label": "Quels sont les facteurs qui font obstacle à une réadaptation ?" },
+              {
+                "number": "4.5",
+                "label": "Dans quelle mesure votre patient/votre patiente est-il/elle limité/e dans l'accomplissement des tâches ménagères ?",
+                "details": [
+                  "(Par ex. : tenue du ménage / préparation des repas / nettoyage / achats / lessive / prise en charge des enfants)",
+                  "☐ Je ne suis pas en mesure de répondre à cette question"
+                ]
+              },
+              { "section": "5 Divers" },
+              {
+                "label": "Quels autres éléments pourraient entrer en ligne de compte dans l'évaluation de la situation de votre patient ? Avez-vous d'autres informations à nous communiquer ?"
+              },
+              { "section": "Annexe : travaux exigibles dans une activité adaptée" },
+              {
+                "label": "Quels sont les travaux qui peuvent encore être exigés de la personne assurée, compte tenu des limitations dues à l'état de santé, dans le cadre d'une activité adaptée à son handicap ?",
+                "details": [
+                  "Veuillez séparer en activités/durée/performance (rendement).",
+                  "Pour chaque activité : oui / non · durée exigible (temps complet oui/non, sinon nombre d'heures par jour) · performance (en %)."
+                ]
+              },
+              { "section": "Annexe relative à l'aptitude à la réadaptation" },
+              {
+                "label": "Une mesure de réinsertion de l'AI n'est pas une mesure thérapeutique (ergothérapie, etc.), c'est une mesure visant à mobiliser une personne atteinte dans sa santé dans le but de reconstruire une capacité de travail : de 8 heures par semaine sans obligation de rendement au début, avec l'objectif d'augmenter progressivement jusqu'à obtenir une capacité de travail d'au moins 50%.",
+                "field": false
+              },
+              {
+                "number": "1",
                 "label": "Existe-t-il des contre-indications médicales à suivre une telle mesure ?",
                 "details": [
                   "☐ Si oui, lesquelles ?",
@@ -161,21 +275,12 @@
                 ]
               },
               {
-                "number": 10,
+                "number": "2",
                 "label": "Quel est votre pronostic d'amélioration de la capacité de travail ?",
-                "details": ["☐ Jusqu'à quel taux ? ………………", "☐ Dans quel délai ?"]
-              },
-              {
-                "number": 11,
-                "label": "Quels sont les dates et les taux précis des incapacités de travail attestées jusqu'ici ?",
-                "details": "du ………………… au ………………… à ………%"
-              },
-              { "number": 12, "label": "Autres remarques :" }
+                "details": ["Jusqu'à quel taux ? ………………", "Dans quel délai ?"]
+              }
             ],
-            "footer": [
-              "Date : ………………   Timbre et signature : ………………",
-              "☐ Ci-joint je vous remets les différents rapports, consilium et comptes rendus d'examens complémentaires effectués par moi-même ou par des spécialistes."
-            ]
+            "footer": ["Date · Prénom, nom, adresse exacte (cabinet/service) et signature du médecin · Annexes"]
           }
         },
         { "type": "reveal", "label": "Ouvrir le dossier de Mme R." },
@@ -220,85 +325,126 @@
             "3. Les limitations fonctionnelles qui ont un impact sur l'activité professionnelle.",
             "4. Le détail des incapacités de travail, même pour les personnes sans activité lucrative.",
             "5. La capacité de travail possible dans une activité qui respecte les limitations physiques et psychiques.",
-            "Ces éléments servent à évaluer le droit aux prestations et, pour les spécialistes en réadaptation, à définir un projet professionnel adapté."
+            "Ces éléments servent à évaluer le droit aux prestations et, pour les spécialistes en réadaptation, à définir un projet professionnel adapté.",
+            "Le formulaire compte **5 sections** (informations générales, situation médicale, situation professionnelle, potentiel de réadaptation, divers) et **2 annexes** : les travaux exigibles et l'aptitude à la réadaptation."
           ]
         }
       ]
     },
     {
-      "id": "diagnostics",
+      "id": "informations-generales",
       "type": "scene",
-      "kicker": "Question 1 du formulaire",
-      "title": "Les diagnostics",
-      "continueLabel": "Passer à l'anamnèse",
+      "kicker": "Section 1 du formulaire",
+      "title": "Les informations générales",
+      "continueLabel": "Passer à la situation médicale",
       "blocks": [
+        {
+          "type": "text",
+          "body": [
+            "La première section situe votre suivi : depuis quand vous traitez Mme R., à quel rythme, qui d'autre la suit, et l'historique de ses incapacités de travail."
+          ]
+        },
         {
           "type": "form",
           "items": [
+            { "section": "1 Informations générales" },
             {
-              "number": 1,
-              "label": "Quels sont les diagnostics précis ayant une répercussion sur la capacité de travail ? Depuis quand ?"
+              "number": "1.1",
+              "label": "Le traitement ambulatoire / hospitalier que vous avez dispensé a eu lieu",
+              "details": [
+                "du ………… au …………",
+                "Date du dernier contrôle que vous avez effectué",
+                "Des contrôles ont été effectués précédemment par",
+                "Des contrôles ont été effectués à une date ultérieure par"
+              ]
+            },
+            { "number": "1.2", "label": "A quelle fréquence voyez-vous le patient / la patiente actuellement ?" },
+            {
+              "number": "1.3",
+              "label": "Quelle est, jusqu'à aujourd'hui, l'évolution de l'incapacité de travail attestée médicalement (en pour cent) ?",
+              "details": [
+                "…… % de ………… à …………",
+                "Pour quelles activités avez-vous attesté une incapacité de travail ?",
+                "Y a-t-il d'autres intervenants (médecins spécialistes, hôpitaux ou thérapeutes) ?",
+                "Veuillez joindre les copies des rapports existants."
+              ]
             }
           ]
         },
         {
           "type": "question",
-          "id": "diagnostics",
-          "kind": "multiple",
-          "prompt": "Quels diagnostics inscrivez-vous pour Mme R. ?",
+          "id": "incapacites",
+          "kind": "single",
+          "prompt": "Comment répondez-vous à la question 1.3 ?",
           "options": [
             {
               "id": "a",
-              "text": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), depuis le 12.01.2026.",
-              "correct": true
+              "text": "100 % depuis janvier 2026, arrêt de travail toujours en cours actuellement.",
+              "feedback": "Le formulaire demande des taux et des dates précis, période par période."
             },
             {
               "id": "b",
-              "text": "Hypertension artérielle traitée et bien contrôlée par le traitement, depuis 2019.",
-              "feedback": "Bien contrôlée, elle n'a pas de répercussion sur la capacité de travail de Mme R."
+              "text": "100 % du 12.01.2026 au 31.10.2026, dans son activité d'aide-soignante en EMS.",
+              "correct": true
             },
             {
               "id": "c",
-              "text": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), date de début non précisée.",
-              "feedback": "Le formulaire demande « Depuis quand ? » : sans date, l'Office AI ne peut pas situer l'atteinte."
+              "text": "100 % du 12.01.2026 au 31.05.2026, puis 50 % dès le 01.06.2026.",
+              "feedback": "Les 50 % concernent une activité adaptée (section 4) : les certificats attestent 100 % dans son métier."
             }
           ],
           "feedback": {
-            "correct": "Le formulaire demande des diagnostics **précis**, **datés** et **ayant une répercussion sur la capacité de travail**. Le code CIM-10 évite toute ambiguïté.",
+            "correct": "Des périodes datées et chiffrées, cohérentes avec vos certificats, et l'activité concernée, comme le demande la question 1.3. L'Office AI a besoin de ce détail même pour les personnes sans activité lucrative.",
             "incorrect": {
-              "title": "L'Office AI doit faire le tri…",
-              "body": "Un diagnostic vague ou sans lien avec la capacité de travail brouille la lecture du dossier. Ne retenez que les diagnostics précis qui limitent Mme R. dans son travail, avec leur date."
+              "title": "Des incohérences qui appellent des questions…",
+              "body": "Si les périodes ne correspondent pas aux certificats, l'Office AI doit vous recontacter pour les clarifier. Reportez chaque période avec ses dates et son taux exacts."
             }
           }
         },
-        { "type": "reveal", "label": "Voir la question 1 remplie" },
+        { "type": "reveal", "label": "Voir la section 1 remplie" },
         {
           "type": "form",
           "items": [
+            { "section": "1 Informations générales" },
             {
-              "number": 1,
-              "label": "Quels sont les diagnostics précis ayant une répercussion sur la capacité de travail ? Depuis quand ?",
-              "answer": "1. Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), cure de hernie le 10.02.2026 · depuis le 12.01.2026"
+              "number": "1.1",
+              "label": "Le traitement ambulatoire / hospitalier que vous avez dispensé a eu lieu",
+              "answer": [
+                "Ambulatoire, du 03.03.2014 à ce jour.",
+                "Dernier contrôle : 05.10.2026. Contrôles précédents : chirurgien orthopédiste (opération du 10.02.2026, contrôle du 15.06.2026)."
+              ]
+            },
+            {
+              "number": "1.2",
+              "label": "A quelle fréquence voyez-vous le patient / la patiente actuellement ?",
+              "answer": "Une fois par mois."
+            },
+            {
+              "number": "1.3",
+              "label": "Quelle est, jusqu'à aujourd'hui, l'évolution de l'incapacité de travail attestée médicalement (en pour cent) ?",
+              "answer": [
+                "100 % du 12.01.2026 au 31.10.2026, dans son activité d'aide-soignante en EMS.",
+                "Autres intervenants : chirurgien orthopédiste, physiothérapeute. Rapports joints."
+              ]
             }
           ]
         },
         {
           "type": "callout",
-          "title": "À retenir",
+          "title": "Pourquoi des dates et des taux exacts ?",
           "body": [
-            "Indiquez pour chaque diagnostic son **code CIM-10** et la **date à laquelle il a été posé**, aussi précisément que possible.",
-            "S'il y en a plusieurs, **classez-les selon leur impact sur la capacité de travail**, le plus limitant en premier.",
-            "Le diagnostic doit être **objectivé** autant que possible et cohérent avec le tableau clinique que vous décrivez."
+            "Les périodes d'incapacité permettent à l'Office AI de vérifier le **délai d'attente** (une année d'incapacité d'au moins 40 % en moyenne, sans interruption notable, avant une éventuelle rente), de repérer les **interruptions** et de fixer, le cas échéant, une **rente limitée dans le temps**.",
+            "Exprimez toujours les taux **sur un 100 %**, et non sur le taux contractuel."
           ]
         }
       ]
     },
     {
-      "id": "anamnese",
+      "id": "situation-medicale",
       "type": "scene",
-      "kicker": "Questions 2 et 3 du formulaire",
-      "title": "Anamnèse, status et traitements",
-      "continueLabel": "Passer aux limitations fonctionnelles",
+      "kicker": "Section 2 du formulaire · questions 2.1 à 2.4",
+      "title": "Antécédents, symptômes et constats",
+      "continueLabel": "Passer aux diagnostics",
       "blocks": [
         {
           "type": "text",
@@ -314,15 +460,24 @@
         {
           "type": "form",
           "items": [
-            { "number": 2, "label": "Quels sont l'anamnèse et le status correspondants ?" },
-            { "number": 3, "label": "Quels sont les traitements actuels et la compliance à ces derniers ?" }
+            { "section": "2 Situation médicale" },
+            {
+              "number": "2.1",
+              "label": "Antécédents médicaux et évolution de la situation du patient/de la patiente"
+            },
+            { "number": "2.2", "label": "Situation et symptômes médicaux actuels" },
+            { "number": "2.3", "label": "Médication actuelle (y compris le dosage)" },
+            {
+              "number": "2.4",
+              "label": "Constats médicaux complets sur la base des examens que vous avez pratiqués"
+            }
           ]
         },
         {
           "type": "question",
-          "id": "anamnese-status",
+          "id": "situation-medicale",
           "kind": "multiple",
-          "prompt": "Quels éléments apportez-vous aux questions 2 et 3 ?",
+          "prompt": "Quels éléments apportez-vous aux questions 2.3 et 2.4 ?",
           "options": [
             {
               "id": "a",
@@ -331,44 +486,52 @@
             },
             {
               "id": "b",
-              "text": "Physiothérapie 2×/semaine depuis mars, suivie régulièrement ; paracétamol 1 g 3×/jour.",
+              "text": "Paracétamol 1 g jusqu'à 3×/jour ; bonne observance du traitement.",
               "correct": true
             },
             {
               "id": "c",
               "text": "Patiente très algique, qui se plaint de douleurs importantes à chaque consultation.",
-              "feedback": "Une appréciation subjective ne remplace pas un status objectif."
+              "feedback": "Une appréciation subjective ne remplace pas des constats objectifs (question 2.4)."
             },
             {
               "id": "d",
-              "text": "Suivie au cabinet depuis 2014 pour divers problèmes de santé intercurrents et bénins.",
-              "feedback": "Seuls l'anamnèse et le status correspondant aux diagnostics retenus sont utiles."
+              "text": "Antalgiques selon besoin, la patiente gère elle-même son traitement.",
+              "feedback": "La question 2.3 demande la médication actuelle **y compris le dosage**."
             }
           ],
           "feedback": {
-            "correct": "Le status objectif et l'observance du traitement permettent d'apprécier les limitations et le pronostic.",
+            "correct": "Des constats objectifs datés et une médication précise, avec son dosage : le médecin du SMR peut apprécier les limitations et le pronostic.",
             "incorrect": {
-              "title": "Sans status objectif…",
-              "body": "…l'Office AI ne dispose pas des éléments cliniques objectifs qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise, et la décision tardera. Décrivez l'anamnèse et le status en lien avec les diagnostics, ainsi que le traitement et la compliance."
+              "title": "Sans constats objectifs…",
+              "body": "…l'Office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise, et la décision tardera."
             }
           }
         },
-        { "type": "reveal", "label": "Voir les questions 2 et 3 remplies" },
+        { "type": "reveal", "label": "Voir les questions 2.1 à 2.4 remplies" },
         {
           "type": "form",
           "items": [
+            { "section": "2 Situation médicale" },
             {
-              "number": 2,
-              "label": "Quels sont l'anamnèse et le status correspondants ?",
-              "answer": [
-                "Lombosciatalgie droite depuis janvier 2026, cure de hernie discale L5-S1 le 10.02.2026. Persistance de douleurs lombaires à l'effort et en position assise prolongée.",
-                "Status du 05.10.2026 : distance doigts-sol 30 cm, Lasègue négatif, pas de déficit moteur, hypoesthésie résiduelle S1 à droite."
-              ]
+              "number": "2.1",
+              "label": "Antécédents médicaux et évolution de la situation du patient/de la patiente",
+              "answer": "Lombosciatalgie droite depuis le 12.01.2026, cure de hernie discale L5-S1 le 10.02.2026. Amélioration partielle sous physiothérapie depuis mars 2026."
             },
             {
-              "number": 3,
-              "label": "Quels sont les traitements actuels et la compliance à ces derniers ?",
-              "answer": "Physiothérapie 2×/semaine depuis mars 2026, régulièrement suivie. Paracétamol 1 g jusqu'à 3×/jour. Bonne compliance."
+              "number": "2.2",
+              "label": "Situation et symptômes médicaux actuels",
+              "answer": "Douleurs lombaires résiduelles à l'effort et en position assise prolongée, sans irradiation actuelle."
+            },
+            {
+              "number": "2.3",
+              "label": "Médication actuelle (y compris le dosage)",
+              "answer": "Paracétamol 1 g jusqu'à 3×/jour. Bonne observance."
+            },
+            {
+              "number": "2.4",
+              "label": "Constats médicaux complets sur la base des examens que vous avez pratiqués",
+              "answer": "Status du 05.10.2026 : distance doigts-sol 30 cm, Lasègue négatif, pas de déficit moteur, hypoesthésie résiduelle S1 à droite."
             }
           ]
         },
@@ -376,8 +539,267 @@
           "type": "callout",
           "title": "Pourquoi l'anamnèse compte autant",
           "body": [
-            "Elle permet au médecin du **service médical régional (SMR)** de retracer l'historique médical, de **valider les diagnostics** posés et de vérifier leur **cohérence avec le status**.",
-            "Indiquez les traitements **en cours** et la **compliance** : ils éclairent le pronostic."
+            "Elle permet au médecin du **service médical régional (SMR)** de retracer l'historique médical, de **valider les diagnostics** posés et de vérifier leur **cohérence avec les constats**.",
+            "Mentionnez aussi l'**observance** du traitement : elle éclaire le pronostic."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diagnostics",
+      "type": "scene",
+      "kicker": "Section 2 du formulaire · questions 2.5 et 2.6",
+      "title": "Les diagnostics",
+      "continueLabel": "Passer au pronostic",
+      "blocks": [
+        {
+          "type": "form",
+          "items": [
+            { "section": "2 Situation médicale" },
+            {
+              "number": "2.5",
+              "label": "Diagnostics ayant une incidence sur la capacité de travail",
+              "details": [
+                "(pour les affections psychiatriques, veuillez indiquer le code CIM-10 ou DSM-5.)",
+                "Diagnostics · Depuis"
+              ]
+            },
+            {
+              "number": "2.6",
+              "label": "Diagnostics sans incidence sur la capacité de travail",
+              "details": ["Quand ces diagnostics ont-ils été posés ?", "Diagnostics · Depuis"]
+            }
+          ]
+        },
+        {
+          "type": "question",
+          "id": "diagnostics",
+          "kind": "multiple",
+          "prompt": "Quels diagnostics inscrivez-vous à la question 2.5 ?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), depuis le 12.01.2026.",
+              "correct": true
+            },
+            {
+              "id": "b",
+              "text": "Hypertension artérielle traitée et bien contrôlée par le traitement, depuis 2019.",
+              "feedback": "Bien contrôlée, elle n'a pas d'incidence sur la capacité de travail : sa place est à la question 2.6."
+            },
+            {
+              "id": "c",
+              "text": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), date de début non précisée.",
+              "feedback": "Le formulaire demande « Depuis quand ? » : sans date, l'Office AI ne peut pas situer l'atteinte."
+            }
+          ],
+          "feedback": {
+            "correct": "À la question 2.5, uniquement les diagnostics **ayant une incidence** sur la capacité de travail, **datés**. L'hypertension va à la question 2.6.",
+            "incorrect": {
+              "title": "L'Office AI doit faire le tri…",
+              "body": "Un diagnostic sans incidence en 2.5, ou sans date, brouille la lecture du dossier. Les diagnostics qui limitent Mme R. vont en 2.5, les autres en 2.6, chacun avec sa date."
+            }
+          }
+        },
+        { "type": "reveal", "label": "Voir les questions 2.5 et 2.6 remplies" },
+        {
+          "type": "form",
+          "items": [
+            { "section": "2 Situation médicale" },
+            {
+              "number": "2.5",
+              "label": "Diagnostics ayant une incidence sur la capacité de travail",
+              "answer": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), cure de hernie le 10.02.2026 · depuis le 12.01.2026"
+            },
+            {
+              "number": "2.6",
+              "label": "Diagnostics sans incidence sur la capacité de travail",
+              "answer": "Hypertension artérielle traitée (CIM-10 I10) · depuis 2019"
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "À retenir",
+          "body": [
+            "Le formulaire exige le **code CIM-10 ou DSM-5** pour les affections psychiatriques ; le SMR recommande de l'indiquer **pour tous les diagnostics**, avec la **date à laquelle il a été posé**.",
+            "S'il y en a plusieurs, **classez-les selon leur impact sur la capacité de travail**, le plus limitant en premier.",
+            "Le diagnostic doit être **objectivé** autant que possible et cohérent avec le tableau clinique décrit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pronostic",
+      "type": "scene",
+      "kicker": "Section 2 du formulaire · questions 2.7 et 2.8",
+      "title": "Pronostic et plan de traitement",
+      "continueLabel": "Passer à la situation professionnelle",
+      "blocks": [
+        {
+          "type": "form",
+          "items": [
+            { "section": "2 Situation médicale" },
+            {
+              "number": "2.7",
+              "label": "Votre pronostic sur la capacité de travail du patient/de la patiente sur un taux de 100%"
+            },
+            {
+              "number": "2.8",
+              "label": "Prochaines mesures que vous envisagez / votre plan de traitement (thérapies, opérations chirurgicales, médication)"
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "À qui sert le pronostic ?",
+          "body": [
+            "Le pronostic indique l'évolution attendue de l'état de santé et de la capacité de travail : **favorable ou défavorable**, et si possible **jusqu'à quel taux** et **dans quel délai**.",
+            "Il sert surtout au **gestionnaire de rente** et au **conseiller en réadaptation**, qui n'ont pas de formation médicale : il les aide à orienter le dossier et à solliciter le **SMR** au bon moment, ni trop tôt ni trop tard."
+          ]
+        },
+        {
+          "type": "question",
+          "id": "pronostic",
+          "kind": "single",
+          "prompt": "Quel pronostic indiquez-vous à la question 2.7 ?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Réservé : l'évolution des douleurs lombaires reste difficile à prévoir à ce stade.",
+              "feedback": "Sans taux ni délai, l'Office AI ne peut pas planifier la suite."
+            },
+            {
+              "id": "b",
+              "text": "Favorable : amélioration jusqu'à 100 % en activité adaptée, dans un délai de 3 à 6 mois.",
+              "correct": true
+            },
+            {
+              "id": "c",
+              "text": "Favorable à long terme, sous réserve de la bonne motivation de la patiente.",
+              "feedback": "Ce jugement n'est pas un pronostic médical chiffré."
+            }
+          ],
+          "feedback": {
+            "correct": "Une tendance (favorable), un taux sur 100 % et un délai : le gestionnaire et le conseiller en réadaptation savent quand réévaluer la situation.",
+            "incorrect": {
+              "title": "Une suite difficile à planifier…",
+              "body": "Sans taux ni délai, l'Office AI ne sait pas quand réévaluer la situation de Mme R. Indiquez jusqu'à quel taux et dans quel délai la capacité de travail peut s'améliorer."
+            }
+          }
+        },
+        { "type": "reveal", "label": "Voir les questions 2.7 et 2.8 remplies" },
+        {
+          "type": "form",
+          "items": [
+            { "section": "2 Situation médicale" },
+            {
+              "number": "2.7",
+              "label": "Votre pronostic sur la capacité de travail du patient/de la patiente sur un taux de 100%",
+              "answer": "Favorable. Activité habituelle : pas de reprise envisageable. Activité adaptée : amélioration jusqu'à 100 % dans un délai de 3 à 6 mois."
+            },
+            {
+              "number": "2.8",
+              "label": "Prochaines mesures que vous envisagez / votre plan de traitement (thérapies, opérations chirurgicales, médication)",
+              "answer": "Poursuite de la physiothérapie pendant 3 mois, exercices à domicile. Contrôle chez le chirurgien orthopédiste en décembre 2026. Pas de nouvelle intervention prévue."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "situation-professionnelle",
+      "type": "scene",
+      "kicker": "Section 3 du formulaire · questions 3.1 à 3.3",
+      "title": "La situation professionnelle",
+      "continueLabel": "Passer aux limitations fonctionnelles",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Connaître le poste réel",
+          "body": [
+            "Pour le médecin du SMR, c'est l'une des sections les plus importantes : elle permet de chiffrer la capacité de travail dans l'activité habituelle et dans une activité adaptée.",
+            "Demandez à votre patient **ce qu'il fait concrètement** : tâches, charges, postures, horaires, responsabilités. S'il dispose d'une **description du poste**, joignez-en une copie."
+          ]
+        },
+        {
+          "type": "form",
+          "items": [
+            { "section": "3 Situation professionnelle" },
+            {
+              "number": "3.1",
+              "label": "Quelle est l'activité actuelle de votre patient / votre patiente ?",
+              "details": "☐ Je ne suis pas en mesure de répondre à cette question"
+            },
+            {
+              "number": "3.2",
+              "label": "Quelles sont les informations dont vous disposez sur la situation professionnelle de votre patient / votre patiente ?",
+              "details": "☐ Aucune information"
+            },
+            {
+              "number": "3.3",
+              "label": "A quelles exigences votre patient/patiente doit-il/elle faire face dans son activité professionnelle ?",
+              "details": [
+                "(par exemple : effort physique / activité alternée / répétitive / fonction de cadre / travail par rotation d'équipes / travail en équipe / contact avec les clients, ou toute autre particularité.)",
+                "☐ Je ne suis pas en mesure de répondre à cette question",
+                "Au cas où vous disposez d'une description du poste, veuillez en joindre une copie."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "question",
+          "id": "exigences",
+          "kind": "single",
+          "prompt": "Que répondez-vous à la question 3.3 ?",
+          "options": [
+            {
+              "id": "a",
+              "text": "☐ Je ne suis pas en mesure de répondre à cette question, faute d'informations.",
+              "feedback": "Vous connaissez son métier : quelques questions en consultation suffisent pour le décrire."
+            },
+            {
+              "id": "b",
+              "text": "Travail physique d'aide-soignante, difficilement compatible avec son dos.",
+              "feedback": "C'est une conclusion : décrivez plutôt les exigences concrètes du poste."
+            },
+            {
+              "id": "c",
+              "text": "Mobilisation de résidents, port de charges, travail debout, rotation d'équipes.",
+              "correct": true
+            }
+          ],
+          "feedback": {
+            "correct": {
+              "title": "Le SMR peut comparer poste et limitations",
+              "body": "En regard des limitations que vous décrirez ensuite, l'Office AI voit tout de suite pourquoi ce poste n'est plus exigible, et ce qu'une activité adaptée doit éviter."
+            },
+            "incorrect": {
+              "title": "Un poste inconnu…",
+              "body": "Sans les exigences du poste, l'Office AI doit les demander à l'employeur ou à la patiente avant de pouvoir apprécier sa capacité de travail. Le dossier prend du retard."
+            }
+          }
+        },
+        { "type": "reveal", "label": "Voir les questions 3.1 à 3.3 remplies" },
+        {
+          "type": "form",
+          "items": [
+            { "section": "3 Situation professionnelle" },
+            {
+              "number": "3.1",
+              "label": "Quelle est l'activité actuelle de votre patient / votre patiente ?",
+              "answer": "Aide-soignante en EMS à 80 %, en arrêt de travail à 100 % depuis le 12.01.2026."
+            },
+            {
+              "number": "3.2",
+              "label": "Quelles sont les informations dont vous disposez sur la situation professionnelle de votre patient / votre patiente ?",
+              "answer": "Même employeur depuis 2006. Contrat maintenu à ce jour, selon la patiente."
+            },
+            {
+              "number": "3.3",
+              "label": "A quelles exigences votre patient/patiente doit-il/elle faire face dans son activité professionnelle ?",
+              "answer": "Soins de base, mobilisation et transferts de résidents, port de charges, travail debout prolongé, horaires en rotation d'équipes. Description du poste non disponible."
+            }
           ]
         }
       ]
@@ -385,9 +807,9 @@
     {
       "id": "limitations",
       "type": "scene",
-      "kicker": "Question 4 du formulaire",
+      "kicker": "Section 3 du formulaire · question 3.4 et annexe",
       "title": "Les limitations fonctionnelles",
-      "continueLabel": "Passer à la capacité de travail",
+      "continueLabel": "Passer au potentiel de réadaptation",
       "blocks": [
         {
           "type": "text",
@@ -402,7 +824,17 @@
         },
         {
           "type": "form",
-          "items": [{"number": 4, "label": "Quelles sont les limitations fonctionnelles à prendre en compte ?"}]
+          "items": [
+            { "section": "3 Situation professionnelle" },
+            {
+              "number": "3.4",
+              "label": "Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?",
+              "details": [
+                "Veuillez décrire les limitations fonctionnelles.",
+                "☐ Je ne suis pas en mesure de répondre à cette question"
+              ]
+            }
+          ]
         },
         {
           "type": "writing",
@@ -454,18 +886,45 @@
             }
           }
         },
-        { "type": "reveal", "label": "Voir la question 4 remplie" },
+        { "type": "reveal", "label": "Voir la question 3.4 remplie" },
         {
           "type": "form",
           "items": [
+            { "section": "3 Situation professionnelle" },
             {
-              "number": 4,
-              "label": "Quelles sont les limitations fonctionnelles à prendre en compte ?",
+              "number": "3.4",
+              "label": "Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?",
               "answer": [
                 "- Pas de port de charges de plus de 5 kg.",
                 "- Pas de travail penché en avant ni en torsion du tronc.",
                 "- Alternance des positions assise et debout toutes les 30 à 45 minutes.",
-                "- Marche limitée à 20 minutes."
+                "- Marche limitée à 20 minutes.",
+                "Effet sur l'activité exercée jusqu'ici : la mobilisation de résidents et le port de charges ne sont plus possibles."
+              ]
+            }
+          ]
+        },
+        { "type": "reveal", "label": "Remplir l'annexe des travaux exigibles" },
+        {
+          "type": "text",
+          "body": [
+            "L'annexe traduit vos limitations en **travaux encore exigibles**, activité par activité : oui ou non, combien d'heures par jour, avec quel rendement. C'est sur elle que s'appuient les spécialistes en réadaptation."
+          ]
+        },
+        {
+          "type": "form",
+          "title": "Annexe : travaux exigibles dans une activité adaptée",
+          "items": [
+            {
+              "label": "Quels sont les travaux qui peuvent encore être exigés de la personne assurée, compte tenu des limitations dues à l'état de santé, dans le cadre d'une activité adaptée à son handicap ?",
+              "answer": [
+                "- Activités dans différentes positions : oui, 4 h par jour, rendement 100 %.",
+                "- Activités uniquement en position assise ou uniquement debout : non.",
+                "- Se pencher, rotation, accroupi, à genoux : non.",
+                "- Soulever/porter : oui, près du corps, limite de poids 5 kg.",
+                "- Monter sur une échelle/un échafaudage : non. Monter les escaliers : oui.",
+                "- Concentration, compréhension, adaptation, résistance : non limitées.",
+                "Depuis le 01.06.2026. Points particuliers : alternance assis/debout, augmentation progressive. Moyens auxiliaires : non."
               ]
             }
           ]
@@ -476,106 +935,116 @@
           "body": [
             "Une limitation fonctionnelle décrit **ce que la personne ne peut pas ou plus faire** : poids, postures, durées, distances, rythme.",
             "Elle ne répète ni le diagnostic ni la conclusion.",
-            "Un même diagnostic ne mène pas automatiquement à un degré d'incapacité : ce sont les conséquences observables chez votre patient qui comptent."
+            "Un même diagnostic ne mène pas automatiquement à un degré d'incapacité : ce sont les conséquences observables chez votre patient qui comptent.",
+            "L'atelier SMR donne cet exemple : pour un genou atteint, écrivez « ne peut plus travailler à genoux, pas de travail accroupi », et non « très fortes douleurs au genou »."
           ]
         }
       ]
     },
     {
-      "id": "capacite",
+      "id": "potentiel",
       "type": "scene",
-      "kicker": "Questions 5 à 7 du formulaire",
-      "title": "La capacité de travail",
-      "continueLabel": "Passer à la réinsertion",
+      "kicker": "Section 4 du formulaire · questions 4.1 à 4.5",
+      "title": "Le potentiel de réadaptation",
+      "continueLabel": "Passer à l'annexe sur la réadaptation",
       "blocks": [
         {
           "type": "callout",
-          "title": "Deux questions distinctes",
+          "title": "Deux capacités distinctes",
           "body": [
-            "La question 5 porte sur l'**activité habituelle** : pour Mme R., aide-soignante en EMS.",
-            "La question 6 porte sur une **activité adaptée**, qui respecte les limitations physiques et psychiques que vous venez de décrire, que Mme R. l'exerce déjà ou non.",
-            "**Exigible** : ce que la personne peut raisonnablement accomplir d'un point de vue médical, compte tenu de ses limitations.",
-            "La capacité se calcule **sur un 100 %**, et non sur le taux d'activité : Mme R. travaillait à 80 %, mais ses capacités s'expriment sur un plein temps."
-          ]
-        },
-        {
-          "type": "callout",
-          "title": "Connaître le poste réel",
-          "body": [
-            "Pour chiffrer la capacité de travail, il faut savoir **ce que votre patient fait concrètement** au travail. Demandez-lui son **cahier des charges** : tâches, charges portées, postures, horaires, responsabilités.",
-            "Mme R. mobilise des résidents et porte des charges : ses limitations (charges ≤ 5 kg, pas de flexion du tronc) excluent ce poste, mais pas une activité adaptée.",
-            "Le formulaire n'a pas de rubrique dédiée : décrivez le poste à la question 7, en lien avec les limitations."
+            "La question 4.1 porte sur l'**activité exercée jusqu'ici** : pour Mme R., aide-soignante en EMS.",
+            "La question 4.2 porte sur une **activité qui tient compte de l'atteinte à sa santé**, que Mme R. l'exerce déjà ou non.",
+            "Le formulaire demande des **heures par jour** ; le pronostic de la question 4.3 s'exprime **sur un 100 %, même si le taux contractuel est inférieur** : Mme R. travaillait à 80 %."
           ]
         },
         {
           "type": "form",
           "items": [
+            { "section": "4 Potentiel de réadaptation" },
             {
-              "number": 5,
-              "label": "Quelle est la capacité de travail dans l'activité habituelle (sur un 100%) ? Depuis quand ?"
+              "number": "4.1",
+              "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans l'activité qu'il/elle a exercée jusqu'ici ?",
+              "details": "☐ Je ne suis pas en mesure de répondre à cette question"
             },
             {
-              "number": 6,
-              "label": "Quelle est la capacité de travail exigible dans une activité adaptée ? Depuis quand ?"
+              "number": "4.2",
+              "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans une activité qui tienne compte de l'atteinte à sa santé ?"
             },
             {
-              "number": 7,
-              "label": "Si la capacité de travail n'est pas entière, merci de nous en préciser les raisons :"
+              "number": "4.3",
+              "label": "Votre pronostic sur le potentiel de réadaptation du patient/de la patiente. Capacité de travail sur un taux de 100% (même si le taux contractuel est inférieur)."
             }
           ]
         },
         {
           "type": "question",
-          "id": "capacite",
+          "id": "heures-par-jour",
           "kind": "single",
-          "prompt": "Comment remplissez-vous les questions 5 et 6 ?",
+          "prompt": "Comment remplissez-vous les questions 4.1 et 4.2 ?",
           "options": [
             {
               "id": "a",
-              "text": "Q5 : 0 % depuis le 12.01.2026. Q6 : 50 % depuis le 01.06.2026, avec les raisons à la question 7.",
+              "text": "4.1 : 0 heure par jour. 4.2 : 4 heures par jour, en alternant les positions.",
               "correct": true
             },
             {
               "id": "b",
-              "text": "Q5 : 0 % depuis le 12.01.2026. Q6 : 0 % jusqu'à nouvel avis, compte tenu des douleurs persistantes.",
-              "feedback": "« Jusqu'à nouvel avis » ne tient pas compte des limitations décrites ni d'une activité adaptée."
+              "text": "4.1 et 4.2 : 4 heures par jour, puisqu'une reprise partielle paraît possible.",
+              "feedback": "Les deux questions sont distinctes : dans son métier d'aide-soignante, Mme R. ne peut pas reprendre."
             },
             {
               "id": "c",
-              "text": "Q5 et Q6 : 50 % depuis le 01.06.2026, puisqu'une reprise partielle paraît envisageable.",
-              "feedback": "Les deux questions sont distinctes : dans son métier d'aide-soignante, Mme R. reste à 0 %."
+              "text": "4.2 : impossible à estimer tant que les douleurs lombaires persistent.",
+              "feedback": "Les limitations décrites en 3.4 permettent d'estimer une activité adaptée."
             }
           ],
           "feedback": {
-            "correct": "Chaque capacité est chiffrée et datée, et la question 7 explique pourquoi elle n'est pas entière.",
+            "correct": "Chaque capacité est chiffrée, et l'activité adaptée respecte les limitations décrites en 3.4.",
             "incorrect": {
               "title": "Une réadaptation impossible à planifier…",
-              "body": "Sans capacité chiffrée et datée dans une activité adaptée, l'Office AI ne sait pas vers quoi orienter Mme R. Un examen médical complémentaire devient probable, et la réadaptation attend."
+              "body": "Sans capacité chiffrée dans une activité adaptée, l'Office AI ne sait pas vers quoi orienter Mme R. Un examen médical complémentaire devient probable, et la réadaptation attend."
             }
           }
         },
-        { "type": "reveal", "label": "Voir les questions 5 à 7 remplies" },
+        { "type": "reveal", "label": "Voir la section 4 remplie" },
         {
           "type": "form",
           "items": [
+            { "section": "4 Potentiel de réadaptation" },
             {
-              "number": 5,
-              "label": "Quelle est la capacité de travail dans l'activité habituelle (sur un 100%) ? Depuis quand ?",
-              "answer": "0 % depuis le : 12.01.2026"
+              "number": "4.1",
+              "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans l'activité qu'il/elle a exercée jusqu'ici ?",
+              "answer": "0 heure par jour depuis le 12.01.2026 : mobilisation de résidents et port de charges incompatibles avec les limitations."
             },
             {
-              "number": 6,
-              "label": "Quelle est la capacité de travail exigible dans une activité adaptée ? Depuis quand ?",
-              "answer": "50 % depuis le : 01.06.2026"
+              "number": "4.2",
+              "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans une activité qui tienne compte de l'atteinte à sa santé ?",
+              "answer": "4 heures par jour depuis le 01.06.2026, en respectant les limitations décrites en 3.4."
             },
             {
-              "number": 7,
-              "label": "Si la capacité de travail n'est pas entière, merci de nous en préciser les raisons :",
-              "answer": [
-                "Activité habituelle (aide-soignante en EMS : mobilisation de résidents, port de charges, travail debout) : incompatible avec les limitations décrites.",
-                "Activité adaptée : douleurs résiduelles nécessitant des pauses et la poursuite de la physiothérapie ; augmentation progressive envisageable."
-              ]
+              "number": "4.3",
+              "label": "Votre pronostic sur le potentiel de réadaptation du patient/de la patiente. Capacité de travail sur un taux de 100% (même si le taux contractuel est inférieur).",
+              "answer": "Favorable. Capacité de 50 % dans une activité adaptée, sur un taux de 100 %, avec une augmentation progressive jusqu'à 100 % en 3 à 6 mois."
+            },
+            {
+              "number": "4.4",
+              "label": "Quels sont les facteurs qui font obstacle à une réadaptation ?",
+              "answer": "Aucun obstacle médical. Douleurs résiduelles nécessitant la poursuite de la physiothérapie."
+            },
+            {
+              "number": "4.5",
+              "label": "Dans quelle mesure votre patient/votre patiente est-il/elle limité/e dans l'accomplissement des tâches ménagères ?",
+              "answer": "Pas de port de charges lourdes (courses, lessive) ; les autres tâches restent possibles en alternant les positions."
             }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Les questions qui surprennent",
+          "body": [
+            "**Ressources (3.5)** : langues, formations, loisirs, bénévolat… Elles orientent le projet de réadaptation. Pour Mme R. : bilingue français-portugais, 20 ans d'expérience des soins.",
+            "**Capacité de conduire (3.6)** : signalez un doute (médication, troubles de la vigilance), car un trajet ou un poste peut en dépendre.",
+            "**Tâches ménagères (4.5)** : pour une personne qui travaille à temps partiel, comme Mme R. à 80 %, l'Office AI tient aussi compte de ses empêchements dans les tâches ménagères."
           ]
         }
       ]
@@ -583,19 +1052,28 @@
     {
       "id": "reinsertion",
       "type": "scene",
-      "kicker": "Questions 8 et 9 du formulaire",
-      "title": "La mesure de réinsertion",
-      "continueLabel": "Passer au pronostic",
+      "kicker": "Annexe du formulaire",
+      "title": "Aptitude à la réadaptation",
+      "continueLabel": "Relire avant l'envoi",
       "blocks": [
         {
           "type": "form",
+          "title": "Annexe relative à l'aptitude à la réadaptation",
           "items": [
             {
-              "number": 8,
-              "field": false,
-              "label": "Une mesure de réinsertion de l'AI n'est pas une mesure thérapeutique (ergothérapie, etc.), c'est une mesure visant à mobiliser une personne atteinte dans sa santé dans le but de reconstruire une capacité de travail : de 8 heures par semaine sans obligation de rendement au début, avec l'objectif d'augmenter progressivement jusqu'à obtenir une capacité de travail d'au moins 50%."
+              "label": "Une mesure de réinsertion de l'AI n'est pas une mesure thérapeutique (ergothérapie, etc.), c'est une mesure visant à mobiliser une personne atteinte dans sa santé dans le but de reconstruire une capacité de travail : de 8 heures par semaine sans obligation de rendement au début, avec l'objectif d'augmenter progressivement jusqu'à obtenir une capacité de travail d'au moins 50%.",
+              "field": false
             },
-            { "number": 9, "label": "Existe-t-il des contre-indications médicales à suivre une telle mesure ?" }
+            {
+              "number": "1",
+              "label": "Existe-t-il des contre-indications médicales à suivre une telle mesure ?",
+              "details": ["☐ Si oui, lesquelles ?", "☐ Si non, depuis quand une telle mesure aurait-elle été possible ?"]
+            },
+            {
+              "number": "2",
+              "label": "Quel est votre pronostic d'amélioration de la capacité de travail ?",
+              "details": ["Jusqu'à quel taux ? ………………", "Dans quel délai ?"]
+            }
           ]
         },
         {
@@ -621,21 +1099,27 @@
             }
           ],
           "feedback": {
-            "correct": "Vous indiquez aussi depuis quand la mesure aurait été possible, comme le demande la question 9.",
+            "correct": "Vous indiquez aussi depuis quand la mesure aurait été possible, comme le demande la question 1 de l'annexe.",
             "incorrect": {
               "title": "Des mois d'attente…",
               "body": "La mesure de réinsertion est repoussée à la fin du traitement. Or plus l'arrêt de travail se prolonge, plus le retour à l'emploi devient difficile. Une reprise progressive dès 8 heures par semaine était compatible avec la physiothérapie."
             }
           }
         },
-        { "type": "reveal", "label": "Voir la question 9 remplie" },
+        { "type": "reveal", "label": "Voir l'annexe remplie" },
         {
           "type": "form",
+          "title": "Annexe relative à l'aptitude à la réadaptation",
           "items": [
             {
-              "number": 9,
+              "number": "1",
               "label": "Existe-t-il des contre-indications médicales à suivre une telle mesure ?",
               "answer": "Non. Une telle mesure aurait été possible depuis le 01.06.2026."
+            },
+            {
+              "number": "2",
+              "label": "Quel est votre pronostic d'amélioration de la capacité de travail ?",
+              "answer": "Jusqu'à 100 % dans une activité adaptée, dans un délai de 3 à 6 mois."
             }
           ]
         },
@@ -649,112 +1133,13 @@
       ]
     },
     {
-      "id": "pronostic",
-      "type": "scene",
-      "kicker": "Questions 10 et 11 du formulaire",
-      "title": "Pronostic et incapacités attestées",
-      "continueLabel": "Relire avant l'envoi",
-      "blocks": [
-        {
-          "type": "form",
-          "items": [{"number": 10, "label": "Quel est votre pronostic d'amélioration de la capacité de travail ?"}]
-        },
-        {
-          "type": "callout",
-          "title": "À qui sert le pronostic ?",
-          "body": [
-            "Le pronostic indique l'évolution attendue de l'état de santé et de la capacité de travail : **favorable ou défavorable**, et si possible **jusqu'à quel taux** et **dans quel délai**.",
-            "Il sert surtout au **gestionnaire de rente** et au **conseiller en réadaptation**, qui n'ont pas de formation médicale : il les aide à orienter le dossier et à solliciter le **SMR** au bon moment, ni trop tôt ni trop tard."
-          ]
-        },
-        {
-          "type": "question",
-          "id": "pronostic",
-          "kind": "single",
-          "prompt": "Quel pronostic indiquez-vous à la question 10 ?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Réservé : l'évolution des douleurs lombaires reste difficile à prévoir à ce stade.",
-              "feedback": "Sans taux ni délai, l'Office AI ne peut pas planifier la suite."
-            },
-            {
-              "id": "b",
-              "text": "Amélioration jusqu'à 100 % en activité adaptée, dans un délai de 3 à 6 mois.",
-              "correct": true
-            },
-            {
-              "id": "c",
-              "text": "Favorable à long terme, sous réserve de la bonne motivation de la patiente.",
-              "feedback": "Ce jugement n'est pas un pronostic médical chiffré."
-            }
-          ],
-          "feedback": {
-            "correct": "Une tendance favorable, chiffrée (taux) et datée (délai) : le gestionnaire et le conseiller en réadaptation savent quand réévaluer la situation et planifier la réinsertion.",
-            "incorrect": {
-              "title": "Une suite difficile à planifier…",
-              "body": "Sans taux ni délai, l'Office AI ne sait pas quand réévaluer la situation de Mme R. Indiquez jusqu'à quel taux et dans quel délai la capacité de travail peut s'améliorer."
-            }
-          }
-        },
-        { "type": "reveal", "label": "Passer à la question 11" },
-        {
-          "type": "form",
-          "items": [
-            {
-              "number": 11,
-              "label": "Quels sont les dates et les taux précis des incapacités de travail attestées jusqu'ici ?"
-            }
-          ]
-        },
-        {
-          "type": "question",
-          "id": "incapacites",
-          "kind": "single",
-          "prompt": "Comment répondez-vous à la question 11 ?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Arrêt de travail à 100 % depuis janvier 2026, toujours en cours actuellement.",
-              "feedback": "Le formulaire demande des dates et des taux précis, période par période."
-            },
-            {
-              "id": "b",
-              "text": "Du 12.01.2026 au 31.10.2026 à 100 %, conformément aux certificats établis.",
-              "correct": true
-            },
-            {
-              "id": "c",
-              "text": "Du 12.01.2026 au 31.05.2026 à 100 %, puis à 50 % dès le 01.06.2026.",
-              "feedback": "Les 50 % concernent une activité adaptée (question 6) : les certificats attestent 100 % dans son métier."
-            }
-          ],
-          "feedback": {
-            "correct": "Des périodes datées et chiffrées, cohérentes avec vos certificats. L'Office AI a besoin de ce détail même pour les personnes sans activité lucrative.",
-            "incorrect": {
-              "title": "Des incohérences qui appellent des questions…",
-              "body": "Si les périodes ne correspondent pas aux certificats, l'Office AI doit vous recontacter pour les clarifier. Reportez chaque période avec ses dates et son taux exacts."
-            }
-          }
-        },
-        {
-          "type": "callout",
-          "title": "Pourquoi des dates et des taux exacts ?",
-          "body": [
-            "Les périodes d'incapacité permettent à l'Office AI de vérifier le **délai d'attente** (une année d'incapacité d'au moins 40 % en moyenne, sans interruption notable, avant une éventuelle rente), de repérer les **interruptions** et de fixer, le cas échéant, une **rente limitée dans le temps**.",
-            "Exprimez toujours les taux **sur un 100 %**, et non sur le taux contractuel."
-          ]
-        }
-      ]
-    },
-    {
       "id": "relecture",
       "type": "quiz",
       "kicker": "Avant l'envoi",
       "title": "Relire et compléter",
       "continueLabel": "Passer au second cas",
       "body": [
-        "Dernière étape avant d'envoyer le rapport de Mme R. : les pièces jointes et la question 12, « Autres remarques »."
+        "Dernière étape avant d'envoyer le rapport de Mme R. : les pièces jointes et la section 5, « Divers »."
       ],
       "questions": [
         {
@@ -772,7 +1157,7 @@
             }
           ],
           "feedback": {
-            "correct": "Cochez la case en bas du formulaire et joignez les rapports, consilium et comptes rendus d'examens complémentaires utiles.",
+            "correct": "Joignez les rapports, consilium et comptes rendus d'examens utiles (question 1.3), ainsi que la description du poste si vous en disposez (question 3.3).",
             "incorrect": {
               "title": "Des pièces manquantes ou superflues…",
               "body": "Sans les rapports de spécialistes, l'Office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile. Joignez les rapports, consilium et comptes rendus d'examens en lien avec les diagnostics."
@@ -782,7 +1167,7 @@
         {
           "id": "remarques",
           "kind": "single",
-          "prompt": "À quoi peut servir la question 12, « Autres remarques » ?",
+          "prompt": "À quoi peut servir la section 5, « Divers » ?",
           "options": [
             {
               "id": "a",
@@ -792,7 +1177,7 @@
             {
               "id": "b",
               "text": "Résumer à nouveau les diagnostics et la capacité de travail, pour plus de clarté.",
-              "feedback": "Ils figurent déjà aux questions 1, 5 et 6."
+              "feedback": "Ils figurent déjà aux sections 2 et 4."
             },
             {
               "id": "c",
@@ -802,7 +1187,7 @@
           ],
           "feedback": {
             "correct": "Elle complète le rapport sans répéter ce qui figure déjà ailleurs.",
-            "incorrect": "La question 12 sert à signaler un élément utile qui n'a pas sa place dans les questions précédentes."
+            "incorrect": "La section 5 sert à signaler un élément utile qui n'a pas sa place dans les questions précédentes."
           }
         }
       ]
@@ -810,103 +1195,9 @@
     {
       "id": "second-cas",
       "type": "scene",
-      "storyTitle": "Second cas : M. B.",
+      "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas",
-      "title": "Quand l'atteinte est psychique",
-      "continueLabel": "Passer au troisième cas",
-      "blocks": [
-        {
-          "type": "text",
-          "body": [
-            "Les atteintes psychiques représentent une part importante des demandes AI. Ce sont aussi celles dont les limitations fonctionnelles sont les plus difficiles à décrire.",
-            "Quelques jours plus tard, l'Office AI vous adresse le même formulaire pour M. B., 41 ans."
-          ]
-        },
-        {
-          "type": "document",
-          "kind": "dossier",
-          "title": "M. B., 41 ans",
-          "subtitle": "Patient du cabinet depuis 2019 · cas fictif",
-          "body": [
-            "Fatigabilité marquée, troubles de la concentration, ruminations et sommeil fragmenté. Se sent rapidement débordé dès que les sollicitations s'accumulent."
-          ],
-          "data": [
-            { "label": "Profession", "value": "Gestionnaire de dossiers en assurance, 100 %" },
-            { "label": "Diagnostic", "value": "Épisode dépressif moyen (F32.1)" },
-            { "label": "Arrêt de travail", "value": "100 % depuis le 16.03.2026" },
-            { "label": "Traitement", "value": "Sertraline 100 mg/j, psychothérapie hebdomadaire" },
-            { "label": "Évolution", "value": "Amélioration partielle depuis l'été" }
-          ],
-          "image": { "src": "images/m-b.svg", "decorative": true }
-        },
-        { "type": "reveal", "label": "Rédiger les limitations de M. B." },
-        {
-          "type": "writing",
-          "id": "limitations-m-b",
-          "prompt": "Rédigez les limitations fonctionnelles de M. B. pour la question 4 du formulaire.",
-          "placeholder": "Par exemple : concentration, rythme, environnement de travail…",
-          "model": [
-            "- Concentration soutenue limitée à environ 1 heure, suivie d'une pause.",
-            "- Pas de travail sous forte pression temporelle ni de tâches multiples simultanées.",
-            "- Horaires réguliers, pas de travail de nuit.",
-            "- Reprise progressive conseillée, en commençant par 2 à 3 heures par jour."
-          ],
-          "checklist": [
-            "J'ai décrit les effets sur le **fonctionnement** : concentration, endurance, rythme, tolérance au stress, relations.",
-            "J'ai indiqué des **durées ou des conditions** concrètes, pas seulement des symptômes.",
-            "J'ai évité de répéter le diagnostic ou de conclure « ne peut pas travailler »."
-          ]
-        },
-        {
-          "type": "question",
-          "id": "limitations-psy",
-          "kind": "single",
-          "prompt": "Quelle formulation sera la plus exploitable pour l'Office AI ?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Épisode dépressif moyen, patient très fatigué, incapable de travailler actuellement.",
-              "feedback": "Diagnostic, symptôme et conclusion : aucune limitation n'est décrite."
-            },
-            {
-              "id": "b",
-              "text": "Concentration limitée à 1 h d'affilée, pas de forte pression temporelle, horaires réguliers.",
-              "correct": true
-            },
-            {
-              "id": "c",
-              "text": "Troubles cognitifs et thymiques importants, pronostic réservé, à réévaluer par le psychiatre.",
-              "feedback": "Ces éléments restent descriptifs de la maladie, pas de ses effets sur le travail."
-            }
-          ],
-          "feedback": {
-            "correct": {
-              "title": "Des limitations concrètes, même pour une atteinte psychique",
-              "body": "En décrivant l'effet de la maladie sur la concentration, le rythme et l'environnement de travail, vous permettez à l'Office AI d'imaginer une activité et une reprise adaptées."
-            },
-            "incorrect": {
-              "title": "Un dossier qui part en expertise…",
-              "body": "Faute de limitations décrites, l'Office AI ne peut pas apprécier la capacité de travail de M. B. Il devra interroger le psychiatre traitant, voire ordonner une expertise : plusieurs mois de plus pour votre patient."
-            }
-          }
-        },
-        {
-          "type": "callout",
-          "title": "À retenir pour les atteintes psychiques",
-          "body": [
-            "Décrivez l'effet sur le **fonctionnement** : concentration, endurance, rythme, tolérance au stress, relations, fiabilité.",
-            "Précisez les **conditions** d'une reprise possible : durée quotidienne, environnement, progression."
-          ]
-        }
-      ]
-    },
-    {
-      "id": "troisieme-cas",
-      "type": "scene",
-      "storyTitle": "Troisième cas : M. C.",
-      "hidePatientFile": true,
-      "kicker": "Troisième cas",
       "title": "Séparer le médical du psychosocial",
       "continueLabel": "Voir les informations pratiques",
       "blocks": [
@@ -939,7 +1230,7 @@
           "type": "question",
           "id": "limitations-mc",
           "kind": "multiple",
-          "prompt": "Quelles limitations fonctionnelles retenez-vous pour M. C. ?",
+          "prompt": "Quelles limitations fonctionnelles retenez-vous pour M. C. (question 3.4) ?",
           "options": [
             {
               "id": "a",
@@ -987,7 +1278,7 @@
             },
             {
               "id": "b",
-              "text": "Je le décris dans l'anamnèse, en lien avec l'état dépressif réactionnel.",
+              "text": "Je le décris dans l'anamnèse (2.1), en lien avec l'état dépressif réactionnel.",
               "correct": true
             },
             {
@@ -999,7 +1290,7 @@
           "feedback": {
             "correct": {
               "title": "Le contexte au bon endroit",
-              "body": "Vous expliquez l'origine de l'état dépressif sans en faire une limitation. Les limitations et la capacité de travail restent fondées sur l'atteinte à la santé elle-même."
+              "body": "Vous expliquez l'origine de l'état dépressif sans en faire une limitation. Si ce contexte freine la réadaptation, vous pouvez le signaler en 4.4, mais les limitations et la capacité de travail restent fondées sur l'atteinte à la santé."
             },
             "incorrect": {
               "title": "Un rapport difficile à exploiter…",
@@ -1012,7 +1303,8 @@
           "title": "À retenir",
           "body": [
             "Décrivez le **contexte psychosocial** dans l'anamnèse quand il éclaire l'atteinte à la santé.",
-            "Fondez les **limitations** et la **capacité de travail** sur l'atteinte à la santé elle-même, pas sur la situation sociale ou financière."
+            "Fondez les **limitations** et la **capacité de travail** sur l'atteinte à la santé elle-même, pas sur la situation sociale ou financière.",
+            "Pensez aussi aux **ressources (3.5)** : M. C. encadre une équipe de 7 personnes et parle italien et français, deux atouts pour une activité adaptée."
           ]
         }
       ]
@@ -1098,13 +1390,12 @@
       "title": "Ce qu'il faut retenir",
       "keyPoints": [
         "**Trois piliers** fondent le droit aux prestations : le **diagnostic**, les **limitations fonctionnelles** et la **capacité de travail** (activité habituelle et activité adaptée).",
-        "Des diagnostics **précis et datés**, avec leur **code CIM-10**, classés selon leur impact sur la capacité de travail.",
-        "Des **limitations fonctionnelles concrètes et mesurables** : poids, postures, durées, distances. Pas un diagnostic, pas une conclusion.",
-        "Pour une atteinte psychique aussi : décrivez l'effet sur le **fonctionnement** (concentration, rythme, stress, relations).",
-        "Le contexte **psychosocial** a sa place dans l'anamnèse, mais ne fonde ni les limitations ni la capacité de travail.",
-        "**Deux capacités de travail distinctes**, chiffrées sur un 100 % et datées : dans l'activité habituelle et dans une activité adaptée.",
-        "Une mesure de réinsertion **n'est pas une thérapie** : indiquez dès quand elle est possible.",
-        "Un **pronostic chiffré** (taux et délai), des périodes d'incapacité exactes et les **rapports utiles en annexe**."
+        "Section 1 : des **périodes d'incapacité** datées et chiffrées sur un 100 %, et les rapports des autres intervenants en annexe.",
+        "Section 2 : des **constats objectifs**, la médication avec son dosage, des diagnostics **datés** avec leur code CIM-10, séparés entre **avec incidence (2.5)** et **sans incidence (2.6)**.",
+        "Section 3 : le **poste réel** (exigences, description du poste) et des **limitations concrètes et mesurables**, reprises dans l'annexe des travaux exigibles.",
+        "Section 4 : **deux capacités distinctes**, en heures par jour, et un pronostic sur un 100 %, même si le taux contractuel est inférieur.",
+        "Annexe : une mesure de réinsertion **n'est pas une thérapie** ; indiquez dès quand elle est possible.",
+        "Le contexte **psychosocial** a sa place dans l'anamnèse, mais ne fonde ni les limitations ni la capacité de travail."
       ],
       "body": [
         "Vos rapports sont toujours examinés attentivement : **plus les informations sont précises et exhaustives, moins l'Office AI doit recourir aux expertises** pour décider.",

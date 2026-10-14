@@ -55,6 +55,7 @@ const ALLOWED_KEYS = {
   documentBlock: ['type', 'kind', 'title', 'subtitle', 'body', 'data', 'image'],
   formBlock: ['type', 'title', 'reference', 'items'],
   formItem: ['number', 'label', 'answer', 'field', 'details'],
+  formSection: ['section'],
   calloutBlock: ['type', 'title', 'body'],
   revealBlock: ['type', 'label'],
   dataItem: ['label', 'value'],
@@ -254,10 +255,19 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     items.forEach((item, k) => {
       const itemAt = `${at} › élément ${k + 1}`;
       if (!isObject(item)) return error(itemAt, 'doit être un objet { "number": …, "label": … }.');
+      // Titre de section du formulaire : { "section": "2 Situation médicale" }
+      if (item.section !== undefined) {
+        checkKeys(item, ALLOWED_KEYS.formSection, itemAt);
+        if (!isText(item.section)) error(itemAt, '« section » doit être un texte (titre de la section du formulaire).');
+        return;
+      }
       checkKeys(item, ALLOWED_KEYS.formItem, itemAt);
       if (!isText(item.label)) error(itemAt, '« label » (intitulé exact du formulaire) est obligatoire.');
-      if (item.number !== undefined && !(Number.isInteger(item.number) && item.number > 0)) {
-        error(itemAt, '« number » doit être un nombre entier positif (numéro de la question dans le formulaire).');
+      const validNumber =
+        (Number.isInteger(item.number) && item.number > 0) ||
+        (typeof item.number === 'string' && /^[0-9A-Za-z]{1,3}(\.[0-9A-Za-z]{1,3}){0,2}$/.test(item.number));
+      if (item.number !== undefined && !validNumber) {
+        error(itemAt, '« number » doit être le numéro imprimé sur le formulaire : 3, « 2.5 » ou « 4.1 ».');
       }
       if (item.answer !== undefined && !isRichText(item.answer)) error(itemAt, '« answer » doit être un texte ou une liste de lignes.');
       if (item.details !== undefined && !isRichText(item.details)) error(itemAt, '« details » doit être un texte ou une liste de lignes.');
@@ -379,7 +389,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
 
   if (module.schemaVersion !== 1) error('module', '« schemaVersion » doit valoir 1.');
   if (!isText(module.id) || !ID_PATTERN.test(module.id)) {
-    error('module', '« id » obligatoire : lettres sans accents, chiffres, « - » ou « _ », sans espace (ex. "rapport-medical-mt").');
+    error('module', '« id » obligatoire : lettres sans accents, chiffres, « - » ou « _ », sans espace (ex. "rapport-medical-ai").');
   }
   if (!isText(module.version) || !VERSION_PATTERN.test(module.version)) error('module', '« version » doit avoir la forme "1.0.0".');
   if (!isText(module.title)) error('module', '« title » est obligatoire.');

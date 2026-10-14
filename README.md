@@ -75,7 +75,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 ```json
 {
   "schemaVersion": 1,
-  "id": "rapport-medical-mt",
+  "id": "rapport-medical-ai",
   "version": "1.0.0",
   "title": "Titre affiché dans Acamedia",
   "description": "Résumé en une phrase.",
@@ -84,8 +84,8 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   "durationMinutes": 15,
   "storyTitle": "Rapport de Mme R.",
   "form": {
-    "title": "Rapport médical du médecin traitant",
-    "reference": "Formulaire 002.099 MT · v. 09.2023"
+    "title": "Rapport médical somatique : Réadaptation professionnelle / Rente",
+    "reference": "Formulaire 002.099 · v. 09.2023"
   },
   "scoring": {
     "passingScore": 70,
@@ -112,7 +112,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 | `type`          | `text`, `scene`, `quiz` ou `summary`                                 |
 | `kicker`        | surtitre facultatif, au-dessus du titre (ex. « Question 4 du formulaire ») |
 | `title`         | titre de l'écran                                                     |
-| `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. B. ») |
+| `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. C. ») |
 | `hidePatientFile` | `true` : masque le dossier patient pendant cet écran (autre cas, informations générales) |
 | `continueLabel` | texte du bouton pour passer à l'écran suivant (« Suivant » par défaut), ex. « Passer à la capacité de travail » |
 
@@ -238,10 +238,13 @@ le bouton est disponible dès le début.
 
 Règles pour les extraits du formulaire (`form`) :
 
-- `label` reprend **mot pour mot** l'intitulé du formulaire (voir `docs/formulaire-002099-MT.md`).
+- `label` reprend **mot pour mot** l'intitulé du formulaire (voir `docs/formulaire-002099.md`).
+- `number` est le numéro imprimé : `"2.5"` (entre guillemets) ou un nombre entier ; facultatif.
+- `{ "section": "2 Situation médicale" }` affiche un titre de section du formulaire avant les questions qui suivent.
+- `title` d'un bloc `form` remplace le titre du formulaire (ex. pour une annexe).
 - Sans `answer`, le champ s'affiche vide (lignes pointillées). Avec `answer`, il s'affiche rempli,
   marqué « Exemple de réponse ».
-- `"field": false` affiche un point explicatif du formulaire sans champ à remplir (ex. point 8).
+- `"field": false` affiche un point explicatif du formulaire sans champ à remplir (ex. texte d'introduction de l'annexe sur la réadaptation).
 
 Règles pour les boutons `reveal` : jamais en premier ni en dernier bloc, jamais deux de suite.
 Pour passer à l'écran suivant, utilisez `continueLabel`.

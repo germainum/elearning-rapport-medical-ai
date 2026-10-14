@@ -81,7 +81,7 @@ function wireAttachment(element, block, ctx) {
   });
 }
 
-/** Questions numérotées d'un formulaire : vides, remplies (« exemple de réponse ») ou explicatives. */
+/** Questions numérotées d'un formulaire (« 2.5 », « 3 »…) : vides, remplies (« exemple de réponse ») ou explicatives. */
 function formItems(items) {
   return items
     .map((item) => {
@@ -99,13 +99,33 @@ function formItems(items) {
       }
       const labelClass = item.field === false ? 'form-sheet__label form-sheet__label--info' : 'form-sheet__label';
       const details = item.details ? `<div class="form-sheet__details">${rich(item.details)}</div>` : '';
+      const number = item.number !== undefined ? `<span class="form-sheet__num">${escapeHtml(String(item.number))}</span> ` : '';
       return `
-        <li class="form-sheet__item"${item.number ? ` value="${Number(item.number)}"` : ''}>
-          <p class="${labelClass}">${inline(item.label)}</p>
+        <li class="form-sheet__item">
+          <p class="${labelClass}">${number}${inline(item.label)}</p>
           ${details}
           ${field}
         </li>`;
     })
+    .join('');
+}
+
+/** Découpe les questions en groupes, chacun précédé de son titre de section (« 2 Situation médicale »). */
+function formGroups(items) {
+  const groups = [];
+  for (const item of items) {
+    if (item.section) groups.push({ section: item.section, items: [] });
+    else {
+      if (!groups.length) groups.push({ section: null, items: [] });
+      groups.at(-1).items.push(item);
+    }
+  }
+  return groups
+    .map(
+      (group) => `
+        ${group.section ? `<p class="form-sheet__section">${inline(group.section)}</p>` : ''}
+        ${group.items.length ? `<ol class="form-sheet__items">${formItems(group.items)}</ol>` : ''}`
+    )
     .join('');
 }
 
@@ -127,7 +147,7 @@ function formSheet(sheet, ctx) {
         ${reference ? `<span class="form-sheet__ref">${inline(reference)}</span>` : ''}
       </header>
       ${fields}
-      <ol class="form-sheet__items">${formItems(sheet.items)}</ol>
+      ${formGroups(sheet.items)}
       ${footer}
     </section>`;
 }
