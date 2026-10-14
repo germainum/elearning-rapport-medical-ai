@@ -311,6 +311,9 @@ L'apprenant voit d'abord « ✗ Réponse incorrecte », puis le titre en grand, 
 
 ### Écran « synthèse » (`summary`)
 
+Un seul écran `summary`. Il peut être suivi d'écrans `text` (ex. remerciements) : ils restent facultatifs pour
+la complétion, transmise dès que la synthèse est atteinte. Donnez alors à la synthèse un `continueLabel` (ex. « Un dernier mot »).
+
 Toujours en **dernier**, un seul par module.
 
 ```json

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -2184,7 +2184,28 @@
         "passed": "Votre rapport permet à l'Office AI d'orienter Mme R. sans vous relancer.",
         "failed": "Certaines réponses entraîneraient une demande de complément. Reprenez les questions pour atteindre le seuil de réussite."
       },
-      "section": "En pratique"
+      "section": "En pratique",
+      "continueLabel": "Un dernier mot"
+    },
+    {
+      "id": "merci",
+      "type": "text",
+      "section": "En pratique",
+      "hidePatientFile": true,
+      "kicker": "Merci",
+      "title": "Merci pour votre engagement",
+      "body": [
+        "Vous avez pris le temps de suivre cette formation, malgré un agenda chargé. **Merci beaucoup.**",
+        "Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'Office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.",
+        "Pour vos patients, c'est une réponse plus rapide et, souvent, une réadaptation qui commence plus tôt.",
+        "Ensemble, nous gagnons du temps : vous, nous et, surtout, vos patients.",
+        "*L'Office AI du canton de Vaud*"
+      ],
+      "image": {
+        "src": "images/merci.svg",
+        "alt": "Le médecin généraliste salue en souriant, entre un rapport validé d'une coche verte et un chronomètre ; un cœur vert au-dessus de lui.",
+        "position": "top"
+      }
     }
   ]
 }

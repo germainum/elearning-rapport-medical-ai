@@ -102,7 +102,9 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
 - **Reprise** : progression (écrans vus, réponses, écran courant) sérialisée dans `cmi.suspend_data`
   (limite SCORM 1.2 : 4096 caractères → format compact, clés courtes, basé sur les `id` d'écrans/questions).
   `cmi.core.lesson_location` = id de l'écran courant. `cmi.core.exit = "suspend"` en quittant.
-- **Completed** : quand tous les écrans ont été vus.
+- **Completed** : quand tous les écrans **jusqu'à la synthèse** ont été vus (et leurs questions validées). Les écrans
+  `text` placés **après** la synthèse (écran « Merci », illustration `merci.svg`) ne conditionnent pas la complétion :
+  l'apprenant qui s'arrête sur son résultat a terminé le module (`tracker.isComplete`).
 - **Score** : transmis en `cmi.core.score.raw` (0–100), `min` = 0, `max` = 100.
 - **Passed** : si le score atteint `passingScore` défini dans `module.json`.
 - En SCORM 1.2 un seul champ `lesson_status` : la logique complétion/réussite reste séparée dans le

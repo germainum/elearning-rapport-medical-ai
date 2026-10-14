@@ -574,8 +574,11 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
 
   if (summaries.length === 0) {
     warn('module', 'aucun écran "summary" : l\'apprenant ne verra pas son score à la fin.');
-  } else if (summaries.length > 1 || summaries[0] !== module.screens.length - 1) {
-    error('module', 'il ne peut y avoir qu\'un écran "summary", placé en dernier.');
+  } else if (summaries.length > 1) {
+    error('module', 'il ne peut y avoir qu\'un écran "summary".');
+  } else if (module.screens.slice(summaries[0] + 1).some((screen) => screen?.type !== 'text')) {
+    // Après la synthèse : seulement des écrans « text » (ex. remerciements), qui ne conditionnent pas la complétion
+    error('module', 'après l\'écran "summary", seuls des écrans "text" sont admis (ex. remerciements).');
   }
   if (hasQuestions && module.scoring?.passingScore === undefined) {
     warn('scoring', '« passingScore » absent : seuil de réussite par défaut de 80 %.');

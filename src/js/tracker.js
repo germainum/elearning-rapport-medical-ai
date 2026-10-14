@@ -155,9 +155,15 @@ export function createTracker(module) {
       return index < 0 ? screens.length - 1 : index;
     },
 
-    /** Tous les écrans vus, toutes les étapes révélées, toutes les questions validées. */
+    /**
+     * Tous les écrans vus, toutes les étapes révélées, toutes les questions validées.
+     * Les écrans placés après la synthèse (ex. remerciements) ne conditionnent pas la complétion :
+     * l'apprenant qui s'arrête sur son résultat a terminé le module.
+     */
     isComplete() {
-      return screens.every((_, i) => isScreenDone(i));
+      const summaryIndex = screens.findIndex((screen) => screen.type === 'summary');
+      const last = summaryIndex >= 0 ? summaryIndex : screens.length - 1;
+      return screens.every((_, i) => i > last || isScreenDone(i));
     },
 
     /** Score sur 100 ou null s'il n'y a aucune question notée. */
