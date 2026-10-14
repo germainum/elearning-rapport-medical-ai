@@ -90,11 +90,32 @@
       </nav>
     </div>
 
-    <aside class="app-sidebar app-sidebar--file" id="file-side" aria-labelledby="file-side-title" hidden>
-      <h2 class="app-sidebar__title" id="file-side-title">Dossier patient</h2>
-      <div id="file-side-body"></div>
+    <!-- Dossier patient : chemise cartonnée qu'on ouvre et referme (ordinateur) -->
+    <aside class="folder" id="file-side" aria-labelledby="file-side-title" hidden>
+      <div class="folder__tab-top">
+        <svg class="folder__tab-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <h2 class="folder__title" id="file-side-title">Dossier patient</h2>
+      </div>
+      <button type="button" class="btn btn--ghost btn--small folder__close" id="file-side-close">Fermer le dossier</button>
+      <div class="folder__sheet">
+        <svg class="folder__clip" viewBox="0 0 24 48" width="18" height="36" aria-hidden="true" focusable="false">
+          <path d="M8 44V10a6 6 0 0 1 12 0v28a4 4 0 0 1-8 0V14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div id="file-side-body"></div>
+        <span class="folder__stamp" aria-hidden="true">Confidentiel</span>
+      </div>
     </aside>
   </div>
+
+  <!-- Onglet qui dépasse du bord droit : ouvre le dossier (ordinateur) -->
+  <button type="button" class="folder-tab" id="folder-tab" aria-expanded="false" aria-controls="file-side" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span class="folder-tab__label">Dossier patient</span>
+  </button>
 
   <dialog class="file-dialog" id="file-dialog" aria-labelledby="file-dialog-title">
     <div class="file-dialog__header">

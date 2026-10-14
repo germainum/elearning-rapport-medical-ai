@@ -6,9 +6,11 @@
 
 /* ---------- Utilitaires ---------- */
 
+/* Textes propres aux grands écrans (affichés à partir de 1024 px, voir « Dossier patient ») */
 .only-wide {
   display: none;
 }
+
 
 /* ---------- Boutons ---------- */
 
@@ -1439,55 +1441,255 @@ button.toc__item:hover {
   }
 }
 
-/* ≥ 1280 px : panneau « Dossier patient » permanent à droite, une fois découvert */
+/* ================================================================
+   Dossier patient : une chemise cartonnée qu'on ouvre et referme
+   (ordinateur ≥ 1024 px ; sur mobile, le bouton du bandeau ouvre une fenêtre)
+   ================================================================ */
+
+.folder,
+.folder-tab {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  /* Le bouton du bandeau est remplacé par l'onglet du bord droit */
+  #file-toggle {
+    display: none !important;
+  }
+
+  .only-narrow {
+    display: none;
+  }
+
+  .only-wide {
+    display: inline;
+  }
+
+  /* --- Onglet qui dépasse du bord droit (dossier fermé) --- */
+  .folder-tab {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: var(--tap-size);
+    padding: var(--space-4) var(--space-2) var(--space-4) var(--space-3);
+    border: 0;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    box-shadow: -4px 6px 18px rgb(15 29 150 / 0.25);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%) rotate(180deg);
+    transition: padding 0.2s ease, background-color 0.15s ease;
+  }
+
+  .folder-tab:hover {
+    padding-left: var(--space-4);
+    background: var(--color-primary-hover);
+  }
+
+  .folder-tab svg {
+    transform: rotate(90deg);
+  }
+
+  /* Dossier ouvert : l'onglet s'efface, la chemise prend le relais */
+  .folder-tab--open {
+    display: none;
+  }
+
+  /* --- La chemise (dossier ouvert) --- */
+  .folder {
+    --folder: #dfe5f7;        /* carton bleuté, teinte du bleu AI VD */
+    --folder-edge: #c7d0ee;
+
+    position: fixed;
+    top: calc(var(--shell-pad) + 1.75rem);
+    right: var(--shell-pad);
+    bottom: var(--shell-pad);
+    z-index: 45;
+    display: block;
+    width: min(var(--file-width), calc(100vw - 2 * var(--shell-pad)));
+    padding: var(--space-6) var(--space-3) var(--space-4);
+    border: 1px solid var(--folder-edge);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
+    background:
+      repeating-linear-gradient(135deg, transparent 0 6px, rgb(255 255 255 / 0.18) 6px 7px),
+      var(--folder);
+    box-shadow: var(--shadow-float);
+    animation: folder-open 0.35s ease-out;
+  }
+
+  /* Défilement à l'intérieur de la fiche si l'écran est bas (l'onglet et le trombone restent visibles) */
+  #file-side-body {
+    max-height: calc(100vh - 2 * var(--shell-pad) - 11rem);
+    overflow-y: auto;
+  }
+
+  /* Onglet de la chemise, en haut à gauche */
+  .folder__tab-top {
+    position: absolute;
+    top: -1.85rem;
+    left: -1px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 12rem;
+    height: 1.85rem;
+    padding: 0 var(--space-4);
+    border: 1px solid var(--folder-edge);
+    border-bottom: 0;
+    border-radius: var(--radius) var(--radius-lg) 0 0;
+    background: var(--folder);
+    color: var(--color-heading);
+  }
+
+  .folder__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .folder__close {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    background: rgb(255 255 255 / 0.7);
+  }
+
+  /* Fiche papier glissée dans la chemise, tenue par un trombone */
+  .folder__sheet {
+    position: relative;
+    margin-top: var(--space-3);
+    padding: var(--space-5) var(--space-4) var(--space-6);
+    border-radius: 0.375rem;
+    background: var(--color-surface);
+    box-shadow: 0 1px 2px rgb(18 20 26 / 0.08), 0 8px 18px rgb(15 29 150 / 0.12);
+    transform: rotate(-0.6deg);
+    animation: sheet-out 0.45s ease-out;
+  }
+
+  /* Seconde feuille qui dépasse derrière */
+  .folder__sheet::before {
+    content: "";
+    position: absolute;
+    inset: 0.4rem -0.3rem -0.4rem 0.3rem;
+    z-index: -1;
+    border-radius: 0.375rem;
+    background: #f7f8fc;
+    box-shadow: 0 1px 3px rgb(18 20 26 / 0.08);
+    transform: rotate(1.6deg);
+  }
+
+  .folder__clip {
+    position: absolute;
+    top: -1rem;
+    left: 1.25rem;
+    color: #8a93a8;
+  }
+
+  /* Tampon « Confidentiel », décoratif */
+  .folder__stamp {
+    position: absolute;
+    right: var(--space-4);
+    bottom: var(--space-3);
+    padding: 0.1rem 0.5rem;
+    border: 2px solid var(--color-error);
+    border-radius: 0.25rem;
+    color: var(--color-error);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transform: rotate(-8deg);
+  }
+
+  /* La fiche patient prend l'allure d'un formulaire papier */
+  .folder .doc {
+    gap: var(--space-3);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .folder .doc__label {
+    display: none;
+  }
+
+  .folder .figure--portrait {
+    width: 3.75rem;
+    transform: rotate(-3deg);
+  }
+
+  /* Photo « agrafée » : cadre blanc et ombre */
+  .folder .figure--portrait img {
+    padding: 3px;
+    border: 0;
+    border-radius: 0.25rem;
+    background: var(--color-surface);
+    box-shadow: 0 2px 6px rgb(18 20 26 / 0.2);
+  }
+
+  .folder .doc__data {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: var(--space-2);
+    border-top: 2px solid var(--color-heading);
+  }
+
+  .folder .doc__datum {
+    display: grid;
+    gap: 0.125rem;
+    padding: var(--space-2) 0;
+    border-bottom: 1px dashed var(--color-step);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .folder .doc__datum dt {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+/* ≥ 1280 px : le dossier ouvert prend place en colonne, sans masquer le contenu */
 @media (min-width: 80rem) {
   .app-body--with-file {
     grid-template-columns: var(--sidebar-width) minmax(0, var(--measure)) var(--file-width);
   }
 
-  .app-body--with-file .app-sidebar--file {
-    display: block;
+  .app-body--with-file .folder {
     position: sticky;
-    top: var(--shell-pad);
-    max-height: calc(100vh - 2 * var(--shell-pad));
-    padding: var(--space-5) var(--space-4);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-card);
-    overflow-y: auto;
+    top: calc(var(--shell-pad) + 1.85rem);
+    right: auto;
+    bottom: auto;
+    width: auto;
+    margin-top: 1.85rem;
   }
 
-  .app-sidebar--file .app-sidebar__title {
-    margin-bottom: var(--space-3);
-  }
+}
 
-  /* Dans le panneau, la fiche se fond dans le panneau */
-  .app-sidebar--file .doc {
-    padding: 0;
-    border: 0;
-    box-shadow: none;
+@keyframes folder-open {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
   }
+}
 
-  .app-sidebar--file .doc__label {
-    display: none;
-  }
-
-  .app-sidebar--file .doc__data {
-    grid-template-columns: 1fr;
-  }
-
-  /* Plus besoin du bouton ni de la fenêtre : le dossier est visible en permanence */
-  body:has(.app-body--with-file) #file-toggle {
-    display: none !important;
-  }
-
-  .app-body--with-file .only-narrow {
-    display: none;
-  }
-
-  .app-body--with-file .only-wide {
-    display: inline;
+@keyframes sheet-out {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) rotate(-0.6deg);
   }
 }
 

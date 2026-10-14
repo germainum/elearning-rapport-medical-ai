@@ -133,9 +133,13 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
   questions, calculées), **frise de progression** (coche verte = terminé, point bleu = écran actuel,
   cercle gris = verrouillé ; l'état est aussi écrit pour les lecteurs d'écran), carte d'aide (`help`).
   Au centre : fil d'Ariane (`storyTitle › kicker › title`) + pastille « n / total », contenu (46rem).
-- **≥ 1280 px** : en plus, **dossier patient permanent à droite** (`#file-side`) dès qu'il est
-  découvert ; le bouton « Dossier patient » du bandeau disparaît et le rappel sous la fiche
-  s'adapte (`.only-narrow` / `.only-wide`).
+- **Dossier patient (≥ 1024 px)** : **fermé par défaut**. Un **onglet « Dossier patient »** dépasse du
+  bord droit (`#folder-tab`) ; il ouvre une **chemise cartonnée** (`.folder` : onglet titre, fiche papier
+  inclinée avec trombone, photo « agrafée », tampon « Confidentiel » décoratif). L'état ouvert/fermé
+  **se conserve d'un écran à l'autre** et après rechargement (`localStorage`, clé
+  `dossier-ouvert:<id>`, préférence d'affichage propre au navigateur). Fermeture : bouton ou Échap,
+  le focus revient à l'onglet. ≥ 1280 px : la chemise ouverte occupe une 3ᵉ colonne ; 1024–1279 px :
+  elle s'ouvre par-dessus le contenu. < 1024 px : bouton du bandeau → fenêtre (inchangé).
 - **≥ 1440 px** : tout grandit progressivement (taille de base 16 px à 1440 px → 20 px max vers 2560 px,
   relative à la taille choisie dans le navigateur) ; **≥ 1920 px** : colonnes élargies (17 / 50 / 21rem).
 - Le sommaire est rendu deux fois (menu `#toc-list` et colonne `#toc-side-list`), une seule

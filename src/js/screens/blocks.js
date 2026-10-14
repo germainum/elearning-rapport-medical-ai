@@ -153,7 +153,7 @@ const BLOCKS = {
       <p class="doc__hint">
         <span class="doc__hint-icon" aria-hidden="true">${ICON_CLIPBOARD}</span>
         <span class="only-narrow">Ce dossier reste consultable à tout moment avec le bouton <strong>Dossier patient</strong>, en haut de l'écran.</span>
-        <span class="only-wide">Ce dossier reste affiché dans la colonne <strong>Dossier patient</strong>, à droite de l'écran, pendant tout le module.</span>
+        <span class="only-wide">Vous pouvez rouvrir ce dossier à tout moment avec l'onglet <strong>Dossier patient</strong>, sur le bord droit de l'écran.</span>
       </p>`;
   },
 

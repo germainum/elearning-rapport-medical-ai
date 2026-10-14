@@ -52,6 +52,8 @@ const els = {
   appBody: byId('app-body'),
   fileSide: byId('file-side'),
   fileSideBody: byId('file-side-body'),
+  fileSideClose: byId('file-side-close'),
+  folderTab: byId('folder-tab'),
   notice: byId('notice'),
   screen: byId('screen'),
   pager: byId('pager'),
@@ -214,9 +216,9 @@ async function start() {
     renderToc();
     const fileUnlocked = isPatientFileUnlocked();
     els.fileToggle.hidden = !fileUnlocked;
-    // Colonne de droite (grands écrans) : affichée dès que le dossier est découvert
-    els.fileSide.hidden = !fileUnlocked;
-    els.appBody.classList.toggle('app-body--with-file', fileUnlocked);
+    // Ordinateur : onglet « Dossier patient » à droite ; le dossier garde son état d'un écran à l'autre
+    els.folderTab.hidden = !fileUnlocked;
+    applyFolderState(fileUnlocked && folderOpen);
   }
 
   /* ---------- Dossier du patient (bouton du bandeau) ---------- */
@@ -238,9 +240,49 @@ async function start() {
     return tracker.isViewed(screenIndex) && tracker.revealedCount(screens[screenIndex]) >= step;
   }
 
+  // État ouvert / fermé du dossier : préférence d'affichage propre à ce navigateur (fermé par défaut)
+  const FOLDER_KEY = `dossier-ouvert:${module.id}`;
+  let folderOpen = false;
+  try {
+    folderOpen = localStorage.getItem(FOLDER_KEY) === '1';
+  } catch {
+    // Stockage indisponible : le dossier démarre fermé
+  }
+
+  function applyFolderState(open) {
+    els.fileSide.hidden = !open;
+    els.appBody.classList.toggle('app-body--with-file', open);
+    els.folderTab.setAttribute('aria-expanded', String(open));
+    els.folderTab.classList.toggle('folder-tab--open', open);
+  }
+
+  function setFolderOpen(open) {
+    folderOpen = open;
+    try {
+      localStorage.setItem(FOLDER_KEY, open ? '1' : '0');
+    } catch {
+      // Préférence non mémorisée : sans conséquence
+    }
+    applyFolderState(open && isPatientFileUnlocked());
+  }
+
   if (module.patientFile) {
     els.fileDialogBody.replaceChildren(renderBlock({ type: 'patientFile', inDialog: true }, ctx));
     els.fileSideBody.replaceChildren(renderBlock({ type: 'patientFile', inDialog: true }, ctx));
+    els.folderTab.addEventListener('click', () => {
+      setFolderOpen(true);
+      els.fileSideClose.focus();
+    });
+    els.fileSideClose.addEventListener('click', () => {
+      setFolderOpen(false);
+      els.folderTab.focus();
+    });
+    els.fileSide.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setFolderOpen(false);
+        els.folderTab.focus();
+      }
+    });
     els.fileToggle.addEventListener('click', () => els.fileDialog.showModal());
     els.fileClose.addEventListener('click', () => els.fileDialog.close());
     // Clic sur le fond assombri : ferme la fenêtre
