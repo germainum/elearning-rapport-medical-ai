@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-mt",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "title": "Le rapport médical du médecin traitant",
   "description": "Remplir le formulaire AI 002.099 MT, question par question, à partir d'un cas fictif.",
   "language": "fr",

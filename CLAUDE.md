@@ -133,8 +133,8 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
   questions, calculées), **frise de progression** (coche verte = terminé, point bleu = écran actuel,
   cercle gris = verrouillé ; l'état est aussi écrit pour les lecteurs d'écran), carte d'aide (`help`).
   Au centre : fil d'Ariane (`storyTitle › kicker › title`) + pastille « n / total », contenu (46rem).
-- **Dossier patient (≥ 1024 px)** : **fermé par défaut**. Un **onglet « Dossier patient »** dépasse du
-  bord droit (`#folder-tab`) ; il ouvre une **chemise cartonnée** (`.folder` : onglet titre, fiche papier
+- **Dossier patient (≥ 1024 px)** : **fermé par défaut**. Un **onglet « Dossier patient »** horizontal (vignette + icône + libellé)
+  dépasse du bord droit en haut (`#folder-tab`) ; il ouvre une **chemise cartonnée** (`.folder` : onglet titre, fiche papier
   inclinée avec trombone, photo « agrafée », tampon « Confidentiel » décoratif). L'état ouvert/fermé
   **se conserve d'un écran à l'autre** et après rechargement (`localStorage`, clé
   `dossier-ouvert:<id>`, préférence d'affichage propre au navigateur). Fermeture : bouton ou Échap,
@@ -204,6 +204,9 @@ npm run preview      # sert build/package (le dernier paquet généré)
 Ajouter `?debug` à l'URL journalise aussi les appels SCORM quand une vraie API LMS est présente.
 
 ## Conventions
+
+- **Jamais de texte vertical ou pivoté de côté** dans l'interface (pas de `writing-mode: vertical-*`,
+  pas de libellé tourné à 90°), même pour un onglet latéral.
 
 - Échapper systématiquement le contenu injecté dans le DOM (pas d'`innerHTML` sur du texte brut
   non échappé). Le formatage autorisé dans le JSON est limité (gras, italique, listes, liens).

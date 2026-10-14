@@ -269,6 +269,11 @@ async function start() {
   if (module.patientFile) {
     els.fileDialogBody.replaceChildren(renderBlock({ type: 'patientFile', inDialog: true }, ctx));
     els.fileSideBody.replaceChildren(renderBlock({ type: 'patientFile', inDialog: true }, ctx));
+    const photo = byId('folder-tab-photo');
+    if (module.patientFile.image) {
+      photo.src = `content/${module.patientFile.image.src}`; // décorative : alt=""
+      photo.hidden = false;
+    }
     els.folderTab.addEventListener('click', () => {
       setFolderOpen(true);
       els.fileSideClose.focus();
