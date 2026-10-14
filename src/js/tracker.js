@@ -175,10 +175,26 @@ export function createTracker(module) {
       return { score, earned, max, passed: score >= passingScore };
     },
 
-    /** Nouvelle tentative : efface les réponses, conserve les écrans vus et les étapes révélées. */
-    resetAnswers() {
-      answers.clear();
+    /**
+     * Nouvelle tentative : efface les réponses indiquées (toutes si aucune liste),
+     * conserve les écrans vus, les étapes révélées et les autres réponses.
+     */
+    resetAnswers(questionIds) {
+      if (questionIds) questionIds.forEach((id) => answers.delete(id));
+      else answers.clear();
       attempt += 1;
+    },
+
+    /** Questions répondues de façon incorrecte, dans l'ordre du module, avec leur écran. */
+    wrongQuestions() {
+      const wrong = [];
+      screens.forEach((screen, screenIndex) => {
+        for (const question of questionsOf(screen)) {
+          const ids = answers.get(question.id);
+          if (ids && !evaluate(question, ids).correct) wrong.push({ question, screen, screenIndex });
+        }
+      });
+      return wrong;
     },
   };
 }

@@ -95,8 +95,11 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
 ### Décisions validées (13.10.2026)
 
 - **Sous le seuil** (tous les écrans vus, score < `passingScore`) : statut `failed`. Si
-  `scoring.allowRetry` vaut `true`, la synthèse propose « Reprendre les questions » : les réponses
-  sont effacées, les écrans vus conservés, et le statut reste `failed` jusqu'à la nouvelle évaluation.
+  `scoring.allowRetry` vaut `true`, la synthèse liste les **questions fausses** (« Questions à revoir ») :
+  reprise d'une question ou de toutes, proposée **même si le module est réussi**. Seules les réponses
+  fausses sont effacées (les bonnes sont conservées) ; l'apprenant arrive directement sur la question,
+  puis « Suivant » enchaîne jusqu'à la synthèse. Le statut LMS reste inchangé jusqu'à la nouvelle
+  évaluation complète ; le score ne peut que monter.
   À confirmer avec Acamedia : traitement de `failed` par Chorus pour l'attribution des crédits.
 - **Navigation** : libre vers les écrans déjà parcourus (Sommaire). On ne quitte un écran que si
   toutes ses questions sont validées. Règle : écran *i* accessible si tous les écrans précédents sont

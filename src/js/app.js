@@ -163,16 +163,30 @@ async function start() {
       return result;
     },
 
-    retry() {
-      tracker.resetAnswers();
-      const first = screens.findIndex((screen) => questionsOf(screen).length > 0);
-      show(first, { notice: 'Vos réponses ont été effacées. Répondez de nouveau aux questions.' });
+    wrongQuestions: () => tracker.wrongQuestions(),
+
+    /**
+     * Reprise ciblée depuis la synthèse : efface seulement les réponses indiquées
+     * et amène l'apprenant directement sur la première d'entre elles.
+     */
+    retryQuestions(questionIds) {
+      const wrong = tracker.wrongQuestions().filter(({ question }) => questionIds.includes(question.id));
+      if (!wrong.length) return;
+      tracker.resetAnswers(questionIds);
+      const remaining = wrong.length;
+      show(wrong[0].screenIndex, {
+        focusQuestion: wrong[0].question.id,
+        notice:
+          remaining > 1
+            ? `Reprenez cette question, puis continuez avec « Suivant » : ${remaining} questions sont à refaire. Vos bonnes réponses sont conservées.`
+            : 'Reprenez cette question. Vos autres réponses sont conservées.',
+      });
     },
   };
 
   /* ---------- Affichage d'un écran ---------- */
 
-  function show(target, { focus = true, notice = '' } = {}) {
+  function show(target, { focus = true, notice = '', focusQuestion = null } = {}) {
     index = target;
     const screen = screens[index];
     tracker.visit(index);
@@ -187,7 +201,14 @@ async function start() {
     document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
     updateChrome();
 
-    if (focus) {
+    // Reprise d'une question : on l'amène à l'écran et on place le focus sur sa première réponse
+    const questionForm = focusQuestion
+      ? els.screen.querySelector(`.question[data-question="${CSS.escape(focusQuestion)}"]`)
+      : null;
+    if (questionForm) {
+      questionForm.scrollIntoView({ block: 'start' });
+      questionForm.querySelector('.option__input')?.focus({ preventScroll: true });
+    } else if (focus) {
       window.scrollTo(0, 0);
       els.screen.querySelector('.screen__title')?.focus();
     }
