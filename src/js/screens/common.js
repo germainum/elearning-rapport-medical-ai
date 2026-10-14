@@ -91,6 +91,41 @@ export function openModal({ title, bodyHtml, actionsHtml = '' }) {
   return dialog;
 }
 
+/* Icônes de la frise « parcours » (traits, couleur héritée) */
+const JOURNEY_ICONS = {
+  courrier: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  dossier: '<path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z"/><path d="M8.5 12h7M8.5 16h5"/>',
+  examen: '<path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/>',
+  redaction: '<path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/>',
+  envoi: '<path d="M21 3 3 10.5l7 2.5 2.5 7L21 3Z"/><path d="M10 13l5-5"/>',
+  decision: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/>',
+};
+
+/** Frise des étapes d'un parcours : en colonne sur mobile, en ligne sur grand écran. */
+export function journeyHtml(journey, idPrefix) {
+  const titleId = escapeHtml(`${idPrefix}-parcours`);
+  const steps = journey.steps
+    .map(
+      (step, i) => `
+        <li class="journey__step">
+          <span class="journey__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">${JOURNEY_ICONS[step.icon] ?? JOURNEY_ICONS.decision}</svg>
+          </span>
+          <span class="journey__body">
+            <span class="journey__number">Étape ${i + 1}</span>
+            <span class="journey__label">${inline(step.label)}</span>
+            ${step.text ? `<span class="journey__text">${inline(step.text)}</span>` : ''}
+          </span>
+        </li>`,
+    )
+    .join('');
+  return `
+    <section class="journey" aria-labelledby="${titleId}">
+      <h3 class="section-title" id="${titleId}">${inline(journey.title ?? 'Votre parcours')}</h3>
+      <ol class="journey__steps" role="list">${steps}</ol>
+    </section>`;
+}
+
 export function appendQuestions(container, questions, ctx) {
   questions.forEach((question, i) => {
     container.append(renderQuestion(question, { number: i + 1, total: questions.length, ...ctx }));

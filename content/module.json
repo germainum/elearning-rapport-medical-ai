@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-mt",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "title": "Le rapport médical du médecin traitant",
   "description": "Remplir le formulaire AI 002.099 MT, question par question, à partir d'un cas fictif.",
   "language": "fr",
@@ -67,8 +67,22 @@
         "*Contenu provisoire : cas fictif, bonnes réponses et conséquences à valider par l'Office AI du canton de Vaud.*",
         "Votre patient a déposé une demande de prestations AI : l'Office AI vous adresse le **Rapport médical du médecin traitant** (formulaire 002.099 MT). La vidéo ci-dessus explique pourquoi votre rapport compte autant.",
         "**Le saviez-vous ?** En 2021, **87 % des décisions** rendues par l'Office AI du canton de Vaud se fondaient sur l'avis du médecin traitant.",
-        "Dans ce module, vous remplissez ensuite le rapport de Mme R., question par question. Comptez une quinzaine de minutes."
-      ]
+        "Dans ce module, vous remplissez ensuite le rapport de Mme R., question par question. Comptez une vingtaine de minutes."
+      ],
+      "journey": {
+        "title": "Votre parcours dans ce module",
+        "steps": [
+          { "icon": "courrier", "label": "Le courrier", "text": "L'Office AI vous demande un rapport pour Mme R." },
+          { "icon": "dossier", "label": "Le dossier", "text": "Vous reprenez ses antécédents et son status." },
+          {
+            "icon": "redaction",
+            "label": "La rédaction",
+            "text": "Question par question, du diagnostic au pronostic."
+          },
+          { "icon": "envoi", "label": "L'envoi", "text": "Pièces jointes, relecture, envoi papier ou MedAI." },
+          { "icon": "decision", "label": "La suite à l'AI", "text": "Un rapport précis, une décision plus rapide." }
+        ]
+      }
     },
     {
       "id": "courrier",
@@ -81,7 +95,12 @@
           "type": "text",
           "body": [
             "Lundi matin, parmi le courrier du cabinet, une enveloppe de l'Office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années."
-          ]
+          ],
+          "image": {
+            "src": "images/cabinet-courrier.svg",
+            "alt": "Le médecin généraliste à son bureau, une enveloppe de l'Office AI à la main.",
+            "position": "side"
+          }
         },
         {
           "type": "document",
@@ -269,6 +288,17 @@
       "continueLabel": "Passer aux limitations fonctionnelles",
       "blocks": [
         {
+          "type": "text",
+          "body": [
+            "Le 5 octobre, vous avez revu Mme R. en consultation et noté un status complet. C'est exactement ce dont l'Office AI a besoin."
+          ],
+          "image": {
+            "src": "images/consultation.svg",
+            "alt": "Consultation : le médecin, tablette en main, face à Mme R. qui se tient le bas du dos ; au mur, une planche de la colonne lombaire.",
+            "position": "side"
+          }
+        },
+        {
           "type": "form",
           "items": [
             { "number": 2, "label": "Quels sont l'anamnèse et le status correspondants ?" },
@@ -342,7 +372,12 @@
           "type": "text",
           "body": [
             "C'est la question décisive pour l'Office AI : elle permet de savoir **quelles activités restent possibles** pour Mme R."
-          ]
+          ],
+          "image": {
+            "src": "images/redaction-rapport.svg",
+            "alt": "Le médecin remplit le rapport sur son ordinateur ; le champ en cours de rédaction est surligné en vert.",
+            "position": "side"
+          }
         },
         {
           "type": "form",
@@ -756,7 +791,8 @@
             { "label": "Arrêt de travail", "value": "100 % depuis le 16.03.2026" },
             { "label": "Traitement", "value": "Sertraline 100 mg/j, psychothérapie hebdomadaire" },
             { "label": "Évolution", "value": "Amélioration partielle depuis l'été" }
-          ]
+          ],
+          "image": { "src": "images/m-b.svg", "decorative": true }
         },
         { "type": "reveal", "label": "Rédiger les limitations de M. B." },
         {
@@ -828,6 +864,17 @@
       "title": "Ce qu'il faut savoir avant d'envoyer",
       "continueLabel": "Voir la synthèse",
       "blocks": [
+        {
+          "type": "text",
+          "body": [
+            "Votre rapport est prêt. Il ne reste qu'à l'envoyer, avec les pièces utiles : par courrier ou en ligne, via MedAI."
+          ],
+          "image": {
+            "src": "images/envoi-rapport.svg",
+            "alt": "Un ordinateur portable affiche l'envoi confirmé du rapport et de ses pièces jointes ; un avion en papier part vers le bâtiment de l'Office AI.",
+            "position": "side"
+          }
+        },
         {
           "type": "callout",
           "title": "Le délai",

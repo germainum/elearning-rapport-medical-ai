@@ -159,6 +159,20 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   Sans horodatage, `node scripts/make-captions.js transcription.txt sortie.vtt <début_s> <fin_s>`
   produit un premier jet aux minutages estimés, à vérifier.
   Une vidéo peut aussi être placée dans une scène, comme bloc `{ "type": "video", … }`.
+- `journey` (facultatif) affiche une **frise de parcours** sous le texte, en ligne sur grand écran et
+  en colonne sur mobile :
+
+  ```json
+  "journey": {
+    "title": "Votre parcours dans ce module",
+    "steps": [
+      { "icon": "courrier", "label": "Le courrier", "text": "Phrase courte facultative." },
+      { "icon": "decision", "label": "La suite à l'AI" }
+    ]
+  }
+  ```
+
+  Icônes disponibles : `courrier`, `dossier`, `examen`, `redaction`, `envoi`, `decision`.
 - `image` est facultative. `position` : `"top"` (au-dessus, par défaut), `"bottom"` (en dessous)
   ou `"side"` (à côté du texte sur grand écran, au-dessus sur mobile).
 - `alt` est **obligatoire** : décrivez l'information que porte l'image pour une personne qui ne la voit pas.

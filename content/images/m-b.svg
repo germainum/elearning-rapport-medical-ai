@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle-mb"><circle cx="80" cy="80" r="80"/></clipPath>
+  </defs>
+  <g clip-path="url(#cercle-mb)" stroke="#1b1b1b" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <rect width="160" height="160" fill="#e7e9f5" stroke="none"/>
+    <!-- Chemise et col -->
+    <path d="M18 170 C20 128 46 114 80 114 C114 114 140 128 142 170 Z" fill="#0f1d96"/>
+    <path d="M62 116 L80 140 L98 116 Z" fill="#ffffff"/>
+    <rect x="70" y="94" width="20" height="24" fill="#c9926a"/>
+    <!-- Visage, barbe courte -->
+    <ellipse cx="80" cy="68" rx="29" ry="33" fill="#d9a77f"/>
+    <path d="M56 82 C58 97 70 103 80 103 C90 103 102 97 104 82 C97 92 63 92 56 82 Z" fill="#6b5040"/>
+    <!-- Cheveux courts -->
+    <path d="M50 64 C46 36 64 30 82 30 C100 30 114 40 110 64 C104 48 92 44 80 44 C66 44 56 50 50 64 Z" fill="#3a2a20"/>
+  </g>
+  <!-- Yeux fatigués : paupières tombantes -->
+  <g fill="#1b1b1b">
+    <circle cx="69" cy="68" r="3"/>
+    <circle cx="91" cy="68" r="3"/>
+  </g>
+  <g fill="none" stroke="#1b1b1b" stroke-width="2.5" stroke-linecap="round">
+    <path d="M62 63 C66 61 72 61 76 63"/>
+    <path d="M84 63 C88 61 94 61 98 63"/>
+    <!-- Bouche neutre -->
+    <path d="M73 86 L87 86"/>
+  </g>
+</svg>

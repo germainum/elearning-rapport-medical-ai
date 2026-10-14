@@ -66,6 +66,11 @@ Le formulaire 002.099 MT y est joint au courrier : `content/documents/rapport-me
 Fiche patient : définie une fois à la racine (`patientFile`), affichée dans une scène par le bloc
 `{ "type": "patientFile" }` et consultable ensuite à tout moment via le bouton « Dossier patient » du bandeau
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).
+Illustrations (`content/images/`, style plat, traits noirs, palette AI VD) : un **médecin généraliste
+récurrent** suit le parcours — `cabinet-courrier.svg` (courrier), `consultation.svg` (anamnèse),
+`redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-b.svg`.
+Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
+Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
 Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback par conséquence.
 
 ### Couche SCORM isolée

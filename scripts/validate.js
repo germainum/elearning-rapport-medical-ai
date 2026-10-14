@@ -28,6 +28,7 @@ const SCREEN_TYPES = ['text', 'scene', 'quiz', 'summary'];
 const BLOCK_TYPES = ['text', 'video', 'attachment', 'writing', 'document', 'patientFile', 'form', 'callout', 'question', 'reveal'];
 const DOCUMENT_KINDS = ['dossier', 'courrier', 'note'];
 const QUESTION_KINDS = ['single', 'multiple'];
+const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
 const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile'];
@@ -39,7 +40,9 @@ const ALLOWED_KEYS = {
   patientFileBlock: ['type'],
   form: ['title', 'reference'],
   scoring: ['passingScore', 'allowRetry'],
-  text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video'],
+  text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video', 'journey'],
+  journey: ['title', 'steps'],
+  journeyStep: ['icon', 'label', 'text'],
   video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript'],
   writingBlock: ['type', 'id', 'prompt', 'placeholder', 'model', 'checklist'],
   attachmentBlock: ['type', 'title', 'src', 'meta', 'label', 'preview'],
@@ -482,6 +485,22 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
         if (!isRichText(screen.body)) error(where, '« body » (le texte de l\'écran) est obligatoire.');
         if (screen.image !== undefined) checkImage(screen.image, `${where} › image`);
         if (screen.video !== undefined) checkVideo(screen.video, `${where} › video`);
+        if (screen.journey !== undefined) {
+          const at = `${where} › journey`;
+          if (!isObject(screen.journey) || !Array.isArray(screen.journey.steps) || screen.journey.steps.length < 2) {
+            error(at, '« journey » doit contenir au moins deux étapes : { "steps": [ { "icon": …, "label": … } ] }.');
+          } else {
+            checkKeys(screen.journey, ALLOWED_KEYS.journey, at);
+            screen.journey.steps.forEach((step, k) => {
+              const stepAt = `${at} › étape ${k + 1}`;
+              if (!isObject(step)) return error(stepAt, 'doit être un objet { "icon": …, "label": … }.');
+              checkKeys(step, ALLOWED_KEYS.journeyStep, stepAt);
+              if (!isText(step.label)) error(stepAt, '« label » est obligatoire.');
+              if (!JOURNEY_ICONS.includes(step.icon)) error(stepAt, `« icon » doit valoir ${JOURNEY_ICONS.map((i) => `"${i}"`).join(', ')}.`);
+              if (step.text !== undefined && !isText(step.text)) error(stepAt, '« text » doit être un texte.');
+            });
+          }
+        }
         break;
 
       case 'scene':
