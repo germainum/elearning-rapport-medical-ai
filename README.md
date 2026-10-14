@@ -241,10 +241,20 @@ apparaît agrafé sous la lettre.
   "title": "Mme R., 47 ans",
   "subtitle": "Patiente du cabinet depuis 2014",
   "image": { "src": "images/mme-r.svg", "decorative": true },
-  "body": ["Résumé de la situation."],
-  "data": [{ "label": "Profession", "value": "Aide-soignante en EMS, 80 %" }]
+  "reference": "Dossier n° 2014-0387",
+  "body": ["Résumé de la situation (rubrique « Notes »)."],
+  "sections": [
+    { "title": "Diagnostics", "data": [{ "label": "Principal", "value": "Lombosciatalgie droite" }] }
+  ],
+  "journal": [{ "date": "12.01.2026", "text": "Lombosciatalgie droite aiguë. Arrêt de travail à 100 %." }]
 }
 ```
+
+La fiche s'affiche comme un **dossier médical papier** (feuille perforée, marge rouge, photo agrafée,
+tampon « Confidentiel »), glissée dans une chemise cartonnée dans les scènes. `sections` regroupe les
+renseignements en rubriques ; `journal` liste les consultations datées ; `data` (sans rubrique) reste
+possible. Un bloc `document` de type `"dossier"` (autre patient, ex. M. C.) utilise le même rendu et les
+mêmes champs.
 
 Placez ensuite `{ "type": "patientFile" }` dans la scène où l'apprenant découvre le dossier. À partir
 de ce moment, un bouton « Dossier patient » (icône de presse-papiers) apparaît dans le bandeau et permet de

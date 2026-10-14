@@ -19,6 +19,11 @@ const ICON_DOCUMENT = `
   </svg>`;
 
 // Même icône que le bouton « Dossier patient » du bandeau (src/index.html)
+const ICON_FOLDER = `
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+    <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </svg>`;
+
 const ICON_CLIPBOARD = `
   <svg viewBox="0 0 24 24" width="20" height="20" focusable="false">
     <path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -79,6 +84,60 @@ function wireAttachment(element, block, ctx) {
         </a>`,
     });
   });
+}
+
+/**
+ * Dossier médical papier : feuille perforée (marge rouge), en-tête « Dossier médical » et n° de dossier,
+ * photo agrafée, notes, rubriques en lignes de formulaire, journal des consultations daté, tampon décoratif.
+ * folder : la fiche est glissée dans une chemise cartonnée à onglet (dans une scène).
+ * Dans la chemise latérale (ordinateur), la feuille de la chemise sert de papier : voir « .folder .record ».
+ */
+function medicalRecord(file, ctx, { folder = false } = {}) {
+  const rows = (data) =>
+    `<dl class="record__rows">${data
+      .map((item) => `<div class="record__row"><dt>${inline(item.label)}</dt><dd>${inline(item.value)}</dd></div>`)
+      .join('')}</dl>`;
+  const section = (title, content) => `
+    <section class="record__section">
+      <h4 class="record__section-title">${inline(title)}</h4>
+      ${content}
+    </section>`;
+
+  const photo = file.image ? `<div class="record__photo">${figure(file.image, ctx.asset, 'portrait')}</div>` : '';
+  const notes = file.body ? section('Notes', `<div class="record__notes">${rich(file.body)}</div>`) : '';
+  const data = file.data?.length ? section('Renseignements', rows(file.data)) : '';
+  const sections = (file.sections ?? []).map((s) => section(s.title, rows(s.data))).join('');
+  const journal = file.journal?.length
+    ? section(
+        'Journal des consultations',
+        `<ol class="record__journal">${file.journal
+          .map((entry) => `<li><span class="record__date">${inline(entry.date)}</span><span>${inline(entry.text)}</span></li>`)
+          .join('')}</ol>`
+      )
+    : '';
+
+  const sheet = `
+    <article class="record" aria-label="Dossier médical">
+      <header class="record__top">
+        <span class="record__kind">Dossier médical</span>
+        ${file.reference ? `<span class="record__ref">${inline(file.reference)}</span>` : ''}
+      </header>
+      <div class="record__identity">
+        ${photo}
+        <div>
+          <h3 class="record__name">${inline(file.title)}</h3>
+          ${file.subtitle ? `<p class="record__subtitle">${inline(file.subtitle)}</p>` : ''}
+        </div>
+      </div>
+      ${notes}${data}${sections}${journal}
+      <span class="record__stamp" aria-hidden="true">Confidentiel</span>
+    </article>`;
+  if (!folder) return sheet;
+  return `
+    <div class="record-folder">
+      <p class="record-folder__tab">${ICON_FOLDER}<span>Dossier patient</span></p>
+      ${sheet}
+    </div>`;
 }
 
 /**
@@ -222,7 +281,7 @@ const BLOCKS = {
   /** Fiche du patient définie une seule fois à la racine (« patientFile ») ; aussi consultable via le bouton « Dossier ». */
   patientFile(block, ctx) {
     if (!ctx.patientFile) return '';
-    const file = BLOCKS.document({ kind: 'dossier', ...ctx.patientFile }, ctx);
+    const file = medicalRecord(ctx.patientFile, ctx, { folder: !block.inDialog });
     if (block.inDialog) return file;
     // Dans la scène : signaler le bouton « Dossier patient » du bandeau, avec la même icône
     return `${file}
@@ -237,6 +296,7 @@ const BLOCKS = {
   document(block, ctx) {
     const kind = block.kind ?? 'dossier';
     if (kind === 'courrier') return letter(block, ctx);
+    if (kind === 'dossier') return medicalRecord(block, ctx, { folder: true });
     const data = block.data?.length
       ? `<dl class="doc__data">${block.data
           .map((item) => `<div class="doc__datum"><dt>${inline(item.label)}</dt><dd>${inline(item.value)}</dd></div>`)

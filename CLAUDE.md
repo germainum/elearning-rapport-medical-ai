@@ -78,6 +78,10 @@ modale avec l'aperçu HTML du formulaire et un bouton « Télécharger le PDF »
 Choix délibéré : pas de PDF dans une iframe (non affiché sur Android, première page seule sur iOS).
 Le formulaire 002.099 y est joint au courrier : `content/documents/rapport-medical-002099.pdf`
 (PDF standard 6 pages exporté de Word — jamais de PDF XFA, illisible dans les navigateurs).
+Dossier patient = **dossier médical papier** (`medicalRecord()` dans `blocks.js`) : feuille perforée à marge rouge,
+en-tête « Dossier médical » + n° (`reference`), photo agrafée, « Notes » (`body`), rubriques (`sections`), journal des
+consultations daté (`journal`), tampon « Confidentiel » ; dans une scène, glissé dans une chemise cartonnée à onglet.
+Même rendu pour les documents `kind: "dossier"` (M. C.). Dans la chemise latérale, la feuille de la chemise sert de papier.
 Fiche patient : définie une fois à la racine (`patientFile`), affichée dans une scène par le bloc
 `{ "type": "patientFile" }` et consultable ensuite à tout moment via le bouton « Dossier patient » du bandeau
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).

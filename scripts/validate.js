@@ -36,7 +36,7 @@ const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 's
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
   logo: ['src', 'alt'],
-  patientFile: ['title', 'subtitle', 'body', 'data', 'image'],
+  patientFile: ['title', 'subtitle', 'body', 'data', 'image', 'reference', 'sections', 'journal'],
   patientFileBlock: ['type'],
   form: ['title', 'reference'],
   scoring: ['passingScore', 'allowRetry'],
@@ -52,7 +52,7 @@ const ALLOWED_KEYS = {
   quiz: [...SCREEN_COMMON_KEYS, 'body', 'questions'],
   summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'messages'],
   textBlock: ['type', 'title', 'body', 'image'],
-  documentBlock: ['type', 'kind', 'title', 'subtitle', 'body', 'data', 'image', 'sender', 'recipient', 'date', 'signature', 'enclosures'],
+  documentBlock: ['type', 'kind', 'title', 'subtitle', 'body', 'data', 'image', 'sender', 'recipient', 'date', 'signature', 'enclosures', 'reference', 'sections', 'journal'],
   formBlock: ['type', 'title', 'reference', 'items'],
   formItem: ['number', 'label', 'answer', 'field', 'details'],
   formSection: ['section'],
@@ -251,6 +251,30 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     });
   }
 
+  /** Champs propres au dossier médical : n° de dossier, rubriques, journal des consultations. */
+  function checkRecord(file, where) {
+    if (file.reference !== undefined && !isText(file.reference)) error(where, '« reference » doit être un texte (ex. "Dossier n° 2014-0387").');
+    if (file.sections !== undefined) {
+      if (!Array.isArray(file.sections)) error(where, '« sections » doit être une liste de { "title": …, "data": [ … ] }.');
+      else file.sections.forEach((section, j) => {
+        const at = `${where} › rubrique ${j + 1}`;
+        if (!isObject(section)) return error(at, 'doit être un objet { "title": …, "data": [ … ] }.');
+        checkKeys(section, ['title', 'data'], at);
+        if (!isText(section.title)) error(at, '« title » est obligatoire.');
+        checkData(section.data, at);
+      });
+    }
+    if (file.journal !== undefined) {
+      if (!Array.isArray(file.journal)) error(where, '« journal » doit être une liste de { "date": …, "text": … }.');
+      else file.journal.forEach((entry, j) => {
+        const at = `${where} › journal ${j + 1}`;
+        if (!isObject(entry)) return error(at, 'doit être un objet { "date": …, "text": … }.');
+        checkKeys(entry, ['date', 'text'], at);
+        if (!isText(entry.date) || !isText(entry.text)) error(at, '« date » et « text » sont obligatoires.');
+      });
+    }
+  }
+
   /** Questions d'un formulaire (bloc « form » ou aperçu d'une pièce jointe). */
   function checkFormItems(items, at) {
     if (!Array.isArray(items) || items.length === 0) {
@@ -309,6 +333,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
           if (block.body === undefined && block.data === undefined) error(at, 'ajoutez au moins « body » ou « data ».');
           if (block.data !== undefined) checkData(block.data, at);
           if (block.image !== undefined) checkImage(block.image, `${at} › image`);
+          checkRecord(block, at);
           // Champs propres au courrier (allure de lettre) : texte ou liste de lignes
           for (const key of ['sender', 'recipient', 'date', 'signature', 'enclosures']) {
             if (block[key] === undefined) continue;
@@ -461,9 +486,10 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       if (!isText(file.title)) error('patientFile', '« title » est obligatoire (ex. "Mme R., 47 ans").');
       if (file.subtitle !== undefined && !isText(file.subtitle)) error('patientFile', '« subtitle » doit être un texte.');
       if (file.body !== undefined && !isRichText(file.body)) error('patientFile', '« body » doit être un texte ou une liste de lignes.');
-      if (file.body === undefined && file.data === undefined) error('patientFile', 'ajoutez au moins « body » ou « data ».');
+      if (file.body === undefined && file.data === undefined && file.sections === undefined) error('patientFile', 'ajoutez au moins « body », « data » ou « sections ».');
       if (file.data !== undefined) checkData(file.data, 'patientFile');
       if (file.image !== undefined) checkImage(file.image, 'patientFile › image');
+      checkRecord(file, 'patientFile');
     }
   }
   if (module.form !== undefined) {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.23.0",
+  "version": "0.24.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -231,24 +231,51 @@
   },
   "patientFile": {
     "title": "Mme R., 47 ans",
-    "subtitle": "Patiente du cabinet depuis 2014",
+    "subtitle": "Née en 1979 · patiente du cabinet depuis 2014",
+    "reference": "Dossier n° 2014-0387",
     "image": { "src": "images/mme-r.svg", "decorative": true },
     "body": [
-      "Douleurs lombaires résiduelles à l'effort et en position assise prolongée. Ne peut plus porter de charges lourdes ni mobiliser des résidents.",
-      "Mariée, une fille de 16 ans. Parle français et portugais. Se rend au travail en voiture."
+      "Douleurs lombaires résiduelles à l'effort et en position assise prolongée. Ne peut plus porter de charges lourdes ni mobiliser des résidents."
     ],
-    "data": [
-      { "label": "Profession", "value": "Aide-soignante en EMS, 80 %, depuis 2006" },
+    "sections": [
       {
-        "label": "Poste",
-        "value": "Soins de base, mobilisation de résidents, port de charges, travail debout, horaires en rotation"
+        "title": "Situation personnelle et professionnelle",
+        "data": [
+          { "label": "Profession", "value": "Aide-soignante en EMS, 80 %, depuis 2006" },
+          {
+            "label": "Poste",
+            "value": "Soins de base, mobilisation de résidents, port de charges, travail debout, horaires en rotation"
+          },
+          { "label": "Famille", "value": "Mariée, une fille de 16 ans" },
+          { "label": "Langues", "value": "Français, portugais" },
+          { "label": "Trajets", "value": "Se rend au travail en voiture" }
+        ]
       },
-      { "label": "Diagnostic principal", "value": "Lombosciatalgie droite sur hernie discale L5-S1" },
-      { "label": "Opération", "value": "Cure de hernie discale le 10.02.2026 (chirurgien orthopédiste)" },
-      { "label": "Arrêt de travail", "value": "100 % depuis le 12.01.2026" },
-      { "label": "Suivi", "value": "Consultation mensuelle, dernier contrôle le 05.10.2026" },
-      { "label": "Traitement", "value": "Physiothérapie 2×/semaine, paracétamol" },
-      { "label": "Autre", "value": "Hypertension traitée, bien contrôlée" }
+      {
+        "title": "Diagnostics",
+        "data": [
+          { "label": "Principal", "value": "Lombosciatalgie droite sur hernie discale L5-S1" },
+          { "label": "Autre", "value": "Hypertension artérielle traitée, bien contrôlée" }
+        ]
+      },
+      {
+        "title": "Traitement et suivi",
+        "data": [
+          { "label": "Traitement", "value": "Physiothérapie 2×/semaine, paracétamol" },
+          { "label": "Suivi", "value": "Consultation mensuelle" },
+          { "label": "Arrêt de travail", "value": "100 % depuis le 12.01.2026" }
+        ]
+      }
+    ],
+    "journal": [
+      { "date": "12.01.2026", "text": "Lombosciatalgie droite aiguë. Arrêt de travail à 100 %." },
+      { "date": "10.02.2026", "text": "Cure de hernie discale L5-S1 (chirurgien orthopédiste)." },
+      { "date": "Mars 2026", "text": "Début de la physiothérapie, 2 fois par semaine." },
+      { "date": "15.06.2026", "text": "Contrôle chirurgical : évolution favorable." },
+      {
+        "date": "05.10.2026",
+        "text": "Status : Lasègue négatif, distance doigts-sol 30 cm, pas de déficit moteur."
+      }
     ]
   },
   "scoring": { "passingScore": 70, "allowRetry": true },
@@ -1940,7 +1967,8 @@
             { "label": "Diagnostics", "value": "Arthrose du poignet droit, épicondylite chronique à droite" },
             { "label": "Psychique", "value": "État dépressif réactionnel" }
           ],
-          "image": { "src": "images/m-c.svg", "decorative": true }
+          "image": { "src": "images/m-c.svg", "decorative": true },
+          "reference": "Dossier n° 2012-0144"
         },
         { "type": "reveal", "label": "Remplir la question 3.4" },
         {
