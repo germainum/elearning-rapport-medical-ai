@@ -142,3 +142,11 @@ Points clés ⚠ à valider :
   - rémunération : « rémunéré par l'AI, modalités indiquées par l'Office AI » — préciser le tarif.
 - Points restants de la review : valider le 50 % en activité adaptée et le pronostic « 3 à 6 mois »
   (cas de Mme R.), crédits de formation continue avec Acamedia, test auprès de généralistes.
+
+## Intégration de la FAQ « Corps médical » (14.10.2026)
+
+Source officielle : `docs/source-faq-aivd.md`. **Confirmé** : MedAI (rapports en ligne 7 j/7, 24 h/24),
+calcul de l'incapacité sur un 100 %, diagnostic ≠ degré d'incapacité, aptitude à la réadaptation
+malgré l'incapacité, détection précoce, rapport actualisé si l'état évolue, formations AI Vaud–SVM
+et CFAI, horaires de la centrale (lu–ve 8 h–17 h).
+**Toujours ⚠** : délai de retour, rémunération du rapport, base légale du secret médical (art. 6a LAI).

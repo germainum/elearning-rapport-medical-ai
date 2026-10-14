@@ -10,7 +10,8 @@
   Intitulés exacts : `docs/formulaire-002099-MT.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins
-  traitants), à privilégier sur toute formulation inventée.
+  traitants) et `docs/source-faq-aivd.md` (FAQ « Corps médical » d'aivd.ch), à privilégier sur toute
+  formulation inventée.
 - **Public** : médecins installés, peu de temps, souvent sur **tablette ou mobile**.
 - **Langue** : français (interface et contenu). Code et identifiants en anglais, commentaires en français.
 - **Test de référence** : SCORM Cloud avant livraison à Acamedia.
