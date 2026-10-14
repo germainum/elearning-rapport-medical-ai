@@ -1,0 +1,86 @@
+/*
+ * Jetons de design : charte AI VD (Office de l'assurance-invalidité pour le canton de Vaud).
+ * Sources : logo officiel (formulaire 002.099 MT) et site aivd.ch, section « Corps médical ».
+ *   vert AI VD  #009628  (logo, accents graphiques — 3.9:1 : pas pour du petit texte)
+ *   vert foncé  #007a20  (variante pour le texte vert — 5.5:1)
+ *   bleu marine #0f1d96  (couleur du public « Corps médical » : titres, boutons)
+ *   gris logo   #bec3c3  (décoratif uniquement)
+ * Contrastes vérifiés (WCAG 2.1 AA) : texte ≥ 4.5:1, composants d'interface ≥ 3:1.
+ * Style « application » inspiré d'un mockup e-learning : panneaux blancs arrondis, ombres douces.
+ */
+:root {
+  color-scheme: light;
+
+  /* Typographie : Work Sans, police du site aivd.ch, embarquée (css/fonts.css) ; repli sur Arial */
+  --font-sans: "Work Sans", Arial, "Helvetica Neue", Helvetica, system-ui, sans-serif;
+  --font-size-base: 1.0625rem;
+  --font-size-small: 0.9375rem;
+  --font-size-h1: 0.9375rem;
+  --font-size-h2: 1.75rem;
+  --font-size-h3: 1.1875rem;
+  --line-height: 1.6;
+
+  /* Espacements */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 3.5rem;
+  --gutter: 1rem;
+
+  /* Formes : arrondis doux et ombres légères (interface « application ») */
+  --radius: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-pill: 999px;
+  --border-width: 2px;
+  --shadow-card: 0 1px 2px rgb(15 29 150 / 0.04), 0 6px 20px rgb(15 29 150 / 0.06);
+  --shadow-float: 0 10px 30px rgb(15 29 150 / 0.14);
+
+  /* Dimensions */
+  --measure: 46rem;     /* largeur maximale du contenu */
+  --tap-size: 2.75rem;  /* cible tactile minimale : 44 px */
+  --logo-height: 1.75rem;
+
+  /* Couleurs */
+  --color-bg: #f3f4f8;              /* fond de l'application */
+  --color-surface: #ffffff;         /* panneaux et cartes */
+  --color-surface-muted: #f5f6fa;
+  --color-text: #12141a;
+  --color-muted: #4a4f5c;
+  --color-subtle: #5f6470;          /* textes secondaires de la frise (5.9:1) */
+  --color-heading: #0f1d96;         /* bleu marine « Corps médical » */
+  --color-border: #e4e7ee;          /* décoratif uniquement */
+  --color-primary-tint: #eef0fb;    /* fond des boutons secondaires, élément actif */
+  --color-primary-tint-hover: #e0e4f8;
+  --color-step: #c3c8d4;            /* cercles et traits de la frise, décoratifs */
+  --color-border-strong: #767676;   /* bordures de composants : 4.5:1 */
+  --color-primary: #0f1d96;         /* boutons d'action */
+  --color-primary-hover: #0a1470;
+  --color-on-primary: #ffffff;
+  --color-brand: #009628;           /* vert AI VD : accents graphiques */
+  --color-accent: #007a20;          /* vert AI VD foncé : texte et étiquettes */
+  --color-accent-bg: #e5f4e9;
+  --color-link: #0f1d96;
+  --color-focus: #0f1d96;
+  --color-selected-bg: #eef0fb;
+  --color-ink: #0f1d96;             /* « encre » des exemples de réponse */
+
+  --color-success: #1d6b3b;
+  --color-success-bg: #e7f4ec;
+  --color-error: #a3262d;
+  --color-error-bg: #fbecec;
+  --color-warning-text: #5c4400;
+  --color-warning-bg: #fff1c9;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --font-size-base: 1.125rem;
+    --font-size-h2: 2.25rem;
+    --gutter: 1.5rem;
+    --logo-height: 2rem;
+  }
+}

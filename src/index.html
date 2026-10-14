@@ -1,0 +1,107 @@
+<!doctype html>
+<!-- data-scorm-version est réécrit par scripts/build.js (« 1.2 » ou « 2004 »). -->
+<html lang="fr" data-scorm-version="1.2">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chargement du module…</title>
+  <link rel="preload" href="fonts/work-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <div class="debug-bar" id="debug-bar" hidden>
+    <p class="debug-bar__text">Mode test : API SCORM simulée (appels visibles dans la console).</p>
+    <button type="button" class="btn btn--small" id="debug-reset">Effacer la progression</button>
+  </div>
+
+  <!-- Coquille : colonne de progression à gauche (ordinateur), contenu au centre, dossier patient à droite -->
+  <div class="app-body" id="app-body">
+    <nav class="app-sidebar app-sidebar--toc" aria-labelledby="toc-side-title">
+      <img class="sidebar-logo" id="side-logo" alt="" hidden>
+      <p class="sidebar-module" id="side-module" aria-hidden="true"></p>
+      <ul class="sidebar-meta" id="side-meta" aria-label="Informations sur le module"></ul>
+      <div class="sidebar-progress">
+        <h2 class="app-sidebar__title" id="toc-side-title">Votre progression</h2>
+        <span class="sidebar-progress__count" id="side-progress"></span>
+      </div>
+      <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
+      <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
+        <h2 class="help-card__title" id="help-card-title"></h2>
+        <div class="help-card__body prose" id="help-card-body"></div>
+      </aside>
+    </nav>
+
+    <div class="app-column">
+      <header class="app-header">
+        <div class="app-header__inner">
+          <img class="app-header__logo" id="brand-logo" alt="" hidden>
+          <div class="app-header__text">
+            <h1 class="app-header__title" id="module-title"></h1>
+            <ol class="crumbs" id="crumbs" aria-label="Vous êtes ici"></ol>
+            <p class="app-header__progress">
+              <span class="app-header__story" id="story-title"></span>
+              <span id="progress-text"></span>
+            </p>
+            <span class="progress" aria-hidden="true"><span class="progress__bar" id="progress-bar"></span></span>
+          </div>
+          <div class="app-header__actions">
+            <span class="progress-pill" id="progress-pill" aria-hidden="true"></span>
+            <button type="button" class="btn btn--ghost btn--small btn--icon" id="file-toggle" aria-haspopup="dialog" title="Revoir le dossier patient" hidden>
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9 4h6v3H9zM8.5 12h7M8.5 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+              <span class="btn__label">Dossier patient</span>
+            </button>
+            <button type="button" class="btn btn--ghost btn--small btn--icon" id="toc-toggle" aria-expanded="false" aria-controls="toc" title="Sommaire du module" hidden>
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="4.5" cy="6" r="1.5" fill="currentColor"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor"/>
+            </svg>
+              <span class="btn__label">Sommaire</span>
+            </button>
+          </div>
+        </div>
+        <nav class="toc" id="toc" aria-label="Sommaire du module" hidden>
+          <ol class="toc__list toc__list--stepper" id="toc-list"></ol>
+        </nav>
+      </header>
+
+      <main class="app-main" id="main" tabindex="-1">
+        <p class="notice" id="notice" role="status"></p>
+        <div id="screen">
+          <p class="loading">Chargement du module…</p>
+          <noscript><p>Ce module nécessite JavaScript.</p></noscript>
+        </div>
+      </main>
+
+      <nav class="pager" id="pager" aria-label="Navigation entre les écrans" hidden>
+        <p class="pager__msg" id="pager-msg" role="status"></p>
+        <div class="pager__buttons">
+          <button type="button" class="btn btn--secondary" id="prev">Précédent</button>
+          <button type="button" class="btn btn--primary" id="next">Suivant</button>
+        </div>
+      </nav>
+    </div>
+
+    <aside class="app-sidebar app-sidebar--file" id="file-side" aria-labelledby="file-side-title" hidden>
+      <h2 class="app-sidebar__title" id="file-side-title">Dossier patient</h2>
+      <div id="file-side-body"></div>
+    </aside>
+  </div>
+
+  <dialog class="file-dialog" id="file-dialog" aria-labelledby="file-dialog-title">
+    <div class="file-dialog__header">
+      <h2 class="file-dialog__title" id="file-dialog-title">Dossier patient</h2>
+      <button type="button" class="btn btn--ghost btn--small" id="file-close">Fermer</button>
+    </div>
+    <div class="file-dialog__body" id="file-dialog-body"></div>
+  </dialog>
+</body>
+</html>

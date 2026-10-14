@@ -1,0 +1,17 @@
+{
+  "name": "acamedia-scorm-module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Module e-learning SCORM pour Acamedia (SVM) – Office AI du canton de Vaud",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "validate": "node scripts/validate.js",
+    "build": "node scripts/build.js",
+    "build:2004": "node scripts/build.js --scorm=2004",
+    "preview": "node scripts/serve.js build/package"
+  }
+}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle"><circle cx="80" cy="80" r="80"/></clipPath>
+  </defs>
+  <g clip-path="url(#cercle)" stroke="#1b1b1b" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <rect width="160" height="160" fill="#e7e9f5" stroke="none"/>
+    <!-- Tunique -->
+    <path d="M20 170 C22 128 46 116 80 116 C114 116 138 128 140 170 Z" fill="#009628"/>
+    <path d="M64 118 L80 138 L96 118" fill="#e2b48f"/>
+    <!-- Cou -->
+    <rect x="70" y="96" width="20" height="24" fill="#e2b48f"/>
+    <!-- Chignon et cheveux -->
+    <circle cx="80" cy="26" r="15" fill="#6b4630"/>
+    <path d="M47 72 C44 40 60 30 80 30 C100 30 116 40 113 72 L108 62 C100 52 60 52 52 62 Z" fill="#6b4630"/>
+    <!-- Visage -->
+    <ellipse cx="80" cy="70" rx="29" ry="33" fill="#e8bd97"/>
+    <path d="M51 62 C58 44 102 44 109 62 C98 50 62 50 51 62 Z" fill="#6b4630"/>
+  </g>
+  <g fill="#1b1b1b">
+    <circle cx="69" cy="70" r="3.5"/>
+    <circle cx="91" cy="70" r="3.5"/>
+  </g>
+  <path d="M70 86 C76 92 84 92 90 86" fill="none" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#d99a7a" opacity="0.6">
+    <circle cx="61" cy="82" r="5"/>
+    <circle cx="99" cy="82" r="5"/>
+  </g>
+</svg>
