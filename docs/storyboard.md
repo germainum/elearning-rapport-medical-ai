@@ -216,7 +216,7 @@ Demande : « aller point par point, avec à chaque fois 3 possibilités pour ré
 
 - **Un écran par point du formulaire** : 1.1 → 4.5, section 5, pièces jointes, annexe des travaux exigibles
   (ligne « soulever/porter »), annexe réadaptation (1 contre-indication, 2 pronostic d'amélioration).
-- Chaque écran : extrait vide → **une question, 3 réponses, choix unique** → feedback de conséquence → réponse remplie.
+- Chaque écran : extrait vide → **une question, 3 réponses, choix unique** → feedback de conséquence. (Réponse remplie retirée : redondante avec le feedback.)
 - Les encadrés « À retenir » sont supprimés ; leur contenu passe dans les feedbacks.
 - M. C. : 2 écrans (3.4 limitations, 2.1 contexte psychosocial). En pratique : 3 écrans-questions
   (envoi MedAI, secret médical art. 6a LAI, détection précoce). La rémunération et le rapport actualisé

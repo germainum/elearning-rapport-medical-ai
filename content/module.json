@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -371,21 +371,6 @@
               "body": "Sans dates ni autres intervenants, l'Office AI doit vous recontacter ou chercher lui-même les médecins qui ont suivi Mme R."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "1 Informations générales" },
-            {
-              "number": "1.1",
-              "label": "Le traitement ambulatoire / hospitalier que vous avez dispensé a eu lieu",
-              "answer": [
-                "Ambulatoire, du 03.03.2014 à ce jour.",
-                "Dernier contrôle : 05.10.2026. Contrôles précédents : chirurgien orthopédiste (opération du 10.02.2026, contrôle du 15.06.2026)."
-              ]
-            }
-          ]
         }
       ]
     },
@@ -428,18 +413,6 @@
               "body": "Sans fréquence actuelle, l'Office AI ne sait pas si votre appréciation repose sur un suivi récent."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "1 Informations générales" },
-            {
-              "number": "1.2",
-              "label": "A quelle fréquence voyez-vous le patient / la patiente actuellement ?",
-              "answer": "Une fois par mois."
-            }
-          ]
         }
       ]
     },
@@ -495,21 +468,6 @@
               "body": "Si les périodes ne correspondent pas aux certificats, l'Office AI doit vous recontacter. Reportez chaque période avec ses dates et son taux exacts."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "1 Informations générales" },
-            {
-              "number": "1.3",
-              "label": "Quelle est, jusqu'à aujourd'hui, l'évolution de l'incapacité de travail attestée médicalement (en pour cent) ?",
-              "answer": [
-                "100 % du 12.01.2026 au 31.10.2026, dans son activité d'aide-soignante en EMS.",
-                "Autres intervenants : chirurgien orthopédiste, physiothérapeute. Rapports joints."
-              ]
-            }
-          ]
         }
       ]
     },
@@ -568,18 +526,6 @@
               "body": "Sans évolution datée, le médecin du SMR doit reconstituer l'historique à partir des pièces, ou vous recontacter."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.1",
-              "label": "Antécédents médicaux et évolution de la situation du patient/de la patiente",
-              "answer": "Lombosciatalgie droite depuis le 12.01.2026, cure de hernie discale L5-S1 le 10.02.2026. Amélioration partielle sous physiothérapie depuis mars 2026."
-            }
-          ]
         }
       ]
     },
@@ -626,18 +572,6 @@
               "body": "Sans description précise, l'Office AI ne peut pas relier les symptômes aux limitations que vous décrirez plus loin."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.2",
-              "label": "Situation et symptômes médicaux actuels",
-              "answer": "Douleurs lombaires résiduelles à l'effort et en position assise prolongée, sans irradiation actuelle."
-            }
-          ]
         }
       ]
     },
@@ -684,18 +618,6 @@
               "body": "Sans dosage ni observance, le médecin du SMR ne peut pas apprécier si le traitement est adéquat et bien suivi."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.3",
-              "label": "Médication actuelle (y compris le dosage)",
-              "answer": "Paracétamol 1 g jusqu'à 3×/jour. Bonne observance."
-            }
-          ]
         }
       ]
     },
@@ -745,18 +667,6 @@
               "body": "…l'Office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.4",
-              "label": "Constats médicaux complets sur la base des examens que vous avez pratiqués",
-              "answer": "Status du 05.10.2026 : distance doigts-sol 30 cm, Lasègue négatif, pas de déficit moteur, hypoesthésie résiduelle S1 à droite."
-            }
-          ]
         }
       ]
     },
@@ -810,18 +720,6 @@
               "body": "Un diagnostic sans incidence ou sans date brouille la lecture du dossier."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.5",
-              "label": "Diagnostics ayant une incidence sur la capacité de travail",
-              "answer": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), cure de hernie le 10.02.2026 · depuis le 12.01.2026"
-            }
-          ]
         }
       ]
     },
@@ -872,18 +770,6 @@
               "body": "Les diagnostics sans incidence complètent le tableau ; s'ils manquent ou sont mal classés, l'Office AI doit clarifier."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.6",
-              "label": "Diagnostics sans incidence sur la capacité de travail",
-              "answer": "Hypertension artérielle traitée (CIM-10 I10) · depuis 2019"
-            }
-          ]
         }
       ]
     },
@@ -933,18 +819,6 @@
               "body": "Sans taux ni délai, l'Office AI ne sait pas quand réévaluer la situation de Mme R., ni quand solliciter le SMR."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.7",
-              "label": "Votre pronostic sur la capacité de travail du patient/de la patiente sur un taux de 100%",
-              "answer": "Favorable. Activité habituelle : pas de reprise envisageable. Activité adaptée : amélioration jusqu'à 100 % dans un délai de 3 à 6 mois."
-            }
-          ]
         }
       ]
     },
@@ -994,18 +868,6 @@
               "body": "Sans plan de traitement concret, l'Office AI ne sait pas si une opération ou un traitement va modifier la situation."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.8",
-              "label": "Prochaines mesures que vous envisagez / votre plan de traitement (thérapies, opérations chirurgicales, médication)",
-              "answer": "Poursuite de la physiothérapie pendant 3 mois, exercices à domicile. Contrôle chez le chirurgien orthopédiste en décembre 2026. Pas de nouvelle intervention prévue."
-            }
-          ]
         }
       ]
     },
@@ -1056,18 +918,6 @@
               "body": "Sans le métier et le taux, l'Office AI ne peut pas apprécier la capacité de travail dans l'activité habituelle."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.1",
-              "label": "Quelle est l'activité actuelle de votre patient / votre patiente ?",
-              "answer": "Aide-soignante en EMS à 80 %, en arrêt de travail à 100 % depuis le 12.01.2026."
-            }
-          ]
         }
       ]
     },
@@ -1118,18 +968,6 @@
               "body": "Ce que vous savez de l'emploi aide l'Office AI à envisager un retour chez le même employeur."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.2",
-              "label": "Quelles sont les informations dont vous disposez sur la situation professionnelle de votre patient / votre patiente ?",
-              "answer": "Même employeur depuis 2006. Contrat maintenu à ce jour, selon la patiente."
-            }
-          ]
         }
       ]
     },
@@ -1190,18 +1028,6 @@
               "body": "Sans les exigences du poste, l'Office AI doit les demander à l'employeur avant de pouvoir apprécier la capacité de travail."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.3",
-              "label": "A quelles exigences votre patient/patiente doit-il/elle faire face dans son activité professionnelle ?",
-              "answer": "Soins de base, mobilisation et transferts de résidents, port de charges, travail debout prolongé, horaires en rotation d'équipes."
-            }
-          ]
         }
       ]
     },
@@ -1269,23 +1095,6 @@
               "body": "L'Office AI vous adresse une demande de précisions. Faute de limitations concrètes, aucune activité adaptée n'a pu être définie pour Mme R."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.4",
-              "label": "Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?",
-              "answer": [
-                "- Pas de port de charges de plus de 5 kg.",
-                "- Pas de travail penché en avant ni en torsion du tronc.",
-                "- Alternance des positions assise et debout toutes les 30 à 45 minutes.",
-                "Effet sur l'activité exercée jusqu'ici : la mobilisation de résidents et le port de charges ne sont plus possibles."
-              ]
-            }
-          ]
         }
       ]
     },
@@ -1339,18 +1148,6 @@
               "body": "Les ressources orientent le choix d'une activité adaptée. Sans elles, le conseiller en réadaptation part de zéro."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.5",
-              "label": "Votre patient/votre patiente dispose-t-il/elle de ressources qui pourraient être utiles pour sa réinsertion ?",
-              "answer": "Bilingue français-portugais. 20 ans d'expérience des soins aux personnes âgées. Pratique la marche."
-            }
-          ]
         }
       ]
     },
@@ -1401,18 +1198,6 @@
               "body": "Un doute non fondé peut écarter des postes ou des trajets que Mme R. pourrait assumer."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.6",
-              "label": "Avez-vous des doutes quant à sa capacité de conduire ? Lesquels ?",
-              "answer": "Non. Paracétamol sans effet sur la vigilance ; conduit sans difficulté."
-            }
-          ]
         }
       ]
     },
@@ -1459,18 +1244,6 @@
               "body": "L'Office AI pourrait envisager un retour au poste habituel que ses limitations excluent."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "4 Potentiel de réadaptation" },
-            {
-              "number": "4.1",
-              "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans l'activité qu'il/elle a exercée jusqu'ici ?",
-              "answer": "0 heure par jour depuis le 12.01.2026 : mobilisation de résidents et port de charges incompatibles avec les limitations."
-            }
-          ]
         }
       ]
     },
@@ -1520,18 +1293,6 @@
               "body": "Sans capacité chiffrée en activité adaptée, l'Office AI ne sait pas vers quoi orienter Mme R. Un examen complémentaire devient probable."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "4 Potentiel de réadaptation" },
-            {
-              "number": "4.2",
-              "label": "Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans une activité qui tienne compte de l'atteinte à sa santé ?",
-              "answer": "4 heures par jour depuis le 01.06.2026, en respectant les limitations décrites en 3.4."
-            }
-          ]
         }
       ]
     },
@@ -1581,18 +1342,6 @@
               "body": "Calculée sur le taux contractuel ou fondée sur des critères non médicaux, la capacité fausse l'évaluation du droit aux prestations."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "4 Potentiel de réadaptation" },
-            {
-              "number": "4.3",
-              "label": "Votre pronostic sur le potentiel de réadaptation du patient/de la patiente. Capacité de travail sur un taux de 100% (même si le taux contractuel est inférieur).",
-              "answer": "Favorable. Capacité de 50 % dans une activité adaptée, sur un taux de 100 %, avec une augmentation progressive jusqu'à 100 % en 3 à 6 mois."
-            }
-          ]
         }
       ]
     },
@@ -1639,18 +1388,6 @@
               "body": "Des obstacles non médicaux, présentés par le médecin, brouillent l'évaluation. L'Office AI devra faire le tri."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "4 Potentiel de réadaptation" },
-            {
-              "number": "4.4",
-              "label": "Quels sont les facteurs qui font obstacle à une réadaptation ?",
-              "answer": "Aucun obstacle médical. Douleurs résiduelles nécessitant la poursuite de la physiothérapie."
-            }
-          ]
         }
       ]
     },
@@ -1710,18 +1447,6 @@
               "body": "Si les tâches ménagères ne concordent pas avec les limitations, l'Office AI devra clarifier, par exemple lors d'une enquête à domicile."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "4 Potentiel de réadaptation" },
-            {
-              "number": "4.5",
-              "label": "Dans quelle mesure votre patient/votre patiente est-il/elle limité/e dans l'accomplissement des tâches ménagères ?",
-              "answer": "Pas de port de charges lourdes (courses, lessive) ; les autres tâches restent possibles en alternant les positions."
-            }
-          ]
         }
       ]
     },
@@ -1770,17 +1495,6 @@
               "body": "La section 5 sert à signaler un élément utile qui n'a pas sa place dans les questions précédentes."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "5 Divers" },
-            {
-              "label": "Quels autres éléments pourraient entrer en ligne de compte dans l'évaluation de la situation de votre patient ? Avez-vous d'autres informations à nous communiquer ?",
-              "answer": "IRM de contrôle prévue le 20.11.2026 ; je vous transmettrai le compte rendu."
-            }
-          ]
         }
       ]
     },
@@ -1829,20 +1543,6 @@
               "body": "Sans les rapports de spécialistes, l'Office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            {
-              "label": "Annexes",
-              "answer": [
-                "Compte rendu opératoire du 10.02.2026.",
-                "Rapport du chirurgien orthopédiste du 15.06.2026.",
-                "Compte rendu de l'IRM lombaire."
-              ]
-            }
-          ]
         }
       ]
     },
@@ -1897,23 +1597,6 @@
               "body": "Si l'annexe contredit la question 3.4, l'Office AI ne sait pas laquelle retenir et doit vous recontacter."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "title": "Annexe : travaux exigibles dans une activité adaptée",
-          "items": [
-            {
-              "label": "Quels sont les travaux qui peuvent encore être exigés de la personne assurée, compte tenu des limitations dues à l'état de santé, dans le cadre d'une activité adaptée à son handicap ?",
-              "answer": [
-                "- Activités dans différentes positions : oui, 4 h par jour, rendement 100 %.",
-                "- Se pencher, rotation, accroupi, à genoux : non.",
-                "- Soulever/porter : oui, près du corps, limite de poids 5 kg.",
-                "- Concentration, compréhension, adaptation, résistance : non limitées.",
-                "Depuis le 01.06.2026. Points particuliers : alternance assis/debout, augmentation progressive."
-              ]
-            }
-          ]
         }
       ]
     },
@@ -1968,18 +1651,6 @@
               "body": "Plus l'arrêt de travail se prolonge, plus le retour à l'emploi devient difficile. Une reprise progressive dès 8 heures par semaine était compatible avec la physiothérapie."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "title": "Annexe relative à l'aptitude à la réadaptation",
-          "items": [
-            {
-              "number": "1",
-              "label": "Existe-t-il des contre-indications médicales à suivre une telle mesure ?",
-              "answer": "Non. Une telle mesure aurait été possible depuis le 01.06.2026."
-            }
-          ]
         }
       ]
     },
@@ -2026,18 +1697,6 @@
               "body": "Indiquez jusqu'à quel taux (sur un 100 %) et dans quel délai la capacité de travail peut s'améliorer."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "title": "Annexe relative à l'aptitude à la réadaptation",
-          "items": [
-            {
-              "number": "2",
-              "label": "Quel est votre pronostic d'amélioration de la capacité de travail ?",
-              "answer": "Jusqu'à 100 % dans une activité adaptée, dans un délai de 3 à 6 mois."
-            }
-          ]
         }
       ]
     },
@@ -2111,21 +1770,6 @@
               "body": "« Fortes douleurs au genou » ne dit pas que la personne ne peut plus travailler à genoux. De même, les symptômes ne disent pas ce que M. C. peut encore faire."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "3 Situation professionnelle" },
-            {
-              "number": "3.4",
-              "label": "Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?",
-              "answer": [
-                "- Pas de travaux de force ni de gestes répétitifs avec la main droite.",
-                "- Pas d'usage prolongé d'outils vibrants, pas de serrage ni de vissage."
-              ]
-            }
-          ]
         }
       ]
     },
@@ -2184,18 +1828,6 @@
               "body": "Sans le contexte, l'état dépressif paraît inexpliqué ; s'il devient un motif d'incapacité, le rapport mélange le médical et le social. Dans les deux cas, l'Office AI devra clarifier, et la décision tardera."
             }
           }
-        },
-        { "type": "reveal", "label": "Voir la réponse remplie" },
-        {
-          "type": "form",
-          "items": [
-            { "section": "2 Situation médicale" },
-            {
-              "number": "2.1",
-              "label": "Antécédents médicaux et évolution de la situation du patient/de la patiente",
-              "answer": "Arthrose du poignet droit et épicondylite chronique. État dépressif réactionnel apparu dans le contexte d'un divorce difficile depuis 8 mois et d'une précarité financière."
-            }
-          ]
         }
       ]
     },
