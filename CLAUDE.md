@@ -46,7 +46,9 @@
 | `quiz`    | QCM à choix unique (`single`) ou multiple (`multiple`), avec feedback |
 | `summary` | Synthèse finale : points clés + score                      |
 
-Champs communs : `kicker` (surtitre), `continueLabel` (texte du bouton vers l'écran suivant).
+Champs communs : `kicker` (surtitre), `continueLabel` (texte du bouton vers l'écran suivant),
+`storyTitle` (fil rouge propre à l'écran), `hidePatientFile` (masque le dossier de Mme R., ex. second cas).
+Bloc `writing` : exercice de rédaction non noté (texte gardé dans `localStorage`, jamais transmis au LMS).
 Vidéo : champ `video` d'un écran `text` (en tête) ou bloc `video` d'une scène. Fichier MP4 **embarqué**
 dans `content/videos/` (jamais d'iframe YouTube : règle « aucune ressource externe »), sous-titres
 WebVTT obligatoires (affichés par défaut), transcription dépliable. Vidéo de l'OAI :

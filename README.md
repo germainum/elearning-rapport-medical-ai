@@ -111,6 +111,8 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 | `type`          | `text`, `scene`, `quiz` ou `summary`                                 |
 | `kicker`        | surtitre facultatif, au-dessus du titre (ex. « Question 4 du formulaire ») |
 | `title`         | titre de l'écran                                                     |
+| `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. B. ») |
+| `hidePatientFile` | `true` : masque le dossier patient pendant cet écran (autre cas, informations générales) |
 | `continueLabel` | texte du bouton pour passer à l'écran suivant (« Suivant » par défaut), ex. « Passer à la capacité de travail » |
 
 ### Écran « texte avec image » (`text`)
@@ -192,6 +194,7 @@ Les blocs possibles :
 | `type`     | Contenu | Champs |
 |------------|---------|--------|
 | `text`     | paragraphe(s), avec titre et image facultatifs | `body`, `title`, `image` |
+| `writing`  | exercice de rédaction non noté : consigne, zone de texte, puis exemple de réponse et grille d'auto-vérification | `id`, `prompt`, `placeholder`, `model` (exemple), `checklist` (liste de points à vérifier) |
 | `attachment` | pièce jointe PDF : avec `preview`, le bouton ouvre une fenêtre (aperçu du formulaire + « Télécharger le PDF ») ; sans `preview`, il ouvre le PDF dans un nouvel onglet | `title`, `src` (`documents/…pdf`), `meta` (ex. « PDF · 2 pages · 129 Ko »), `label` (texte du bouton), `preview` : `{ "fields": [champs d'en-tête], "items": [questions comme dans `form`, avec `details` facultatif], "footer": [lignes de pied] }` |
 | `patientFile` | la fiche du patient définie à la racine (voir ci-dessous) | aucun autre champ : `{ "type": "patientFile" }` |
 | `document` | pièce du dossier : fiche patient, courrier reçu, note | `kind` (`"dossier"`, `"courrier"` ou `"note"`), `title`, `subtitle`, `body`, `data` (liste de `{ "label", "value" }`), `image` (portrait) |

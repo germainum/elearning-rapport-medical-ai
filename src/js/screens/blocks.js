@@ -30,7 +30,35 @@ export function renderBlock(block, ctx) {
   element.className = `block block--${block.type}`;
   element.innerHTML = BLOCKS[block.type]?.(block, ctx) ?? '';
   if (block.type === 'attachment') wireAttachment(element, block, ctx);
+  if (block.type === 'writing') wireWriting(element, block, ctx);
   return element;
+}
+
+/**
+ * Exercice de rédaction : le texte reste dans ce navigateur (non noté, non transmis au LMS).
+ * « Comparer » dévoile un exemple de réponse et une grille d'auto-vérification.
+ */
+function wireWriting(element, block, ctx) {
+  const textarea = element.querySelector('textarea');
+  const compare = element.querySelector('.writing__compare');
+  const key = `redaction:${ctx.moduleId}:${block.id}`;
+  try {
+    textarea.value = localStorage.getItem(key) ?? '';
+  } catch {
+    // Stockage indisponible : le texte n'est simplement pas conservé
+  }
+  textarea.addEventListener('input', () => {
+    try {
+      localStorage.setItem(key, textarea.value);
+    } catch {
+      // idem
+    }
+  });
+  element.querySelector('.writing__button').addEventListener('click', (event) => {
+    compare.hidden = false;
+    event.currentTarget.remove();
+    compare.focus();
+  });
 }
 
 /** Nom proposé au téléchargement : celui du fichier dans le paquet. */
@@ -184,6 +212,39 @@ const BLOCKS = {
   /** Extrait du formulaire : questions telles qu'elles figurent sur le document. */
   form(block, ctx) {
     return formSheet(block, ctx);
+  },
+
+  /** Exercice de rédaction auto-évalué (voir wireWriting). */
+  writing(block) {
+    const id = escapeHtml(`redaction-${block.id}`);
+    const checklist = block.checklist?.length
+      ? `<fieldset class="writing__checklist">
+           <legend>Vérifiez votre texte</legend>
+           ${block.checklist
+             .map(
+               (item, i) => `
+             <label class="writing__check" for="${id}-c${i}">
+               <input type="checkbox" id="${id}-c${i}">
+               <span>${inline(item)}</span>
+             </label>`,
+             )
+             .join('')}
+         </fieldset>`
+      : '';
+    return `
+      <section class="writing" aria-labelledby="${id}-titre">
+        <p class="writing__kicker">À vous de rédiger</p>
+        <label class="writing__prompt" id="${id}-titre" for="${id}">${inline(block.prompt)}</label>
+        <p class="writing__hint" id="${id}-aide">Exercice non noté : votre texte reste dans ce navigateur et n'est transmis à personne.</p>
+        <textarea class="writing__input" id="${id}" rows="6" aria-describedby="${id}-aide"
+          ${block.placeholder ? `placeholder="${escapeHtml(block.placeholder)}"` : ''}></textarea>
+        <button type="button" class="btn btn--secondary writing__button">Comparer avec un exemple</button>
+        <div class="writing__compare" tabindex="-1" hidden>
+          <p class="writing__model-title">Exemple de réponse</p>
+          <div class="writing__model prose">${rich(block.model)}</div>
+          ${checklist}
+        </div>
+      </section>`;
   },
 
   /** Encadré « À retenir ». */

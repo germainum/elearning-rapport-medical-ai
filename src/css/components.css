@@ -1728,3 +1728,112 @@ button.toc__item:hover {
     --shell-pad: 2rem;
   }
 }
+
+/* ---------- Exercice de rédaction (auto-évalué, non noté) ---------- */
+
+.writing {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-tint);
+}
+
+@media (min-width: 48rem) {
+  .writing {
+    padding: var(--space-6);
+  }
+}
+
+.writing__kicker {
+  justify-self: start;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.writing__prompt {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.writing__hint {
+  font-size: var(--font-size-small);
+  color: var(--color-muted);
+}
+
+.writing__input {
+  width: 100%;
+  min-height: 9rem;
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.writing__input:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.writing__button {
+  justify-self: start;
+}
+
+.writing__compare {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.writing__model-title {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.writing__model {
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--color-ink);
+  color: var(--color-ink);
+  font-style: italic;
+}
+
+.writing__checklist {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) 0 0;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.writing__checklist legend {
+  padding: 0;
+  font-weight: 700;
+}
+
+.writing__check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: var(--tap-size);
+  padding: var(--space-2) 0;
+  cursor: pointer;
+}
+
+.writing__check input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15em;
+  accent-color: var(--color-accent);
+}

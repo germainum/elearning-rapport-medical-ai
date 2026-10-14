@@ -132,6 +132,7 @@ async function start() {
   const ctx = {
     passingScore,
     allowRetry,
+    moduleId: module.id,
     form: module.form,
     patientFile: module.patientFile,
     asset: (src) => `content/${src}`,
@@ -203,7 +204,7 @@ async function start() {
 
     // Fil d'Ariane : fil rouge › surtitre › titre de l'écran
     const screen = screens[index];
-    els.crumbs.innerHTML = [module.storyTitle, screen.kicker, screen.title]
+    els.crumbs.innerHTML = [screen.storyTitle ?? module.storyTitle, screen.kicker, screen.title]
       .filter(Boolean)
       .map((text, i, all) => `<li${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(text)}</li>`)
       .join('');
@@ -214,7 +215,8 @@ async function start() {
     els.next.setAttribute('aria-disabled', String(!tracker.isScreenDone(index)));
 
     renderToc();
-    const fileUnlocked = isPatientFileUnlocked();
+    // « hidePatientFile » : écrans d'un autre cas, où le dossier de la patiente principale n'a pas sa place
+    const fileUnlocked = isPatientFileUnlocked() && !screens[index].hidePatientFile;
     els.fileToggle.hidden = !fileUnlocked;
     // Ordinateur : onglet « Dossier patient » à droite ; le dossier garde son état d'un écran à l'autre
     els.folderTab.hidden = !fileUnlocked;
@@ -263,7 +265,7 @@ async function start() {
     } catch {
       // Préférence non mémorisée : sans conséquence
     }
-    applyFolderState(open && isPatientFileUnlocked());
+    applyFolderState(open && isPatientFileUnlocked() && !screens[index].hidePatientFile);
   }
 
   if (module.patientFile) {

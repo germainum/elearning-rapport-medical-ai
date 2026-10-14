@@ -123,3 +123,22 @@ Points clés ⚠ à valider :
   relance, délai, examen SMR, expertise.
 - Les messages clés définitifs.
 - Le logo et la charte, s'ils doivent apparaître.
+
+## Ajouts du 14.10.2026 (suite à la review) ⚠ à valider
+
+- **Distracteurs** réécrits à partir d'erreurs plausibles (formulation vague, conclusion au lieu de
+  limitation, date manquante, confusion activité habituelle / adaptée) ; longueurs équilibrées.
+  ⚠ À remplacer idéalement par les erreurs **réellement** observées dans les rapports reçus.
+- **Exercices de rédaction** (non notés) : limitations de Mme R. et de M. B., avec exemple et grille.
+- **Second cas, atteinte psychique** : M. B., 41 ans, gestionnaire de dossiers, épisode dépressif
+  moyen (F32.1), arrêt à 100 % depuis le 16.03.2026. ⚠ Cas, limitations modèles et conséquence
+  (« interroger le psychiatre, voire ordonner une expertise ») à valider.
+- **Notion « exigible »** expliquée dans l'écran capacité de travail. ⚠ Définition à valider.
+- **Écran « En pratique »** ⚠ chaque point à confirmer par l'OAI :
+  - délai : « figure dans le courrier » — préciser le délai habituel ;
+  - secret médical : autorisation donnée par l'assuré lors de la demande (art. 6a LAI) — vérifier
+    la référence et la formulation ;
+  - portail MedAI (portal-medai.ch), repris de aivd.ch ;
+  - rémunération : « rémunéré par l'AI, modalités indiquées par l'Office AI » — préciser le tarif.
+- Points restants de la review : valider le 50 % en activité adaptée et le pronostic « 3 à 6 mois »
+  (cas de Mme R.), crédits de formation continue avec Acamedia, test auprès de généralistes.

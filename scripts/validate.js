@@ -25,12 +25,12 @@ const SCORM12_SUSPEND_LIMIT = 4096;
 const VIDEO_SIZE_WARNING = 50 * 1024 * 1024;
 
 const SCREEN_TYPES = ['text', 'scene', 'quiz', 'summary'];
-const BLOCK_TYPES = ['text', 'video', 'attachment', 'document', 'patientFile', 'form', 'callout', 'question', 'reveal'];
+const BLOCK_TYPES = ['text', 'video', 'attachment', 'writing', 'document', 'patientFile', 'form', 'callout', 'question', 'reveal'];
 const DOCUMENT_KINDS = ['dossier', 'courrier', 'note'];
 const QUESTION_KINDS = ['single', 'multiple'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
-const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel'];
+const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile'];
 
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
@@ -41,6 +41,7 @@ const ALLOWED_KEYS = {
   scoring: ['passingScore', 'allowRetry'],
   text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video'],
   video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript'],
+  writingBlock: ['type', 'id', 'prompt', 'placeholder', 'model', 'checklist'],
   attachmentBlock: ['type', 'title', 'src', 'meta', 'label', 'preview'],
   preview: ['title', 'reference', 'fields', 'items', 'footer'],
   videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript'],
@@ -309,6 +310,15 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
           checkVideo(block, at, ALLOWED_KEYS.videoBlock);
           break;
 
+        case 'writing':
+          checkKeys(block, ALLOWED_KEYS.writingBlock, at);
+          if (!isText(block.id) || !ID_PATTERN.test(block.id)) error(at, '« id » obligatoire : lettres sans accents, chiffres, « - » ou « _ ».');
+          if (!isText(block.prompt)) error(at, '« prompt » (consigne de rédaction) est obligatoire.');
+          if (!isRichText(block.model)) error(at, '« model » (exemple de réponse) est obligatoire.');
+          if (block.placeholder !== undefined && !isText(block.placeholder)) error(at, '« placeholder » doit être un texte.');
+          if (block.checklist !== undefined && !(Array.isArray(block.checklist) && block.checklist.every(isText))) error(at, '« checklist » doit être une liste de textes.');
+          break;
+
         case 'attachment':
           checkKeys(block, ALLOWED_KEYS.attachmentBlock, at);
           if (!isText(block.title)) error(at, '« title » (nom du document) est obligatoire.');
@@ -462,7 +472,8 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       return error(where, `« type » doit valoir ${SCREEN_TYPES.map((t) => `"${t}"`).join(', ')}.`);
     }
     checkKeys(screen, ALLOWED_KEYS[screen.type], where);
-    for (const key of ['kicker', 'continueLabel']) {
+    if (screen.hidePatientFile !== undefined && typeof screen.hidePatientFile !== 'boolean') error(where, '« hidePatientFile » doit valoir true ou false.');
+    for (const key of ['kicker', 'continueLabel', 'storyTitle']) {
       if (screen[key] !== undefined && !isText(screen[key])) error(where, `« ${key} » doit être un texte.`);
     }
 
