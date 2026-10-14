@@ -10,8 +10,9 @@
   Intitulés exacts : `docs/formulaire-002099-MT.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins
-  traitants) et `docs/source-faq-aivd.md` (FAQ « Corps médical » d'aivd.ch), à privilégier sur toute
-  formulation inventée.
+  traitants) `docs/source-faq-aivd.md` (FAQ « Corps médical » d'aivd.ch) et
+  `docs/source-atelier-rapport-medical.md` (atelier SMR du 05.09.2024 : 3 piliers, CIM-10, poste réel,
+  psychosocial), à privilégier sur toute formulation inventée.
 - **Public** : médecins installés, peu de temps, souvent sur **tablette ou mobile**.
 - **Langue** : français (interface et contenu). Code et identifiants en anglais, commentaires en français.
 - **Test de référence** : SCORM Cloud avant livraison à Acamedia.
@@ -68,7 +69,7 @@ Fiche patient : définie une fois à la racine (`patientFile`), affichée dans u
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).
 Illustrations (`content/images/`, style plat, traits noirs, palette AI VD) : un **médecin généraliste
 récurrent** suit le parcours — `cabinet-courrier.svg` (courrier), `consultation.svg` (anamnèse),
-`redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-b.svg`.
+`redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-b.svg`, `m-c.svg` (troisième cas, psychosocial).
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
 Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
 Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback par conséquence.

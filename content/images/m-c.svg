@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle-mc"><circle cx="80" cy="80" r="80"/></clipPath>
+  </defs>
+  <g clip-path="url(#cercle-mc)" stroke="#1b1b1b" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <rect width="160" height="160" fill="#e6f2e9" stroke="none"/>
+    <!-- Veste de travail et t-shirt -->
+    <path d="M18 170 C20 128 46 114 80 114 C114 114 140 128 142 170 Z" fill="#009628"/>
+    <path d="M64 116 C68 128 92 128 96 116 Z" fill="#bec3c3"/>
+    <path d="M58 122 L58 170 M102 122 L102 170" fill="none"/>
+    <rect x="70" y="94" width="20" height="22" fill="#c48a5e"/>
+    <!-- Visage -->
+    <ellipse cx="80" cy="68" rx="29" ry="33" fill="#d39a6c"/>
+    <!-- Moustache -->
+    <path d="M66 84 C72 79 77 81 80 83 C83 81 88 79 94 84 C88 87 72 87 66 84 Z" fill="#3a2a20"/>
+    <!-- Cheveux courts, tempes grisonnantes -->
+    <path d="M50 64 C46 34 66 28 82 28 C100 28 114 38 110 64 C106 50 98 42 80 42 C64 42 54 50 50 64 Z" fill="#3a2a20"/>
+    <path d="M51 62 C51 56 53 52 55 50 L56 64 Z M109 62 C109 56 107 52 105 50 L104 64 Z" fill="#bec3c3" stroke-width="2"/>
+  </g>
+  <!-- Yeux fatigués -->
+  <g fill="#1b1b1b">
+    <circle cx="69" cy="67" r="3"/>
+    <circle cx="91" cy="67" r="3"/>
+  </g>
+  <g fill="none" stroke="#1b1b1b" stroke-width="2.5" stroke-linecap="round">
+    <path d="M62 60 C66 58 72 59 76 61"/>
+    <path d="M84 61 C88 59 94 58 98 60"/>
+    <!-- Bouche légèrement tombante -->
+    <path d="M73 92 C77 90 83 90 87 92"/>
+  </g>
+</svg>

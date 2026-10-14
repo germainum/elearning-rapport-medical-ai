@@ -150,3 +150,25 @@ calcul de l'incapacité sur un 100 %, diagnostic ≠ degré d'incapacité, aptit
 malgré l'incapacité, détection précoce, rapport actualisé si l'état évolue, formations AI Vaud–SVM
 et CFAI, horaires de la centrale (lu–ve 8 h–17 h).
 **Toujours ⚠** : délai de retour, rémunération du rapport, base légale du secret médical (art. 6a LAI).
+
+## Intégration de l'atelier n°1 « Le rapport médical » (14.10.2026)
+
+Source : `docs/source-atelier-rapport-medical.md` (atelier SMR du 05.09.2024). Ajouts :
+
+- **Diagnostics** : code CIM-10 (M51.1 pour Mme R.), date de pose, classement selon l'impact.
+  ⚠ Le code M51.1 est une proposition à valider par le SMR.
+- **Anamnèse** : encadré « à quoi elle sert pour le médecin du SMR » (cohérence diagnostics / status).
+- **Capacité** : encadré « Connaître le poste réel » (cahier des charges) ; dossier de Mme R. complété
+  par son poste. ⚠ Le 002.099 MT n'a pas de rubrique dédiée : on propose de décrire le poste à la
+  question 7. À confirmer.
+- **Pronostic** : encadré « À qui sert le pronostic ? » (gestionnaire de rente, conseiller en
+  réadaptation, SMR ni trop tôt ni trop tard). ⚠ L'atelier parle de tendance favorable / défavorable,
+  le formulaire de taux et de délai : le module demande les deux. À trancher.
+- **Incapacités attestées** : encadré sur le délai d'attente (40 % en moyenne pendant un an, sans
+  interruption notable), les interruptions et la rente limitée dans le temps ; taux sur 100 %.
+- **Troisième cas, M. C.** (cas pratique de l'atelier) : menuisier chef d'équipe, arthrose du poignet
+  droit, épicondylite, état dépressif réactionnel, contexte de divorce et de précarité. Deux questions :
+  limitations (dont l'erreur « symptôme au lieu de limitation », écho à l'exemple du genou) et place
+  du contexte psychosocial (anamnèse oui, motif d'incapacité non). ⚠ Formulations à valider.
+- **Synthèse** : les **3 piliers** (diagnostic, limitations, capacité de travail) et le psychosocial.
+- Durée portée à 25 minutes (13 écrans, 13 questions).
