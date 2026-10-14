@@ -277,8 +277,21 @@
   position: relative;
 }
 
-/* Trait vertical entre deux repères */
-.toc__step:not(:last-child)::before {
+/* Titre de groupe du sommaire (section du formulaire) */
+.toc__section {
+  margin-top: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-accent);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.toc__section:first-child {
+  margin-top: 0;
+}
+
+/* Trait vertical entre deux repères (pas au-dessus d'un titre de groupe) */
+.toc__step:not(:last-child):not(:has(+ .toc__section))::before {
   content: "";
   position: absolute;
   left: calc(var(--space-3) + 0.625rem - 1px);
@@ -289,7 +302,7 @@
   background: var(--color-step);
 }
 
-.toc__step--done:not(:last-child)::before {
+.toc__step--done:not(:last-child):not(:has(+ .toc__section))::before {
   background: var(--color-brand);
 }
 

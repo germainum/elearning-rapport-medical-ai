@@ -9,8 +9,11 @@
   **Rapport médical somatique : Réadaptation professionnelle / Rente** (formulaire OAI **002.099**, v. 09.2023,
   6 pages : 5 sections + annexe des travaux exigibles + annexe sur l'aptitude à la réadaptation).
   Décision du 14.10.2026 : toute la formation suit ce formulaire (il remplace le 002.099 MT, 1 page).
-  Les écrans suivent les sections : 1 informations générales, 2.1–2.4, 2.5–2.6, 2.7–2.8, 3.1–3.3, 3.4 + annexe
-  des travaux exigibles, 4 (+ 3.5, 3.6), annexe réadaptation, relecture (section 5), second cas M. C.
+  **Point par point** (décision du 14.10.2026 : « trop d'info par écran ») : **un écran par point du formulaire**
+  (1.1 à 4.5, section 5, pièces jointes, annexe des travaux exigibles, annexe réadaptation 1 et 2), puis 2 écrans
+  M. C. et 3 écrans pratiques. Chaque écran : une phrase d'accroche au plus, l'extrait vide, **une question à
+  choix unique à exactement 3 réponses**, puis la réponse remplie. Pas d'encadré « À retenir » : l'essentiel
+  passe dans le feedback. 35 écrans, 33 questions, ~35 min. Champ `section` : regroupe les écrans dans le sommaire.
   Intitulés exacts : `docs/formulaire-002099.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins
@@ -52,7 +55,7 @@
 | `quiz`    | QCM à choix unique (`single`) ou multiple (`multiple`), avec feedback |
 | `summary` | Synthèse finale : points clés + score                      |
 
-Champs communs : `kicker` (surtitre), `continueLabel` (texte du bouton vers l'écran suivant),
+Champs communs : `section` (titre de groupe dans le sommaire), `kicker` (surtitre), `continueLabel` (texte du bouton vers l'écran suivant),
 `storyTitle` (fil rouge propre à l'écran), `hidePatientFile` (masque le dossier de Mme R., ex. second cas).
 Bloc `writing` : exercice de rédaction non noté (texte gardé dans `localStorage`, jamais transmis au LMS).
 Vidéo : champ `video` d'un écran `text` (en tête) ou bloc `video` d'une scène. Fichier MP4 **embarqué**

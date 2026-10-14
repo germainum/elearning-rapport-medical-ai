@@ -209,3 +209,17 @@ Source : `docs/formulaire-002099.md` (intitulés exacts). 14 écrans, 13 questio
 - ⚠ **3.6 capacité de conduire** : encadré seulement, pas de question. À compléter si l'OAI le souhaite.
 - La page 5 n'a pas de titre sur le formulaire : le module l'appelle « Annexe : travaux exigibles dans
   une activité adaptée ».
+
+## Point par point (14.10.2026) ⚠ à valider
+
+Demande : « aller point par point, avec à chaque fois 3 possibilités pour répondre ; trop d'info par écran ».
+
+- **Un écran par point du formulaire** : 1.1 → 4.5, section 5, pièces jointes, annexe des travaux exigibles
+  (ligne « soulever/porter »), annexe réadaptation (1 contre-indication, 2 pronostic d'amélioration).
+- Chaque écran : extrait vide → **une question, 3 réponses, choix unique** → feedback de conséquence → réponse remplie.
+- Les encadrés « À retenir » sont supprimés ; leur contenu passe dans les feedbacks.
+- M. C. : 2 écrans (3.4 limitations, 2.1 contexte psychosocial). En pratique : 3 écrans-questions
+  (envoi MedAI, secret médical art. 6a LAI, détection précoce). La rémunération et le rapport actualisé
+  ne sont plus présentés (⚠ à réintégrer si l'OAI le souhaite).
+- 35 écrans, 33 questions, ~35 minutes. ⚠ Durée à discuter avec Acamedia (crédits).
+- ⚠ Toutes les réponses modèles et tous les distracteurs sont des propositions à valider par le SMR.

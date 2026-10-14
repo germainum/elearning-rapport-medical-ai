@@ -329,7 +329,7 @@ async function start() {
   }
 
   function tocItems() {
-    return screens.map((screen, i) => {
+    return screens.flatMap((screen, i) => {
         const item = document.createElement('li');
         const title = escapeHtml(plainText(screen.title));
         let status = 'disponible';
@@ -357,7 +357,13 @@ async function start() {
           <span class="toc__label">${title}</span>
           <span class="toc__status">${status}</span>`;
         item.append(element);
-        return item;
+        // Titre de groupe (« Section 2 · Situation médicale ») quand le champ « section » change
+        const section = screen.section ?? null;
+        if (!section || section === (screens[i - 1]?.section ?? null)) return [item];
+        const heading = document.createElement('li');
+        heading.className = 'toc__section';
+        heading.textContent = plainText(section);
+        return [heading, item];
       });
   }
 

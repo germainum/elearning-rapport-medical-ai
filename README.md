@@ -113,6 +113,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 | `kicker`        | surtitre facultatif, au-dessus du titre (ex. « Question 4 du formulaire ») |
 | `title`         | titre de l'écran                                                     |
 | `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. C. ») |
+| `section`       | titre de groupe dans le sommaire (ex. « Section 2 · Situation médicale ») : affiché quand il change d'un écran à l'autre |
 | `hidePatientFile` | `true` : masque le dossier patient pendant cet écran (autre cas, informations générales) |
 | `continueLabel` | texte du bouton pour passer à l'écran suivant (« Suivant » par défaut), ex. « Passer à la capacité de travail » |
 

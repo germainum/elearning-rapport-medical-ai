@@ -31,7 +31,7 @@ const QUESTION_KINDS = ['single', 'multiple'];
 const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
-const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile'];
+const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'section'];
 
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
@@ -486,7 +486,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     }
     checkKeys(screen, ALLOWED_KEYS[screen.type], where);
     if (screen.hidePatientFile !== undefined && typeof screen.hidePatientFile !== 'boolean') error(where, '« hidePatientFile » doit valoir true ou false.');
-    for (const key of ['kicker', 'continueLabel', 'storyTitle']) {
+    for (const key of ['kicker', 'continueLabel', 'storyTitle', 'section']) {
       if (screen[key] !== undefined && !isText(screen[key])) error(where, `« ${key} » doit être un texte.`);
     }
 
