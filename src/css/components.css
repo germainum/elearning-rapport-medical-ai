@@ -1490,3 +1490,30 @@ button.toc__item:hover {
     display: inline;
   }
 }
+
+/* ================================================================
+   Très grands écrans : tout grandit progressivement
+   ================================================================ */
+
+/*
+ * Au-delà de 1440 px, la taille de base suit la largeur de l'écran :
+ * 16 px à 1440 px, ~18 px à 1920 px, 20 px au maximum (~2560 px).
+ * Exprimée en rem et en %, elle part de la taille choisie dans le navigateur
+ * de l'utilisateur : ses réglages d'accessibilité restent respectés.
+ */
+@media (min-width: 90rem) {
+  html {
+    font-size: clamp(100%, calc(0.357vw + 0.679rem), 125%);
+  }
+}
+
+/* À partir de 1920 px : colonnes un peu plus larges, lignes de texte toujours lisibles */
+@media (min-width: 120rem) {
+  :root {
+    --measure: 50rem;
+    --sidebar-width: 17rem;
+    --file-width: 21rem;
+    --layout-gap: 2rem;
+    --shell-pad: 2rem;
+  }
+}

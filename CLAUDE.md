@@ -136,6 +136,8 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
 - **≥ 1280 px** : en plus, **dossier patient permanent à droite** (`#file-side`) dès qu'il est
   découvert ; le bouton « Dossier patient » du bandeau disparaît et le rappel sous la fiche
   s'adapte (`.only-narrow` / `.only-wide`).
+- **≥ 1440 px** : tout grandit progressivement (taille de base 16 px à 1440 px → 20 px max vers 2560 px,
+  relative à la taille choisie dans le navigateur) ; **≥ 1920 px** : colonnes élargies (17 / 50 / 21rem).
 - Le sommaire est rendu deux fois (menu `#toc-list` et colonne `#toc-side-list`), une seule
   version visible à la fois.
 - Police **Work Sans** (celle du site), **embarquée** dans `src/fonts/` (version variable 100–900,
