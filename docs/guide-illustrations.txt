@@ -1,0 +1,26 @@
+GUIDE DES ILLUSTRATIONS — OFFICE AI VAUD
+
+Références : six PNG fournis par le producteur du module. Style et inventaire validés, puis trois tests (courrier, consultation, Mme R.) validés avant la production des quatre autres images.
+
+STYLE
+Illustration 2D d'apparence vectorielle, contours arrondis presque noirs, formes simples, silhouettes en buste, objets limités à ceux nécessaires à la scène. Palette mesurée : #0C0C17 (contours et cheveux), #0F4281 (bleu principal), #129739 (vert ponctuel), #FFFFFF (blanc). La variante indigo #28347D d'une référence n'est pas retenue. Contours d'environ 8–10 px dans les références larges de 1329 px, à adapter proportionnellement.
+Pas de texte, chiffres, logos ou filigranes. Personnes fictives, gestes plausibles, expressions sobres et respectueuses ; aucune dramatisation du handicap. Coiffures, âges et genres variés ; les visages restent blancs selon le langage graphique retenu. Les tests validés comportent de légères nuances et une texture discrète : ce ne sont pas des fichiers vectoriels à aplats mathématiquement uniformes.
+Fonds blancs opaques : JPEG ne permet pas la transparence. Portraits carrés, scènes en paysage. Mme R. conserve son chignon bas, son visage et sa tunique entre portrait et consultation.
+
+BLOC DE STYLE COMMUN
+Create a clean, flat vector-style editorial illustration for professional medical education. Use near-black #0C0C17 outlines and hair, deep blue #0F4281 fills, sparse green #129739 accents, and white #FFFFFF negative space. Keep rounded, consistent outlines, simple facial features, restrained expressions, and credible adult proportions. Show diverse fictional adults with natural gestures and anatomically plausible hands. Use minimal contextual objects, uncluttered compositions, generous margins, and a plain white background. Keep recurring characters visually consistent. No gradients, textures, 3D rendering, cast shadows, exaggerated anatomy, text, numbers, lettering-like marks, logos, or watermarks.
+
+GÉNÉRATION
+Outil : ImageGen intégré. Les tests approuvés servent de références de style pour la suite. Les images sont produites individuellement, et non extraites de l'ancienne planche composite.
+Trois tests : courrier reçu au cabinet ; consultation de Mme R. pour une gêne lombaire ; portrait de Mme R., 47 ans, aide-soignante.
+Prompts de scène des quatre images complémentaires, ajoutés au bloc commun :
+redaction-rapport.jpg : Landscape approximately 1.595:1, final 1584x993. Fictional East Asian male physician about 50, straight short dark hair with white temples, no stereotyped features, white coat, blue shirt, seated at desk writing on blank paper with a naturally held pen. Monitor beside him displays only empty rectangular fields, one highlighted green, absolutely no text or lettering-like marks. Simple folder. Natural hands, minimal plausible medical office.
+m-c.jpg : Square portrait final 1254x1254. Fictional M. C., 46-year-old male carpenter and team leader, short dark hair with white at temples, small moustache, blue work jacket over white plain shirt, no badge or tools. Neutral dignified expression, not miserable or unkempt. Head and shoulders, white backdrop, all head inside frame. White face fill matching approved references.
+envoi-rapport.jpg : Landscape approximately 1.599:1, final 1586x992. No people. Minimal laptop on desk with a blank document silhouette, simple paperclip symbol and green checkmark on screen, plus one closed postal envelope and a small stack of blank pages beside it. Convey secure portal submission or postal mailing. No email interface, no letters, no numbers, no logos. White backdrop, minimal flat graphics.
+merci.jpg : Landscape approximately 1.599:1, final 1586x992. Fictional female general practitioner about 60, short wavy hair with white strands, simple spectacles, white coat and blue blouse. Friendly restrained smile, one hand raised in a natural greeting with anatomically plausible five fingers. Beside her a blank report sheet with green checkmark and a minimal stopwatch with two hands but NO numerals or tick labels. White face fill matching references. No heart or other clutter. Plain white backdrop.
+
+INTÉGRATION ET CONTRÔLES
+Sept JPEG remplacés aux mêmes chemins, dimensions exactes conservées ; export optimisé qualité 92, inférieur à 300 000 octets par image. Textes alternatifs actualisés, y compris les portraits auparavant décoratifs. Version : 0.24.1. Questions, réponses, identifiants et logique SCORM inchangés.
+Inventaire technique avant/après : inventaire-illustrations.json. Galerie : apercu-illustrations.html.
+Validation du contenu et construction SCORM 1.2/2004 réussies. Six écrans contrôlés dans Chromium aux largeurs 320 et 1440 px : les sept images chargent, sans débordement horizontal ni erreur JavaScript. Navigation introduction → courrier testée au clavier à 320 px. Revue visuelle des sept illustrations et de captures mobile/ordinateur effectuée.
+Images à revoir pour défaut bloquant : aucune détectée. Les quatre images complémentaires restent proposées à la revue humaine dans la Pull Request. Aucun test sur SCORM Cloud ou MOS Chorus n'a été effectué ; les contrôles de navigateur utilisent le mode SCORM simulé.

@@ -141,8 +141,8 @@ function medicalRecord(file, ctx, { folder = false } = {}) {
 }
 
 /**
- * Courrier reçu : feuille de papier sortie de son enveloppe (en-tête avec logo, expéditeur, destinataire,
- * lieu et date, « Concerne », corps, signature, annexes). Les plis et l'enveloppe sont décoratifs (CSS).
+ * Courrier reçu : carte avec en-tête, logo, expéditeur, destinataire,
+ * lieu et date, « Concerne », corps, signature et annexes.
  */
 function letter(block, ctx) {
   const lines = (value) => [].concat(value ?? []).map(inline).join('<br>');

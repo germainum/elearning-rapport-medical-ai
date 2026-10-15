@@ -86,7 +86,7 @@ Fiche patient : définie une fois à la racine (`patientFile`), affichée dans u
 `{ "type": "patientFile" }` et consultable ensuite à tout moment via le bouton « Dossier patient » du bandeau
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).
 Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
-guide de style : « GUIDE DES ILLUSTRATIONS » de l'outil de production) : un **médecin généraliste** suit le parcours —
+guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/apercu-illustrations.html`) : un **médecin généraliste** suit le parcours —
 `cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),
 `envoi-rapport.jpg` (en pratique), `merci.jpg` (remerciements) — + portraits `mme-r.jpg` et `m-c.jpg`
 (second cas, psychosocial). Tous ont un texte alternatif (portraits compris). Fonds blancs opaques (pas de transparence
