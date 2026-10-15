@@ -1,0 +1,153 @@
+[
+  {
+    "path": "content/images/cabinet-courrier.jpg",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "format": "JPEG",
+    "bytes_before": 190464,
+    "bytes_after": 170327,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.screens[1].blocks[0].image",
+        "alt_before": "Le médecin généraliste à son bureau, une enveloppe de l'Office AI à la main.",
+        "decorative_before": false
+      },
+      {
+        "file": "docs/apercu-illustrations.html"
+      }
+    ],
+    "alt_after": "Un médecin à son bureau lit une lettre sortie de son enveloppe, à côté de dossiers."
+  },
+  {
+    "path": "content/images/consultation.jpg",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "format": "JPEG",
+    "bytes_before": 225296,
+    "bytes_after": 191597,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.screens[5].blocks[0].image",
+        "alt_before": "Consultation : la médecin, tablette en main, face à Mme R. qui se tient le bas du dos ; au mur, une planche de la colonne lombaire.",
+        "decorative_before": false
+      },
+      {
+        "file": "docs/apercu-illustrations.html"
+      }
+    ],
+    "alt_after": "Une médecin écoute Mme R., assise face à elle, qui indique une gêne dans le bas du dos."
+  },
+  {
+    "path": "content/images/redaction-rapport.jpg",
+    "dimensions": [
+      1584,
+      993
+    ],
+    "format": "JPEG",
+    "bytes_before": 191540,
+    "bytes_after": 184770,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.screens[16].blocks[0].image",
+        "alt_before": "Le médecin rédige le rapport à son bureau ; le formulaire affiché sur son ordinateur comporte un champ surligné en vert.",
+        "decorative_before": false
+      },
+      {
+        "file": "docs/apercu-illustrations.html"
+      }
+    ],
+    "alt_after": "Un médecin rédige un rapport sur papier, à côté d’un écran présentant des champs de formulaire dont un en vert."
+  },
+  {
+    "path": "content/images/mme-r.jpg",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "format": "JPEG",
+    "bytes_before": 207911,
+    "bytes_after": 130423,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.patientFile.image",
+        "alt_before": null,
+        "decorative_before": true
+      }
+    ],
+    "alt_after": "Portrait illustré de Mme R., 47 ans, les cheveux attachés en chignon et vêtue d’une tunique bleue."
+  },
+  {
+    "path": "content/images/m-c.jpg",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "format": "JPEG",
+    "bytes_before": 250200,
+    "bytes_after": 140609,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.screens[29].blocks[1].image",
+        "alt_before": null,
+        "decorative_before": true
+      },
+      {
+        "file": "docs/apercu-illustrations.html"
+      }
+    ],
+    "alt_after": "Portrait illustré de M. C., 46 ans, vêtu d’une veste de travail bleue."
+  },
+  {
+    "path": "content/images/envoi-rapport.jpg",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "format": "JPEG",
+    "bytes_before": 180467,
+    "bytes_after": 150262,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.screens[31].blocks[0].image",
+        "alt_before": "Un ordinateur portable affiche l'envoi confirmé du rapport et de ses pièces jointes ; un avion en papier part vers le bâtiment de l'Office AI.",
+        "decorative_before": false
+      },
+      {
+        "file": "docs/apercu-illustrations.html"
+      }
+    ],
+    "alt_after": "Un ordinateur affiche un document, un trombone et une coche verte ; une enveloppe fermée représente l’envoi postal."
+  },
+  {
+    "path": "content/images/merci.jpg",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "format": "JPEG",
+    "bytes_before": 201014,
+    "bytes_after": 182158,
+    "uses": [
+      {
+        "file": "content/module.json",
+        "json_path": "$.screens[35].image",
+        "alt_before": "La médecin généraliste salue en souriant, entre un rapport validé d'une coche verte et un chronomètre ; un cœur vert au-dessus de son épaule.",
+        "decorative_before": false
+      },
+      {
+        "file": "docs/apercu-illustrations.html"
+      }
+    ],
+    "alt_after": "Une médecin salue de la main, accompagnée d’un rapport validé et d’un chronomètre sans chiffres."
+  }
+]

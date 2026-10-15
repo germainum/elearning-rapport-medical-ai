@@ -1,3 +1,5 @@
+ARCHIVE — Cette description concerne les anciennes images 3D remplacées en version 0.24.1. Pour les illustrations actuelles, consulter guide-illustrations.txt et apercu-illustrations.html.
+
 ILLUSTRATIONS AI VAUD — 15 octobre 2026
 
 Outil : image_gen intégré, puis encodage JPEG qualité 90 sans recadrage.
