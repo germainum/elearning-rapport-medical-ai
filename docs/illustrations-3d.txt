@@ -1,0 +1,21 @@
+ILLUSTRATIONS AI VAUD — 15 octobre 2026
+
+Outil : image_gen intégré, puis encodage JPEG qualité 90 sans recadrage.
+La référence de l'ancienne conversation n'était pas accessible. La première génération « rédaction » a servi de référence de style aux six images finales.
+
+Direction commune des prompts :
+Use case: stylized-concept. Soft miniature 3D, rounded adult characters, matte clay/fabric textures, sage green warm beige restrained coral palette, soft ambient light. Professional, reassuring and empathetic. No readable text, logos or watermark. Landscape 8:5 except square patient portrait.
+
+Prompts de scène (avec la direction commune et la première image comme référence de style) :
+- cabinet-courrier.jpg : Monday morning at beige medical office desk, middle-aged male doctor with medium warm brown skin, short dark brown hair, round dark glasses, white coat and sage shirt, holding an opened cream envelope and looking at letter. Small stack of morning mail and sage cup. Abstract lines only.
+- consultation.jpg : Black female doctor about 40, natural coiled hair, white coat over sage shirt, holding tablet and listening to Mme R., 47-year-old light-skinned woman with brown bun and sage nursing tunic. Patient seated sideways with hand on lower back and mild discomfort. Small lumbar spine diagram on wall.
+- redaction-rapport.jpg : Edit master illustration: change only doctor identity to East Asian male physician about 50, short straight black hair lightly gray at sides, round glasses. Preserve desk, white coat, sage shirt, pen writing paper report and monitor with sage highlighted form field.
+- m-c.jpg : Square head-and-shoulders portrait of 46-year-old male carpenter, light olive skin, short dark brown hair graying at temples, small brown moustache, no glasses. Sage work jacket, beige T-shirt, warm cream backdrop, mildly tired and concerned but dignified expression.
+- envoi-rapport.jpg : Laptop with abstract report, attachment symbol and sage success checkmark. Cream paper airplane toward miniature modern administrative building. Closed postal envelope beside laptop. No people.
+- merci.jpg : Female physician about 50, fair skin, short wavy auburn hair, round glasses, white coat over sage blouse, smiling and waving. Freestanding report with green checkmark, beige stopwatch, small sage heart above shoulder.
+
+Préférence à conserver pour les prochaines illustrations : varier le genre et les origines représentées des professionnels au fil du parcours, en conservant l'identité des patients des cas pédagogiques.
+
+Intégration : six références SVG remplacées par JPEG ; trois descriptions d'accessibilité adaptées. Anciens SVG conservés pour réversibilité. Logo et portrait de Mme R. inchangés.
+Validation : module valide (36 écrans, 33 questions), builds SCORM 1.2 et 2004 réussis, manifestes XML et présence des ressources dans les ZIP vérifiés. Comparaison structurelle avec HEAD : aucune modification hors image.src et image.alt. Moteur, suivi, score, ordre et identifiants inchangés.
+Limite : contrôle local ; pas de recette dans MOS Chorus ou SCORM Cloud.

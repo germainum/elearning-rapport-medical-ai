@@ -343,7 +343,7 @@
             "Lundi matin, parmi le courrier du cabinet, une enveloppe de l'Office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années."
           ],
           "image": {
-            "src": "images/cabinet-courrier.svg",
+            "src": "images/cabinet-courrier.jpg",
             "alt": "Le médecin généraliste à son bureau, une enveloppe de l'Office AI à la main.",
             "position": "side"
           }
@@ -724,8 +724,8 @@
           "type": "text",
           "body": ["Le 5 octobre, vous avez revu Mme R. en consultation. Vous reprenez son dossier."],
           "image": {
-            "src": "images/consultation.svg",
-            "alt": "Consultation : le médecin, tablette en main, face à Mme R. qui se tient le bas du dos ; au mur, une planche de la colonne lombaire.",
+            "src": "images/consultation.jpg",
+            "alt": "Consultation : la médecin, tablette en main, face à Mme R. qui se tient le bas du dos ; au mur, une planche de la colonne lombaire.",
             "position": "side"
           }
         },
@@ -1286,8 +1286,8 @@
             "La question décisive : une limitation décrit **ce que la personne ne peut plus faire**, de façon mesurable, sans répéter le diagnostic."
           ],
           "image": {
-            "src": "images/redaction-rapport.svg",
-            "alt": "Le médecin remplit le rapport sur son ordinateur ; le champ en cours de rédaction est surligné en vert.",
+            "src": "images/redaction-rapport.jpg",
+            "alt": "Le médecin rédige le rapport à son bureau ; le formulaire affiché sur son ordinateur comporte un champ surligné en vert.",
             "position": "side"
           }
         },
@@ -1967,7 +1967,7 @@
             { "label": "Diagnostics", "value": "Arthrose du poignet droit, épicondylite chronique à droite" },
             { "label": "Psychique", "value": "État dépressif réactionnel" }
           ],
-          "image": { "src": "images/m-c.svg", "decorative": true },
+          "image": { "src": "images/m-c.jpg", "decorative": true },
           "reference": "Dossier n° 2012-0144"
         },
         { "type": "reveal", "label": "Remplir la question 3.4" },
@@ -2089,7 +2089,7 @@
             "Votre rapport est prêt. Il ne reste qu'à l'envoyer, avec les pièces utiles : par courrier ou en ligne, via MedAI."
           ],
           "image": {
-            "src": "images/envoi-rapport.svg",
+            "src": "images/envoi-rapport.jpg",
             "alt": "Un ordinateur portable affiche l'envoi confirmé du rapport et de ses pièces jointes ; un avion en papier part vers le bâtiment de l'Office AI.",
             "position": "side"
           }
@@ -2237,8 +2237,8 @@
         "*L'Office AI du canton de Vaud*"
       ],
       "image": {
-        "src": "images/merci.svg",
-        "alt": "Le médecin généraliste salue en souriant, entre un rapport validé d'une coche verte et un chronomètre ; un cœur vert au-dessus de lui.",
+        "src": "images/merci.jpg",
+        "alt": "La médecin généraliste salue en souriant, entre un rapport validé d'une coche verte et un chronomètre ; un cœur vert au-dessus de son épaule.",
         "position": "top"
       }
     }
