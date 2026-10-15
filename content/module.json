@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.25.0",
+  "version": "0.25.1",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
   "author": "Office AI du canton de Vaud",
-  "durationMinutes": 35,
+  "durationMinutes": 45,
   "storyTitle": "Rapport de Mme R.",
   "help": {
     "title": "Une question ?",
@@ -315,7 +315,7 @@
       "body": [
         "*Contenu provisoire : cas fictif et bonnes réponses à valider par l'Office AI du canton de Vaud.*",
         "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre.",
-        "Comptez environ 35 minutes. Vous pouvez interrompre le module et le reprendre plus tard."
+        "Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre plus tard."
       ],
       "journey": {
         "title": "Votre parcours dans ce module",

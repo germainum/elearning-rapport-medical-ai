@@ -13,7 +13,7 @@
   (1.1 à 4.5, section 5, pièces jointes, annexe des travaux exigibles, annexe réadaptation 1 et 2), puis 2 écrans
   M. C. et 3 écrans pratiques. Chaque écran : une phrase d'accroche au plus, l'extrait vide, **une question à
   choix unique à exactement 3 réponses** et son feedback (sans « réponse remplie » : redondant avec le feedback, retirée le 14.10.2026). Pas d'encadré « À retenir » : l'essentiel
-  passe dans le feedback. 35 écrans, 33 questions, ~35 min. Champ `section` : regroupe les écrans dans le sommaire.
+  passe dans le feedback. 35 écrans, 33 questions, ~45 min. Champ `section` : regroupe les écrans dans le sommaire.
   Intitulés exacts : `docs/formulaire-002099.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins

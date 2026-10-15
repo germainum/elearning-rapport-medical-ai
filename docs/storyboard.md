@@ -221,5 +221,5 @@ Demande : « aller point par point, avec à chaque fois 3 possibilités pour ré
 - M. C. : 2 écrans (3.4 limitations, 2.1 contexte psychosocial). En pratique : 3 écrans-questions
   (envoi MedAI, secret médical art. 6a LAI, détection précoce). La rémunération et le rapport actualisé
   ne sont plus présentés (⚠ à réintégrer si l'OAI le souhaite).
-- 35 écrans, 33 questions, ~35 minutes. ⚠ Durée à discuter avec Acamedia (crédits).
+- 35 écrans, 33 questions, ~45 minutes (durée annoncée fixée à 45 min le 15.10.2026). ⚠ Durée à discuter avec Acamedia (crédits).
 - ⚠ Toutes les réponses modèles et tous les distracteurs sont des propositions à valider par le SMR.
