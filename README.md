@@ -106,7 +106,8 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 - `passingScore` : seuil de réussite en pourcentage (80 si absent).
 - `allowRetry` : la synthèse liste les questions fausses et propose de les reprendre (une par une ou toutes),
   même si le module est réussi ; les bonnes réponses sont conservées et le score est recalculé.
-- `version` : à augmenter à chaque livraison (`1.0.0` → `1.0.1` pour une correction, `1.1.0` pour un ajout).
+- `version` : à augmenter à chaque livraison (elle sert aussi à **forcer le rechargement des images, vidéos et PDF**
+  remplacés sous le même nom : les adresses des fichiers reçoivent `?v=<version>`) (`1.0.0` → `1.0.1` pour une correction, `1.1.0` pour un ajout).
 
 ### Champs communs à tous les écrans
 

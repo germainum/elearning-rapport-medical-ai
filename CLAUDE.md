@@ -143,6 +143,9 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
   D'où la contrainte : identifiants d'options = un caractère `[a-z0-9]`.
 - **Manifeste** : pas de `adlcp:masteryscore` (le module calcule lui-même passed/failed), pas de
   fichiers XSD embarqués.
+- **Cache** : toutes les adresses de fichiers du contenu (images, vidéo, sous-titres, PDF) sont suffixées de `?v=<version>`
+  (`asset()` dans `app.js`). Une image remplacée sous le même nom est donc rechargée dès que la `version` de
+  `module.json` change : **augmenter la version à chaque livraison**. Le manifeste SCORM liste les fichiers sans suffixe.
 - **Chargement** : modules ES + `fetch('content/module.json')`. Nécessite un serveur http (LMS ou
   `npm start`). Ouvrir `index.html` en double-clic ne fonctionne pas.
 - **Visuel** : thème clair uniquement (`src/css/tokens.css`), sans logo pour l'instant.

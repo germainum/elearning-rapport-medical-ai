@@ -81,11 +81,14 @@ async function start() {
   document.documentElement.lang = module.language || 'fr';
   els.moduleTitle.textContent = plainText(module.title);
   els.storyTitle.textContent = plainText(module.storyTitle ?? '');
+  // Adresse d'un fichier du contenu, suffixée du numéro de version : une image ou une vidéo remplacée sous le même nom
+  // est rechargée dès la livraison suivante (sinon le navigateur ou le LMS peut servir l'ancienne version en cache)
+  const asset = (src) => `content/${src}?v=${encodeURIComponent(module.version ?? '0')}`;
   if (module.logo) {
-    els.brandLogo.src = `content/${module.logo.src}`;
+    els.brandLogo.src = asset(module.logo.src);
     els.brandLogo.alt = module.logo.alt;
     els.brandLogo.hidden = false;
-    els.sideLogo.src = `content/${module.logo.src}`;
+    els.sideLogo.src = asset(module.logo.src);
     els.sideLogo.alt = module.logo.alt;
     els.sideLogo.hidden = false;
   } else {
@@ -145,7 +148,7 @@ async function start() {
     form: module.form,
     patientFile: module.patientFile,
     logo: module.logo,
-    asset: (src) => `content/${src}`,
+    asset,
     getAnswer: (questionId) => tracker.getAnswer(questionId),
     result: () => tracker.result(passingScore),
     getRevealed: (screen) => tracker.revealedCount(screen),
@@ -306,7 +309,7 @@ async function start() {
     els.fileSideBody.replaceChildren(renderBlock({ type: 'patientFile', inDialog: true }, ctx));
     const photo = byId('folder-tab-photo');
     if (module.patientFile.image) {
-      photo.src = `content/${module.patientFile.image.src}`; // décorative : alt=""
+      photo.src = asset(module.patientFile.image.src); // décorative : alt=""
       photo.hidden = false;
     }
     els.folderTab.addEventListener('click', () => {
