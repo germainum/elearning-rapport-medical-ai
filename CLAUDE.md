@@ -85,9 +85,12 @@ Même rendu pour les documents `kind: "dossier"` (M. C.). Dans la chemise latér
 Fiche patient : définie une fois à la racine (`patientFile`), affichée dans une scène par le bloc
 `{ "type": "patientFile" }` et consultable ensuite à tout moment via le bouton « Dossier patient » du bandeau
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).
-Illustrations (`content/images/`, style plat, traits noirs, palette AI VD) : un **médecin généraliste
-récurrent** suit le parcours — `cabinet-courrier.svg` (courrier), `consultation.svg` (anamnèse),
-`redaction-rapport.svg` (limitations), `envoi-rapport.svg` (en pratique) — + portraits `mme-r.svg`, `m-c.svg` (second cas, psychosocial).
+Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
+guide de style : « GUIDE DES ILLUSTRATIONS » de l'outil de production) : un **médecin généraliste** suit le parcours —
+`cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),
+`envoi-rapport.jpg` (en pratique), `merci.jpg` (remerciements) — + portraits `mme-r.jpg` et `m-c.jpg`
+(second cas, psychosocial). Tous ont un texte alternatif (portraits compris). Fonds blancs opaques (pas de transparence
+en JPEG). Remplacer une illustration = même nom de fichier ; adapter le texte alternatif dans `module.json`.
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
 Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
 Glossaire : champ `glossary` à la racine (43 termes en 6 rubriques, repris du « Glossaire et notions clés —
@@ -114,7 +117,7 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
   (limite SCORM 1.2 : 4096 caractères → format compact, clés courtes, basé sur les `id` d'écrans/questions).
   `cmi.core.lesson_location` = id de l'écran courant. `cmi.core.exit = "suspend"` en quittant.
 - **Completed** : quand tous les écrans **jusqu'à la synthèse** ont été vus (et leurs questions validées). Les écrans
-  `text` placés **après** la synthèse (écran « Merci », illustration `merci.svg`) ne conditionnent pas la complétion :
+  `text` placés **après** la synthèse (écran « Merci », illustration `merci.jpg`) ne conditionnent pas la complétion :
   l'apprenant qui s'arrête sur son résultat a terminé le module (`tracker.isComplete`).
 - **Score** : transmis en `cmi.core.score.raw` (0–100), `min` = 0, `max` = 100.
 - **Passed** : si le score atteint `passingScore` défini dans `module.json`.

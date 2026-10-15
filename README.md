@@ -136,7 +136,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
     "- deuxième point"
   ],
   "image": {
-    "src": "images/mon-image.svg",
+    "src": "images/mon-image.jpg",
     "alt": "Description de ce que montre l'image",
     "caption": "Légende facultative",
     "position": "side"
@@ -240,7 +240,7 @@ apparaît agrafé sous la lettre.
 "patientFile": {
   "title": "Mme R., 47 ans",
   "subtitle": "Patiente du cabinet depuis 2014",
-  "image": { "src": "images/mme-r.svg", "decorative": true },
+  "image": { "src": "images/mme-r.jpg", "alt": "Portrait illustré de Mme R., 47 ans." },
   "reference": "Dossier n° 2014-0387",
   "body": ["Résumé de la situation (rubrique « Notes »)."],
   "sections": [

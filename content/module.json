@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -233,7 +233,10 @@
     "title": "Mme R., 47 ans",
     "subtitle": "Née en 1979 · patiente du cabinet depuis 2014",
     "reference": "Dossier n° 2014-0387",
-    "image": { "src": "images/mme-r.svg", "decorative": true },
+    "image": {
+      "src": "images/mme-r.jpg",
+      "alt": "Portrait illustré de Mme R., 47 ans, les cheveux attachés en chignon et vêtue d’une tunique bleue."
+    },
     "body": [
       "Douleurs lombaires résiduelles à l'effort et en position assise prolongée. Ne peut plus porter de charges lourdes ni mobiliser des résidents."
     ],
@@ -343,8 +346,8 @@
             "Lundi matin, parmi le courrier du cabinet, une enveloppe de l'Office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années."
           ],
           "image": {
-            "src": "images/cabinet-courrier.svg",
-            "alt": "Le médecin généraliste à son bureau, une enveloppe de l'Office AI à la main.",
+            "src": "images/cabinet-courrier.jpg",
+            "alt": "Un médecin à son bureau lit une lettre sortie de son enveloppe, à côté de dossiers.",
             "position": "side"
           }
         },
@@ -724,8 +727,8 @@
           "type": "text",
           "body": ["Le 5 octobre, vous avez revu Mme R. en consultation. Vous reprenez son dossier."],
           "image": {
-            "src": "images/consultation.svg",
-            "alt": "Consultation : le médecin, tablette en main, face à Mme R. qui se tient le bas du dos ; au mur, une planche de la colonne lombaire.",
+            "src": "images/consultation.jpg",
+            "alt": "Une médecin écoute Mme R., assise face à elle, qui indique une gêne dans le bas du dos.",
             "position": "side"
           }
         },
@@ -1286,8 +1289,8 @@
             "La question décisive : une limitation décrit **ce que la personne ne peut plus faire**, de façon mesurable, sans répéter le diagnostic."
           ],
           "image": {
-            "src": "images/redaction-rapport.svg",
-            "alt": "Le médecin remplit le rapport sur son ordinateur ; le champ en cours de rédaction est surligné en vert.",
+            "src": "images/redaction-rapport.jpg",
+            "alt": "Un médecin rédige un rapport sur papier, à côté d’un écran présentant des champs de formulaire dont un en vert.",
             "position": "side"
           }
         },
@@ -1967,7 +1970,10 @@
             { "label": "Diagnostics", "value": "Arthrose du poignet droit, épicondylite chronique à droite" },
             { "label": "Psychique", "value": "État dépressif réactionnel" }
           ],
-          "image": { "src": "images/m-c.svg", "decorative": true },
+          "image": {
+            "src": "images/m-c.jpg",
+            "alt": "Portrait illustré de M. C., 46 ans, vêtu d’une veste de travail bleue."
+          },
           "reference": "Dossier n° 2012-0144"
         },
         { "type": "reveal", "label": "Remplir la question 3.4" },
@@ -2089,8 +2095,8 @@
             "Votre rapport est prêt. Il ne reste qu'à l'envoyer, avec les pièces utiles : par courrier ou en ligne, via MedAI."
           ],
           "image": {
-            "src": "images/envoi-rapport.svg",
-            "alt": "Un ordinateur portable affiche l'envoi confirmé du rapport et de ses pièces jointes ; un avion en papier part vers le bâtiment de l'Office AI.",
+            "src": "images/envoi-rapport.jpg",
+            "alt": "Un ordinateur affiche un document, un trombone et une coche verte ; une enveloppe fermée représente l’envoi postal.",
             "position": "side"
           }
         },
@@ -2237,8 +2243,8 @@
         "*L'Office AI du canton de Vaud*"
       ],
       "image": {
-        "src": "images/merci.svg",
-        "alt": "Le médecin généraliste salue en souriant, entre un rapport validé d'une coche verte et un chronomètre ; un cœur vert au-dessus de lui.",
+        "src": "images/merci.jpg",
+        "alt": "Une médecin salue de la main, accompagnée d’un rapport validé et d’un chronomètre sans chiffres.",
         "position": "top"
       }
     }
