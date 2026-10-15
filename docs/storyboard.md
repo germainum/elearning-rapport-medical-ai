@@ -210,6 +210,13 @@ Source : `docs/formulaire-002099.md` (intitulés exacts). 14 écrans, 13 questio
 - La page 5 n'a pas de titre sur le formulaire : le module l'appelle « Annexe : travaux exigibles dans
   une activité adaptée ».
 
+## Révision des questions fausses (15.10.2026) ⚠ à valider
+
+Parcours de révision depuis la synthèse : récapitulatif (votre réponse, bonne réponse, explication), reprise
+avec réponses mélangées, enchaînement direct entre les questions à revoir, retour à la synthèse, explication
+affichée après une seconde erreur. ⚠ **Le score est recalculé après la révision** (une bonne réponse à la
+reprise compte) : à confirmer avec Acamedia / l'OAI, avec le traitement du statut `failed` par Chorus.
+
 ## Point par point (14.10.2026) ⚠ à valider
 
 Demande : « aller point par point, avec à chaque fois 3 possibilités pour répondre ; trop d'info par écran ».

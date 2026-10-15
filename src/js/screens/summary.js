@@ -25,23 +25,48 @@ function wrongQuestionsSection(prefix, wrong, ctx) {
         <p>Toutes vos réponses sont justes : aucune question à reprendre.</p>
       </section>`;
   }
+  const optionTexts = (question, ids) =>
+    question.options
+      .filter((option) => ids.includes(option.id))
+      .map((option) => inline(option.text))
+      .join('<br>');
   const items = wrong
-    .map(
-      ({ question, screen }) => `
+    .map(({ question, screen }) => {
+      const chosen = ctx.getAnswer(question.id) ?? [];
+      const expected = question.options.filter((option) => option.correct).map((option) => option.id);
+      // Explication de la bonne réponse : « feedback.correct » (texte, ou { title, body })
+      const raw = question.feedback?.correct;
+      const explanation = raw && typeof raw === 'object' && !Array.isArray(raw) ? [raw.title, raw.body] : [null, raw];
+      const [why, whyBody] = explanation;
+      const hasWhy = Boolean(why || whyBody);
+      return `
         <li class="review__item">
           <div class="review__text">
             <span class="review__screen">${inline(screen.kicker ?? screen.title)}</span>
             <span class="review__prompt">${inline(question.prompt)}</span>
+            <dl class="review__answers">
+              <div class="review__answer review__answer--wrong"><dt>Votre réponse</dt><dd>${optionTexts(question, chosen)}</dd></div>
+              <div class="review__answer review__answer--right"><dt>Bonne réponse</dt><dd>${optionTexts(question, expected)}</dd></div>
+            </dl>
+            ${
+              hasWhy
+                ? `<details class="review__why">
+                     <summary>Voir l'explication</summary>
+                     ${why ? `<p class="review__why-title">${inline(why)}</p>` : ''}
+                     ${whyBody ? `<div class="prose">${rich(whyBody)}</div>` : ''}
+                   </details>`
+                : ''
+            }
           </div>
           <button type="button" class="btn btn--secondary btn--small" data-retry="${escapeHtml(question.id)}"
             aria-label="Reprendre la question : ${escapeHtml(plainText(question.prompt))}">Reprendre</button>
-        </li>`,
-    )
+        </li>`;
+    })
     .join('');
   return `
     <section class="review" aria-labelledby="${prefix}-review">
       <h3 class="section-title" id="${prefix}-review">Questions à revoir</h3>
-      <p class="review__intro">Vous avez répondu de façon incorrecte à ${questions(wrong.length)}. Reprenez-les : vos bonnes réponses sont conservées et votre score sera recalculé.</p>
+      <p class="review__intro">Vous avez répondu de façon incorrecte à ${questions(wrong.length)}. Relisez la bonne réponse et son explication, puis refaites la question : les réponses sont proposées dans un nouvel ordre, vos bonnes réponses sont conservées et votre score sera recalculé.</p>
       <ol class="review__list" role="list">${items}</ol>
       <button type="button" class="btn btn--primary" data-retry-all>
         Reprendre ${wrong.length > 1 ? `les ${wrong.length} questions fausses` : 'la question fausse'}

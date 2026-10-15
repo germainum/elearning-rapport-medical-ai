@@ -5,7 +5,9 @@
  * Format de suspend_data (version 1) :
  *   { "v": 1, "c": "<écran courant>", "s": ["<écrans vus>"],
  *     "r": { "<écran scene>": <étapes révélées en plus de la première> },
- *     "a": { "<question>": "<options>" }, "n": <tentative> }
+ *     "a": { "<question>": "<options>" }, "n": <tentative>,
+ *     "q": ["<questions en cours de révision>"], "t": { "<question>": <nombre de reprises> } }
+ * « q » et « t » sont facultatifs (absents tant qu'aucune question n'a été reprise).
  * Les identifiants d'options font un caractère : « ac » = options a et c.
  */
 
@@ -57,6 +59,10 @@ export function createTracker(module) {
   const viewed = new Set();
   const revealed = new Map(); // id d'écran → nombre d'étapes révélées après la première
   const answers = new Map(); // id de question → [ids d'options]
+  const retakes = new Map(); // id de question → nombre de reprises depuis la synthèse
+  let reviewQueue = []; // questions en cours de révision, dans l'ordre du module
+  const screenOf = new Map(); // id de question → index de son écran
+  screens.forEach((screen, i) => questionsOf(screen).forEach((q) => screenOf.set(q.id, i)));
 
   const indexOf = (id) => screens.findIndex((screen) => screen.id === id);
   const isAnswered = (questionId) => answers.has(questionId);
@@ -104,6 +110,10 @@ export function createTracker(module) {
         if (ids.length) answers.set(questionId, ids);
       }
       attempt = Number(data.n) || 1;
+      for (const [id, count] of Object.entries(data.t ?? {})) {
+        if (questions.has(id) && Number.isInteger(count) && count > 0) retakes.set(id, count);
+      }
+      if (Array.isArray(data.q)) reviewQueue = data.q.filter((id) => questions.has(id));
       return true;
     },
 
@@ -115,6 +125,8 @@ export function createTracker(module) {
         r: Object.fromEntries(revealed),
         a: Object.fromEntries([...answers].map(([id, ids]) => [id, ids.join('')])),
         n: attempt,
+        ...(reviewQueue.length ? { q: reviewQueue } : {}),
+        ...(retakes.size ? { t: Object.fromEntries(retakes) } : {}),
       });
     },
 
@@ -186,10 +198,49 @@ export function createTracker(module) {
      * conserve les écrans vus, les étapes révélées et les autres réponses.
      */
     resetAnswers(questionIds) {
-      if (questionIds) questionIds.forEach((id) => answers.delete(id));
-      else answers.clear();
+      const ids = questionIds ?? [...answers.keys()];
+      for (const id of ids) {
+        answers.delete(id);
+        retakes.set(id, (retakes.get(id) ?? 0) + 1);
+      }
       attempt += 1;
     },
+
+    /** Nombre de fois qu'une question a été reprise (0 = première réponse). */
+    retakeCount: (questionId) => retakes.get(questionId) ?? 0,
+
+    /**
+     * Révision guidée : efface les réponses indiquées et mémorise la file des questions à refaire
+     * (dans l'ordre du module). Retourne la file.
+     */
+    startReview(questionIds) {
+      const queue = [...questionIds].filter((id) => screenOf.has(id)).sort((a, b) => screenOf.get(a) - screenOf.get(b));
+      this.resetAnswers(queue);
+      reviewQueue = queue;
+      return queue;
+    },
+
+    get reviewQueue() {
+      return reviewQueue;
+    },
+
+    clearReview() {
+      reviewQueue = [];
+    },
+
+    /** Questions de la file d'un écran donné. */
+    reviewIdsOnScreen: (index) => reviewQueue.filter((id) => screenOf.get(id) === index),
+
+    /** Prochaine question de la file restant à refaire, hors de l'écran indiqué ; null si la révision est terminée. */
+    nextReview(fromIndex) {
+      for (const id of reviewQueue) {
+        if (!answers.has(id) && screenOf.get(id) !== fromIndex) return { id, screenIndex: screenOf.get(id), rank: reviewQueue.indexOf(id) + 1 };
+      }
+      return null;
+    },
+
+    /** Toutes les questions de la file ont été refaites. */
+    isReviewDone: () => reviewQueue.every((id) => answers.has(id)),
 
     /** Questions répondues de façon incorrecte, dans l'ordre du module, avec leur écran. */
     wrongQuestions() {

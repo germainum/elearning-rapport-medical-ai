@@ -2,6 +2,9 @@
  * Question à choix unique (radio) ou multiple (cases à cocher).
  * L'apprenant valide, voit le feedback, et la question est verrouillée :
  * seule la première réponse compte.
+ *
+ * Reprise (révision depuis la synthèse) : l'ordre des réponses est mélangé, pour qu'on ne retienne pas
+ * simplement « c'était la B », et une seconde erreur affiche l'explication de la bonne réponse.
  */
 
 import { escapeHtml, inline, rich } from '../format.js';
@@ -17,7 +20,34 @@ const EMPTY_SELECTION = {
   multiple: 'Sélectionnez au moins une réponse avant de valider.',
 };
 
-export function renderQuestion(question, { number, total, getAnswer, submit }) {
+/** Générateur pseudo-aléatoire déterministe : le même ordre est reproduit si l'écran est réaffiché. */
+function seeded(seed) {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let x = Math.imul(state ^ (state >>> 15), 1 | state);
+    x ^= x + Math.imul(x ^ (x >>> 7), 61 | x);
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/** Options dans un ordre mélangé (toujours différent de l'ordre d'origine) selon la question et le rang de la reprise. */
+export function shuffledOptions(question, retake) {
+  if (!retake || question.options.length < 2) return question.options;
+  let seed = retake * 7919;
+  for (const char of question.id) seed = (seed * 31 + char.charCodeAt(0)) >>> 0;
+  const random = seeded(seed);
+  const order = [...question.options];
+  for (let i = order.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  const same = order.every((option, i) => option === question.options[i]);
+  return same ? [...order.slice(1), order[0]] : order;
+}
+
+export function renderQuestion(question, { number, total, getAnswer, submit, retakeCount }) {
+  const retake = retakeCount?.(question.id) ?? 0;
   const id = escapeHtml(`q-${question.id}`);
   const inputType = question.kind === 'multiple' ? 'checkbox' : 'radio';
 
@@ -33,7 +63,7 @@ export function renderQuestion(question, { number, total, getAnswer, submit }) {
         <span class="question__hint">${HINTS[question.kind]}</span>
       </legend>
       <div class="question__options">
-        ${question.options
+        ${shuffledOptions(question, retake)
           .map(
             (option) => `
           <label class="option" data-option="${escapeHtml(option.id)}" for="${id}-${escapeHtml(option.id)}">
@@ -64,17 +94,17 @@ export function renderQuestion(question, { number, total, getAnswer, submit }) {
     error.textContent = '';
 
     const result = submit(question, ids);
-    lock(form, question, ids, result);
+    lock(form, question, ids, result, retake);
     form.querySelector('.feedback').focus();
   });
 
   const previous = getAnswer(question.id);
-  if (previous) lock(form, question, previous, evaluate(question, previous));
+  if (previous) lock(form, question, previous, evaluate(question, previous), retake);
 
   return form;
 }
 
-function lock(form, question, ids, result) {
+function lock(form, question, ids, result, retake = 0) {
   form.classList.add('question--answered');
   form.querySelector('.question__actions')?.remove();
 
@@ -103,6 +133,19 @@ function lock(form, question, ids, result) {
   const { title, body } = normalizeFeedback(result.correct ? question.feedback?.correct : question.feedback?.incorrect);
   const notes = question.options.filter((option) => ids.includes(option.id) && option.feedback);
 
+  // Seconde erreur (reprise) : on explique pourquoi la bonne réponse est la bonne, sans laisser l'apprenant bloqué
+  let why = '';
+  if (!result.correct && retake >= 1) {
+    const explanation = normalizeFeedback(question.feedback?.correct);
+    if (explanation.title || explanation.body) {
+      why = `<div class="feedback__why">
+        <p class="feedback__why-title">Pourquoi c'est la bonne réponse</p>
+        ${explanation.title ? `<p class="feedback__title">${inline(explanation.title)}</p>` : ''}
+        ${explanation.body ? `<div class="prose">${rich(explanation.body)}</div>` : ''}
+      </div>`;
+    }
+  }
+
   // Feedback par conséquence : le titre raconte ce qui se passe ensuite (« Quelques semaines plus tard… »).
   const feedback = form.querySelector('.feedback');
   feedback.classList.add(result.correct ? 'feedback--correct' : 'feedback--incorrect');
@@ -116,7 +159,8 @@ function lock(form, question, ids, result) {
             .map((option) => `<li><span class="feedback__option">${inline(option.text)}</span> ${inline(option.feedback)}</li>`)
             .join('')}</ul>`
         : ''
-    }`;
+    }
+    ${why}`;
   feedback.hidden = false;
 }
 

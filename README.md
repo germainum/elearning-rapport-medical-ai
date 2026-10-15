@@ -104,8 +104,11 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 - `logo` : logo affiché en haut à gauche, `{ "src": "images/logo-aivd.png", "alt": "AI VD – Office de l'assurance-invalidité pour le canton de Vaud" }` (facultatif).
 - `form` : en-tête affiché sur chaque « extrait du formulaire » (voir les blocs `form`).
 - `passingScore` : seuil de réussite en pourcentage (80 si absent).
-- `allowRetry` : la synthèse liste les questions fausses et propose de les reprendre (une par une ou toutes),
-  même si le module est réussi ; les bonnes réponses sont conservées et le score est recalculé.
+- `allowRetry` : la synthèse liste les questions fausses (réponse donnée, bonne réponse, explication tirée de
+  `feedback.correct`) et propose de les reprendre, une par une ou toutes, même si le module est réussi. La
+  reprise est guidée : bandeau « Révision », réponses dans un nouvel ordre, « Suivant » enchaîne les questions à
+  revoir puis ramène à la synthèse ; une seconde erreur affiche l'explication. Les bonnes réponses sont
+  conservées et le score est recalculé. **Rédigez donc toujours un `feedback.correct`** : c'est lui qui explique.
 - `version` : à augmenter à chaque livraison (elle sert aussi à **forcer le rechargement des images, vidéos et PDF**
   remplacés sous le même nom : les adresses des fichiers reçoivent `?v=<version>`) (`1.0.0` → `1.0.1` pour une correction, `1.1.0` pour un ajout).
 

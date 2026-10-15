@@ -130,9 +130,15 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
 - **Sous le seuil** (tous les écrans vus, score < `passingScore`) : statut `failed`. Si
   `scoring.allowRetry` vaut `true`, la synthèse liste les **questions fausses** (« Questions à revoir ») :
   reprise d'une question ou de toutes, proposée **même si le module est réussi**. Seules les réponses
-  fausses sont effacées (les bonnes sont conservées) ; l'apprenant arrive directement sur la question,
-  puis « Suivant » enchaîne jusqu'à la synthèse. Le statut LMS reste inchangé jusqu'à la nouvelle
-  évaluation complète ; le score ne peut que monter.
+  fausses sont effacées (les bonnes sont conservées). **Révision guidée** (15.10.2026, `tracker.startReview`) :
+  la synthèse affiche pour chaque question fausse la réponse donnée, la bonne réponse et son explication
+  (`feedback.correct`) ; « Reprendre » mène à la question avec un bandeau « Révision · question k sur n »,
+  les réponses dans un **ordre mélangé** (`shuffledOptions`, déterministe), et « Suivant » devient « Question
+  suivante à revoir (k sur n) » puis « Revenir à mon résultat » (plus de clics sur les 36 écrans). Une **seconde
+  erreur** à la reprise affiche l'explication de la bonne réponse. La file de révision (`q`) et le nombre de
+  reprises par question (`t`) sont dans `suspend_data` : la révision survit à un rechargement. Le score est
+  recalculé après la révision (une bonne réponse à la reprise compte) ; à confirmer avec Acamedia. Le statut
+  LMS ne change qu'à la nouvelle évaluation complète.
   À confirmer avec Acamedia : traitement de `failed` par Chorus pour l'attribution des crédits.
 - **Navigation** : libre vers les écrans déjà parcourus (Sommaire). On ne quitte un écran que si
   toutes ses questions sont validées. Règle : écran *i* accessible si tous les écrans précédents sont

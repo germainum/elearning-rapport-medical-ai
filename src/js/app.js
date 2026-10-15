@@ -150,6 +150,7 @@ async function start() {
     logo: module.logo,
     asset,
     getAnswer: (questionId) => tracker.getAnswer(questionId),
+    retakeCount: (questionId) => tracker.retakeCount(questionId),
     result: () => tracker.result(passingScore),
     getRevealed: (screen) => tracker.revealedCount(screen),
 
@@ -179,20 +180,21 @@ async function start() {
     wrongQuestions: () => tracker.wrongQuestions(),
 
     /**
-     * Reprise ciblée depuis la synthèse : efface seulement les réponses indiquées
-     * et amène l'apprenant directement sur la première d'entre elles.
+     * Révision guidée depuis la synthèse : efface seulement les réponses fausses indiquées, mémorise la file des
+     * questions à refaire et amène l'apprenant sur la première. « Suivant » enchaîne ensuite de question en question
+     * jusqu'au retour à la synthèse (voir goNext).
      */
     retryQuestions(questionIds) {
       const wrong = tracker.wrongQuestions().filter(({ question }) => questionIds.includes(question.id));
       if (!wrong.length) return;
-      tracker.resetAnswers(questionIds);
-      const remaining = wrong.length;
-      show(wrong[0].screenIndex, {
-        focusQuestion: wrong[0].question.id,
+      const queue = tracker.startReview(wrong.map(({ question }) => question.id));
+      const first = tracker.nextReview(-1);
+      show(first.screenIndex, {
+        focusQuestion: first.id,
         notice:
-          remaining > 1
-            ? `Reprenez cette question, puis continuez avec « Suivant » : ${remaining} questions sont à refaire. Vos bonnes réponses sont conservées.`
-            : 'Reprenez cette question. Vos autres réponses sont conservées.',
+          queue.length > 1
+            ? `Révision : ${queue.length} questions à refaire.`
+            : 'Révision : 1 question à refaire.',
       });
     },
   };
@@ -202,6 +204,8 @@ async function start() {
   function show(target, { focus = true, notice = '', focusQuestion = null } = {}) {
     index = target;
     const screen = screens[index];
+    // Synthèse atteinte une fois toutes les questions de la file refaites : la révision est terminée
+    if (screen.type === 'summary' && tracker.reviewQueue.length && tracker.isReviewDone()) tracker.clearReview();
     tracker.visit(index);
     sync(); // avant le rendu : la synthèse affiche le score qui vient d'être calculé
 
@@ -211,6 +215,8 @@ async function start() {
     els.notice.textContent = notice;
     els.pagerMsg.textContent = '';
     els.screen.replaceChildren(render(screen, ctx));
+    const banner = reviewBanner();
+    if (banner) els.screen.prepend(banner);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
     updateChrome();
@@ -226,6 +232,38 @@ async function start() {
       window.scrollTo(0, 0);
       els.screen.querySelector('.screen__title')?.focus();
     }
+  }
+
+  /* ---------- Révision guidée des questions fausses ---------- */
+
+  // L'écran affiché contient-il une question de la file de révision ?
+  const inReview = () => tracker.reviewIdsOnScreen(index).length > 0;
+
+  function reviewBanner() {
+    if (!inReview()) return null;
+    const queue = tracker.reviewQueue;
+    const rank = queue.indexOf(tracker.reviewIdsOnScreen(index)[0]) + 1;
+    const banner = document.createElement('p');
+    banner.className = 'review-banner';
+    banner.innerHTML = `<strong>Révision · question ${rank} sur ${queue.length}</strong><span>Les réponses sont dans un nouvel ordre.</span>`;
+    return banner;
+  }
+
+  /** Libellé du bouton « Suivant » pendant la révision : question suivante à refaire, ou retour au résultat. */
+  function reviewNextLabel() {
+    if (!inReview()) return null;
+    const next = tracker.nextReview(index);
+    return next ? `Question suivante à revoir (${next.rank} sur ${tracker.reviewQueue.length})` : 'Revenir à mon résultat';
+  }
+
+  /** Écran suivant : question suivante de la révision, retour à la synthèse en fin de révision, sinon écran d'après. */
+  function goNext() {
+    if (!inReview()) return show(index + 1);
+    const next = tracker.nextReview(index);
+    if (next) return show(next.screenIndex, { focusQuestion: next.id });
+    const summary = screens.findIndex((screen) => screen.type === 'summary');
+    tracker.clearReview();
+    return show(summary, { notice: 'Révision terminée : votre score est recalculé.' });
   }
 
   function updateChrome() {
@@ -247,7 +285,7 @@ async function start() {
 
     els.prev.disabled = index === 0;
     els.next.hidden = index === total - 1;
-    els.next.textContent = plainText(screens[index].continueLabel ?? DEFAULT_CONTINUE_LABEL);
+    els.next.textContent = reviewNextLabel() ?? plainText(screens[index].continueLabel ?? DEFAULT_CONTINUE_LABEL);
     els.next.setAttribute('aria-disabled', String(!tracker.isScreenDone(index)));
 
     renderToc();
@@ -404,7 +442,7 @@ async function start() {
 
   els.next.addEventListener('click', () => {
     if (tracker.isScreenDone(index)) {
-      show(index + 1);
+      goNext();
       return;
     }
     const pending = [...els.screen.querySelectorAll('.question')].find(
