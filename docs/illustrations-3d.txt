@@ -19,3 +19,8 @@ Préférence à conserver pour les prochaines illustrations : varier le genre et
 Intégration : six références SVG remplacées par JPEG ; trois descriptions d'accessibilité adaptées. Anciens SVG conservés pour réversibilité. Logo et portrait de Mme R. inchangés.
 Validation : module valide (36 écrans, 33 questions), builds SCORM 1.2 et 2004 réussis, manifestes XML et présence des ressources dans les ZIP vérifiés. Comparaison structurelle avec HEAD : aucune modification hors image.src et image.alt. Moteur, suivi, score, ordre et identifiants inchangés.
 Limite : contrôle local ; pas de recette dans MOS Chorus ou SCORM Cloud.
+
+Complément — portrait de Mme R.
+Outil : image_gen intégré. Référence : consultation.jpg, patiente à droite.
+Prompt : Square patient avatar of ONLY Mme R., female patient on right, not doctor. Preserve 47-year-old light-skinned woman, brown high bun, brown eyes, sage nursing tunic, no glasses, white coat or stethoscope. Front-facing head and shoulders, gentle natural smile, mature adult features. Soft miniature 3D, matte textures, warm beige and sage, studio light, plain cream background. Entire bun inside frame with margin for circular 56px icon. No text, border, watermark or extra people.
+Intégration : patientFile.image.src pointe vers mme-r.jpg. M. C. utilise déjà m-c.jpg. Identités des cas et contenu inchangés. Builds SCORM 1.2 et 2004 valides.
