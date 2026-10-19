@@ -224,6 +224,8 @@ src/js/screens/*.js        un fichier par type d'écran (text, scene, quiz, summ
                            + blocks.js (blocs de scène) + question.js (partagé) + common.js
 docs/formulaire-002099.md  intitulés exacts du formulaire (référence de contenu)
 docs/storyboard.md         scénario pédagogique, hypothèses ⚠ à valider par l'OAI
+docs/rise/                 version Rise 360 : prompt pour Claude dans Chrome, plan, leçons générées (voir README.md du dossier)
+scripts/export-rise.js     génère docs/rise/ depuis module.json (npm run export:rise)
 scripts/validate.js        validation du schéma (messages en français)
 scripts/build.js           validation, staging (build/package), manifeste, zip (dist/)
 scripts/serve.js           serveur local de test
@@ -247,6 +249,7 @@ npm start            # serveur local http://localhost:8080 (API SCORM simulée)
 npm run build        # génère dist/<id>-<version>-scorm12.zip
 npm run build:2004   # génère dist/<id>-<version>-scorm2004.zip
 npm run preview      # sert build/package (le dernier paquet généré)
+npm run export:rise  # régénère le contenu de la version Rise 360 (docs/rise/)
 ```
 
 Ajouter `?debug` à l'URL journalise aussi les appels SCORM quand une vraie API LMS est présente.

@@ -12,6 +12,7 @@
     "validate": "node scripts/validate.js",
     "build": "node scripts/build.js",
     "build:2004": "node scripts/build.js --scorm=2004",
-    "preview": "node scripts/serve.js build/package"
+    "preview": "node scripts/serve.js build/package",
+    "export:rise": "node scripts/export-rise.js"
   }
 }
