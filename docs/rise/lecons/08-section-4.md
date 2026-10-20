@@ -25,7 +25,7 @@ Heures par jour : l'activité habituelle
 
 ## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 4.1 ?
+**Question** : Combien d'heures par jour peut-on attendre de Mme R. dans son métier d'aide-soignante ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. 4 heures par jour, puisqu'une reprise partielle paraît possible.
@@ -106,7 +106,7 @@ Les obstacles à la réadaptation
 
 ## Bloc 17 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 4.4 ?
+**Question** : Quels obstacles à la réadaptation signalez-vous ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Son âge (47 ans) rend une reconversion professionnelle peu réaliste.
@@ -146,7 +146,7 @@ Mme R. travaille à 80 % : l'office AI tient aussi compte de ses empêchements d
 
 ## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 4.5 ?
+**Question** : Dans quelle mesure Mme R. est-elle limitée dans les tâches ménagères ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Aucune limitation : c'est son mari qui s'occupe désormais de tout le ménage.

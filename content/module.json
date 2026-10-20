@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.35.0",
+  "version": "0.36.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -312,7 +312,6 @@
         ]
       },
       "body": [
-        "*Contenu provisoire : cas fictif et bonnes réponses à valider par l'office AI du canton de Vaud.*",
         "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI."
       ],
       "section": "Avant de commencer"
@@ -616,7 +615,7 @@
           "type": "question",
           "id": "q1-1",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 1.1 ?",
+          "prompt": "Comment présentez-vous le traitement dispensé à Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -662,7 +661,7 @@
           "type": "question",
           "id": "q1-2",
           "kind": "single",
-          "prompt": "Que répondez-vous à la question 1.2 ?",
+          "prompt": "Que répondez-vous sur la fréquence de vos consultations ?",
           "options": [
             {
               "id": "a",
@@ -713,7 +712,7 @@
           "type": "question",
           "id": "q1-3",
           "kind": "single",
-          "prompt": "Comment répondez-vous à la question 1.3 ?",
+          "prompt": "Comment reportez-vous l'incapacité de travail attestée de Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -771,7 +770,7 @@
           "type": "question",
           "id": "q2-1",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.1 ?",
+          "prompt": "Quels antécédents et quelle évolution retenez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -817,7 +816,7 @@
           "type": "question",
           "id": "q2-2",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.2 ?",
+          "prompt": "Comment décrivez-vous les symptômes actuels de Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -863,7 +862,7 @@
           "type": "question",
           "id": "q2-3",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.3 ?",
+          "prompt": "Quelle médication actuelle inscrivez-vous ?",
           "options": [
             {
               "id": "a",
@@ -912,7 +911,7 @@
           "type": "question",
           "id": "q2-4",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.4 ?",
+          "prompt": "Quels constats médicaux inscrivez-vous après votre examen ?",
           "options": [
             {
               "id": "a",
@@ -965,7 +964,7 @@
           "type": "question",
           "id": "q2-5",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.5 ?",
+          "prompt": "Quels diagnostics ayant une incidence sur la capacité de travail inscrivez-vous ?",
           "options": [
             {
               "id": "a",
@@ -1015,7 +1014,7 @@
           "type": "question",
           "id": "q2-6",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.6 ?",
+          "prompt": "Quels diagnostics sans incidence sur la capacité de travail mentionnez-vous ?",
           "options": [
             {
               "id": "a",
@@ -1064,7 +1063,7 @@
           "type": "question",
           "id": "q2-7",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.7 ?",
+          "prompt": "Quel pronostic donnez-vous sur la capacité de travail de Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1113,7 +1112,7 @@
           "type": "question",
           "id": "q2-8",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 2.8 ?",
+          "prompt": "Quelles prochaines mesures et quel plan de traitement indiquez-vous ?",
           "options": [
             {
               "id": "a",
@@ -1163,7 +1162,7 @@
           "type": "question",
           "id": "q3-1",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 3.1 ?",
+          "prompt": "Quelle est l'activité actuelle de Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1213,7 +1212,7 @@
           "type": "question",
           "id": "q3-2",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 3.2 ?",
+          "prompt": "Que mentionnez-vous sur sa situation professionnelle ?",
           "options": [
             {
               "id": "a",
@@ -1273,7 +1272,7 @@
           "type": "question",
           "id": "q3-3",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 3.3 ?",
+          "prompt": "Comment décrivez-vous les exigences de son poste ?",
           "options": [
             {
               "id": "a",
@@ -1337,7 +1336,7 @@
           "type": "question",
           "id": "q3-4",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 3.4 ?",
+          "prompt": "Quelles limitations fonctionnelles décrivez-vous ?",
           "options": [
             {
               "id": "a",
@@ -1393,7 +1392,7 @@
           "type": "question",
           "id": "q3-5",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 3.5 ?",
+          "prompt": "Quelles ressources utiles à sa réinsertion mentionnez-vous ?",
           "options": [
             {
               "id": "a",
@@ -1443,7 +1442,7 @@
           "type": "question",
           "id": "q3-6",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 3.6 ?",
+          "prompt": "Que répondez-vous sur sa capacité de conduire ?",
           "options": [
             {
               "id": "a",
@@ -1493,7 +1492,7 @@
           "type": "question",
           "id": "q4-1",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 4.1 ?",
+          "prompt": "Combien d'heures par jour peut-on attendre de Mme R. dans son métier d'aide-soignante ?",
           "options": [
             {
               "id": "a",
@@ -1538,7 +1537,7 @@
           "type": "question",
           "id": "q4-2",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 4.2 ?",
+          "prompt": "Combien d'heures par jour dans une activité adaptée à ses limitations ?",
           "options": [
             {
               "id": "a",
@@ -1587,7 +1586,7 @@
           "type": "question",
           "id": "q4-3",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 4.3 ?",
+          "prompt": "Quel pronostic donnez-vous sur son potentiel de réadaptation ?",
           "options": [
             {
               "id": "a",
@@ -1633,7 +1632,7 @@
           "type": "question",
           "id": "q4-4",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 4.4 ?",
+          "prompt": "Quels obstacles à la réadaptation signalez-vous ?",
           "options": [
             {
               "id": "a",
@@ -1692,7 +1691,7 @@
           "type": "question",
           "id": "q4-5",
           "kind": "single",
-          "prompt": "Que notez-vous à la question 4.5 ?",
+          "prompt": "Dans quelle mesure Mme R. est-elle limitée dans les tâches ménagères ?",
           "options": [
             {
               "id": "a",
@@ -1946,7 +1945,7 @@
           "type": "question",
           "id": "qamelioration",
           "kind": "single",
-          "prompt": "Que notez-vous à cette question ?",
+          "prompt": "Jusqu'à quel taux et dans quel délai sa capacité de travail peut-elle s'améliorer ?",
           "options": [
             {
               "id": "a",
@@ -2250,13 +2249,15 @@
         "passed": "Votre rapport permet à l'office AI d'orienter Mme R. sans vous relancer.",
         "failed": "Certaines réponses entraîneraient une demande de complément. Reprenez les questions pour atteindre le seuil de réussite."
       },
-      "section": "En pratique",
-      "continueLabel": "Un dernier mot"
+      "section": "Conclusion",
+      "continueLabel": "Un dernier mot",
+      "storyTitle": "Conclusion",
+      "hidePatientFile": true
     },
     {
       "id": "merci",
       "type": "text",
-      "section": "En pratique",
+      "section": "Conclusion",
       "hidePatientFile": true,
       "kicker": "Merci",
       "title": "Merci pour votre engagement",
@@ -2271,7 +2272,8 @@
         "src": "images/merci.jpg",
         "alt": "Une médecin salue de la main, accompagnée d’un rapport validé et d’un chronomètre sans chiffres.",
         "position": "top"
-      }
+      },
+      "storyTitle": "Conclusion"
     }
   ]
 }

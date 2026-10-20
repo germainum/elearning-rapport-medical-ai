@@ -228,7 +228,7 @@ export function createScorm({ storageKey = 'scorm-simule', debug = false } = {})
 
   const adapter = ADAPTERS[version];
   const { calls, keys } = adapter;
-  const verbose = debug || mode === 'mock';
+  const verbose = debug; // journal dans la console : seulement avec ?debug
   let initialized = false;
   let terminated = false;
   let startedAt = Date.now();

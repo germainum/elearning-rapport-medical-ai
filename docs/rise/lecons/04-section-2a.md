@@ -30,7 +30,7 @@ Texte alternatif (à saisir) : Une médecin écoute Mme R., assise face à elle,
 
 ## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 2.1 ?
+**Question** : Quels antécédents et quelle évolution retenez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Lombosciatalgie droite dès le 12.01.2026, cure de hernie L5-S1 le 10.02.2026, amélioration partielle.  ✅ **BONNE RÉPONSE**
@@ -63,7 +63,7 @@ Situation et symptômes actuels
 
 ## Bloc 8 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 2.2 ?
+**Question** : Comment décrivez-vous les symptômes actuels de Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Patiente très algique, qui se plaint de douleurs importantes à chaque consultation.
@@ -96,7 +96,7 @@ La médication actuelle
 
 ## Bloc 11 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 2.3 ?
+**Question** : Quelle médication actuelle inscrivez-vous ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Antalgiques selon besoin, la patiente gère elle-même son traitement.

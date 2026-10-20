@@ -101,9 +101,10 @@ async function start() {
   renderSidebarIntro(module);
   setupGlossary(module.glossary);
 
+  const debugMode = new URLSearchParams(window.location.search).has('debug');
   const scorm = createScorm({
     storageKey: `scorm-simule:${module.id}`,
-    debug: new URLSearchParams(window.location.search).has('debug'),
+    debug: debugMode,
   });
   const connected = scorm.init();
   const tracker = createTracker(module);
@@ -552,7 +553,8 @@ async function start() {
     if (document.visibilityState === 'hidden' && !finished) sync();
   });
 
-  if (scorm.mode === 'mock') {
+  // Barre « Mode test » (API simulée, effacement de la progression) : seulement avec ?debug dans l'adresse
+  if (scorm.mode === 'mock' && debugMode) {
     els.debugBar.hidden = false;
     els.debugReset.addEventListener('click', () => {
       finished = true; // ne pas réécrire la progression en quittant

@@ -3,8 +3,8 @@
  * L'apprenant valide, voit le feedback, et la question est verrouillée :
  * seule la première réponse compte.
  *
- * Reprise (révision depuis la synthèse) : l'ordre des réponses est mélangé, pour qu'on ne retienne pas
- * simplement « c'était la B », et une seconde erreur affiche l'explication de la bonne réponse.
+ * L'ordre des réponses est mélangé dès la première fois (la bonne réponse n'a pas de place fixe) et change à chaque reprise,
+ * pour qu'on ne retienne pas simplement « c'était la B » ; une seconde erreur affiche l'explication de la bonne réponse.
  */
 
 import { escapeHtml, inline, rich } from '../format.js';
@@ -31,10 +31,9 @@ function seeded(seed) {
   };
 }
 
-/** Options dans un ordre mélangé (toujours différent de l'ordre d'origine) selon la question et le rang de la reprise. */
-export function shuffledOptions(question, retake) {
-  if (!retake || question.options.length < 2) return question.options;
-  let seed = retake * 7919;
+/** Une permutation des options, propre à la question et au rang de la tentative (0 = première réponse, 1 = première reprise…). */
+function permutation(question, rank) {
+  let seed = (rank + 1) * 7919;
   for (const char of question.id) seed = (seed * 31 + char.charCodeAt(0)) >>> 0;
   const random = seeded(seed);
   const order = [...question.options];
@@ -42,7 +41,19 @@ export function shuffledOptions(question, retake) {
     const j = Math.floor(random() * (i + 1));
     [order[i], order[j]] = [order[j], order[i]];
   }
-  const same = order.every((option, i) => option === question.options[i]);
+  return order;
+}
+
+/**
+ * Options dans un ordre mélangé, stable pour une question donnée : la bonne réponse n'est pas toujours à la même place
+ * (ordre du JSON non conservé). À la reprise, l'ordre est toujours différent de celui de la tentative précédente.
+ */
+export function shuffledOptions(question, retake = 0) {
+  if (question.options.length < 2) return question.options;
+  const order = permutation(question, retake);
+  // l'ordre précédent est celui réellement affiché (déjà décalé si besoin), pas la permutation brute
+  const previous = retake > 0 ? shuffledOptions(question, retake - 1) : null;
+  const same = previous && order.every((option, i) => option === previous[i]);
   return same ? [...order.slice(1), order[0]] : order;
 }
 

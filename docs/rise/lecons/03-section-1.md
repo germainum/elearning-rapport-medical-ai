@@ -28,7 +28,7 @@ Des contrôles ont été effectués à une date ultérieure par
 
 ## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 1.1 ?
+**Question** : Comment présentez-vous le traitement dispensé à Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Patiente suivie au cabinet depuis de nombreuses années, avec des contrôles réguliers et rapprochés.
@@ -61,7 +61,7 @@ La fréquence des consultations
 
 ## Bloc 7 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que répondez-vous à la question 1.2 ?
+**Question** : Que répondez-vous sur la fréquence de vos consultations ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Selon les besoins, quand la patiente prend rendez-vous.

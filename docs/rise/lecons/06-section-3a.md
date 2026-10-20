@@ -25,7 +25,7 @@ L'activité actuelle
 
 ## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 3.1 ?
+**Question** : Quelle est l'activité actuelle de Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Sans activité actuellement, en arrêt de travail depuis janvier.
@@ -60,7 +60,7 @@ La situation professionnelle
 
 ## Bloc 7 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 3.2 ?
+**Question** : Que mentionnez-vous sur sa situation professionnelle ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Même employeur depuis 2006, contrat maintenu à ce jour selon la patiente.  ✅ **BONNE RÉPONSE**

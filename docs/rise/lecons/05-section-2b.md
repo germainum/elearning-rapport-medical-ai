@@ -53,7 +53,7 @@ Diagnostics · Depuis
 
 ## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 2.6 ?
+**Question** : Quels diagnostics sans incidence sur la capacité de travail mentionnez-vous ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Aucun : seuls les diagnostics qui limitent la patiente intéressent l'AI.
@@ -110,7 +110,7 @@ Le plan de traitement
 
 ## Bloc 17 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 2.8 ?
+**Question** : Quelles prochaines mesures et quel plan de traitement indiquez-vous ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Poursuite du traitement actuel, à adapter selon l'évolution clinique.

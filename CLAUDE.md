@@ -14,7 +14,8 @@
   M. C. et 3 écrans pratiques. Chaque écran : une phrase d'accroche au plus, l'extrait vide, **une question à
   choix unique à exactement 3 réponses** et son feedback (sans « réponse remplie » : redondant avec le feedback, retirée le 14.10.2026). Pas d'encadré « À retenir » : l'essentiel
   passe dans le feedback. 38 écrans, 33 questions, ~45 min. L'**accueil est réparti sur 3 écrans courts** (vidéo, « Ce que vous
-  allez apprendre », « Comment se déroule la formation »). Champ `section` : regroupe les écrans dans le sommaire.
+  allez apprendre », « Comment se déroule la formation »). La **conclusion** (synthèse, merci) forme sa propre section « Conclusion »,
+  sans dossier patient (`hidePatientFile`). Champ `section` : regroupe les écrans dans le sommaire.
   Intitulés exacts : `docs/formulaire-002099.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins
@@ -115,8 +116,9 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   + l'option de version dans le build (manifeste).
 - Recherche de l'API (`API` pour 1.2, `API_1484_11` pour 2004) en remontant `window.parent`
   puis `window.opener` (algorithme ADL, 500 niveaux max).
-- **Mode debug** : si aucune API n'est trouvée, une API simulée journalise chaque appel dans la
-  console (`[SCORM mock] LMSSetValue(...)`) et persiste dans `localStorage` pour tester la reprise.
+- **Mode debug** : si aucune API n'est trouvée (version en ligne, test local), une API simulée persiste dans `localStorage` pour
+  tester la reprise. **Rien ne s'affiche par défaut** (démonstration propre) ; avec **`?debug`** dans l'adresse, la barre jaune « Mode test »
+  (bouton « Effacer la progression ») apparaît et chaque appel est journalisé dans la console (`[SCORM simulé] …`).
 
 ### Règles de suivi
 
@@ -151,7 +153,9 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   toutes ses questions sont validées. Règle : écran *i* accessible si tous les écrans précédents sont
   vus et leurs questions validées.
 - **Questions** : validation → feedback → verrouillage. Seule la première réponse compte. Choix
-  multiple : points seulement si la réponse est exacte.
+  multiple : points seulement si la réponse est exacte. **Ordre des réponses mélangé dès la première fois** (21.10.2026,
+  `shuffledOptions`, stable pour une question donnée, la bonne réponse n'a pas de place fixe), puis différent à chaque reprise.
+  **Énoncés propres à chaque point** (« Comment présentez-vous le traitement dispensé… ? »), pas « Que notez-vous à la question N ? ».
 - **Interactions** : chaque réponse est enregistrée dans `cmi.interactions` (type `choice`).
   D'où la contrainte : identifiants d'options = un caractère `[a-z0-9]`.
 - **Manifeste** : pas de `adlcp:masteryscore` (le module calcule lui-même passed/failed), pas de

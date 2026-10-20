@@ -68,7 +68,7 @@ Les ressources
 
 ## Bloc 10 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 3.5 ?
+**Question** : Quelles ressources utiles à sa réinsertion mentionnez-vous ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Aucune ressource particulière, compte tenu de ses douleurs persistantes.
@@ -103,7 +103,7 @@ La capacité de conduire
 
 ## Bloc 13 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à la question 3.6 ?
+**Question** : Que répondez-vous sur sa capacité de conduire ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Non : le paracétamol n'altère pas la vigilance ; elle conduit sans difficulté.  ✅ **BONNE RÉPONSE**

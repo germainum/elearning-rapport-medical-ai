@@ -162,7 +162,7 @@ Dans quel délai ?
 
 ## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que notez-vous à cette question ?
+**Question** : Jusqu'à quel taux et dans quel délai sa capacité de travail peut-elle s'améliorer ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Jusqu'à 80 %, son taux contractuel, dans un délai de 6 mois.
