@@ -89,18 +89,23 @@ export function setupShortcuts({ screenEl, prev, next }) {
     if (target.closest?.(TYPING) || target.closest?.('.folder, .toc, #toc, video, audio, summary')) return;
     const onChoice = target.matches?.('input[type="radio"], input[type="checkbox"]');
 
-    if (event.key === 'Enter' && onChoice) {
-      const form = target.closest('form.question');
-      if (form && !form.classList.contains('question--answered')) {
+    if (event.key === 'Enter' && (onChoice || target === document.body)) {
+      // Depuis une réponse, ou depuis la page : valide la question en cours si une réponse est cochée
+      const form = onChoice
+        ? target.closest('form.question')
+        : [...screenEl.querySelectorAll('form.question:not(.question--answered)')].find((f) => f.offsetParent);
+      if (form && !form.classList.contains('question--answered') && form.querySelector('.option__input:checked')) {
         event.preventDefault();
         form.requestSubmit();
       }
       return;
     }
 
-    if (/^[1-9]$/.test(event.key) && !event.shiftKey) {
+    // Chiffres : par leur touche physique, car sur un clavier AZERTY ils demandent Maj
+    const digit = /^(?:Digit|Numpad)([1-9])$/.exec(event.code ?? '')?.[1] ?? (/^[1-9]$/.test(event.key) ? event.key : null);
+    if (digit) {
       const form = [...screenEl.querySelectorAll('form.question:not(.question--answered)')].find((f) => f.offsetParent);
-      const input = form?.querySelectorAll('.option__input')[Number(event.key) - 1];
+      const input = form?.querySelectorAll('.option__input')[Number(digit) - 1];
       if (!input) return;
       event.preventDefault();
       input.focus();
