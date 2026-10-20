@@ -26,14 +26,14 @@
       <img class="sidebar-logo" id="side-logo" alt="" hidden>
       <p class="sidebar-module" id="side-module" aria-hidden="true"></p>
       <ul class="sidebar-meta" id="side-meta" aria-label="Informations sur le module"></ul>
-      <div class="sidebar-progress">
-        <h2 class="app-sidebar__title" id="toc-side-title">Votre progression</h2>
-      </div>
       <div class="overall" data-overall>
-        <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
-        <p class="overall__text" data-overall-text></p>
+        <div class="overall__head">
+          <h2 class="overall__label" id="toc-side-title">Votre progression</h2>
+          <span class="overall__percent" data-overall-percent>0 %</span>
+        </div>
+        <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="overall__fill"></span></div>
+        <p class="overall__text" data-time-left hidden></p>
       </div>
-      <p class="time-left" data-time-left hidden></p>
       <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
       <div class="text-size" data-text-size id="text-size-side"></div>
       <p class="shortcuts" aria-label="Raccourcis clavier">Raccourcis : <kbd>←</kbd> <kbd>→</kbd> naviguer · <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> choisir · <kbd>Entrée</kbd> valider</p>
@@ -99,10 +99,13 @@
         <nav class="toc" id="toc" aria-label="Menu du module" hidden>
           <div class="menu-tools">
             <div class="overall" data-overall>
-              <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
-              <p class="overall__text" data-overall-text></p>
+              <div class="overall__head">
+                <span class="overall__label">Votre progression</span>
+                <span class="overall__percent" data-overall-percent>0 %</span>
+              </div>
+              <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="overall__fill"></span></div>
+              <p class="overall__text" data-time-left hidden></p>
             </div>
-            <p class="time-left" data-time-left hidden></p>
             <div class="text-size" data-text-size id="text-size-menu"></div>
           </div>
           <div class="menu-actions">

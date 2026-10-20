@@ -338,9 +338,11 @@ async function start() {
     els.progressBar.style.width = `${percent}%`;
     // Avancement d'ensemble, en tête du sommaire (colonne de gauche) et du menu
     for (const element of document.querySelectorAll('[data-overall]')) {
-      element.querySelector('.overall__bar span').style.width = `${percent}%`;
-      element.querySelector('.overall__bar').setAttribute('aria-valuenow', String(percent));
-      element.querySelector('[data-overall-text]').textContent = `${percent} % terminé`;
+      element.querySelector('.overall__fill').style.width = `${percent}%`;
+      const bar = element.querySelector('.overall__bar');
+      bar.setAttribute('aria-valuenow', String(percent));
+      bar.setAttribute('aria-valuetext', `${percent} % terminé`);
+      element.querySelector('[data-overall-percent]').textContent = `${percent} %`;
     }
     els.progressPill.textContent = `${index + 1} / ${total}`;
     // Pastilles de durée / questions : utiles à l'accueil seulement
@@ -883,6 +885,14 @@ const icon = (name, size = 16) =>
 /** Colonne de gauche : titre, pastilles d'information (dérivées du contenu), carte d'aide. */
 function renderSidebarIntro(module) {
   els.sideModule.textContent = plainText(module.title);
+  const total = module.screens.length;
+  let ticks = '';
+  module.screens.forEach((screen, i) => {
+    if (i > 0 && (screen.section ?? null) !== (module.screens[i - 1].section ?? null)) {
+      ticks += `<span class="overall__tick" style="left: ${(i / total) * 100}%"></span>`;
+    }
+  });
+  for (const bar of document.querySelectorAll('.overall__bar')) bar.insertAdjacentHTML('beforeend', ticks);
   const questionCount = module.screens.reduce((n, screen) => n + questionsOf(screen).length, 0);
   const chips = [
     module.durationMinutes ? [icon('clock'), `${module.durationMinutes} min`] : null,

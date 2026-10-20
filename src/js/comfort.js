@@ -69,8 +69,8 @@ export function timeLeftText(module, tracker, index) {
   const left = screens.reduce((sum, screen, i) => sum + (i >= index && !tracker.isScreenDone(i) ? weight(screen) : 0), 0);
   const minutes = Math.round((durationMinutes * left) / total);
   if (!left || index >= screens.length - 1) return '';
-  if (minutes < 1) return 'Temps restant : moins d’une minute';
-  return `Temps restant : environ ${minutes} min`;
+  if (minutes < 1) return 'Moins d’une minute restante';
+  return `Environ ${minutes} min restante${minutes > 1 ? 's' : ''}`;
 }
 
 /* ---------- Raccourcis clavier ---------- */
