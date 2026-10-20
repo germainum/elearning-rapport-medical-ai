@@ -341,13 +341,7 @@ async function start() {
     const percent = Math.round((done / total) * 100);
     els.progressBar.style.width = `${percent}%`;
     // Avancement d'ensemble, en tête du sommaire (colonne de gauche) et du menu
-    for (const element of document.querySelectorAll('[data-overall]')) {
-      element.querySelector('.overall__fill').style.width = `${percent}%`;
-      const bar = element.querySelector('.overall__bar');
-      bar.setAttribute('aria-valuenow', String(percent));
-      bar.setAttribute('aria-valuetext', `${percent} % terminé`);
-      element.querySelector('[data-overall-percent]').textContent = `${percent} %`;
-    }
+    for (const element of document.querySelectorAll('[data-overall]')) updateOverall(element, percent);
     els.progressPill.textContent = `${index + 1} / ${total}`;
     // Pastilles de durée / questions : utiles à l'accueil seulement
     els.sideMeta.hidden = screens[index].section !== screens[0].section;
@@ -889,6 +883,8 @@ function focusVisible(...elements) {
   elements.find((element) => element.offsetParent !== null)?.focus();
 }
 
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
+
 const ICONS = {
   clock: '<path d="M12 7v5l3 2" /><circle cx="12" cy="12" r="9" />',
   steps: '<path d="M4 6h16M4 12h16M4 18h10" />',
@@ -902,17 +898,47 @@ const ICONS = {
 const icon = (name, size = 16) =>
   `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
 
+/** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */
+function animateNumber(element, from, to) {
+  if (REDUCED_MOTION.matches || from === to) {
+    element.textContent = `${to} %`;
+    return;
+  }
+  const start = performance.now();
+  const duration = Math.min(1400, 450 + Math.abs(to - from) * 35);
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - (1 - t) ** 3;
+    element.textContent = `${Math.round(from + (to - from) * eased)} %`;
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/** Barre d'avancement d'ensemble : remplissage animé, éclat à chaque progression, pourcentage qui défile. */
+function updateOverall(element, percent) {
+  const bar = element.querySelector('.overall__bar');
+  const fill = element.querySelector('.overall__fill');
+  const label = element.querySelector('[data-overall-percent]');
+  const previous = Number(element.dataset.percent ?? 0);
+  element.dataset.percent = String(percent);
+  fill.style.width = `${percent}%`;
+  bar.setAttribute('aria-valuenow', String(percent));
+  bar.setAttribute('aria-valuetext', `${percent} % terminé`);
+  element.classList.toggle('overall--done', percent >= 100);
+  if (percent > previous && !REDUCED_MOTION.matches) {
+    // l'animation CSS ne repart que si la classe est retirée puis remise
+    element.classList.remove('overall--gain');
+    void element.offsetWidth;
+    element.classList.add('overall--gain');
+    setTimeout(() => element.classList.remove('overall--gain'), 1300);
+  }
+  animateNumber(label, previous, percent);
+}
+
 /** Colonne de gauche : titre, pastilles d'information (dérivées du contenu), carte d'aide. */
 function renderSidebarIntro(module) {
   els.sideModule.textContent = plainText(module.title);
-  const total = module.screens.length;
-  let ticks = '';
-  module.screens.forEach((screen, i) => {
-    if (i > 0 && (screen.section ?? null) !== (module.screens[i - 1].section ?? null)) {
-      ticks += `<span class="overall__tick" style="left: ${(i / total) * 100}%"></span>`;
-    }
-  });
-  for (const bar of document.querySelectorAll('.overall__bar')) bar.insertAdjacentHTML('beforeend', ticks);
   const questionCount = module.screens.reduce((n, screen) => n + questionsOf(screen).length, 0);
   const chips = [
     module.durationMinutes ? [icon('clock'), `${module.durationMinutes} min`] : null,
