@@ -2447,6 +2447,51 @@ button.toc__item:hover {
   color: var(--color-accent);
 }
 
+/* ---------- Objectifs pédagogiques ---------- */
+
+.objectives {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--color-brand);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.objectives .section-title {
+  margin-bottom: 0;
+}
+
+.objectives__list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.objectives__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: var(--space-3);
+}
+
+/* Coche verte dans un rond (décoratif ; la liste est lue comme une liste) */
+.objectives__check {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: 0.05rem;
+  border-radius: 50%;
+  background: var(--color-brand);
+  color: #ffffff;
+}
+
 /* ---------- Frise « Votre parcours » ---------- */
 
 .journey__steps {

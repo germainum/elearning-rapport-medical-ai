@@ -91,6 +91,8 @@ guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/aper
 `envoi-rapport.jpg` (en pratique), `merci.jpg` (remerciements) — + portraits `mme-r.jpg` et `m-c.jpg`
 (second cas, psychosocial). Tous ont un texte alternatif (portraits compris). Fonds blancs opaques (pas de transparence
 en JPEG). Remplacer une illustration = même nom de fichier ; adapter le texte alternatif dans `module.json`.
+Objectifs pédagogiques : champ `objectives` (`title`, `items`) d'un écran `text`, carte à coches vertes affichée
+sous le texte, avant la frise (`objectivesHtml`, `common.js`) ; 4 objectifs sur l'écran d'accueil, repris par l'export Rise.
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
 Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
 Glossaire : champ `glossary` à la racine (43 termes en 6 rubriques, repris du « Glossaire et notions clés —

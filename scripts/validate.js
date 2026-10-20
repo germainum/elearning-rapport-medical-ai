@@ -40,7 +40,8 @@ const ALLOWED_KEYS = {
   patientFileBlock: ['type'],
   form: ['title', 'reference'],
   scoring: ['passingScore', 'allowRetry'],
-  text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video', 'journey'],
+  text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video', 'objectives', 'journey'],
+  objectives: ['title', 'items'],
   journey: ['title', 'steps'],
   journeyStep: ['icon', 'label', 'text'],
   video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
@@ -558,6 +559,18 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
         if (!isRichText(screen.body)) error(where, '« body » (le texte de l\'écran) est obligatoire.');
         if (screen.image !== undefined) checkImage(screen.image, `${where} › image`);
         if (screen.video !== undefined) checkVideo(screen.video, `${where} › video`);
+        if (screen.objectives !== undefined) {
+          const at = `${where} › objectives`;
+          if (!isObject(screen.objectives) || !Array.isArray(screen.objectives.items) || screen.objectives.items.length === 0) {
+            error(at, '« objectives » doit contenir au moins un objectif : { "title": …, "items": [ "…" ] }.');
+          } else {
+            checkKeys(screen.objectives, ALLOWED_KEYS.objectives, at);
+            if (screen.objectives.title !== undefined && !isText(screen.objectives.title)) error(at, '« title » doit être un texte.');
+            screen.objectives.items.forEach((item, k) => {
+              if (!isText(item)) error(`${at} › objectif ${k + 1}`, 'doit être un texte.');
+            });
+          }
+        }
         if (screen.journey !== undefined) {
           const at = `${where} › journey`;
           if (!isObject(screen.journey) || !Array.isArray(screen.journey.steps) || screen.journey.steps.length < 2) {

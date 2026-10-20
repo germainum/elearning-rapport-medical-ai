@@ -49,12 +49,12 @@ Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre pl
 
 ## Bloc 4 · Texte : objectifs
 
-**À la fin de cette formation, vous saurez :**
+**À la fin de ce module, vous saurez :**
 
 - décrire des **diagnostics précis, datés et codés (CIM-10)**, en séparant ceux qui ont une incidence sur la capacité de travail de ceux qui n'en ont pas ;
-- formuler des **limitations fonctionnelles mesurables** (ce que la personne ne peut plus faire), sans répéter le diagnostic ;
-- chiffrer **deux capacités de travail distinctes**, en heures par jour et sur un 100 %, et un pronostic avec taux et délai ;
-- éviter les erreurs qui provoquent des demandes de complément et des allers-retours avec l'Office AI.
+- formuler des **limitations fonctionnelles mesurables** : ce que la personne ne peut plus faire, sans répéter le diagnostic ;
+- chiffrer **deux capacités de travail distinctes**, en heures par jour et sur un 100 %, et donner un pronostic avec un taux et un délai ;
+- éviter les erreurs qui provoquent des **demandes de complément** et des allers-retours avec l'Office AI.
 
 ## Bloc 5 · Processus (« Votre parcours dans ce module »)
 

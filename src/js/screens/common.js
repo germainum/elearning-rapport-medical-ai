@@ -166,6 +166,27 @@ const JOURNEY_ICONS = {
   decision: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/>',
 };
 
+/** Objectifs pédagogiques : carte « À la fin de ce module, vous saurez : » avec une coche par objectif. */
+export function objectivesHtml(objectives, idPrefix) {
+  const titleId = escapeHtml(`${idPrefix}-objectifs`);
+  const items = objectives.items
+    .map(
+      (item) => `
+        <li class="objectives__item">
+          <span class="objectives__check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </span>
+          <span>${inline(item)}</span>
+        </li>`,
+    )
+    .join('');
+  return `
+    <section class="objectives" aria-labelledby="${titleId}">
+      <h3 class="section-title" id="${titleId}">${inline(objectives.title ?? 'Objectifs de la formation')}</h3>
+      <ul class="objectives__list" role="list">${items}</ul>
+    </section>`;
+}
+
 /** Frise des étapes d'un parcours : en colonne sur mobile, en ligne sur grand écran. */
 export function journeyHtml(journey, idPrefix) {
   const titleId = escapeHtml(`${idPrefix}-parcours`);

@@ -39,12 +39,8 @@ const CONTEXT = {
   mc: "M. C., 46 ans, menuisier et chef d'équipe (7 personnes), arthrose du poignet droit et épicondylite chronique à droite, état dépressif réactionnel, divorce difficile depuis 8 mois.",
 };
 
-const OBJECTIVES = [
-  'décrire des **diagnostics précis, datés et codés (CIM-10)**, en séparant ceux qui ont une incidence sur la capacité de travail de ceux qui n\'en ont pas ;',
-  'formuler des **limitations fonctionnelles mesurables** (ce que la personne ne peut plus faire), sans répéter le diagnostic ;',
-  'chiffrer **deux capacités de travail distinctes**, en heures par jour et sur un 100 %, et un pronostic avec taux et délai ;',
-  'éviter les erreurs qui provoquent des demandes de complément et des allers-retours avec l\'Office AI.',
-];
+// Objectifs pédagogiques : repris de l'écran d'accueil (champ « objectives » de module.json)
+const OBJECTIVES = screens.get('introduction').objectives.items;
 
 const LESSONS = [
   { file: '01-bienvenue', title: 'Votre rapport, pièce maîtresse du dossier AI', section: 'Avant de commencer', kind: 'bienvenue' },
@@ -150,7 +146,7 @@ function bienvenue() {
   b.add('Vidéo', `Fichier vidéo : \`content/videos/${s.video.src.replace('videos/', '')}\` (${s.video.duration})\nSous-titres (.vtt) : \`content/videos/${s.video.captions.replace('videos/', '')}\` (langue : français)\nTitre : ${s.video.title}\n\n*Rise ne permet pas de démarrer la vidéo à la 8ᵉ seconde ni de la lancer automatiquement : voir le plan du cours.*`);
   b.add('Accordéon « Lire la transcription »', `Un seul élément, titre « Transcription de la vidéo », contenu :\n\n${text(s.video.transcript)}`);
   b.add('Texte (paragraphes)', s.body.filter((line) => !isProvisional(line)).join('\n\n'));
-  b.add('Texte : objectifs', `**À la fin de cette formation, vous saurez :**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
+  b.add('Texte : objectifs', `**${s.objectives.title}**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
   b.add(`Processus (« ${s.journey.title} »)`, s.journey.steps.map((step, i) => `${i + 1}. **${step.label}** — ${step.text}`).join('\n'));
   return { title: s.title, body: b.toString() };
 }
