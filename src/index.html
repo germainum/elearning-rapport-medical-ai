@@ -29,6 +29,10 @@
       <div class="sidebar-progress">
         <h2 class="app-sidebar__title" id="toc-side-title">Votre progression</h2>
       </div>
+      <div class="overall" data-overall>
+        <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+        <p class="overall__text" data-overall-text></p>
+      </div>
       <p class="time-left" data-time-left hidden></p>
       <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
       <div class="text-size" data-text-size id="text-size-side"></div>
@@ -94,6 +98,10 @@
         </div>
         <nav class="toc" id="toc" aria-label="Menu du module" hidden>
           <div class="menu-tools">
+            <div class="overall" data-overall>
+              <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+              <p class="overall__text" data-overall-text></p>
+            </div>
             <p class="time-left" data-time-left hidden></p>
             <div class="text-size" data-text-size id="text-size-menu"></div>
           </div>

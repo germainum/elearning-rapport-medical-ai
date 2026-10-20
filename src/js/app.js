@@ -334,7 +334,14 @@ async function start() {
     const done = screens.filter((_, i) => tracker.isScreenDone(i)).length;
     // Forme courte « 10/35 » sur les très petits écrans ; la forme longue reste lue par les lecteurs d'écran
     els.progressText.innerHTML = `<span class="progress-text__long">Écran ${index + 1} sur ${total}</span><span class="progress-text__short" aria-hidden="true">${index + 1}/${total}</span>`;
-    els.progressBar.style.width = `${Math.round((done / total) * 100)}%`;
+    const percent = Math.round((done / total) * 100);
+    els.progressBar.style.width = `${percent}%`;
+    // Avancement d'ensemble, en tête du sommaire (colonne de gauche) et du menu
+    for (const element of document.querySelectorAll('[data-overall]')) {
+      element.querySelector('.overall__bar span').style.width = `${percent}%`;
+      element.querySelector('.overall__bar').setAttribute('aria-valuenow', String(percent));
+      element.querySelector('[data-overall-text]').textContent = `${percent} % terminé · ${done} écran${done > 1 ? 's' : ''} sur ${total}`;
+    }
     els.progressPill.textContent = `${index + 1} / ${total}`;
     // Pastilles de durée / étapes / questions : utiles à l'accueil seulement
     els.sideMeta.hidden = screens[index].section !== screens[0].section;

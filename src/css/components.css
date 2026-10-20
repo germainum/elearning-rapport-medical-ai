@@ -1307,6 +1307,43 @@ button.toc__item:hover {
 
 /* ---------- Confort de lecture : temps restant, taille du texte, raccourcis ---------- */
 
+/* Avancement d'ensemble du module */
+.overall {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+
+.overall__bar {
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-step);
+}
+
+.overall__bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-brand);
+  transition: width 0.4s ease;
+}
+
+.overall__text {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overall__bar span {
+    transition: none;
+  }
+}
+
 .time-left {
   margin: 0 0 var(--space-3);
   color: var(--color-muted);
