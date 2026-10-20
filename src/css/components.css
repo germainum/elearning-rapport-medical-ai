@@ -423,6 +423,85 @@
   margin-top: var(--space-1);
 }
 
+/* Intertitre d'un ensemble de rubriques (ex. « Le formulaire 002.099 ») et filet de fin d'ensemble */
+.toc__heading {
+  margin: var(--space-4) 0 var(--space-1);
+  padding: 0 var(--space-2);
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.toc__break {
+  margin: var(--space-3) var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Parties terminées repliées en une ligne */
+.toc__done {
+  margin-bottom: var(--space-1);
+}
+
+.toc__done-toggle {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--space-1) var(--space-2);
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-muted);
+  color: var(--color-heading);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.toc__done-toggle:hover {
+  background: var(--color-primary-tint);
+}
+
+.toc__done-toggle .toc__ring {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.toc__done-toggle[aria-expanded="true"] .toc__chevron {
+  transform: rotate(180deg);
+}
+
+/* Partie facultative : en retrait, sans le vert de la réussite */
+.toc__group--optional .toc__section-over {
+  color: var(--color-muted);
+}
+
+.toc__group--optional .toc__section-title {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.toc__group--optional .toc__ring {
+  background: transparent;
+  border: 2px dashed var(--color-border-strong);
+  color: var(--color-muted);
+}
+
+.toc__group--optional .toc__ring::before {
+  display: none;
+}
+
+.toc__group--optional .toc__ring--done {
+  border-style: solid;
+}
+
+.toc__group--optional .toc__count--done {
+  color: var(--color-muted);
+}
+
 .toc__section {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;

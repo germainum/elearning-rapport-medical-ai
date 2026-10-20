@@ -635,8 +635,13 @@ async function start() {
     return item;
   }
 
+  // Rubriques terminées du début du parcours : repliées derrière une seule ligne, dépliables à la demande
+  let doneExpanded = false;
+
   /**
    * Sommaire : une rubrique repliable par section (« Section 2 · 3 sur 8 »), seule celle de l'écran affiché est ouverte.
+   * Les rubriques déjà terminées (au moins deux) se replient en une ligne « n parties terminées » ; un intertitre
+   * (champ « part » des écrans) regroupe les rubriques voisines ; les rubriques « optional » sont en retrait.
    * Sans champ « section » dans le contenu, la liste reste à plat.
    */
   function tocItems(listId) {
@@ -648,48 +653,101 @@ async function start() {
       if (last && last.section === (screen.section ?? null)) last.indexes.push(i);
       else groups.push({ section: screen.section ?? null, indexes: [i] });
     });
+    groups.forEach((group, g) => {
+      group.g = g;
+      group.open = group.section === openSection;
+      group.done = group.indexes.filter((i) => tracker.isScreenDone(i)).length;
+      group.complete = group.done === group.indexes.length;
+      group.optional = group.indexes.every((i) => screens[i].optional === true);
+      group.part = screens[group.indexes[0]].part ?? null;
+    });
 
-    return groups.map((group, g) => {
-      const open = group.section === openSection;
-      const done = group.indexes.filter((i) => tracker.isScreenDone(i)).length;
-      const subId = `${listId}-groupe-${g}`;
+    let doneRun = 0;
+    while (doneRun < groups.length && groups[doneRun].complete && !groups[doneRun].open && !groups[doneRun].optional) doneRun += 1;
+    const foldable = doneRun >= 2;
+    const folded = foldable && !doneExpanded;
 
+    const items = [];
+    if (foldable) {
+      const screensDone = groups.slice(0, doneRun).reduce((sum, group) => sum + group.indexes.length, 0);
       const toggle = document.createElement('button');
       toggle.type = 'button';
-      toggle.className = 'toc__section';
-      toggle.dataset.group = String(g);
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-controls', subId);
-      // « Section 2 · Situation médicale » : surtitre « SECTION 2 » puis nom ; les autres titres s'affichent seuls
-      const [overline, ...rest] = plainText(group.section ?? 'Autres écrans').split(' · ');
-      const label = rest.length ? rest.join(' · ') : overline;
-      const total = group.indexes.length;
-      const complete = done === total;
+      toggle.className = 'toc__done-toggle';
+      toggle.setAttribute('aria-expanded', String(!folded));
       toggle.innerHTML = `
-        <span class="toc__ring${complete ? ' toc__ring--done' : ''}" style="--pct:${Math.round((done / total) * 100)}" aria-hidden="true">${complete ? icon('check', 14) : ''}</span>
-        <span class="toc__section-text">
-          ${rest.length ? `<span class="toc__section-over">${escapeHtml(overline)}</span>` : ''}
-          <span class="toc__section-title">${escapeHtml(label)}</span>
-        </span>
-        <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${done}/${total}</span><span class="visually-hidden">${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
+        <span class="toc__ring toc__ring--done" aria-hidden="true">${icon('check', 14)}</span>
+        <span class="toc__section-title">${folded ? `${doneRun} parties terminées` : 'Masquer les parties terminées'}</span>
+        <span class="toc__count toc__count--done"><span aria-hidden="true">${screensDone}</span><span class="visually-hidden">${screensDone} écrans terminés</span></span>
         <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
       toggle.addEventListener('click', () => {
-        openSection = open ? null : group.section;
+        doneExpanded = folded;
         renderToc();
-        document.getElementById(listId)?.querySelector(`[data-group="${g}"]`)?.focus();
+        document.getElementById(listId)?.querySelector('.toc__done-toggle')?.focus();
       });
-
-      const sub = document.createElement('ol');
-      sub.className = 'toc__sublist';
-      sub.id = subId;
-      sub.hidden = !open;
-      for (const i of group.indexes) sub.append(stepItem(screens[i], i));
-
       const li = document.createElement('li');
-      li.className = 'toc__group';
-      li.append(toggle, sub);
-      return li;
+      li.className = 'toc__done';
+      li.append(toggle);
+      items.push(li);
+    }
+
+    let previousPart = null;
+    for (const group of folded ? groups.slice(doneRun) : groups) {
+      // Intertitre quand on entre dans un ensemble de rubriques ; simple filet quand on en sort
+      if (group.part !== previousPart) {
+        const separator = document.createElement('li');
+        if (group.part) {
+          separator.className = 'toc__heading';
+          separator.textContent = group.part;
+        } else {
+          separator.className = 'toc__break';
+          separator.setAttribute('role', 'presentation');
+        }
+        if (group.part || previousPart) items.push(separator);
+      }
+      previousPart = group.part;
+      items.push(groupItem(group, listId));
+    }
+    return items;
+  }
+
+  function groupItem(group, listId) {
+    const { g, open, done, complete, optional } = group;
+    const subId = `${listId}-groupe-${g}`;
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'toc__section';
+    toggle.dataset.group = String(g);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-controls', subId);
+    // « Section 2 · Situation médicale » : surtitre « SECTION 2 » puis nom ; les autres titres s'affichent seuls
+    const [overline, ...rest] = plainText(group.section ?? 'Autres écrans').split(' · ');
+    const label = rest.length ? rest.join(' · ') : overline;
+    const total = group.indexes.length;
+    toggle.innerHTML = `
+      <span class="toc__ring${complete ? ' toc__ring--done' : ''}" style="--pct:${Math.round((done / total) * 100)}" aria-hidden="true">${complete ? icon('check', 14) : ''}</span>
+      <span class="toc__section-text">
+        ${rest.length ? `<span class="toc__section-over">${escapeHtml(overline)}</span>` : ''}
+        <span class="toc__section-title">${escapeHtml(label)}</span>
+      </span>
+      <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${done}/${total}</span><span class="visually-hidden">${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
+      <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
+    toggle.addEventListener('click', () => {
+      openSection = open ? null : group.section;
+      renderToc();
+      document.getElementById(listId)?.querySelector(`[data-group="${g}"]`)?.focus();
     });
+
+    const sub = document.createElement('ol');
+    sub.className = 'toc__sublist';
+    sub.id = subId;
+    sub.hidden = !open;
+    for (const i of group.indexes) sub.append(stepItem(screens[i], i));
+
+    const li = document.createElement('li');
+    li.className = `toc__group${optional ? ' toc__group--optional' : ''}`;
+    li.append(toggle, sub);
+    return li;
   }
 
   function setTocOpen(open) {

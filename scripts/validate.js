@@ -32,7 +32,7 @@ const QUESTION_KINDS = ['single', 'multiple'];
 const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
-const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'section'];
+const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'section', 'part', 'optional'];
 
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'screens'],
@@ -577,7 +577,8 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     for (const key of ['hideReport', 'showReport']) {
       if (screen[key] !== undefined && typeof screen[key] !== 'boolean') error(where, `« ${key} » doit valoir true ou false.`);
     }
-    for (const key of ['kicker', 'continueLabel', 'storyTitle', 'section']) {
+    if (screen.optional !== undefined && typeof screen.optional !== 'boolean') error(where, '« optional » doit valoir true ou false.');
+    for (const key of ['kicker', 'continueLabel', 'storyTitle', 'section', 'part']) {
       if (screen[key] !== undefined && !isText(screen[key])) error(where, `« ${key} » doit être un texte.`);
     }
 

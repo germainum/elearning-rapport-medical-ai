@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.40.1",
+  "version": "0.41.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -615,6 +615,7 @@
       "id": "1-1",
       "type": "scene",
       "section": "Section 1 · Informations générales",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 1.1 du formulaire",
       "title": "Le traitement dispensé",
       "blocks": [
@@ -674,6 +675,7 @@
       "id": "1-2",
       "type": "scene",
       "section": "Section 1 · Informations générales",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 1.2 du formulaire",
       "title": "La fréquence des consultations",
       "blocks": [
@@ -717,6 +719,7 @@
       "id": "1-3",
       "type": "scene",
       "section": "Section 1 · Informations générales",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 1.3 du formulaire",
       "title": "L'incapacité de travail attestée",
       "blocks": [
@@ -776,6 +779,7 @@
       "id": "2-1",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.1 du formulaire",
       "title": "Antécédents et évolution",
       "blocks": [
@@ -835,6 +839,7 @@
       "id": "2-2",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.2 du formulaire",
       "title": "Situation et symptômes actuels",
       "blocks": [
@@ -882,6 +887,7 @@
       "id": "2-3",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.3 du formulaire",
       "title": "La médication actuelle",
       "blocks": [
@@ -929,6 +935,7 @@
       "id": "2-4",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.4 du formulaire",
       "title": "Les constats médicaux",
       "blocks": [
@@ -979,6 +986,7 @@
       "id": "2-5",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.5 du formulaire",
       "title": "Diagnostics avec incidence",
       "blocks": [
@@ -1033,6 +1041,7 @@
       "id": "2-6",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.6 du formulaire",
       "title": "Diagnostics sans incidence",
       "blocks": [
@@ -1084,6 +1093,7 @@
       "id": "2-7",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.7 du formulaire",
       "title": "Le pronostic",
       "blocks": [
@@ -1134,6 +1144,7 @@
       "id": "2-8",
       "type": "scene",
       "section": "Section 2 · Situation médicale",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 2.8 du formulaire",
       "title": "Le plan de traitement",
       "blocks": [
@@ -1184,6 +1195,7 @@
       "id": "3-1",
       "type": "scene",
       "section": "Section 3 · Situation professionnelle",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 3.1 du formulaire",
       "title": "L'activité actuelle",
       "blocks": [
@@ -1235,6 +1247,7 @@
       "id": "3-2",
       "type": "scene",
       "section": "Section 3 · Situation professionnelle",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 3.2 du formulaire",
       "title": "La situation professionnelle",
       "blocks": [
@@ -1286,6 +1299,7 @@
       "id": "3-3",
       "type": "scene",
       "section": "Section 3 · Situation professionnelle",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 3.3 du formulaire",
       "title": "Les exigences du poste",
       "blocks": [
@@ -1347,6 +1361,7 @@
       "id": "3-4",
       "type": "scene",
       "section": "Section 3 · Situation professionnelle",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 3.4 du formulaire",
       "title": "Les limitations fonctionnelles",
       "blocks": [
@@ -1420,6 +1435,7 @@
       "id": "3-5",
       "type": "scene",
       "section": "Section 3 · Situation professionnelle",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 3.5 du formulaire",
       "title": "Les ressources",
       "blocks": [
@@ -1474,6 +1490,7 @@
       "id": "3-6",
       "type": "scene",
       "section": "Section 3 · Situation professionnelle",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 3.6 du formulaire",
       "title": "La capacité de conduire",
       "blocks": [
@@ -1525,6 +1542,7 @@
       "id": "4-1",
       "type": "scene",
       "section": "Section 4 · Potentiel de réadaptation",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 4.1 du formulaire",
       "title": "Heures par jour : l'activité habituelle",
       "blocks": [
@@ -1572,6 +1590,7 @@
       "id": "4-2",
       "type": "scene",
       "section": "Section 4 · Potentiel de réadaptation",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 4.2 du formulaire",
       "title": "Heures par jour : une activité adaptée",
       "blocks": [
@@ -1622,6 +1641,7 @@
       "id": "4-3",
       "type": "scene",
       "section": "Section 4 · Potentiel de réadaptation",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 4.3 du formulaire",
       "title": "Le potentiel de réadaptation",
       "blocks": [
@@ -1672,6 +1692,7 @@
       "id": "4-4",
       "type": "scene",
       "section": "Section 4 · Potentiel de réadaptation",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 4.4 du formulaire",
       "title": "Les obstacles à la réadaptation",
       "blocks": [
@@ -1719,6 +1740,7 @@
       "id": "4-5",
       "type": "scene",
       "section": "Section 4 · Potentiel de réadaptation",
+      "part": "Le formulaire 002.099",
       "kicker": "Question 4.5 du formulaire",
       "title": "Les tâches ménagères",
       "blocks": [
@@ -1779,6 +1801,7 @@
       "id": "5",
       "type": "scene",
       "section": "Section 5 · Pièces jointes et annexes",
+      "part": "Le formulaire 002.099",
       "kicker": "Section 5 du formulaire",
       "title": "Divers",
       "blocks": [
@@ -1828,6 +1851,7 @@
       "id": "annexes",
       "type": "scene",
       "section": "Section 5 · Pièces jointes et annexes",
+      "part": "Le formulaire 002.099",
       "kicker": "Pièces jointes",
       "title": "Les documents à joindre",
       "blocks": [
@@ -1881,6 +1905,7 @@
       "id": "exigibles",
       "type": "scene",
       "section": "Section 5 · Pièces jointes et annexes",
+      "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 5)",
       "title": "Les travaux exigibles",
       "blocks": [
@@ -1942,6 +1967,7 @@
       "id": "reinsertion",
       "type": "scene",
       "section": "Section 5 · Pièces jointes et annexes",
+      "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 1",
       "title": "La mesure de réinsertion",
       "blocks": [
@@ -1997,6 +2023,7 @@
       "id": "amelioration",
       "type": "scene",
       "section": "Section 5 · Pièces jointes et annexes",
+      "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 2",
       "title": "Le pronostic d'amélioration",
       "blocks": [
@@ -2332,6 +2359,7 @@
       "id": "avis",
       "type": "survey",
       "section": "Facultatif · Avis et remerciements",
+      "optional": true,
       "hidePatientFile": true,
       "hideReport": true,
       "kicker": "Votre avis",
@@ -2476,6 +2504,7 @@
       "id": "merci",
       "type": "text",
       "section": "Facultatif · Avis et remerciements",
+      "optional": true,
       "hidePatientFile": true,
       "kicker": "Merci",
       "title": "Merci pour votre engagement",

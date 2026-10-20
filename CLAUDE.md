@@ -101,6 +101,8 @@ Confort de lecture (21.10.2026, v0.39.0, `src/js/comfort.js`) : **temps restant 
 Questionnaire de satisfaction (21.10.2026, v0.40.0) : écran `avis` (`survey`, `screens/survey.js`) après la synthèse : 3 étapes (réaction, apprentissage perçu,
 transfert), non noté, n'affecte ni score ni complétion. Réponses gardées dans `suspend_data` (`e`, `f`) et envoyées au LMS à l'envoi
 (`scorm.recordSurvey`, interactions `eval-<id>`). Détail, niveau 4 et points à confirmer : `docs/evaluation-kirkpatrick.md`.
+Sommaire (21.10.2026, v0.41.0) : les rubriques terminées du début du parcours (au moins 2) se replient en une ligne « n parties terminées » (dépliable) ;
+champ `part` = intertitre d'un ensemble de rubriques (« Le formulaire 002.099 »), filet à la sortie ; champ `optional` = rubrique en retrait (anneau en pointillés, sans vert).
 Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
 guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/apercu-illustrations.html`) : un **médecin généraliste** suit le parcours —
 `cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),

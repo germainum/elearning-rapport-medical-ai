@@ -129,6 +129,9 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 | `type`          | `text`, `scene`, `quiz`, `summary` ou `survey`                        |
 | `kicker`        | surtitre facultatif, au-dessus du titre (ex. « Question 4 du formulaire ») |
 | `title`         | titre de l'écran                                                     |
+| `section`       | groupe du sommaire, sous la forme « Surtitre · Nom » (ex. « Section 2 · Situation médicale ») |
+| `part`          | intertitre au-dessus d'un ensemble de sections voisines dans le sommaire (ex. « Le formulaire 002.099 ») |
+| `optional`      | `true` : écran facultatif, sa rubrique est affichée en retrait dans le sommaire |
 | `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. C. ») |
 | `section`       | titre de groupe dans le sommaire (ex. « Section 2 · Situation médicale ») : affiché quand il change d'un écran à l'autre |
 | `hidePatientFile` | `true` : masque le dossier patient pendant cet écran (autre cas, informations générales) |
