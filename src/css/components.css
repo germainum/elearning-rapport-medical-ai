@@ -3904,7 +3904,7 @@ html {
   }
 
   /* « Papiers » : lettre, dossier médical, chemise et son contenu restent clairs, comme sur une table sombre */
-  :root[data-theme="dark"] :is(.letter, .record, .record-folder, .folder) {
+  :root[data-theme="dark"] :is(.letter, .record, .record-folder, .folder, .form-sheet) {
     color-scheme: light;
     --color-surface: #ffffff;
     --color-surface-muted: #f5f6fa;
@@ -4385,5 +4385,121 @@ html {
   #next.btn--ready::after,
   #next.btn--denied {
     animation: none;
+  }
+}
+
+/* ---------- Extrait du formulaire : une vraie feuille de papier ---------- */
+
+.form-sheet {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #d8d4c6;
+  border-radius: 0.25rem;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.7), rgb(246 243 232 / 0.6)),
+    #fffefa;
+  color: #22252b;
+  /* feuille posée sur une pile : deux feuilles dépassent en dessous, une ombre douce sur le bureau */
+  box-shadow:
+    0 1px 2px rgb(18 20 26 / 0.1),
+    4px 5px 0 -1px #f8f5ec,
+    4px 5px 0 0 #d8d4c6,
+    8px 10px 0 -2px #f1ede2,
+    8px 10px 0 -1px #d8d4c6,
+    0 22px 32px -14px rgb(18 20 26 / 0.3);
+}
+
+/* Coin corné en haut à droite */
+.form-sheet::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 1.5rem 1.5rem 0;
+  border-color: transparent var(--color-bg) #e4dfd0 transparent;
+  box-shadow: -2px 2px 3px rgb(18 20 26 / 0.12);
+}
+
+/* En-tête imprimé : titre en capitales, filet épais dessous */
+.form-sheet__header {
+  padding: var(--space-3) 2.25rem var(--space-2) var(--space-4);
+  border-bottom: 2px solid #22252b;
+  background: transparent;
+}
+
+.form-sheet__title {
+  color: #22252b;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.form-sheet__header--compact {
+  padding: var(--space-2) 2.25rem var(--space-2) var(--space-4);
+  background: transparent;
+}
+
+.form-sheet__header--compact .form-sheet__title {
+  color: #22252b;
+}
+
+.form-sheet__ref {
+  color: #5d6170;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bandeau de section : gris d'imprimé, trait bleu à gauche */
+.form-sheet__section {
+  border-left: 4px solid var(--color-heading);
+  background: #ecebe6;
+  color: #22252b;
+}
+
+.form-sheet__section:not(:first-child) {
+  border-top: 1px solid #d8d4c6;
+}
+
+/* Questions : séparées par un filet fin, comme les cases d'un formulaire */
+.form-sheet__items > li {
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid #e2dfd2;
+}
+
+.form-sheet__items > li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.form-sheet__details {
+  color: #5d6170;
+}
+
+.form-sheet__blank {
+  background-image: linear-gradient(transparent calc(1.5rem - 1px), #a9aebb calc(1.5rem - 1px), #a9aebb 1.5rem, transparent 1.5rem);
+}
+
+.form-sheet__field dd {
+  border-bottom: 1px dotted #7d8291;
+}
+
+.form-sheet__footer {
+  border-top-color: #d8d4c6;
+}
+
+/* Réponse modèle : encre bleue sur le papier */
+.form-sheet__answer {
+  background: rgb(15 29 150 / 0.06);
+  border-left-color: #0f1d96;
+  color: #0f1d96;
+}
+
+@media print {
+  .form-sheet {
+    box-shadow: none;
+  }
+
+  .form-sheet::after {
+    display: none;
   }
 }
