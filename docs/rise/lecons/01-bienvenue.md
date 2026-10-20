@@ -51,10 +51,10 @@ Voici ce que vous saurez faire à la fin de ce module. Comptez environ 45 minute
 
 **À la fin de ce module, vous saurez :**
 
-- décrire l'état de santé par des **constats objectifs**, des **diagnostics précis, datés et classés** selon leur incidence, et des **incapacités attestées avec dates et taux exacts** (sections 1 et 2) ;
-- décrire le **poste réel** et formuler des **limitations fonctionnelles mesurables**, sans répéter le diagnostic (section 3) ;
-- chiffrer **deux capacités de travail distinctes** (en heures par jour, sur un 100 %), donner un **pronostic avec taux et délai** et apprécier l'**aptitude à la réadaptation** (section 4 et annexes) ;
-- séparer le **médical du psychosocial**, joindre les bonnes pièces et connaître les démarches : **MedAI, secret médical, détection précoce**.
+- décrire l'état de santé par des constats objectifs, des diagnostics précis, datés et classés selon leur incidence, et des incapacités attestées avec dates et taux exacts ;
+- décrire le poste réel et formuler des limitations fonctionnelles mesurables, sans répéter le diagnostic ;
+- chiffrer deux capacités de travail distinctes, donner un pronostic avec taux et délai et apprécier l'aptitude à la réadaptation ;
+- séparer le médical du psychosocial, joindre les bonnes pièces et connaître les démarches : MedAI, secret médical, détection précoce.
 
 ## Bloc 5 · Texte
 
