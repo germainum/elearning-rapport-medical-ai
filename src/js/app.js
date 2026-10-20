@@ -1067,6 +1067,7 @@ function animateSheetTurn(article, oldSheet) {
     backfaceVisibility: 'hidden',
     willChange: 'transform',
   });
+  holder.style.zIndex = '8'; // la page qui tourne passe au-dessus du bloc de réponses, mais sous la barre de navigation (z-index 10)
   holder.style.perspective = '2200px';
   holder.style.perspectiveOrigin = '50% 0%'; // le point de vue au niveau de la charnière : peu de déformation
   holder.append(oldSheet);
@@ -1082,6 +1083,7 @@ function animateSheetTurn(article, oldSheet) {
   const cleanup = () => {
     oldSheet.remove();
     holder.style.position = '';
+    holder.style.zIndex = '';
     holder.style.perspective = '';
     holder.style.perspectiveOrigin = '';
   };
