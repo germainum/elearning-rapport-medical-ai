@@ -1041,7 +1041,7 @@ function animateSheetDescent(article, previousItem, previousTitle) {
 
 /**
  * Changement de section de la feuille : on tourne la page. L'ancienne feuille, posée par-dessus la nouvelle, pivote autour de
- * son bord gauche (comme la page d'un bloc ou d'un livre), s'assombrit en s'éloignant et disparaît quand elle est de chant ;
+ * son bord haut (comme la page d'un bloc-notes à spirale), se soulève vers l'écran, s'assombrit et disparaît quand elle est de chant ;
  * la nouvelle page est déjà là, dessous. Jusqu'à 90°, la page reste dans le cadre de la feuille : rien ne déborde.
  */
 function animateSheetTurn(article, oldSheet) {
@@ -1063,18 +1063,19 @@ function animateSheetTurn(article, oldSheet) {
     margin: '0',
     zIndex: '5',
     pointerEvents: 'none',
-    transformOrigin: 'left center',
+    transformOrigin: 'center top',
     backfaceVisibility: 'hidden',
     willChange: 'transform',
   });
-  holder.style.perspective = '2800px';
+  holder.style.perspective = '2200px';
+  holder.style.perspectiveOrigin = '50% 0%'; // le point de vue au niveau de la charnière : peu de déformation
   holder.append(oldSheet);
 
   const turn = oldSheet.animate(
     [
-      { transform: 'rotateY(0deg)', filter: 'brightness(1)', boxShadow: '0 1px 2px rgb(18 20 26 / 0.1), 0 22px 32px -14px rgb(18 20 26 / 0.3)' },
-      { transform: 'rotateY(-52deg) skewY(-1.2deg)', filter: 'brightness(0.88)', boxShadow: '12px 14px 30px rgb(18 20 26 / 0.35)', offset: 0.55 },
-      { transform: 'rotateY(-100deg) skewY(0deg)', filter: 'brightness(0.62)', boxShadow: '24px 18px 40px rgb(18 20 26 / 0.4)' },
+      { transform: 'rotateX(0deg)', filter: 'brightness(1)', boxShadow: '0 1px 2px rgb(18 20 26 / 0.1), 0 22px 32px -14px rgb(18 20 26 / 0.3)' },
+      { transform: 'rotateX(50deg)', filter: 'brightness(0.88)', boxShadow: '0 22px 34px rgb(18 20 26 / 0.35)', offset: 0.55 },
+      { transform: 'rotateX(100deg)', filter: 'brightness(0.62)', boxShadow: '0 30px 44px rgb(18 20 26 / 0.4)' },
     ],
     { duration: 1200, delay: 250, easing: 'cubic-bezier(0.5, 0, 0.25, 1)', fill: 'both' },
   );
@@ -1082,6 +1083,7 @@ function animateSheetTurn(article, oldSheet) {
     oldSheet.remove();
     holder.style.position = '';
     holder.style.perspective = '';
+    holder.style.perspectiveOrigin = '';
   };
   turn.finished.then(cleanup, cleanup);
 }
