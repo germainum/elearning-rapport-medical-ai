@@ -2198,7 +2198,7 @@ button.toc__item:hover {
    */
   .folder-tab {
     position: fixed;
-    top: calc(var(--shell-pad) + 4.5rem);
+    top: calc(var(--shell-pad) + 7.5rem); /* sous la ligne du bandeau (glossaire, progression), même avec la barre du mode test */
     right: 0;
     z-index: 40;
     display: flex;
