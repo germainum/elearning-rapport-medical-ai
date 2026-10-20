@@ -74,6 +74,47 @@ function wrongQuestionsSection(prefix, wrong, ctx) {
     </section>`;
 }
 
+/** Niveau de maîtrise d'une section : le texte porte l'information, la couleur ne fait que l'appuyer. */
+function levelOf(correct, total) {
+  const ratio = correct / total;
+  if (ratio >= 0.8) return { key: 'good', label: 'Solide' };
+  if (ratio >= 0.5) return { key: 'mid', label: 'À consolider' };
+  return { key: 'low', label: 'À revoir' };
+}
+
+/** Résultats par section du formulaire : où l'apprenant est solide, où il doit revoir. */
+function sectionResultsSection(prefix, ctx) {
+  const groups = ctx.sectionResults().filter((group) => group.total > 0);
+  if (groups.length < 2) return '';
+  const items = groups
+    .map((group) => {
+      const level = levelOf(group.correct, group.total);
+      const retry =
+        ctx.allowRetry && group.wrongIds.length
+          ? `<button type="button" class="btn btn--secondary btn--small" data-retry-section="${escapeHtml(group.wrongIds.join(','))}"
+               aria-label="Revoir ${group.wrongIds.length > 1 ? 'les ' + group.wrongIds.length + ' questions fausses' : 'la question fausse'} : ${escapeHtml(plainText(group.section))}">Revoir</button>`
+          : '';
+      return `
+        <li class="by-section__item by-section__item--${level.key}">
+          <div class="by-section__head">
+            <span class="by-section__name">${inline(group.section)}</span>
+            <span class="by-section__level">${level.label}</span>
+          </div>
+          <div class="by-section__bar" aria-hidden="true"><span style="width: ${Math.round((group.correct / group.total) * 100)}%"></span></div>
+          <div class="by-section__foot">
+            <span class="by-section__score">${group.correct} bonne${group.correct > 1 ? 's' : ''} réponse${group.correct > 1 ? 's' : ''} sur ${group.total}</span>
+            ${retry}
+          </div>
+        </li>`;
+    })
+    .join('');
+  return `
+    <section class="by-section" aria-labelledby="${prefix}-by-section">
+      <h3 class="section-title" id="${prefix}-by-section">Vos résultats par section</h3>
+      <ol class="by-section__list" role="list">${items}</ol>
+    </section>`;
+}
+
 /** Carte « Votre rapport » : le formulaire rempli au fil du module, à garder comme modèle. */
 function reportCard(prefix, ctx) {
   const { filled, total } = ctx.report.summary();
@@ -131,12 +172,15 @@ export function renderSummary(screen, ctx) {
   const body = screen.body ? `<div class="prose">${rich(screen.body)}</div>` : '';
 
   const reportSection = screen.showReport && ctx.report ? reportCard(prefix, ctx) : '';
-  const element = createScreen(screen, 'summary', resultHtml + reportSection + review + keyPoints + body);
+  const element = createScreen(screen, 'summary', resultHtml + (result ? sectionResultsSection(prefix, ctx) : '') + reportSection + review + keyPoints + body);
   element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
   element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());
   element.querySelector('[data-report-download]')?.addEventListener('click', () => ctx.report.download());
   element.querySelectorAll('[data-retry]').forEach((button) => {
     button.addEventListener('click', () => ctx.retryQuestions([button.dataset.retry]));
+  });
+  element.querySelectorAll('[data-retry-section]').forEach((button) => {
+    button.addEventListener('click', () => ctx.retryQuestions(button.dataset.retrySection.split(',')));
   });
   element.querySelector('[data-retry-all]')?.addEventListener('click', () => {
     ctx.retryQuestions(wrong.map(({ question }) => question.id));

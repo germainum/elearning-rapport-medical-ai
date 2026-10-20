@@ -243,6 +243,24 @@ export function createTracker(module) {
     isReviewDone: () => reviewQueue.every((id) => answers.has(id)),
 
     /** Questions répondues de façon incorrecte, dans l'ordre du module, avec leur écran. */
+    /** Réussite par section du sommaire : { section, correct, total, wrongIds }, dans l'ordre du module. */
+    sectionResults() {
+      const groups = new Map();
+      for (const screen of screens) {
+        for (const question of questionsOf(screen)) {
+          const ids = answers.get(question.id);
+          if (!ids) continue;
+          const name = screen.section ?? '';
+          const group = groups.get(name) ?? { section: name, correct: 0, total: 0, wrongIds: [] };
+          group.total += 1;
+          if (evaluate(question, ids).correct) group.correct += 1;
+          else group.wrongIds.push(question.id);
+          groups.set(name, group);
+        }
+      }
+      return [...groups.values()];
+    },
+
     wrongQuestions() {
       const wrong = [];
       screens.forEach((screen, screenIndex) => {

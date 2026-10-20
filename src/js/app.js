@@ -13,6 +13,7 @@ import { renderText } from './screens/text.js';
 import { renderScene } from './screens/scene.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderSummary } from './screens/summary.js';
+import { setupShortcuts, setupTextSize, timeLeftText } from './comfort.js';
 
 const CONTENT_URL = 'content/module.json';
 const DEFAULT_PASSING_SCORE = 80;
@@ -206,6 +207,7 @@ async function start() {
     },
 
     wrongQuestions: () => tracker.wrongQuestions(),
+    sectionResults: () => tracker.sectionResults(),
 
     /**
      * Révision guidée depuis la synthèse : efface seulement les réponses fausses indiquées, mémorise la file des
@@ -313,6 +315,11 @@ async function start() {
     els.progressPill.textContent = `${index + 1} / ${total}`;
     // Pastilles de durée / étapes / questions : utiles à l'accueil seulement
     els.sideMeta.hidden = screens[index].section !== screens[0].section;
+    const timeLeft = timeLeftText(module, tracker, index);
+    for (const element of document.querySelectorAll('[data-time-left]')) {
+      element.textContent = timeLeft;
+      element.hidden = !timeLeft;
+    }
 
     // En-tête : le fil rouge seul (ex. « Rapport de Mme R. »)
     const screen = screens[index];
@@ -691,6 +698,9 @@ async function start() {
   });
 
   /* ---------- Navigation ---------- */
+
+  setupTextSize(module.id);
+  setupShortcuts({ screenEl: els.screen, prev: els.prev, next: els.next });
 
   els.prev.addEventListener('click', () => {
     if (index > 0) show(index - 1);

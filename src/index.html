@@ -29,7 +29,10 @@
       <div class="sidebar-progress">
         <h2 class="app-sidebar__title" id="toc-side-title">Votre progression</h2>
       </div>
+      <p class="time-left" data-time-left hidden></p>
       <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
+      <div class="text-size" data-text-size id="text-size-side"></div>
+      <p class="shortcuts" aria-label="Raccourcis clavier">Raccourcis : <kbd>←</kbd> <kbd>→</kbd> naviguer · <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> choisir · <kbd>Entrée</kbd> valider</p>
       <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
         <div class="help-card__head">
           <span class="help-card__icon" id="help-card-icon" aria-hidden="true"></span>
@@ -90,6 +93,10 @@
           </div>
         </div>
         <nav class="toc" id="toc" aria-label="Menu du module" hidden>
+          <div class="menu-tools">
+            <p class="time-left" data-time-left hidden></p>
+            <div class="text-size" data-text-size id="text-size-menu"></div>
+          </div>
           <div class="menu-actions">
             <button type="button" class="menu-action" id="menu-glossary" hidden>
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

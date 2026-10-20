@@ -1123,6 +1123,190 @@ button.toc__item:hover {
   }
 }
 
+
+/* ---------- Résultats par section (synthèse) ---------- */
+
+.by-section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.by-section__list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.by-section__item {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.by-section__head,
+.by-section__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+}
+
+.by-section__name {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.by-section__level {
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.by-section__item--good .by-section__level {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.by-section__item--mid .by-section__level {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.by-section__item--low .by-section__level {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.by-section__bar {
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-step);
+}
+
+.by-section__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-success);
+}
+
+.by-section__item--mid .by-section__bar span {
+  background: #b07d00;
+}
+
+.by-section__item--low .by-section__bar span {
+  background: var(--color-error);
+}
+
+.by-section__score {
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+}
+
+/* ---------- Confort de lecture : temps restant, taille du texte, raccourcis ---------- */
+
+.time-left {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+}
+
+.text-size {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.text-size__label {
+  color: var(--color-heading);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+}
+
+.text-size__buttons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.text-size__buttons .btn {
+  min-width: 2.75rem;
+}
+
+.text-size__status {
+  flex-basis: 100%;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.sidebar-progress + .time-left {
+  margin-top: 0;
+}
+
+.text-size {
+  margin-top: var(--space-5);
+}
+
+/* Menu (mobile, tablette) : temps restant et taille du texte en tête ; masqué quand la colonne de gauche est là */
+.menu-tools {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) 0;
+}
+
+.menu-tools .text-size {
+  margin-top: 0;
+}
+
+.menu-tools .time-left {
+  margin: 0;
+}
+
+.shortcuts {
+  display: none;
+  margin-top: var(--space-4);
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.8;
+}
+
+.shortcuts kbd {
+  padding: 0 0.375rem;
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 0.25rem;
+  background: var(--color-surface);
+  font: inherit;
+  font-weight: 600;
+}
+
+@media (min-width: 64rem) {
+  .menu-tools {
+    display: none;
+  }
+}
+
+@media (min-width: 64rem) and (hover: hover) {
+  .shortcuts {
+    display: block;
+  }
+}
+
+/* Mise à l'échelle choisie par l'apprenant (A− / A+) */
+html {
+  font-size: calc(100% * var(--text-scale, 1));
+}
+
 /* ---------- Zone principale ---------- */
 
 .app-main {
@@ -2806,7 +2990,7 @@ button.toc__item:hover {
  */
 @media (min-width: 90rem) {
   html {
-    font-size: clamp(100%, calc(0.357vw + 0.679rem), 125%);
+    font-size: calc(clamp(100%, calc(0.357vw + 0.679rem), 125%) * var(--text-scale, 1));
   }
 
   /* Colonnes latérales plus larges : sommaire à gauche, dossier patient à droite */

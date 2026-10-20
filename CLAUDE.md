@@ -93,6 +93,10 @@ Vue réduite du 002.099 qui se remplit : racine `report`, `reportAnswer` sur 27 
 (`buildReport`). Un panneau à la fois (bouton pour passer de l'un à l'autre, `panneau-ouvert:<id>`) ; < 1024 px : fenêtre
 (burger : tuile ; tablette : bouton icône). Impression via `body.printing-report` + `#report-print` ; téléchargement = HTML autonome.
 `hideReport` (M. C.), `showReport` (carte « Votre rapport » sur la synthèse).
+Confort de lecture (21.10.2026, v0.39.0, `src/js/comfort.js`) : **temps restant estimé** (`durationMinutes` réparti au prorata des écrans et questions restants, sidebar et menu) ;
+**taille du texte** A− / A+ (3 niveaux 100 / 112,5 / 125 %, `--text-scale` sur `html`, `localStorage` `taille-texte:<id>`, sidebar ≥ 1024 px et menu en dessous) ;
+**raccourcis clavier** (ordinateur) : ← → écran précédent / suivant, 1–9 choisir la réponse, Entrée valider (inactifs dans un champ, une fenêtre, un panneau latéral).
+**Résultats par section** sur la synthèse (`tracker.sectionResults`, « Solide » ≥ 80 %, « À consolider » ≥ 50 %, « À revoir »), bouton « Revoir » par section.
 Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
 guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/apercu-illustrations.html`) : un **médecin généraliste** suit le parcours —
 `cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),
