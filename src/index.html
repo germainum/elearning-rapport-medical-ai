@@ -5,6 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Chargement du module…</title>
+  <script>
+    /* Thème d'affichage appliqué avant le premier rendu, pour éviter un éclair clair (voir comfort.js) */
+    (function () {
+      try {
+        var choice = localStorage.getItem('theme-affichage') || 'clair';
+        var dark = choice === 'sombre' || (choice === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      } catch (e) { /* thème clair par défaut */ }
+    })();
+  </script>
   <link rel="preload" href="fonts/work-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/tokens.css">
@@ -243,6 +253,12 @@
       <button type="button" class="btn btn--ghost btn--small" id="settings-close">Fermer</button>
     </div>
     <div class="file-dialog__body settings">
+      <fieldset class="settings__section settings__theme">
+        <legend class="settings__title">Affichage</legend>
+        <label class="settings__radio"><input type="radio" name="theme" value="clair" checked><span>Clair</span></label>
+        <label class="settings__radio"><input type="radio" name="theme" value="sombre"><span>Sombre</span></label>
+        <label class="settings__radio"><input type="radio" name="theme" value="auto"><span>Automatique <small>(suit le réglage de l'appareil)</small></span></label>
+      </fieldset>
       <section class="settings__section" aria-label="Taille du texte">
         <div class="text-size" data-text-size id="text-size-dialog"></div>
       </section>

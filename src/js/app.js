@@ -14,7 +14,7 @@ import { renderScene } from './screens/scene.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderSummary } from './screens/summary.js';
 import { renderSurvey } from './screens/survey.js';
-import { setupShortcuts, setupShortcutsSetting, setupTextSize, timeLeftText } from './comfort.js';
+import { setupShortcuts, setupShortcutsSetting, setupTextSize, setupTheme, timeLeftText } from './comfort.js';
 
 const CONTENT_URL = 'content/module.json';
 const DEFAULT_PASSING_SCORE = 80;
@@ -808,6 +808,7 @@ async function start() {
   /* ---------- Navigation ---------- */
 
   setupTextSize(module.id);
+  setupTheme(document.querySelectorAll('input[name="theme"]'));
   setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
 
   /* ---------- Paramètres : taille du texte, raccourcis clavier ---------- */

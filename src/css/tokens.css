@@ -84,3 +84,46 @@
     --logo-height: 2rem;
   }
 }
+
+/*
+ * Thème sombre (réglage « Affichage » des paramètres). Contrastes vérifiés : texte ≥ 7:1 sur les fonds,
+ * bordures de composants ≥ 5:1. Limité à l'écran : l'impression reste claire.
+ * Les « papiers » (lettre, dossier médical, chemise) gardent leur aspect clair : voir components.css.
+ */
+@media screen {
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-bg: #0e1016;
+    --color-surface: #171a22;
+    --color-surface-muted: #1e222c;
+    --color-text: #e9ebf1;
+    --color-muted: #b0b6c4;
+    --color-subtle: #a2a9b8;
+    --color-heading: #b4bcff;
+    --color-border: #2a2f3c;
+    --color-primary-tint: #222a55;
+    --color-primary-tint-hover: #2b3566;
+    --color-step: #4b5268;
+    --color-border-strong: #8e97ad;
+    --color-primary: #a5afff;
+    --color-primary-hover: #bcc3ff;
+    --color-on-primary: #0a0e33;
+    --color-accent: #5fd38a;
+    --color-accent-bg: #14291d;
+    --color-link: #b4bcff;
+    --color-focus: #c4caff;
+    --color-selected-bg: #222a55;
+    --color-ink: #b4bcff;
+
+    --color-success: #5fd38a;
+    --color-success-bg: #14291d;
+    --color-error: #ff9aa0;
+    --color-error-bg: #331a1d;
+    --color-warning-text: #ffd978;
+    --color-warning-bg: #382d10;
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 20px rgb(0 0 0 / 0.35);
+    --shadow-float: 0 10px 30px rgb(0 0 0 / 0.55);
+  }
+}

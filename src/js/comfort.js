@@ -8,6 +8,39 @@ const SIZES = [
   { scale: 1.25, label: 'très grand' },
 ];
 
+/* ---------- Thème d'affichage (clair, sombre, automatique) ---------- */
+
+const THEME_KEY = 'theme-affichage';
+
+/** Les trois choix des paramètres ; « automatique » suit le réglage de l'appareil, y compris en cours de session. */
+export function setupTheme(inputs) {
+  const query = window.matchMedia('(prefers-color-scheme: dark)');
+  let choice = 'clair';
+  try {
+    choice = localStorage.getItem(THEME_KEY) || 'clair';
+  } catch {
+    // préférence non conservée : thème clair
+  }
+  const apply = () => {
+    const dark = choice === 'sombre' || (choice === 'auto' && query.matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  };
+  for (const input of inputs) {
+    input.checked = input.value === choice;
+    input.addEventListener('change', () => {
+      choice = input.value;
+      try {
+        localStorage.setItem(THEME_KEY, choice);
+      } catch {
+        // idem
+      }
+      apply();
+    });
+  }
+  query.addEventListener('change', apply);
+  apply();
+}
+
 /* ---------- Taille du texte ---------- */
 
 export function setupTextSize(moduleId) {

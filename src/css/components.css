@@ -84,7 +84,7 @@
 
 /* Bouton bloqué : reste focusable pour expliquer pourquoi */
 .btn[aria-disabled="true"] {
-  background: #eceef3;
+  background: var(--color-surface-muted);
   color: var(--color-muted);
   box-shadow: none;
   cursor: not-allowed;
@@ -1591,9 +1591,9 @@ html {
 }
 
 .likert__option input:checked + .likert__box {
-  border-color: var(--color-heading);
-  background: var(--color-heading);
-  color: #ffffff;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .likert__option input:focus-visible + .likert__box {
@@ -1682,7 +1682,7 @@ html {
   max-width: min(32rem, calc(100vw - 2 * var(--gutter)));
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
-  background: var(--color-success);
+  background: #1d6b3b;
   color: #ffffff;
   box-shadow: var(--shadow-float);
   font-size: var(--font-size-small);
@@ -3785,5 +3785,82 @@ html {
 
   .journey__body {
     padding-top: 0;
+  }
+}
+
+/* ---------- Thème sombre : ajustements (les couleurs courantes passent par les jetons de tokens.css) ---------- */
+
+/* Réglage « Affichage » des paramètres */
+.settings__theme {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.settings__radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+.settings__radio input {
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.settings__radio small {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+@media screen {
+  /* Illustrations JPEG à fond blanc : elles ne se fondent plus dans la page, elles s'affichent sur leur fond blanc arrondi */
+  :root[data-theme="dark"] .figure img {
+    background: #ffffff;
+    mix-blend-mode: normal;
+  }
+
+  /* Logo AI VD : texte sombre, posé sur une pastille blanche */
+  :root[data-theme="dark"] :is(.app-header__logo, .sidebar-logo) {
+    box-sizing: content-box;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    background: #ffffff;
+  }
+
+  /* « Papiers » : lettre, dossier médical, chemise et son contenu restent clairs, comme sur une table sombre */
+  :root[data-theme="dark"] :is(.letter, .record, .record-folder, .folder) {
+    color-scheme: light;
+    --color-surface: #ffffff;
+    --color-surface-muted: #f5f6fa;
+    --color-text: #12141a;
+    --color-muted: #4a4f5c;
+    --color-subtle: #5f6470;
+    --color-heading: #0f1d96;
+    --color-border: #e4e7ee;
+    --color-primary-tint: #eef0fb;
+    --color-primary-tint-hover: #e0e4f8;
+    --color-step: #c3c8d4;
+    --color-border-strong: #767676;
+    --color-primary: #0f1d96;
+    --color-primary-hover: #0a1470;
+    --color-on-primary: #ffffff;
+    --color-accent: #007a20;
+    --color-accent-bg: #e5f4e9;
+    --color-link: #0f1d96;
+    --color-focus: #0f1d96;
+    --color-selected-bg: #eef0fb;
+    --color-ink: #0f1d96;
+    --color-success: #1d6b3b;
+    --color-success-bg: #e7f4ec;
+    --color-error: #a3262d;
+    --color-error-bg: #fbecec;
+    --color-warning-text: #5c4400;
+    --color-warning-bg: #fff1c9;
   }
 }
