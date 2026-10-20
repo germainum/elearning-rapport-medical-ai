@@ -310,17 +310,64 @@
   position: relative;
 }
 
-/* Titre de groupe du sommaire (section du formulaire) */
-.toc__section {
-  margin-top: var(--space-3);
-  padding: var(--space-1) var(--space-3);
-  color: var(--color-accent);
-  font-size: 0.8125rem;
-  font-weight: 700;
+/* Rubrique repliable du sommaire (une section du formulaire) : titre, « 3 sur 8 », chevron */
+.toc__group + .toc__group {
+  margin-top: var(--space-1);
 }
 
-.toc__section:first-child {
-  margin-top: 0;
+.toc__section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--tap-size);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.toc__section:hover {
+  background: var(--color-surface-muted);
+}
+
+.toc__section-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.toc__count {
+  flex: none;
+  color: var(--color-muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.toc__count--done {
+  color: var(--color-success);
+}
+
+.toc__chevron {
+  flex: none;
+  color: var(--color-muted);
+  transition: transform 0.15s ease;
+}
+
+.toc__section[aria-expanded="true"] .toc__chevron {
+  transform: rotate(180deg);
+}
+
+.toc__sublist {
+  display: grid;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  list-style: none;
 }
 
 /* Trait vertical entre deux repères (pas au-dessus d'un titre de groupe) */
@@ -440,6 +487,10 @@ button.toc__item:hover {
   margin: var(--space-3) 0 0;
   padding: 0;
   list-style: none;
+}
+
+.sidebar-meta[hidden] {
+  display: none;
 }
 
 .chip {
@@ -629,12 +680,51 @@ button.toc__item:hover {
 }
 
 .notice {
+  position: fixed;
+  bottom: 6.5rem;
+  left: 50%;
+  z-index: 60;
+  max-width: min(32rem, calc(100vw - 2 * var(--gutter)));
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-success);
+  color: #ffffff;
+  box-shadow: var(--shadow-float);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  text-align: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: notice-in 0.25s ease-out;
+}
+
+/* Erreur de connexion : bandeau qui reste affiché */
+.notice--sticky {
+  position: static;
+  max-width: none;
   margin-bottom: var(--space-5);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius);
-  background: var(--color-accent-bg);
-  color: var(--color-accent);
-  font-weight: 600;
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  box-shadow: none;
+  text-align: left;
+  transform: none;
+  pointer-events: auto;
+  animation: none;
+}
+
+@keyframes notice-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 0.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notice {
+    animation: none;
+  }
 }
 
 .notice:empty {
@@ -734,7 +824,7 @@ button.toc__item:hover {
 
 @media (min-width: 48rem) {
   .layout--side {
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 2fr);
     align-items: center;
     gap: var(--space-6);
   }
@@ -753,6 +843,8 @@ button.toc__item:hover {
 .figure img {
   width: 100%;
   border-radius: var(--radius-lg);
+  /* Fond blanc des JPEG : multiplié par la couleur de la page, il disparaît (effet « transparent ») */
+  mix-blend-mode: multiply;
 }
 
 .figure figcaption {
@@ -861,7 +953,7 @@ button.toc__item:hover {
 .scene__steps,
 .scene__step {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .scene__reveal {
@@ -1347,6 +1439,20 @@ button.toc__item:hover {
   font-weight: 700;
 }
 
+/* Extrait d'une scène : une seule ligne (section à gauche, référence à droite) */
+.form-sheet__header--compact {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary-tint);
+}
+
+.form-sheet__header--compact .form-sheet__title {
+  color: var(--color-heading);
+}
+
+.form-sheet__header--compact .form-sheet__ref {
+  font-size: 0.8125rem;
+}
+
 .form-sheet__ref {
   color: var(--color-muted);
 }
@@ -1425,7 +1531,7 @@ button.toc__item:hover {
 }
 
 .form-sheet__blank {
-  height: 4.5rem;
+  height: 3rem;
   margin-top: var(--space-2);
   background-image: linear-gradient(transparent calc(1.5rem - 1px), var(--color-step) calc(1.5rem - 1px), var(--color-step) 1.5rem, transparent 1.5rem);
   background-size: 100% 1.5rem;

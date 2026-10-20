@@ -198,7 +198,7 @@ function formItems(items) {
 }
 
 /** Découpe les questions en groupes, chacun précédé de son titre de section (« 2 Situation médicale »). */
-function formGroups(items) {
+function formGroups(items, { skipFirstSection = false } = {}) {
   const groups = [];
   for (const item of items) {
     if (item.section) groups.push({ section: item.section, items: [] });
@@ -209,17 +209,22 @@ function formGroups(items) {
   }
   return groups
     .map(
-      (group) => `
-        ${group.section ? `<p class="form-sheet__section">${inline(group.section)}</p>` : ''}
+      (group, g) => `
+        ${group.section && !(skipFirstSection && g === 0) ? `<p class="form-sheet__section">${inline(group.section)}</p>` : ''}
         ${group.items.length ? `<ol class="form-sheet__items">${formItems(group.items)}</ol>` : ''}`
     )
     .join('');
 }
 
-/** Feuille de formulaire : en-tête, champs d'identification, questions, pied de page. */
-function formSheet(sheet, ctx) {
+/**
+ * Feuille de formulaire : en-tête, champs d'identification, questions, pied de page.
+ * compact : extrait d'une scène, en-tête sur une seule ligne (section ou annexe à gauche, référence à droite) au lieu du
+ * titre du formulaire + bandeau de section : la question suivante remonte dans l'écran.
+ */
+function formSheet(sheet, ctx, { compact = false } = {}) {
+  const firstSection = compact && !sheet.title ? sheet.items.find((item) => item.section)?.section : null;
   // Titre et référence par défaut : « form » à la racine de module.json
-  const title = sheet.title ?? ctx.form?.title;
+  const title = sheet.title ?? firstSection ?? ctx.form?.title;
   const reference = sheet.reference ?? ctx.form?.reference;
   const fields = sheet.fields?.length
     ? `<dl class="form-sheet__fields">${sheet.fields
@@ -229,12 +234,12 @@ function formSheet(sheet, ctx) {
   const footer = sheet.footer ? `<div class="form-sheet__footer prose">${rich(sheet.footer)}</div>` : '';
   return `
     <section class="form-sheet" aria-label="${escapeHtml(title ?? 'Formulaire')}">
-      <header class="form-sheet__header">
+      <header class="form-sheet__header${compact ? ' form-sheet__header--compact' : ''}">
         ${title ? `<span class="form-sheet__title">${inline(title)}</span>` : ''}
         ${reference ? `<span class="form-sheet__ref">${inline(reference)}</span>` : ''}
       </header>
       ${fields}
-      ${formGroups(sheet.items)}
+      ${formGroups(sheet.items, { skipFirstSection: Boolean(firstSection) })}
       ${footer}
     </section>`;
 }
@@ -328,7 +333,7 @@ const BLOCKS = {
 
   /** Extrait du formulaire : questions telles qu'elles figurent sur le document. */
   form(block, ctx) {
-    return formSheet(block, ctx);
+    return formSheet(block, ctx, { compact: true });
   },
 
   /** Exercice de rédaction auto-évalué (voir wireWriting). */

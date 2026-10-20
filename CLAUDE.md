@@ -197,7 +197,13 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
 - **≥ 1440 px** : tout grandit progressivement (taille de base 16 px à 1440 px → 20 px max vers 2560 px,
   relative à la taille choisie dans le navigateur) ; **≥ 1920 px** : colonnes élargies (17 / 50 / 21rem).
 - Le sommaire est rendu deux fois (menu `#toc-list` et colonne `#toc-side-list`), une seule
-  version visible à la fois.
+  version visible à la fois. **Allègement de l'interface (20.10.2026, « trop d'information »)** : le sommaire est **replié
+  par section** (« Section 2 · 3 sur 8 », une seule section ouverte à la fois, celle de l'écran affiché ; `tocItems`) ;
+  les pastilles durée / étapes / questions ne s'affichent qu'à l'accueil ; un seul indicateur de progression (pastille
+  « n / total ») ; l'en-tête n'affiche plus que le fil rouge (le surtitre et le titre sont dans l'écran) ; l'extrait du
+  formulaire d'une scène tient sur **une ligne d'en-tête** (`formSheet(..., { compact: true })`) ; l'illustration latérale
+  est plus petite ; le message « Vous reprenez le module… » est une **bulle qui disparaît seule** après 5 s (`setNotice` ;
+  seule l'erreur de connexion reste en bandeau). Les illustrations JPEG se fondent dans la page (`mix-blend-mode: multiply`).
 - Police **Work Sans** (celle du site), **embarquée** dans `src/fonts/` (version variable 100–900,
   Fontsource 5.3.0, sous-ensembles latin, latin étendu et italique latin, ~130 Ko) et déclarée dans
   `src/css/fonts.css`. Licence SIL OFL 1.1 : `src/fonts/OFL.txt`, à garder dans le paquet.

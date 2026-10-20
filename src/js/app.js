@@ -51,7 +51,6 @@ const els = {
   sideLogo: byId('side-logo'),
   sideModule: byId('side-module'),
   sideMeta: byId('side-meta'),
-  sideProgress: byId('side-progress'),
   helpCard: byId('help-card'),
   helpCardTitle: byId('help-card-title'),
   helpCardBody: byId('help-card-body'),
@@ -201,7 +200,16 @@ async function start() {
 
   /* ---------- Affichage d'un écran ---------- */
 
-  function show(target, { focus = true, notice = '', focusQuestion = null } = {}) {
+  // Message d'information : petite bulle qui disparaît seule (une erreur de connexion reste affichée)
+  let noticeTimer;
+  function setNotice(text, { sticky = false } = {}) {
+    clearTimeout(noticeTimer);
+    els.notice.textContent = text;
+    els.notice.classList.toggle('notice--sticky', sticky);
+    if (text && !sticky) noticeTimer = setTimeout(() => { els.notice.textContent = ''; }, 5000);
+  }
+
+  function show(target, { focus = true, notice = '', stickyNotice = false, focusQuestion = null } = {}) {
     index = target;
     const screen = screens[index];
     // Synthèse atteinte une fois toutes les questions de la file refaites : la révision est terminée
@@ -212,7 +220,8 @@ async function start() {
     const render = RENDERERS[screen.type];
     if (!render) throw new Error(`Type d'écran inconnu : « ${screen.type} » (écran « ${screen.id} »).`);
 
-    els.notice.textContent = notice;
+    setNotice(notice, { sticky: stickyNotice });
+    openSection = screen.section ?? null; // le sommaire ouvre la section de l'écran affiché
     els.pagerMsg.textContent = '';
     els.screen.replaceChildren(render(screen, ctx));
     const banner = reviewBanner();
@@ -273,12 +282,12 @@ async function start() {
     els.progressText.innerHTML = `<span class="progress-text__long">Écran ${index + 1} sur ${total}</span><span class="progress-text__short" aria-hidden="true">${index + 1}/${total}</span>`;
     els.progressBar.style.width = `${Math.round((done / total) * 100)}%`;
     els.progressPill.textContent = `${index + 1} / ${total}`;
-    els.sideProgress.textContent = `${done} / ${total}`;
-    els.sideProgress.setAttribute('aria-label', `${done} écrans terminés sur ${total}`);
+    // Pastilles de durée / étapes / questions : utiles à l'accueil seulement
+    els.sideMeta.hidden = screens[index].section !== screens[0].section;
 
-    // Fil d'Ariane : fil rouge › surtitre › titre de l'écran
+    // En-tête : le fil rouge seul (ex. « Rapport de Mme R. »)
     const screen = screens[index];
-    els.crumbs.innerHTML = [screen.storyTitle ?? module.storyTitle, screen.kicker, screen.title]
+    els.crumbs.innerHTML = [screen.storyTitle ?? module.storyTitle]
       .filter(Boolean)
       .map((text, i, all) => `<li${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(text)}</li>`)
       .join('');
@@ -383,47 +392,91 @@ async function start() {
 
   // Même sommaire à deux endroits : menu déroulant (mobile, tablette) et colonne de gauche (ordinateur)
   function renderToc() {
-    els.tocList.replaceChildren(...tocItems());
-    els.tocSideList.replaceChildren(...tocItems());
+    els.tocList.replaceChildren(...tocItems('toc-list'));
+    els.tocSideList.replaceChildren(...tocItems('toc-side-list'));
   }
 
-  function tocItems() {
-    return screens.flatMap((screen, i) => {
-        const item = document.createElement('li');
-        const title = escapeHtml(plainText(screen.title));
-        let status = 'disponible';
-        if (i === index) status = 'écran actuel';
-        else if (!tracker.canAccess(i)) status = 'verrouillé';
-        else if (tracker.isScreenDone(i)) status = 'terminé';
-        else if (tracker.isViewed(i)) status = 'commencé';
+  // Section ouverte dans le sommaire : celle de l'écran affiché (une seule à la fois, ouverte à la main ou automatiquement)
+  let openSection = screens[0].section ?? null;
 
-        const accessible = tracker.canAccess(i) && i !== index;
-        const element = document.createElement(accessible ? 'button' : 'span');
-        element.className = `toc__item${tracker.canAccess(i) ? '' : ' toc__item--locked'}`;
-        if (accessible) {
-          element.type = 'button';
-          element.addEventListener('click', () => {
-            setTocOpen(false);
-            show(i);
-          });
-        }
-        if (i === index) element.setAttribute('aria-current', 'step');
-        // Repère de la frise : coche (terminé), point plein (écran actuel), cercle vide (à venir)
-        const state = i === index ? 'current' : tracker.isScreenDone(i) ? 'done' : tracker.canAccess(i) ? 'open' : 'locked';
-        item.className = `toc__step toc__step--${state}`;
-        element.innerHTML = `
-          <span class="toc__marker" aria-hidden="true">${state === 'done' ? icon('check', 14) : ''}</span>
-          <span class="toc__label">${title}</span>
-          <span class="toc__status">${status}</span>`;
-        item.append(element);
-        // Titre de groupe (« Section 2 · Situation médicale ») quand le champ « section » change
-        const section = screen.section ?? null;
-        if (!section || section === (screens[i - 1]?.section ?? null)) return [item];
-        const heading = document.createElement('li');
-        heading.className = 'toc__section';
-        heading.textContent = plainText(section);
-        return [heading, item];
+  /** Une ligne du sommaire (frise de progression) pour l'écran i. */
+  function stepItem(screen, i) {
+    const item = document.createElement('li');
+    const title = escapeHtml(plainText(screen.title));
+    let status = 'disponible';
+    if (i === index) status = 'écran actuel';
+    else if (!tracker.canAccess(i)) status = 'verrouillé';
+    else if (tracker.isScreenDone(i)) status = 'terminé';
+    else if (tracker.isViewed(i)) status = 'commencé';
+
+    const accessible = tracker.canAccess(i) && i !== index;
+    const element = document.createElement(accessible ? 'button' : 'span');
+    element.className = `toc__item${tracker.canAccess(i) ? '' : ' toc__item--locked'}`;
+    if (accessible) {
+      element.type = 'button';
+      element.addEventListener('click', () => {
+        setTocOpen(false);
+        show(i);
       });
+    }
+    if (i === index) element.setAttribute('aria-current', 'step');
+    // Repère de la frise : coche (terminé), point plein (écran actuel), cercle vide (à venir)
+    const state = i === index ? 'current' : tracker.isScreenDone(i) ? 'done' : tracker.canAccess(i) ? 'open' : 'locked';
+    item.className = `toc__step toc__step--${state}`;
+    element.innerHTML = `
+      <span class="toc__marker" aria-hidden="true">${state === 'done' ? icon('check', 14) : ''}</span>
+      <span class="toc__label">${title}</span>
+      <span class="toc__status">${status}</span>`;
+    item.append(element);
+    return item;
+  }
+
+  /**
+   * Sommaire : une rubrique repliable par section (« Section 2 · 3 sur 8 »), seule celle de l'écran affiché est ouverte.
+   * Sans champ « section » dans le contenu, la liste reste à plat.
+   */
+  function tocItems(listId) {
+    if (!screens.some((screen) => screen.section)) return screens.map(stepItem);
+
+    const groups = [];
+    screens.forEach((screen, i) => {
+      const last = groups.at(-1);
+      if (last && last.section === (screen.section ?? null)) last.indexes.push(i);
+      else groups.push({ section: screen.section ?? null, indexes: [i] });
+    });
+
+    return groups.map((group, g) => {
+      const open = group.section === openSection;
+      const done = group.indexes.filter((i) => tracker.isScreenDone(i)).length;
+      const subId = `${listId}-groupe-${g}`;
+
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'toc__section';
+      toggle.dataset.group = String(g);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-controls', subId);
+      toggle.innerHTML = `
+        <span class="toc__section-title">${escapeHtml(plainText(group.section ?? 'Autres écrans'))}</span>
+        <span class="toc__count${done === group.indexes.length ? ' toc__count--done' : ''}">${done} sur ${group.indexes.length}<span class="visually-hidden"> écrans terminés</span></span>
+        <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
+      toggle.addEventListener('click', () => {
+        openSection = open ? null : group.section;
+        renderToc();
+        document.getElementById(listId)?.querySelector(`[data-group="${g}"]`)?.focus();
+      });
+
+      const sub = document.createElement('ol');
+      sub.className = 'toc__sublist';
+      sub.id = subId;
+      sub.hidden = !open;
+      for (const i of group.indexes) sub.append(stepItem(screens[i], i));
+
+      const li = document.createElement('li');
+      li.className = 'toc__group';
+      li.append(toggle, sub);
+      return li;
+    });
   }
 
   function setTocOpen(open) {
@@ -484,6 +537,7 @@ async function start() {
 
   let startIndex = 0;
   let notice = '';
+  let stickyNotice = false;
   if (resumed) {
     startIndex = tracker.currentIndex;
     if (!tracker.canAccess(startIndex)) startIndex = tracker.firstOpenIndex();
@@ -491,10 +545,11 @@ async function start() {
   }
   if (!connected) {
     notice = "La connexion avec la plateforme n'a pas pu être établie : votre progression ne sera pas enregistrée.";
+    stickyNotice = true;
   }
 
   els.pager.hidden = false;
-  show(startIndex, { focus: false, notice });
+  show(startIndex, { focus: false, notice, stickyNotice });
 }
 
 const ICONS = {
