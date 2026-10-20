@@ -949,6 +949,8 @@ function animateScreenIn(article, direction) {
   article.querySelectorAll('.question__options > .option').forEach((option, i) => option.style.setProperty('--n', String(i)));
   article.dataset.enter = direction;
   article.classList.add('screen--enter');
+  // L'entrée terminée, la classe est retirée : elle ne doit pas gêner les animations de la réponse
+  setTimeout(() => article.classList.remove('screen--enter'), 2400);
 }
 
 /** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */

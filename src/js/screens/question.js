@@ -106,6 +106,7 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
 
     const result = submit(question, ids);
     lock(form, question, ids, result, retake);
+    form.classList.add('question--reveal'); // la réponse « se révèle » : animation de la réponse choisie, de la bonne réponse et du feedback
     form.querySelector('.feedback').focus();
   });
 

@@ -54,6 +54,9 @@ export function renderScene(screen, ctx) {
       wrapper.remove();
       ctx.reveal(screen);
       const next = appendStep(index + 1);
+      // Nouvelle étape : ses blocs montent en cascade (l'animation se coupe d'elle-même si l'utilisateur veut moins de mouvement)
+      [...next.children].forEach((child, i) => child.style.setProperty('--n', String(Math.min(i, 4))));
+      next.classList.add('step--reveal');
       next.focus();
     });
     return wrapper;
