@@ -291,12 +291,107 @@
 
 /* ---------- Sommaire : frise de progression ---------- */
 
+/* Panneau du menu (mobile, tablette) : se déploie sous le bandeau, par-dessus le contenu */
 .toc {
-  max-width: var(--measure);
-  max-height: 60vh;
-  margin: 0 auto;
-  padding: 0 var(--gutter) var(--space-4);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - 5rem);
+  max-height: calc(100dvh - 5rem);
+  padding: var(--space-3) var(--gutter) var(--space-4);
   overflow-y: auto;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-float);
+}
+
+.toc > * {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+/* Glossaire et dossier patient : dans le menu burger, sur mobile seulement */
+.menu-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.menu-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-heading);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-action:hover {
+  background: var(--color-primary-tint-hover);
+}
+
+.menu-action[hidden] {
+  display: none;
+}
+
+.menu__title {
+  margin: var(--space-2) 0;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Bouton du bandeau : « Sommaire » (tablette) ou burger « Menu » (mobile) */
+#toc-toggle .icon--burger,
+#toc-toggle .icon--close {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  #toc-toggle .icon--list {
+    display: none;
+  }
+
+  #toc-toggle .icon--burger {
+    display: block;
+  }
+
+  #toc-toggle[aria-expanded="true"] .icon--burger {
+    display: none;
+  }
+
+  #toc-toggle[aria-expanded="true"] .icon--close {
+    display: block;
+  }
+
+  .btn__label--wide {
+    display: none;
+  }
+
+  /* Un seul bouton dans le bandeau : le glossaire et le dossier patient sont dans le menu */
+  #glossary-toggle,
+  #file-toggle {
+    display: none !important;
+  }
+}
+
+@media (min-width: 48rem) {
+  .btn__label--narrow,
+  .menu-actions,
+  .menu__title {
+    display: none;
+  }
 }
 
 .toc__list {

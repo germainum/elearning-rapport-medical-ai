@@ -186,6 +186,10 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
 ### Mise en page par taille d'écran (14.10.2026)
 
 - **< 1024 px** (mobile, tablette) : une colonne ; sommaire en menu déroulant, dossier patient en fenêtre.
+- **< 768 px (mobile) : menu burger** (21.10.2026) : le bandeau n'a plus qu'un bouton « Menu » (icône burger, croix quand il est ouvert,
+  44 px). Il déploie un panneau sous le bandeau avec les tuiles **Glossaire** et **Dossier patient** (visible dès la section 1, comme
+  l'onglet) puis le **Sommaire** replié par section. Se referme par un clic en dehors, Échap ou le choix d'un écran ; le focus revient au
+  burger à la fermeture d'une fenêtre. De 768 à 1023 px, le bandeau garde les boutons « Glossaire », « Dossier patient » et « Sommaire ».
 - **≥ 1024 px** : **panneau de gauche** (`.app-sidebar--toc`) : logo, titre, pastilles (durée, étapes,
   questions, calculées), **frise de progression** (coche verte = terminé, point bleu = écran actuel,
   cercle gris = verrouillé ; l'état est aussi écrit pour les lecteurs d'écran), carte d'aide (`help`).

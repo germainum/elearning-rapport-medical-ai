@@ -69,16 +69,34 @@
             </svg>
               <span class="btn__label">Dossier patient</span>
             </button>
-            <button type="button" class="btn btn--ghost btn--small btn--icon" id="toc-toggle" aria-expanded="false" aria-controls="toc" title="Sommaire du module" hidden>
-              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-              <path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="4.5" cy="6" r="1.5" fill="currentColor"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor"/>
-            </svg>
-              <span class="btn__label">Sommaire</span>
+            <button type="button" class="btn btn--ghost btn--small btn--icon" id="toc-toggle" aria-expanded="false" aria-controls="toc" hidden>
+              <svg class="icon icon--list" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                <path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="4.5" cy="6" r="1.5" fill="currentColor"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor"/>
+              </svg>
+              <svg class="icon icon--burger" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/>
+              </svg>
+              <svg class="icon icon--close" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/>
+              </svg>
+              <span class="btn__label btn__label--wide">Sommaire</span>
+              <span class="btn__label btn__label--narrow">Menu</span>
             </button>
           </div>
         </div>
-        <nav class="toc" id="toc" aria-label="Sommaire du module" hidden>
+        <nav class="toc" id="toc" aria-label="Menu du module" hidden>
+          <div class="menu-actions">
+            <button type="button" class="menu-action" id="menu-glossary" hidden>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span>Glossaire</span>
+            </button>
+            <button type="button" class="menu-action" id="menu-file" hidden>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 4h6v3H9zM8.5 12h7M8.5 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Dossier patient</span>
+            </button>
+          </div>
+          <h2 class="menu__title">Sommaire</h2>
           <ol class="toc__list toc__list--stepper" id="toc-list"></ol>
         </nav>
       </header>

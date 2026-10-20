@@ -45,6 +45,8 @@ const els = {
   glossarySearch: byId('glossary-search'),
   glossaryCount: byId('glossary-count'),
   tocToggle: byId('toc-toggle'),
+  menuGlossary: byId('menu-glossary'),
+  menuFile: byId('menu-file'),
   toc: byId('toc'),
   tocList: byId('toc-list'),
   tocSideList: byId('toc-side-list'),
@@ -303,6 +305,7 @@ async function start() {
     // « hidePatientFile » : écrans d'un autre cas, où le dossier de la patiente principale n'a pas sa place
     const fileUnlocked = isPatientFileUnlocked() && !screens[index].hidePatientFile;
     els.fileToggle.hidden = !fileUnlocked;
+    els.menuFile.hidden = !fileUnlocked; // même dossier, depuis le menu burger (mobile)
     // Ordinateur : onglet « Dossier patient » à droite ; le dossier garde son état d'un écran à l'autre
     els.folderTab.hidden = !fileUnlocked;
     applyFolderState(fileUnlocked && folderOpen);
@@ -387,7 +390,7 @@ async function start() {
     els.fileDialog.addEventListener('click', (event) => {
       if (event.target === els.fileDialog) els.fileDialog.close();
     });
-    els.fileDialog.addEventListener('close', () => els.fileToggle.focus());
+    els.fileDialog.addEventListener('close', () => focusVisible(els.fileToggle, els.tocToggle));
   }
 
   /* ---------- Sommaire ---------- */
@@ -497,8 +500,22 @@ async function start() {
 
   els.tocToggle.hidden = false;
   els.tocToggle.addEventListener('click', () => setTocOpen(els.toc.hidden));
-  els.toc.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+  // Menu burger (mobile) : glossaire et dossier patient ouvrent leur fenêtre habituelle
+  els.menuGlossary.addEventListener('click', () => {
+    setTocOpen(false);
+    els.glossaryToggle.click();
+  });
+  els.menuFile.addEventListener('click', () => {
+    setTocOpen(false);
+    els.fileToggle.click();
+  });
+  // Un clic en dehors du menu le referme
+  document.addEventListener('click', (event) => {
+    if (!els.toc.hidden && !els.toc.contains(event.target) && !els.tocToggle.contains(event.target)) setTocOpen(false);
+  });
+  // Échap referme le menu et rend le focus au bouton
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !els.toc.hidden && !document.querySelector('dialog[open]')) {
       setTocOpen(false);
       els.tocToggle.focus();
     }
@@ -563,6 +580,11 @@ async function start() {
   show(startIndex, { focus: false, notice, stickyNotice });
 }
 
+/** Donne le focus au premier élément réellement affiché (un bouton masqué par la mise en page ne peut pas le recevoir). */
+function focusVisible(...elements) {
+  elements.find((element) => element.offsetParent !== null)?.focus();
+}
+
 const ICONS = {
   clock: '<path d="M12 7v5l3 2" /><circle cx="12" cy="12" r="9" />',
   steps: '<path d="M4 6h16M4 12h16M4 18h10" />',
@@ -612,6 +634,7 @@ const normalize = (text) => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowe
 function setupGlossary(glossary) {
   if (!glossary) return;
   els.glossaryToggle.hidden = false;
+  els.menuGlossary.hidden = false;
   els.glossaryTitle.textContent = plainText(glossary.title ?? 'Glossaire');
   const total = glossary.sections.reduce((n, section) => n + section.terms.length, 0);
 
@@ -658,7 +681,7 @@ function setupGlossary(glossary) {
   els.glossaryDialog.addEventListener('click', (event) => {
     if (event.target === els.glossaryDialog) els.glossaryDialog.close();
   });
-  els.glossaryDialog.addEventListener('close', () => els.glossaryToggle.focus());
+  els.glossaryDialog.addEventListener('close', () => focusVisible(els.glossaryToggle, els.tocToggle));
 }
 
 async function loadModule() {
