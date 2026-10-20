@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -38,7 +38,7 @@ L'activité actuelle
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un poste inconnu…**
 >
-> Sans le métier et le taux, l'Office AI ne peut pas apprécier la capacité de travail dans l'activité habituelle.
+> Sans le métier et le taux, l'office AI ne peut pas apprécier la capacité de travail dans l'activité habituelle.
 >
 > À propos des réponses écartées :
 > - « Sans activité actuellement, en arrêt de travail depuis janvier. » : L'arrêt ne supprime pas son poste : précisez son métier et son taux.
@@ -73,11 +73,11 @@ La situation professionnelle
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une piste de réinsertion manquée…**
 >
-> Ce que vous savez de l'emploi aide l'Office AI à envisager un retour chez le même employeur.
+> Ce que vous savez de l'emploi aide l'office AI à envisager un retour chez le même employeur.
 >
 > À propos des réponses écartées :
 > - « ☐ Aucune information » : Mme R. vous en a parlé : quelques mots suffisent.
-> - « Voir avec l'employeur, qui connaît bien mieux la situation professionnelle que moi. » : L'Office AI le fera ; notez ce que vous savez.
+> - « Voir avec l'employeur, qui connaît bien mieux la situation professionnelle que moi. » : L'office AI le fera ; notez ce que vous savez.
 
 ## Bloc 8 · Titre
 

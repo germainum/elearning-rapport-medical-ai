@@ -18,10 +18,10 @@ Ce qu'il faut retenir
 
 ## Bloc 3 · Texte
 
-Vos rapports sont toujours examinés attentivement : **plus les informations sont précises et exhaustives, moins l'Office AI doit recourir aux expertises** pour décider.
+Vos rapports sont toujours examinés attentivement : **plus les informations sont précises et exhaustives, moins l'office AI doit recourir aux expertises** pour décider.
 
-Les formulaires médicaux de l'AI sont disponibles sur le site de l'Office AI : [formulaires pour le corps médical, aivd.ch](https://aivd.ch/corps-medical/#formulaires).
+Les formulaires médicaux de l'AI sont disponibles sur le site de l'office AI : [formulaires pour le corps médical, aivd.ch](https://aivd.ch/corps-medical/#formulaires).
 
-Une question ? La centrale d'information de l'Office AI vous répond au **021 925 24 24**, du lundi au vendredi de 8 h à 17 h, ou par courriel à [info@vd.oai.ch](mailto:info@vd.oai.ch).
+Une question ? La centrale d'information de l'office AI vous répond au **021 925 24 24**, du lundi au vendredi de 8 h à 17 h, ou par courriel à [info@vd.oai.ch](mailto:info@vd.oai.ch).
 
 **Pour aller plus loin** : [questions-réponses pour les médecins](https://www.ai-pro-medico.ch/fr/questions-reponses) · [courtes formations AI Vaud et SVM](https://smrsr.ch/contact/) · [cours du CFAI](https://events.cfai-bziv.ch/portal/?lang=fr).

@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -66,7 +66,7 @@ Diagnostics · Depuis
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un tableau clinique incomplet…**
 >
-> Les diagnostics sans incidence complètent le tableau ; s'ils manquent ou sont mal classés, l'Office AI doit clarifier.
+> Les diagnostics sans incidence complètent le tableau ; s'ils manquent ou sont mal classés, l'office AI doit clarifier.
 >
 > À propos des réponses écartées :
 > - « Aucun : seuls les diagnostics qui limitent la patiente intéressent l'AI. » : Le formulaire les demande : ils complètent le tableau clinique.
@@ -118,13 +118,13 @@ Le plan de traitement
 3. Physiothérapie 3 mois, contrôle orthopédique en décembre, pas de nouvelle intervention.  ✅ **BONNE RÉPONSE**
 
 **Retour si bonne réponse** :
-> Des mesures et des échéances concrètes : l'Office AI peut caler la réadaptation sur votre plan de traitement.
+> Des mesures et des échéances concrètes : l'office AI peut caler la réadaptation sur votre plan de traitement.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une réadaptation sans calendrier…**
 >
-> Sans plan de traitement concret, l'Office AI ne sait pas si une opération ou un traitement va modifier la situation.
+> Sans plan de traitement concret, l'office AI ne sait pas si une opération ou un traitement va modifier la situation.
 >
 > À propos des réponses écartées :
 > - « Poursuite du traitement actuel, à adapter selon l'évolution clinique. » : Trop vague : quelles mesures, pendant combien de temps ?
-> - « À réévaluer lors du prochain contrôle, selon l'évolution des douleurs de la patiente. » : L'Office AI a besoin des prochaines étapes concrètes.
+> - « À réévaluer lors du prochain contrôle, selon l'évolution des douleurs de la patiente. » : L'office AI a besoin des prochaines étapes concrètes.

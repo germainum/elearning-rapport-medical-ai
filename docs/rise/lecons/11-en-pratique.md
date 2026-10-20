@@ -23,17 +23,17 @@ Texte alternatif (à saisir) : Un ordinateur affiche un document, un trombone et
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Uniquement par courrier postal, avec une signature manuscrite.
 2. Par courrier, ou en ligne via MedAI, 7 jours sur 7 et 24 h sur 24.  ✅ **BONNE RÉPONSE**
-3. Par courriel ordinaire, en pièce jointe, à la centrale de l'Office AI.
+3. Par courriel ordinaire, en pièce jointe, à la centrale de l'office AI.
 
 **Retour si bonne réponse** :
-> Les médecins vaudois peuvent remplir et envoyer leurs rapports en ligne via [MedAI](https://portal-medai.ch/). Le délai de retour figure dans le courrier de l'Office AI.
+> Les médecins vaudois peuvent remplir et envoyer leurs rapports en ligne via [MedAI](https://portal-medai.ch/). Le délai de retour figure dans le courrier de l'office AI.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > Le rapport s'envoie par courrier, ou en ligne via [MedAI](https://portal-medai.ch/), 7 jours sur 7 et 24 heures sur 24.
 >
 > À propos des réponses écartées :
 > - « Uniquement par courrier postal, avec une signature manuscrite. » : Le courrier reste possible, mais pas seulement.
-> - « Par courriel ordinaire, en pièce jointe, à la centrale de l'Office AI. » : Un courriel ordinaire ne protège pas les données médicales.
+> - « Par courriel ordinaire, en pièce jointe, à la centrale de l'office AI. » : Un courriel ordinaire ne protège pas les données médicales.
 
 ## Bloc 4 · Titre
 

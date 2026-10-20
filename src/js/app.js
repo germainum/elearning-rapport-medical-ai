@@ -308,8 +308,14 @@ async function start() {
     return null;
   })();
 
+  // Réglage « patientFile.availableFrom » (id d'écran) : le dossier n'est consultable qu'à partir de cet écran
+  const availableFromIndex = module.patientFile?.availableFrom
+    ? screens.findIndex((screen) => screen.id === module.patientFile.availableFrom)
+    : -1;
+
   function isPatientFileUnlocked() {
     if (!module.patientFile) return false;
+    if (availableFromIndex >= 0) return index >= availableFromIndex;
     if (!patientFileStep) return true;
     const { screenIndex, step } = patientFileStep;
     if (screens.some((_, i) => i > screenIndex && tracker.isViewed(i))) return true;

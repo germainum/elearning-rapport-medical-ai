@@ -184,6 +184,9 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
   questions, calculées), **frise de progression** (coche verte = terminé, point bleu = écran actuel,
   cercle gris = verrouillé ; l'état est aussi écrit pour les lecteurs d'écran), carte d'aide (`help`).
   Au centre : fil d'Ariane (`storyTitle › kicker › title`) + pastille « n / total », contenu (46rem).
+- **Dossier patient** : le bouton / l'onglet n'est disponible qu'**à partir de la section 1** (`patientFile.availableFrom: "1-1"`) :
+  absent sur le courrier et l'accueil, il réapparaît si l'on revient sur un écran d'avant. Le bloc de la scène du courrier
+  annonce : « Dès que vous commencerez à remplir le formulaire… ».
 - **Dossier patient (≥ 1024 px)** : **fermé par défaut**. Un **onglet « Dossier patient »** horizontal (vignette + icône + libellé)
   dépasse du bord droit en haut (`#folder-tab`) ; il ouvre une **chemise cartonnée** (`.folder` : onglet titre, fiche papier
   inclinée avec trombone, photo « agrafée », tampon « Confidentiel » décoratif). L'état ouvert/fermé
@@ -259,6 +262,9 @@ Ajouter `?debug` à l'URL journalise aussi les appels SCORM quand une vraie API 
 
 ## Conventions
 
+- **« office AI » toujours en minuscule** dans le contenu (« l'office AI », « de l'office AI »), sauf quand le mot ouvre une
+  phrase ou une ligne (signature, terme du glossaire) ; le nom complet « Office de l'assurance-invalidité pour le canton de
+  Vaud » garde sa majuscule.
 - **Jamais de texte vertical ou pivoté de côté** dans l'interface (pas de `writing-mode: vertical-*`,
   pas de libellé tourné à 90°), même pour un onglet latéral.
 

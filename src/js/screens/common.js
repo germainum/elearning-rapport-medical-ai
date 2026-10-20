@@ -43,7 +43,7 @@ export function videoFigure(video, asset) {
     : '';
   const transcript = video.transcript
     ? `<details class="video__transcript">
-         <summary>Lire la transcription</summary>
+         <summary>La transcription de la vidéo</summary>
          <div class="prose">${rich(video.transcript)}</div>
        </details>`
     : '';

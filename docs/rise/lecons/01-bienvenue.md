@@ -11,9 +11,9 @@ Titre : Comment remplir un rapport médical pour l'assurance-invalidité
 
 *Rise ne permet pas de démarrer la vidéo à la 8ᵉ seconde ni de la lancer automatiquement : voir le plan du cours.*
 
-## Bloc 2 · Accordéon « Lire la transcription »
+## Bloc 2 · Accordéon « La transcription de la vidéo »
 
-Un seul élément, titre « Transcription de la vidéo », contenu :
+Un seul élément, titre « La transcription de la vidéo », contenu :
 
 Bonjour et bienvenue dans cette vidéo. Votre patient a déposé une demande de prestations AI et vous devez remplir un questionnaire médical.
 
@@ -43,7 +43,7 @@ N'hésitez pas à nous contacter si vous avez besoin de renseignements compléme
 
 ## Bloc 3 · Texte (paragraphes)
 
-Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'Office AI.
+Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI.
 
 ## Bloc 4 · Texte : objectifs
 
@@ -58,11 +58,11 @@ Voici ce que vous saurez faire à la fin de ce module. Comptez environ 45 minute
 
 ## Bloc 5 · Texte
 
-Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'Office AI à la décision.
+Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'office AI à la décision.
 
 ## Bloc 6 · Processus (« Votre parcours dans ce module »)
 
-1. **Le courrier** — L'Office AI vous demande un rapport pour Mme R.
+1. **Le courrier** — L'office AI vous demande un rapport pour Mme R.
 2. **Le dossier** — Vous reprenez ses antécédents et son status.
 3. **La rédaction** — Point par point, des informations générales aux annexes.
 4. **L'envoi** — Pièces jointes, relecture, envoi papier ou MedAI.

@@ -11,7 +11,7 @@ Second cas : séparer le médical du psychosocial
 
 M. C. traverse un divorce difficile et sa situation financière est devenue très précaire.
 
-L'Office AI vous demande maintenant un rapport pour M. C., 46 ans.
+L'office AI vous demande maintenant un rapport pour M. C., 46 ans.
 
 ## Bloc 3 · Image
 

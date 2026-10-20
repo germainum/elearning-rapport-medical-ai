@@ -29,7 +29,7 @@ Chaque ligne est une **leçon** ; les en-têtes en gras sont des **sections** (s
 | | **Avant de commencer** | | | |
 | 1 | Votre rapport, pièce maîtresse du dossier AI | `lecons/01-bienvenue.md` | 6 |  |
 | 2 | Glossaire (leçon facultative) | `glossaire.md` | 12 |  |
-| 3 | Un courrier de l'Office AI | `lecons/02-courrier.md` | 6 | 1 |
+| 3 | Un courrier de l'office AI | `lecons/02-courrier.md` | 6 | 1 |
 | | **Section 1 · Informations générales** | | | |
 | 4 | Section 1 · Informations générales | `lecons/03-section-1.md` | 12 | 2 |
 | | **Section 2 · Situation médicale** | | | |

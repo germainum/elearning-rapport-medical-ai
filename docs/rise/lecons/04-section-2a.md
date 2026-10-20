@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -76,7 +76,7 @@ Situation et symptômes actuels
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Des symptômes flous…**
 >
-> Sans description précise, l'Office AI ne peut pas relier les symptômes aux limitations que vous décrirez plus loin.
+> Sans description précise, l'office AI ne peut pas relier les symptômes aux limitations que vous décrirez plus loin.
 >
 > À propos des réponses écartées :
 > - « Patiente très algique, qui se plaint de douleurs importantes à chaque consultation. » : Une impression générale ne décrit pas les symptômes ni leurs circonstances.

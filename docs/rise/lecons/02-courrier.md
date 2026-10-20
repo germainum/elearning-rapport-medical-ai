@@ -1,4 +1,4 @@
-# Leçon 02 — Un courrier de l'Office AI
+# Leçon 02 — Un courrier de l'office AI
 
 > Section du sommaire : **Avant de commencer** · Type : **leçon de contenu** · Contenu généré depuis `content/module.json` : ne pas modifier ce fichier à la main.
 > Les blocs sont à créer **dans cet ordre**. La mise en forme légère du texte (**gras**, *italique*, listes « - » ou « 1. ») s'applique avec l'éditeur de Rise : ne pas taper les astérisques.
@@ -10,7 +10,7 @@ Texte alternatif (à saisir) : Un médecin à son bureau lit une lettre sortie d
 
 ## Bloc 2 · Texte
 
-Lundi matin, parmi le courrier du cabinet, une enveloppe de l'Office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années.
+Lundi matin, parmi le courrier du cabinet, une enveloppe de l'office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années.
 
 ## Bloc 3 · Déclaration, style « Note » (la lettre reçue)
 
@@ -83,7 +83,7 @@ Texte alternatif : Portrait illustré de Mme R., 47 ans, les cheveux attachés e
 
 ## Bloc 6 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Avant de commencer : à quoi sert ce rapport pour l'Office AI ?
+**Question** : Avant de commencer : à quoi sert ce rapport pour l'office AI ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. À appuyer la demande de rente de votre patiente, dont vous connaissez bien la situation.
@@ -91,13 +91,13 @@ Texte alternatif : Portrait illustré de Mme R., 47 ans, les cheveux attachés e
 3. À confirmer les arrêts de travail que vous avez déjà attestés par vos certificats.
 
 **Retour si bonne réponse** :
-> Le cadre légal demande à l'Office AI de déterminer les **conséquences durables** de l'atteinte à la santé sur l'aptitude à exercer une activité lucrative, dans l'activité habituelle comme dans une activité mieux adaptée. Il a besoin pour cela d'**éléments cliniques objectifs**.
+> Le cadre légal demande à l'office AI de déterminer les **conséquences durables** de l'atteinte à la santé sur l'aptitude à exercer une activité lucrative, dans l'activité habituelle comme dans une activité mieux adaptée. Il a besoin pour cela d'**éléments cliniques objectifs**.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un rapport qui plaide plutôt qu'il ne décrit…**
 >
-> …est difficile à exploiter. L'Office AI doit déterminer les conséquences durables de l'atteinte à la santé de Mme R. sur sa capacité à travailler, dans son activité habituelle comme dans une activité adaptée. Pour cela, il lui faut des éléments cliniques objectifs, pas un plaidoyer.
+> …est difficile à exploiter. L'office AI doit déterminer les conséquences durables de l'atteinte à la santé de Mme R. sur sa capacité à travailler, dans son activité habituelle comme dans une activité adaptée. Pour cela, il lui faut des éléments cliniques objectifs, pas un plaidoyer.
 >
 > À propos des réponses écartées :
-> - « À appuyer la demande de rente de votre patiente, dont vous connaissez bien la situation. » : Le rapport n'est pas un plaidoyer : l'Office AI attend une description médicale factuelle.
+> - « À appuyer la demande de rente de votre patiente, dont vous connaissez bien la situation. » : Le rapport n'est pas un plaidoyer : l'office AI attend une description médicale factuelle.
 > - « À confirmer les arrêts de travail que vous avez déjà attestés par vos certificats. » : Les certificats suffisent pour l'employeur ; l'AI a besoin des conséquences durables sur la capacité de travail.

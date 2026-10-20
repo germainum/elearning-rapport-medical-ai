@@ -44,7 +44,7 @@ const OBJECTIVES = screens.get('objectifs').objectives.items;
 
 const LESSONS = [
   { file: '01-bienvenue', title: 'Votre rapport, pièce maîtresse du dossier AI', section: 'Avant de commencer', kind: 'bienvenue' },
-  { file: '02-courrier', title: "Un courrier de l'Office AI", section: 'Avant de commencer', kind: 'courrier' },
+  { file: '02-courrier', title: "Un courrier de l'office AI", section: 'Avant de commencer', kind: 'courrier' },
   { file: '03-section-1', title: 'Section 1 · Informations générales', section: 'Section 1', screens: ['1-1', '1-2', '1-3'] },
   { file: '04-section-2a', title: 'Section 2 · Antécédents, symptômes, médication et constats', section: 'Section 2', screens: ['2-1', '2-2', '2-3', '2-4'] },
   { file: '05-section-2b', title: 'Section 2 · Diagnostics, pronostic et plan de traitement', section: 'Section 2', screens: ['2-5', '2-6', '2-7', '2-8'] },
@@ -147,7 +147,7 @@ function bienvenue() {
   const path = screen('parcours');
   const b = lesson();
   b.add('Vidéo', `Fichier vidéo : \`content/videos/${s.video.src.replace('videos/', '')}\` (${s.video.duration})\nSous-titres (.vtt) : \`content/videos/${s.video.captions.replace('videos/', '')}\` (langue : français)\nTitre : ${s.video.title}\n\n*Rise ne permet pas de démarrer la vidéo à la 8ᵉ seconde ni de la lancer automatiquement : voir le plan du cours.*`);
-  b.add('Accordéon « Lire la transcription »', `Un seul élément, titre « Transcription de la vidéo », contenu :\n\n${text(s.video.transcript)}`);
+  b.add('Accordéon « La transcription de la vidéo »', `Un seul élément, titre « La transcription de la vidéo », contenu :\n\n${text(s.video.transcript)}`);
   b.add('Texte (paragraphes)', s.body.filter((line) => !isProvisional(line)).join('\n\n'));
   b.add('Texte : objectifs', `${text(goals.body)}\n\n**${goals.objectives.title}**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
   b.add('Texte', text(path.body));
@@ -217,7 +217,7 @@ function pointLesson(def) {
   const b = lesson();
   // Les écrans « En pratique » ne concernent plus Mme R. : pas de rappel de son dossier
   if (!screen(def.screens[0]).hidePatientFile) {
-    b.add('Accordéon « Rappel du dossier »', `Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».\n\n*Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de \`docs/rise/lecons/02-courrier.md\`.*`);
+    b.add('Accordéon « Rappel du dossier »', `Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».\n\n*Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de \`docs/rise/lecons/02-courrier.md\`.*`);
   }
   for (const id of def.screens) pointBlocks(b, screen(id));
   return { title: def.title, body: b.toString() };

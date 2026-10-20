@@ -2,7 +2,7 @@
 
 > Une leçon « Glossaire » placée juste après la leçon d'accueil, consultable à tout moment depuis le sommaire (navigation libre).
 > Pour chaque rubrique : un bloc **Titre**, puis un bloc **Accordéon** (un élément par terme : titre = terme, contenu = définition).
-> 43 termes. Source : Glossaire et notions clés — assurance-invalidité, Office AI du canton de Vaud.
+> 43 termes. Source : Glossaire et notions clés — assurance-invalidité, office AI du canton de Vaud.
 
 ## Bloc 1 · Titre
 

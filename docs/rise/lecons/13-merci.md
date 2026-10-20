@@ -16,10 +16,10 @@ Merci pour votre engagement
 
 Vous avez pris le temps de suivre cette formation, malgré un agenda chargé. **Merci beaucoup.**
 
-Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'Office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.
+Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.
 
 Pour vos patients, c'est une réponse plus rapide et, souvent, une réadaptation qui commence plus tôt.
 
 Ensemble, nous gagnons du temps : vous, nous et, surtout, vos patients.
 
-*L'Office AI du canton de Vaud*
+*L'office AI du canton de Vaud*

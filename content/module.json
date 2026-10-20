@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.28.1",
+  "version": "0.29.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -11,14 +11,14 @@
   "help": {
     "title": "Une question ?",
     "body": [
-      "Centrale d'information de l'Office AI, du lundi au vendredi, de 8 h à 17 h :",
+      "Centrale d'information de l'office AI, du lundi au vendredi, de 8 h à 17 h :",
       "**021 925 24 24**",
       "[info@vd.oai.ch](mailto:info@vd.oai.ch)"
     ]
   },
   "glossary": {
     "title": "Glossaire",
-    "source": "Glossaire et notions clés — assurance-invalidité, Office AI du canton de Vaud.",
+    "source": "Glossaire et notions clés — assurance-invalidité, office AI du canton de Vaud.",
     "sections": [
       {
         "title": "Notions médicales et économiques fondamentales",
@@ -232,6 +232,7 @@
   "patientFile": {
     "title": "Mme R., 47 ans",
     "subtitle": "Née en 1979 · patiente du cabinet depuis 2014",
+    "availableFrom": "1-1",
     "reference": "Dossier n° 2014-0387",
     "image": {
       "src": "images/mme-r.jpg",
@@ -313,8 +314,8 @@
         ]
       },
       "body": [
-        "*Contenu provisoire : cas fictif et bonnes réponses à valider par l'Office AI du canton de Vaud.*",
-        "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'Office AI."
+        "*Contenu provisoire : cas fictif et bonnes réponses à valider par l'office AI du canton de Vaud.*",
+        "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI."
       ],
       "section": "Avant de commencer"
     },
@@ -343,12 +344,12 @@
       "type": "text",
       "kicker": "Introduction",
       "title": "Comment se déroule la formation",
-      "continueLabel": "Ouvrir le courrier de l'Office AI",
-      "body": ["Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'Office AI à la décision."],
+      "continueLabel": "Ouvrir le courrier de l'office AI",
+      "body": ["Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'office AI à la décision."],
       "journey": {
         "title": "Votre parcours dans ce module",
         "steps": [
-          { "icon": "courrier", "label": "Le courrier", "text": "L'Office AI vous demande un rapport pour Mme R." },
+          { "icon": "courrier", "label": "Le courrier", "text": "L'office AI vous demande un rapport pour Mme R." },
           { "icon": "dossier", "label": "Le dossier", "text": "Vous reprenez ses antécédents et son status." },
           {
             "icon": "redaction",
@@ -365,13 +366,13 @@
       "id": "courrier",
       "type": "scene",
       "kicker": "Mme R., 47 ans",
-      "title": "Un courrier de l'Office AI",
+      "title": "Un courrier de l'office AI",
       "continueLabel": "Commencer par la question 1.1",
       "blocks": [
         {
           "type": "text",
           "body": [
-            "Lundi matin, parmi le courrier du cabinet, une enveloppe de l'Office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années."
+            "Lundi matin, parmi le courrier du cabinet, une enveloppe de l'office AI du canton de Vaud. Elle concerne Mme R., que vous suivez depuis des années."
           ],
           "image": {
             "src": "images/cabinet-courrier.jpg",
@@ -563,12 +564,12 @@
           "type": "question",
           "id": "but-du-rapport",
           "kind": "single",
-          "prompt": "Avant de commencer : à quoi sert ce rapport pour l'Office AI ?",
+          "prompt": "Avant de commencer : à quoi sert ce rapport pour l'office AI ?",
           "options": [
             {
               "id": "a",
               "text": "À appuyer la demande de rente de votre patiente, dont vous connaissez bien la situation.",
-              "feedback": "Le rapport n'est pas un plaidoyer : l'Office AI attend une description médicale factuelle."
+              "feedback": "Le rapport n'est pas un plaidoyer : l'office AI attend une description médicale factuelle."
             },
             {
               "id": "b",
@@ -582,10 +583,10 @@
             }
           ],
           "feedback": {
-            "correct": "Le cadre légal demande à l'Office AI de déterminer les **conséquences durables** de l'atteinte à la santé sur l'aptitude à exercer une activité lucrative, dans l'activité habituelle comme dans une activité mieux adaptée. Il a besoin pour cela d'**éléments cliniques objectifs**.",
+            "correct": "Le cadre légal demande à l'office AI de déterminer les **conséquences durables** de l'atteinte à la santé sur l'aptitude à exercer une activité lucrative, dans l'activité habituelle comme dans une activité mieux adaptée. Il a besoin pour cela d'**éléments cliniques objectifs**.",
             "incorrect": {
               "title": "Un rapport qui plaide plutôt qu'il ne décrit…",
-              "body": "…est difficile à exploiter. L'Office AI doit déterminer les conséquences durables de l'atteinte à la santé de Mme R. sur sa capacité à travailler, dans son activité habituelle comme dans une activité adaptée. Pour cela, il lui faut des éléments cliniques objectifs, pas un plaidoyer."
+              "body": "…est difficile à exploiter. L'office AI doit déterminer les conséquences durables de l'atteinte à la santé de Mme R. sur sa capacité à travailler, dans son activité habituelle comme dans une activité adaptée. Pour cela, il lui faut des éléments cliniques objectifs, pas un plaidoyer."
             }
           }
         }
@@ -624,7 +625,7 @@
             {
               "id": "a",
               "text": "Patiente suivie au cabinet depuis de nombreuses années, avec des contrôles réguliers et rapprochés.",
-              "feedback": "Sans dates, l'Office AI ne peut pas situer votre suivi."
+              "feedback": "Sans dates, l'office AI ne peut pas situer votre suivi."
             },
             {
               "id": "b",
@@ -638,10 +639,10 @@
             }
           ],
           "feedback": {
-            "correct": "Des dates précises et les autres médecins consultés : l'Office AI sait à qui demander les rapports complémentaires.",
+            "correct": "Des dates précises et les autres médecins consultés : l'office AI sait à qui demander les rapports complémentaires.",
             "incorrect": {
               "title": "Un suivi difficile à situer…",
-              "body": "Sans dates ni autres intervenants, l'Office AI doit vous recontacter ou chercher lui-même les médecins qui ont suivi Mme R."
+              "body": "Sans dates ni autres intervenants, l'office AI doit vous recontacter ou chercher lui-même les médecins qui ont suivi Mme R."
             }
           }
         }
@@ -670,7 +671,7 @@
             {
               "id": "a",
               "text": "Selon les besoins, quand la patiente prend rendez-vous.",
-              "feedback": "Trop vague : l'Office AI veut savoir à quel rythme vous la voyez."
+              "feedback": "Trop vague : l'office AI veut savoir à quel rythme vous la voyez."
             },
             {
               "id": "b",
@@ -683,7 +684,7 @@
             "correct": "Une fréquence actuelle et précise montre que votre appréciation repose sur un suivi récent.",
             "incorrect": {
               "title": "Un suivi difficile à apprécier…",
-              "body": "Sans fréquence actuelle, l'Office AI ne sait pas si votre appréciation repose sur un suivi récent."
+              "body": "Sans fréquence actuelle, l'office AI ne sait pas si votre appréciation repose sur un suivi récent."
             }
           }
         }
@@ -735,10 +736,10 @@
             }
           ],
           "feedback": {
-            "correct": "Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'Office AI peut vérifier le **délai d'attente** d'une éventuelle rente.",
+            "correct": "Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'office AI peut vérifier le **délai d'attente** d'une éventuelle rente.",
             "incorrect": {
               "title": "Des incohérences qui appellent des questions…",
-              "body": "Si les périodes ne correspondent pas aux certificats, l'Office AI doit vous recontacter. Reportez chaque période avec ses dates et son taux exacts."
+              "body": "Si les périodes ne correspondent pas aux certificats, l'office AI doit vous recontacter. Reportez chaque période avec ses dates et son taux exacts."
             }
           }
         }
@@ -842,7 +843,7 @@
             "correct": "Des symptômes décrits avec leurs circonstances préparent les limitations fonctionnelles (question 3.4).",
             "incorrect": {
               "title": "Des symptômes flous…",
-              "body": "Sans description précise, l'Office AI ne peut pas relier les symptômes aux limitations que vous décrirez plus loin."
+              "body": "Sans description précise, l'office AI ne peut pas relier les symptômes aux limitations que vous décrirez plus loin."
             }
           }
         }
@@ -937,7 +938,7 @@
             "correct": "Des constats objectifs, datés et mesurés : ce sont eux qui expliquent les limitations.",
             "incorrect": {
               "title": "Sans constats objectifs…",
-              "body": "…l'Office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise."
+              "body": "…l'office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise."
             }
           }
         }
@@ -978,7 +979,7 @@
             {
               "id": "b",
               "text": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), date non précisée.",
-              "feedback": "Le formulaire demande « Depuis » : sans date, l'Office AI ne peut pas situer l'atteinte."
+              "feedback": "Le formulaire demande « Depuis » : sans date, l'office AI ne peut pas situer l'atteinte."
             },
             {
               "id": "c",
@@ -989,7 +990,7 @@
           "feedback": {
             "correct": "Uniquement les diagnostics qui limitent la capacité de travail, datés, avec leur code CIM-10 et classés du plus limitant au moins limitant.",
             "incorrect": {
-              "title": "L'Office AI doit faire le tri…",
+              "title": "L'office AI doit faire le tri…",
               "body": "Un diagnostic sans incidence ou sans date brouille la lecture du dossier."
             }
           }
@@ -1040,7 +1041,7 @@
             "correct": "L'hypertension, bien contrôlée, ne limite pas Mme R. : elle figure ici, avec sa date.",
             "incorrect": {
               "title": "Un tableau clinique incomplet…",
-              "body": "Les diagnostics sans incidence complètent le tableau ; s'ils manquent ou sont mal classés, l'Office AI doit clarifier."
+              "body": "Les diagnostics sans incidence complètent le tableau ; s'ils manquent ou sont mal classés, l'office AI doit clarifier."
             }
           }
         }
@@ -1082,14 +1083,14 @@
             {
               "id": "c",
               "text": "Réservé : l'évolution des douleurs lombaires reste difficile à prévoir.",
-              "feedback": "Sans taux ni délai, l'Office AI ne peut pas planifier la suite."
+              "feedback": "Sans taux ni délai, l'office AI ne peut pas planifier la suite."
             }
           ],
           "feedback": {
             "correct": "Une tendance, un taux sur 100 % et un délai : le gestionnaire et le conseiller en réadaptation, qui ne sont pas médecins, savent quand réévaluer la situation.",
             "incorrect": {
               "title": "Une suite difficile à planifier…",
-              "body": "Sans taux ni délai, l'Office AI ne sait pas quand réévaluer la situation de Mme R., ni quand solliciter le SMR."
+              "body": "Sans taux ni délai, l'office AI ne sait pas quand réévaluer la situation de Mme R., ni quand solliciter le SMR."
             }
           }
         }
@@ -1126,7 +1127,7 @@
             {
               "id": "b",
               "text": "À réévaluer lors du prochain contrôle, selon l'évolution des douleurs de la patiente.",
-              "feedback": "L'Office AI a besoin des prochaines étapes concrètes."
+              "feedback": "L'office AI a besoin des prochaines étapes concrètes."
             },
             {
               "id": "c",
@@ -1135,10 +1136,10 @@
             }
           ],
           "feedback": {
-            "correct": "Des mesures et des échéances concrètes : l'Office AI peut caler la réadaptation sur votre plan de traitement.",
+            "correct": "Des mesures et des échéances concrètes : l'office AI peut caler la réadaptation sur votre plan de traitement.",
             "incorrect": {
               "title": "Une réadaptation sans calendrier…",
-              "body": "Sans plan de traitement concret, l'Office AI ne sait pas si une opération ou un traitement va modifier la situation."
+              "body": "Sans plan de traitement concret, l'office AI ne sait pas si une opération ou un traitement va modifier la situation."
             }
           }
         }
@@ -1188,7 +1189,7 @@
             "correct": "Le métier, le taux contractuel et la situation actuelle : la base pour comparer le poste et les limitations.",
             "incorrect": {
               "title": "Un poste inconnu…",
-              "body": "Sans le métier et le taux, l'Office AI ne peut pas apprécier la capacité de travail dans l'activité habituelle."
+              "body": "Sans le métier et le taux, l'office AI ne peut pas apprécier la capacité de travail dans l'activité habituelle."
             }
           }
         }
@@ -1231,14 +1232,14 @@
             {
               "id": "c",
               "text": "Voir avec l'employeur, qui connaît bien mieux la situation professionnelle que moi.",
-              "feedback": "L'Office AI le fera ; notez ce que vous savez."
+              "feedback": "L'office AI le fera ; notez ce que vous savez."
             }
           ],
           "feedback": {
             "correct": "Ancienneté et maintien du contrat : des éléments utiles pour envisager un retour chez le même employeur.",
             "incorrect": {
               "title": "Une piste de réinsertion manquée…",
-              "body": "Ce que vous savez de l'emploi aide l'Office AI à envisager un retour chez le même employeur."
+              "body": "Ce que vous savez de l'emploi aide l'office AI à envisager un retour chez le même employeur."
             }
           }
         }
@@ -1298,7 +1299,7 @@
             "correct": "Les exigences concrètes du poste. Si la patiente a une **description du poste**, joignez-en une copie.",
             "incorrect": {
               "title": "Un poste inconnu…",
-              "body": "Sans les exigences du poste, l'Office AI doit les demander à l'employeur avant de pouvoir apprécier la capacité de travail."
+              "body": "Sans les exigences du poste, l'office AI doit les demander à l'employeur avant de pouvoir apprécier la capacité de travail."
             }
           }
         }
@@ -1360,12 +1361,12 @@
           ],
           "feedback": {
             "correct": {
-              "title": "L'Office AI peut chercher une activité adaptée",
+              "title": "L'office AI peut chercher une activité adaptée",
               "body": "Des limitations concrètes et mesurables permettent de définir les activités encore possibles pour Mme R."
             },
             "incorrect": {
               "title": "Quelques semaines plus tard…",
-              "body": "L'Office AI vous adresse une demande de précisions. Faute de limitations concrètes, aucune activité adaptée n'a pu être définie pour Mme R."
+              "body": "L'office AI vous adresse une demande de précisions. Faute de limitations concrètes, aucune activité adaptée n'a pu être définie pour Mme R."
             }
           }
         }
@@ -1514,7 +1515,7 @@
             "correct": "Mobilisation de résidents et port de charges sont incompatibles avec ses limitations : aucune heure n'est exigible dans ce poste.",
             "incorrect": {
               "title": "Une capacité surestimée…",
-              "body": "L'Office AI pourrait envisager un retour au poste habituel que ses limitations excluent."
+              "body": "L'office AI pourrait envisager un retour au poste habituel que ses limitations excluent."
             }
           }
         }
@@ -1551,7 +1552,7 @@
             {
               "id": "b",
               "text": "Selon les possibilités d'aménagement offertes par son employeur.",
-              "feedback": "L'Office AI attend une estimation médicale, pas une condition de l'employeur."
+              "feedback": "L'office AI attend une estimation médicale, pas une condition de l'employeur."
             },
             {
               "id": "c",
@@ -1560,10 +1561,10 @@
             }
           ],
           "feedback": {
-            "correct": "Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'Office AI peut orienter Mme R.",
+            "correct": "Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'office AI peut orienter Mme R.",
             "incorrect": {
               "title": "Une réadaptation impossible à planifier…",
-              "body": "Sans capacité chiffrée en activité adaptée, l'Office AI ne sait pas vers quoi orienter Mme R. Un examen complémentaire devient probable."
+              "body": "Sans capacité chiffrée en activité adaptée, l'office AI ne sait pas vers quoi orienter Mme R. Un examen complémentaire devient probable."
             }
           }
         }
@@ -1641,7 +1642,7 @@
             {
               "id": "a",
               "text": "Son âge (47 ans) rend une reconversion professionnelle peu réaliste.",
-              "feedback": "C'est une appréciation non médicale, qui revient à l'Office AI."
+              "feedback": "C'est une appréciation non médicale, qui revient à l'office AI."
             },
             {
               "id": "b",
@@ -1655,10 +1656,10 @@
             }
           ],
           "feedback": {
-            "correct": "Vous signalez ce qui, médicalement, freine ou non la réadaptation. Le reste est apprécié par l'Office AI.",
+            "correct": "Vous signalez ce qui, médicalement, freine ou non la réadaptation. Le reste est apprécié par l'office AI.",
             "incorrect": {
               "title": "Le médical et le non-médical mélangés…",
-              "body": "Des obstacles non médicaux, présentés par le médecin, brouillent l'évaluation. L'Office AI devra faire le tri."
+              "body": "Des obstacles non médicaux, présentés par le médecin, brouillent l'évaluation. L'office AI devra faire le tri."
             }
           }
         }
@@ -1674,7 +1675,7 @@
         {
           "type": "text",
           "body": [
-            "Mme R. travaille à 80 % : l'Office AI tient aussi compte de ses empêchements dans les tâches ménagères."
+            "Mme R. travaille à 80 % : l'office AI tient aussi compte de ses empêchements dans les tâches ménagères."
           ]
         },
         {
@@ -1717,7 +1718,7 @@
             "correct": "Des limitations cohérentes avec la question 3.4, tâche par tâche.",
             "incorrect": {
               "title": "Une évaluation incohérente…",
-              "body": "Si les tâches ménagères ne concordent pas avec les limitations, l'Office AI devra clarifier, par exemple lors d'une enquête à domicile."
+              "body": "Si les tâches ménagères ne concordent pas avec les limitations, l'office AI devra clarifier, par exemple lors d'une enquête à domicile."
             }
           }
         }
@@ -1813,7 +1814,7 @@
             "correct": "Les rapports, consilium et comptes rendus d'examens en lien avec les diagnostics.",
             "incorrect": {
               "title": "Des pièces manquantes ou superflues…",
-              "body": "Sans les rapports de spécialistes, l'Office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile."
+              "body": "Sans les rapports de spécialistes, l'office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile."
             }
           }
         }
@@ -1867,7 +1868,7 @@
             "correct": "Cohérente avec la question 3.4 : les spécialistes en réadaptation s'appuient sur cette annexe pour chercher un poste.",
             "incorrect": {
               "title": "Une annexe incohérente…",
-              "body": "Si l'annexe contredit la question 3.4, l'Office AI ne sait pas laquelle retenir et doit vous recontacter."
+              "body": "Si l'annexe contredit la question 3.4, l'office AI ne sait pas laquelle retenir et doit vous recontacter."
             }
           }
         }
@@ -1960,11 +1961,11 @@
             {
               "id": "c",
               "text": "Amélioration possible, mais délai difficile à préciser à ce stade.",
-              "feedback": "Sans taux ni délai, l'Office AI ne peut pas planifier la réinsertion."
+              "feedback": "Sans taux ni délai, l'office AI ne peut pas planifier la réinsertion."
             }
           ],
           "feedback": {
-            "correct": "Un taux et un délai, cohérents avec la question 2.7 : l'Office AI planifie la réinsertion.",
+            "correct": "Un taux et un délai, cohérents avec la question 2.7 : l'office AI planifie la réinsertion.",
             "incorrect": {
               "title": "Une suite difficile à planifier…",
               "body": "Indiquez jusqu'à quel taux (sur un 100 %) et dans quel délai la capacité de travail peut s'améliorer."
@@ -1982,7 +1983,7 @@
       "kicker": "Second cas · question 3.4",
       "title": "Les limitations de M. C.",
       "blocks": [
-        { "type": "text", "body": ["L'Office AI vous demande maintenant un rapport pour M. C., 46 ans."] },
+        { "type": "text", "body": ["L'office AI vous demande maintenant un rapport pour M. C., 46 ans."] },
         {
           "type": "document",
           "kind": "dossier",
@@ -2081,7 +2082,7 @@
           "options": [
             {
               "id": "a",
-              "text": "Je n'en parle pas : la vie privée de mon patient ne regarde pas l'Office AI.",
+              "text": "Je n'en parle pas : la vie privée de mon patient ne regarde pas l'office AI.",
               "feedback": "Le contexte éclaire l'état dépressif réactionnel : il a sa place dans l'anamnèse."
             },
             {
@@ -2102,7 +2103,7 @@
             },
             "incorrect": {
               "title": "Un rapport difficile à exploiter…",
-              "body": "Sans le contexte, l'état dépressif paraît inexpliqué ; s'il devient un motif d'incapacité, le rapport mélange le médical et le social. Dans les deux cas, l'Office AI devra clarifier, et la décision tardera."
+              "body": "Sans le contexte, l'état dépressif paraît inexpliqué ; s'il devient un motif d'incapacité, le rapport mélange le médical et le social. Dans les deux cas, l'office AI devra clarifier, et la décision tardera."
             }
           }
         }
@@ -2146,12 +2147,12 @@
             },
             {
               "id": "c",
-              "text": "Par courriel ordinaire, en pièce jointe, à la centrale de l'Office AI.",
+              "text": "Par courriel ordinaire, en pièce jointe, à la centrale de l'office AI.",
               "feedback": "Un courriel ordinaire ne protège pas les données médicales."
             }
           ],
           "feedback": {
-            "correct": "Les médecins vaudois peuvent remplir et envoyer leurs rapports en ligne via [MedAI](https://portal-medai.ch/). Le délai de retour figure dans le courrier de l'Office AI.",
+            "correct": "Les médecins vaudois peuvent remplir et envoyer leurs rapports en ligne via [MedAI](https://portal-medai.ch/). Le délai de retour figure dans le courrier de l'office AI.",
             "incorrect": "Le rapport s'envoie par courrier, ou en ligne via [MedAI](https://portal-medai.ch/), 7 jours sur 7 et 24 heures sur 24."
           }
         }
@@ -2243,14 +2244,14 @@
         "Une mesure de réinsertion **n'est pas une thérapie** ; le contexte psychosocial va dans l'anamnèse."
       ],
       "body": [
-        "Vos rapports sont toujours examinés attentivement : **plus les informations sont précises et exhaustives, moins l'Office AI doit recourir aux expertises** pour décider.",
-        "Les formulaires médicaux de l'AI sont disponibles sur le site de l'Office AI : [formulaires pour le corps médical, aivd.ch](https://aivd.ch/corps-medical/#formulaires).",
-        "Une question ? La centrale d'information de l'Office AI vous répond au **021 925 24 24**, du lundi au vendredi de 8 h à 17 h, ou par courriel à [info@vd.oai.ch](mailto:info@vd.oai.ch).",
+        "Vos rapports sont toujours examinés attentivement : **plus les informations sont précises et exhaustives, moins l'office AI doit recourir aux expertises** pour décider.",
+        "Les formulaires médicaux de l'AI sont disponibles sur le site de l'office AI : [formulaires pour le corps médical, aivd.ch](https://aivd.ch/corps-medical/#formulaires).",
+        "Une question ? La centrale d'information de l'office AI vous répond au **021 925 24 24**, du lundi au vendredi de 8 h à 17 h, ou par courriel à [info@vd.oai.ch](mailto:info@vd.oai.ch).",
         "**Pour aller plus loin** : [questions-réponses pour les médecins](https://www.ai-pro-medico.ch/fr/questions-reponses) · [courtes formations AI Vaud et SVM](https://smrsr.ch/contact/) · [cours du CFAI](https://events.cfai-bziv.ch/portal/?lang=fr)."
       ],
       "showScore": true,
       "messages": {
-        "passed": "Votre rapport permet à l'Office AI d'orienter Mme R. sans vous relancer.",
+        "passed": "Votre rapport permet à l'office AI d'orienter Mme R. sans vous relancer.",
         "failed": "Certaines réponses entraîneraient une demande de complément. Reprenez les questions pour atteindre le seuil de réussite."
       },
       "section": "En pratique",
@@ -2265,10 +2266,10 @@
       "title": "Merci pour votre engagement",
       "body": [
         "Vous avez pris le temps de suivre cette formation, malgré un agenda chargé. **Merci beaucoup.**",
-        "Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'Office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.",
+        "Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.",
         "Pour vos patients, c'est une réponse plus rapide et, souvent, une réadaptation qui commence plus tôt.",
         "Ensemble, nous gagnons du temps : vous, nous et, surtout, vos patients.",
-        "*L'Office AI du canton de Vaud*"
+        "*L'office AI du canton de Vaud*"
       ],
       "image": {
         "src": "images/merci.jpg",

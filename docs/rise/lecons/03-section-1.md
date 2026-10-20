@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -36,15 +36,15 @@ Des contrôles ont été effectués à une date ultérieure par
 3. Traitement ambulatoire au cabinet depuis 2014, sans hospitalisation ni autre médecin.
 
 **Retour si bonne réponse** :
-> Des dates précises et les autres médecins consultés : l'Office AI sait à qui demander les rapports complémentaires.
+> Des dates précises et les autres médecins consultés : l'office AI sait à qui demander les rapports complémentaires.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un suivi difficile à situer…**
 >
-> Sans dates ni autres intervenants, l'Office AI doit vous recontacter ou chercher lui-même les médecins qui ont suivi Mme R.
+> Sans dates ni autres intervenants, l'office AI doit vous recontacter ou chercher lui-même les médecins qui ont suivi Mme R.
 >
 > À propos des réponses écartées :
-> - « Patiente suivie au cabinet depuis de nombreuses années, avec des contrôles réguliers et r… » : Sans dates, l'Office AI ne peut pas situer votre suivi.
+> - « Patiente suivie au cabinet depuis de nombreuses années, avec des contrôles réguliers et r… » : Sans dates, l'office AI ne peut pas situer votre suivi.
 > - « Traitement ambulatoire au cabinet depuis 2014, sans hospitalisation ni autre médecin. » : Il manque le dernier contrôle et les autres médecins qui l'ont suivie.
 
 ## Bloc 5 · Titre
@@ -74,10 +74,10 @@ La fréquence des consultations
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un suivi difficile à apprécier…**
 >
-> Sans fréquence actuelle, l'Office AI ne sait pas si votre appréciation repose sur un suivi récent.
+> Sans fréquence actuelle, l'office AI ne sait pas si votre appréciation repose sur un suivi récent.
 >
 > À propos des réponses écartées :
-> - « Selon les besoins, quand la patiente prend rendez-vous. » : Trop vague : l'Office AI veut savoir à quel rythme vous la voyez.
+> - « Selon les besoins, quand la patiente prend rendez-vous. » : Trop vague : l'office AI veut savoir à quel rythme vous la voyez.
 > - « Régulièrement, depuis le début du suivi en 2014. » : Le formulaire demande la fréquence **actuelle**.
 
 ## Bloc 8 · Titre
@@ -99,7 +99,7 @@ Veuillez joindre les copies des rapports existants.
 
 ## Bloc 10 · Texte : règle à retenir
 
-Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'Office AI peut vérifier le **délai d'attente** d'une éventuelle rente.
+Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'office AI peut vérifier le **délai d'attente** d'une éventuelle rente.
 
 ## Bloc 11 · Texte : exemple rempli pour Mme R.
 

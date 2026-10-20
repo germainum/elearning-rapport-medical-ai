@@ -36,7 +36,7 @@ const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 's
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
   logo: ['src', 'alt'],
-  patientFile: ['title', 'subtitle', 'body', 'data', 'image', 'reference', 'sections', 'journal'],
+  patientFile: ['title', 'subtitle', 'body', 'data', 'image', 'reference', 'sections', 'journal', 'availableFrom'],
   patientFileBlock: ['type'],
   form: ['title', 'reference'],
   scoring: ['passingScore', 'allowRetry'],
@@ -631,6 +631,10 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
   }
   if (hasQuestions && module.scoring?.passingScore === undefined) {
     warn('scoring', '« passingScore » absent : seuil de réussite par défaut de 80 %.');
+  }
+
+  if (module.patientFile?.availableFrom !== undefined && !screenIds.has(module.patientFile.availableFrom)) {
+    error('patientFile', `« availableFrom » doit être l'identifiant d'un écran existant (reçu : « ${module.patientFile.availableFrom} »).`);
   }
 
   // Taille maximale de suspend_data (SCORM 1.2 : 4096 caractères)

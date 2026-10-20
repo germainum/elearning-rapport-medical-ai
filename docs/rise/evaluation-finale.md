@@ -20,12 +20,12 @@ Comment répondez-vous à la question 1.3 ?
 3. 100 % du 12.01.2026 au 31.10.2026, dans son activité d'aide-soignante en EMS.  ✅ **BONNE RÉPONSE**
 
 **Retour si bonne réponse** :
-> Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'Office AI peut vérifier le **délai d'attente** d'une éventuelle rente.
+> Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'office AI peut vérifier le **délai d'attente** d'une éventuelle rente.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Des incohérences qui appellent des questions…**
 >
-> Si les périodes ne correspondent pas aux certificats, l'Office AI doit vous recontacter. Reportez chaque période avec ses dates et son taux exacts.
+> Si les périodes ne correspondent pas aux certificats, l'office AI doit vous recontacter. Reportez chaque période avec ses dates et son taux exacts.
 >
 > À propos des réponses écartées :
 > - « 100 % depuis janvier 2026, arrêt de travail toujours en cours actuellement. » : Le formulaire demande des taux et des dates précis, période par période.
@@ -50,7 +50,7 @@ Que notez-vous à la question 2.4 ?
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Sans constats objectifs…**
 >
-> …l'Office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise.
+> …l'office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise.
 >
 > À propos des réponses écartées :
 > - « Examen clinique sans particularité notable, hormis des douleurs lombaires à la mobilisati… » : Trop sommaire : quels tests, quelles mesures, à quelle date ?
@@ -73,13 +73,13 @@ Que notez-vous à la question 2.5 ?
 > Uniquement les diagnostics qui limitent la capacité de travail, datés, avec leur code CIM-10 et classés du plus limitant au moins limitant.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
-> **L'Office AI doit faire le tri…**
+> **L'office AI doit faire le tri…**
 >
 > Un diagnostic sans incidence ou sans date brouille la lecture du dossier.
 >
 > À propos des réponses écartées :
 > - « Lombosciatalgie droite et hypertension artérielle traitée, depuis 2026. » : L'hypertension, bien contrôlée, n'a pas d'incidence : sa place est à la question 2.6.
-> - « Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), date non précis… » : Le formulaire demande « Depuis » : sans date, l'Office AI ne peut pas situer l'atteinte.
+> - « Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), date non précis… » : Le formulaire demande « Depuis » : sans date, l'office AI ne peut pas situer l'atteinte.
 
 ## Question 4 sur 12
 
@@ -100,11 +100,11 @@ Que notez-vous à la question 2.7 ?
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une suite difficile à planifier…**
 >
-> Sans taux ni délai, l'Office AI ne sait pas quand réévaluer la situation de Mme R., ni quand solliciter le SMR.
+> Sans taux ni délai, l'office AI ne sait pas quand réévaluer la situation de Mme R., ni quand solliciter le SMR.
 >
 > À propos des réponses écartées :
 > - « Favorable à long terme, sous réserve de la bonne motivation de la patiente. » : Ce jugement n'est pas un pronostic médical chiffré.
-> - « Réservé : l'évolution des douleurs lombaires reste difficile à prévoir. » : Sans taux ni délai, l'Office AI ne peut pas planifier la suite.
+> - « Réservé : l'évolution des douleurs lombaires reste difficile à prévoir. » : Sans taux ni délai, l'office AI ne peut pas planifier la suite.
 
 ## Question 5 sur 12
 
@@ -125,7 +125,7 @@ Que notez-vous à la question 3.3 ?
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un poste inconnu…**
 >
-> Sans les exigences du poste, l'Office AI doit les demander à l'employeur avant de pouvoir apprécier la capacité de travail.
+> Sans les exigences du poste, l'office AI doit les demander à l'employeur avant de pouvoir apprécier la capacité de travail.
 >
 > À propos des réponses écartées :
 > - « Travail physique d'aide-soignante, difficilement compatible avec son dos. » : C'est une conclusion : décrivez les exigences concrètes du poste.
@@ -145,14 +145,14 @@ Que notez-vous à la question 3.4 ?
 3. Lombosciatalgie chronique incompatible avec son activité d'aide-soignante en EMS.
 
 **Retour si bonne réponse** :
-> **L'Office AI peut chercher une activité adaptée**
+> **L'office AI peut chercher une activité adaptée**
 >
 > Des limitations concrètes et mesurables permettent de définir les activités encore possibles pour Mme R.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Quelques semaines plus tard…**
 >
-> L'Office AI vous adresse une demande de précisions. Faute de limitations concrètes, aucune activité adaptée n'a pu être définie pour Mme R.
+> L'office AI vous adresse une demande de précisions. Faute de limitations concrètes, aucune activité adaptée n'a pu être définie pour Mme R.
 >
 > À propos des réponses écartées :
 > - « Port de charges limité, éviter les positions contraignantes, pauses régulières selon beso… » : L'intention est bonne, mais rien n'est mesurable : quel poids ? quelles positions ?
@@ -172,16 +172,16 @@ Que notez-vous à la question 4.2 ?
 3. 4 heures par jour depuis le 01.06.2026, en alternant les positions.  ✅ **BONNE RÉPONSE**
 
 **Retour si bonne réponse** :
-> Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'Office AI peut orienter Mme R.
+> Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'office AI peut orienter Mme R.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une réadaptation impossible à planifier…**
 >
-> Sans capacité chiffrée en activité adaptée, l'Office AI ne sait pas vers quoi orienter Mme R. Un examen complémentaire devient probable.
+> Sans capacité chiffrée en activité adaptée, l'office AI ne sait pas vers quoi orienter Mme R. Un examen complémentaire devient probable.
 >
 > À propos des réponses écartées :
 > - « 0 heure par jour, tant que les douleurs lombaires persistent. » : Les limitations décrites en 3.4 permettent d'estimer une activité adaptée.
-> - « Selon les possibilités d'aménagement offertes par son employeur. » : L'Office AI attend une estimation médicale, pas une condition de l'employeur.
+> - « Selon les possibilités d'aménagement offertes par son employeur. » : L'office AI attend une estimation médicale, pas une condition de l'employeur.
 
 ## Question 8 sur 12
 
@@ -227,7 +227,7 @@ Comment remplissez-vous la ligne « soulever/porter » ?
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une annexe incohérente…**
 >
-> Si l'annexe contredit la question 3.4, l'Office AI ne sait pas laquelle retenir et doit vous recontacter.
+> Si l'annexe contredit la question 3.4, l'office AI ne sait pas laquelle retenir et doit vous recontacter.
 >
 > À propos des réponses écartées :
 > - « Oui, selon la tolérance de la patiente au moment de la tâche. » : Trop vague : le formulaire demande une limite de poids.
@@ -294,7 +294,7 @@ Extrait du formulaire — **2.1 Antécédents médicaux et évolution de la situ
 Que faites-vous du divorce et des difficultés financières dans le rapport ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
-1. Je n'en parle pas : la vie privée de mon patient ne regarde pas l'Office AI.
+1. Je n'en parle pas : la vie privée de mon patient ne regarde pas l'office AI.
 2. Je le décris dans l'anamnèse (2.1), en lien avec l'état dépressif réactionnel.  ✅ **BONNE RÉPONSE**
 3. Je le retiens comme motif d'incapacité de travail, car la précarité l'épuise.
 
@@ -306,9 +306,9 @@ Que faites-vous du divorce et des difficultés financières dans le rapport ?
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Un rapport difficile à exploiter…**
 >
-> Sans le contexte, l'état dépressif paraît inexpliqué ; s'il devient un motif d'incapacité, le rapport mélange le médical et le social. Dans les deux cas, l'Office AI devra clarifier, et la décision tardera.
+> Sans le contexte, l'état dépressif paraît inexpliqué ; s'il devient un motif d'incapacité, le rapport mélange le médical et le social. Dans les deux cas, l'office AI devra clarifier, et la décision tardera.
 >
 > À propos des réponses écartées :
-> - « Je n'en parle pas : la vie privée de mon patient ne regarde pas l'Office AI. » : Le contexte éclaire l'état dépressif réactionnel : il a sa place dans l'anamnèse.
+> - « Je n'en parle pas : la vie privée de mon patient ne regarde pas l'office AI. » : Le contexte éclaire l'état dépressif réactionnel : il a sa place dans l'anamnèse.
 > - « Je le retiens comme motif d'incapacité de travail, car la précarité l'épuise. » : Les difficultés sociales ou financières ne sont pas en elles-mêmes une atteinte à la santé invalidante.
 

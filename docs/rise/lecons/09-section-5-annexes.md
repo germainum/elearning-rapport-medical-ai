@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -71,7 +71,7 @@ Veuillez joindre les copies des rapports existants (question 1.3) et, si vous en
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Des pièces manquantes ou superflues…**
 >
-> Sans les rapports de spécialistes, l'Office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile.
+> Sans les rapports de spécialistes, l'office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile.
 >
 > À propos des réponses écartées :
 > - « Les notes de toutes vos consultations depuis le début du suivi en 2014. » : Trop : l'information utile se perd. Seules les pièces en lien avec l'atteinte comptent.
@@ -170,7 +170,7 @@ Dans quel délai ?
 3. Amélioration possible, mais délai difficile à préciser à ce stade.
 
 **Retour si bonne réponse** :
-> Un taux et un délai, cohérents avec la question 2.7 : l'Office AI planifie la réinsertion.
+> Un taux et un délai, cohérents avec la question 2.7 : l'office AI planifie la réinsertion.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une suite difficile à planifier…**
@@ -179,4 +179,4 @@ Dans quel délai ?
 >
 > À propos des réponses écartées :
 > - « Jusqu'à 80 %, son taux contractuel, dans un délai de 6 mois. » : La capacité s'exprime sur un 100 %, pas sur le taux contractuel.
-> - « Amélioration possible, mais délai difficile à préciser à ce stade. » : Sans taux ni délai, l'Office AI ne peut pas planifier la réinsertion.
+> - « Amélioration possible, mais délai difficile à préciser à ce stade. » : Sans taux ni délai, l'office AI ne peut pas planifier la réinsertion.

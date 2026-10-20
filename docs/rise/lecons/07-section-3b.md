@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -33,7 +33,7 @@ Veuillez décrire les limitations fonctionnelles.
 
 ## Bloc 5 · Texte : règle à retenir
 
-**L'Office AI peut chercher une activité adaptée**
+**L'office AI peut chercher une activité adaptée**
 
 Des limitations concrètes et mesurables permettent de définir les activités encore possibles pour Mme R.
 

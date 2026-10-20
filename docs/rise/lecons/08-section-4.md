@@ -5,7 +5,7 @@
 
 ## Bloc 1 · Accordéon « Rappel du dossier »
 
-Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'Office AI ».
+Un seul élément, titre « 📁 Dossier de Mme R. (rappel) », même contenu que dans la leçon « Un courrier de l'office AI ».
 
 *Dans Rise, copier le bloc depuis la leçon 2 (menu du bloc) ; sinon le recréer à partir de `docs/rise/lecons/02-courrier.md`.*
 
@@ -38,7 +38,7 @@ Heures par jour : l'activité habituelle
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une capacité surestimée…**
 >
-> L'Office AI pourrait envisager un retour au poste habituel que ses limitations excluent.
+> L'office AI pourrait envisager un retour au poste habituel que ses limitations excluent.
 >
 > À propos des réponses écartées :
 > - « 4 heures par jour, puisqu'une reprise partielle paraît possible. » : Dans son métier d'aide-soignante, ses limitations excluent toute reprise.
@@ -58,7 +58,7 @@ Heures par jour : une activité adaptée
 
 ## Bloc 7 · Texte : règle à retenir
 
-Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'Office AI peut orienter Mme R.
+Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'office AI peut orienter Mme R.
 
 ## Bloc 8 · Texte : exemple rempli pour Mme R.
 
@@ -114,15 +114,15 @@ Les obstacles à la réadaptation
 3. Le marché du travail est difficile pour les aides-soignantes.
 
 **Retour si bonne réponse** :
-> Vous signalez ce qui, médicalement, freine ou non la réadaptation. Le reste est apprécié par l'Office AI.
+> Vous signalez ce qui, médicalement, freine ou non la réadaptation. Le reste est apprécié par l'office AI.
 
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Le médical et le non-médical mélangés…**
 >
-> Des obstacles non médicaux, présentés par le médecin, brouillent l'évaluation. L'Office AI devra faire le tri.
+> Des obstacles non médicaux, présentés par le médecin, brouillent l'évaluation. L'office AI devra faire le tri.
 >
 > À propos des réponses écartées :
-> - « Son âge (47 ans) rend une reconversion professionnelle peu réaliste. » : C'est une appréciation non médicale, qui revient à l'Office AI.
+> - « Son âge (47 ans) rend une reconversion professionnelle peu réaliste. » : C'est une appréciation non médicale, qui revient à l'office AI.
 > - « Le marché du travail est difficile pour les aides-soignantes. » : Le marché du travail ne relève pas de votre appréciation médicale.
 
 ## Bloc 18 · Titre
@@ -133,7 +133,7 @@ Les tâches ménagères
 
 ## Bloc 19 · Texte
 
-Mme R. travaille à 80 % : l'Office AI tient aussi compte de ses empêchements dans les tâches ménagères.
+Mme R. travaille à 80 % : l'office AI tient aussi compte de ses empêchements dans les tâches ménagères.
 
 ## Bloc 20 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
@@ -159,7 +159,7 @@ Mme R. travaille à 80 % : l'Office AI tient aussi compte de ses empêchements d
 **Retour si mauvaise réponse** (un seul texte pour toutes les mauvaises réponses dans Rise) :
 > **Une évaluation incohérente…**
 >
-> Si les tâches ménagères ne concordent pas avec les limitations, l'Office AI devra clarifier, par exemple lors d'une enquête à domicile.
+> Si les tâches ménagères ne concordent pas avec les limitations, l'office AI devra clarifier, par exemple lors d'une enquête à domicile.
 >
 > À propos des réponses écartées :
 > - « Aucune limitation : c'est son mari qui s'occupe désormais de tout le ménage. » : La question porte sur ses capacités, pas sur l'organisation du foyer.
