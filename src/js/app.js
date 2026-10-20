@@ -268,6 +268,7 @@ async function start() {
   }
 
   function show(target, { focus = true, notice = '', stickyNotice = false, focusQuestion = null } = {}) {
+    const previous = index;
     index = target;
     const screen = screens[index];
     // Synthèse atteinte une fois toutes les questions de la file refaites : la révision est terminée
@@ -281,9 +282,11 @@ async function start() {
     setNotice(notice, { sticky: stickyNotice });
     openSection = screen.section ?? null; // le sommaire ouvre la section de l'écran affiché
     els.pagerMsg.textContent = '';
-    els.screen.replaceChildren(render(screen, ctx));
+    const article = render(screen, ctx);
+    els.screen.replaceChildren(article);
     const banner = reviewBanner();
     if (banner) els.screen.prepend(banner);
+    animateScreenIn(article, target >= previous ? 'forward' : 'backward');
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
     updateChrome();
@@ -926,6 +929,27 @@ const ICONS = {
 
 const icon = (name, size = 16) =>
   `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+
+/**
+ * Entrée d'un écran : l'en-tête descend, les blocs montent en cascade (de la droite en avançant, de la gauche en reculant),
+ * les réponses arrivent une à une, un trait vert balaie le haut. Rien si l'utilisateur a demandé moins de mouvement.
+ */
+function animateScreenIn(article, direction) {
+  if (REDUCED_MOTION.matches) return;
+  const items = [article.querySelector('.screen__header')];
+  for (const child of article.children) {
+    if (child.classList.contains('screen__header')) continue;
+    if (child.classList.contains('scene__steps')) items.push(...child.querySelectorAll('.scene__step > *'));
+    else items.push(child);
+  }
+  items.filter(Boolean).forEach((item, i) => {
+    item.classList.add('enter-item');
+    item.style.setProperty('--n', String(Math.min(i, 5)));
+  });
+  article.querySelectorAll('.question__options > .option').forEach((option, i) => option.style.setProperty('--n', String(i)));
+  article.dataset.enter = direction;
+  article.classList.add('screen--enter');
+}
 
 /** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */
 function animateNumber(element, from, to) {
