@@ -171,7 +171,7 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
 - **Questions** : validation → feedback → verrouillage. Seule la première réponse compte. Choix
   multiple : points seulement si la réponse est exacte. **Ordre des réponses mélangé dès la première fois** (21.10.2026,
   `shuffledOptions`, stable pour une question donnée, la bonne réponse n'a pas de place fixe), puis différent à chaque reprise.
-  **Énoncés propres à chaque point** (« Comment présentez-vous le traitement dispensé… ? »), pas « Que notez-vous à la question N ? ».
+  **Énoncés** (révisé le 21.10.2026) : quand l'énoncé ne ferait que répéter la question du formulaire affichée juste au-dessus, il est neutre et court (« Que reportez-vous pour Mme R. ? », « … pour M. C. ? ») ; on ne garde un énoncé propre que s'il apporte une information (mise en situation, ligne précise de l'annexe, question de fond : écrans 5, travaux exigibles, mesure de réinsertion, contexte psychosocial, écrans en pratique). Les relevés SCORM et la liste des questions à revoir ajoutent l'étiquette de l'écran (« Question 1.1 du formulaire »).
 - **Interactions** : chaque réponse est enregistrée dans `cmi.interactions` (type `choice`).
   D'où la contrainte : identifiants d'options = un caractère `[a-z0-9]`.
 - **Manifeste** : pas de `adlcp:masteryscore` (le module calcule lui-même passed/failed), pas de

@@ -61,7 +61,7 @@ Diagnostics · Depuis
 
 ## Bloc 11 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Quels diagnostics sans incidence sur la capacité de travail mentionnez-vous ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Aucun : seuls les diagnostics qui limitent la patiente intéressent l'AI.
@@ -126,7 +126,7 @@ Et maintenant ? Vous réfléchissez à la suite de sa prise en charge.
 
 ## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Quelles prochaines mesures et quel plan de traitement indiquez-vous ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Poursuite du traitement actuel, à adapter selon l'évolution clinique.

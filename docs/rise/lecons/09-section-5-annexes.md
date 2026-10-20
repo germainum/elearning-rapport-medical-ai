@@ -66,7 +66,7 @@ Veuillez joindre les copies des rapports existants (question 1.3) et, si vous en
 
 ## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que joignez-vous au rapport ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Les notes de toutes vos consultations depuis le début du suivi en 2014.
@@ -178,7 +178,7 @@ Dans quel délai ?
 
 ## Bloc 25 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Jusqu'à quel taux et dans quel délai sa capacité de travail peut-elle s'améliorer ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Jusqu'à 80 %, son taux contractuel, dans un délai de 6 mois.

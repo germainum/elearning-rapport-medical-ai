@@ -29,7 +29,7 @@ Vous passez à sa vie professionnelle : à quoi ressemblent aujourd'hui ses jour
 
 ## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Quelle est l'activité actuelle de Mme R. ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Sans activité actuellement, en arrêt de travail depuis janvier.
@@ -68,7 +68,7 @@ Vous vous rappelez ce que Mme R. vous a dit de son employeur.
 
 ## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que mentionnez-vous sur sa situation professionnelle ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Même employeur depuis 2006, contrat maintenu à ce jour selon la patiente.  ✅ **BONNE RÉPONSE**

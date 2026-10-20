@@ -204,7 +204,7 @@ async function start() {
         correct: result.correctIds,
         result: result.correct ? 'correct' : 'incorrect',
         weighting: question.points ?? 1,
-        description: plainText(question.prompt),
+        description: [screens.find((s) => questionsOf(s).includes(question))?.kicker, plainText(question.prompt)].filter(Boolean).join(' · '),
       });
       els.pagerMsg.textContent = '';
       sync();

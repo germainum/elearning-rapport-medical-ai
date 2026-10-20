@@ -12,7 +12,7 @@ Chaque intitulé reprend, en tête, le **contexte du cas** et l'**extrait du for
 
 Extrait du formulaire — **1.3 Quelle est, jusqu'à aujourd'hui, l'évolution de l'incapacité de travail attestée médicalement (en pour cent) ?**
 
-Comment reportez-vous l'incapacité de travail attestée de Mme R. ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. 100 % depuis janvier 2026, arrêt de travail toujours en cours actuellement.
@@ -37,7 +37,7 @@ Comment reportez-vous l'incapacité de travail attestée de Mme R. ?
 
 Extrait du formulaire — **2.4 Constats médicaux complets sur la base des examens que vous avez pratiqués**
 
-Quels constats médicaux inscrivez-vous après votre examen ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Status du 05.10.2026 : Lasègue négatif, distance doigts-sol 30 cm, pas de déficit moteur.  ✅ **BONNE RÉPONSE**
@@ -62,7 +62,7 @@ Quels constats médicaux inscrivez-vous après votre examen ?
 
 Extrait du formulaire — **2.5 Diagnostics ayant une incidence sur la capacité de travail**
 
-Quels diagnostics ayant une incidence sur la capacité de travail inscrivez-vous ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Lombosciatalgie droite et hypertension artérielle traitée, depuis 2026.
@@ -87,7 +87,7 @@ Quels diagnostics ayant une incidence sur la capacité de travail inscrivez-vous
 
 Extrait du formulaire — **2.7 Votre pronostic sur la capacité de travail du patient/de la patiente sur un taux de 100%**
 
-Quel pronostic donnez-vous sur la capacité de travail de Mme R. ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Favorable à long terme, sous réserve de la bonne motivation de la patiente.
@@ -112,7 +112,7 @@ Quel pronostic donnez-vous sur la capacité de travail de Mme R. ?
 
 Extrait du formulaire — **3.3 A quelles exigences votre patient/patiente doit-il/elle faire face dans son activité professionnelle ?**
 
-Comment décrivez-vous les exigences de son poste ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Travail physique d'aide-soignante, difficilement compatible avec son dos.
@@ -137,7 +137,7 @@ Comment décrivez-vous les exigences de son poste ?
 
 Extrait du formulaire — **3.4 Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?**
 
-Quelles limitations fonctionnelles décrivez-vous ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Charges ≤ 5 kg, pas de flexion ni de torsion du tronc, alterner assis/debout toutes les 30 à 45 min.  ✅ **BONNE RÉPONSE**
@@ -164,7 +164,7 @@ Quelles limitations fonctionnelles décrivez-vous ?
 
 Extrait du formulaire — **4.2 Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans une activité qui tienne compte de l'atteinte à sa santé ?**
 
-Combien d'heures par jour dans une activité adaptée à ses limitations ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. 0 heure par jour, tant que les douleurs lombaires persistent.
@@ -189,7 +189,7 @@ Combien d'heures par jour dans une activité adaptée à ses limitations ?
 
 Extrait du formulaire — **4.3 Votre pronostic sur le potentiel de réadaptation du patient/de la patiente. Capacité de travail sur un taux de 100% (même si le taux contractuel est inférieur).**
 
-Quel pronostic donnez-vous sur son potentiel de réadaptation ?
+Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. 40 % : soit la moitié de son taux contractuel de 80 %, en activité adaptée.
@@ -264,7 +264,7 @@ Mme R. suit encore de la physiothérapie. Existe-t-il une contre-indication méd
 
 Extrait du formulaire — **3.4 Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?**
 
-Quelle limitation retenez-vous pour M. C. ?
+Que reportez-vous pour M. C. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Fortes douleurs au poignet et au coude droits, surtout en fin de journée.

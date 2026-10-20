@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.53.0",
+  "version": "0.54.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -641,7 +641,7 @@
           "type": "question",
           "id": "q1-1",
           "kind": "single",
-          "prompt": "Comment présentez-vous le traitement dispensé à Mme R. ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -693,7 +693,7 @@
           "type": "question",
           "id": "q1-2",
           "kind": "single",
-          "prompt": "Que répondez-vous sur la fréquence de vos consultations ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -747,7 +747,7 @@
           "type": "question",
           "id": "q1-3",
           "kind": "single",
-          "prompt": "Comment reportez-vous l'incapacité de travail attestée de Mme R. ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -810,7 +810,7 @@
           "type": "question",
           "id": "q2-1",
           "kind": "single",
-          "prompt": "Quels antécédents et quelle évolution retenez-vous pour Mme R. ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -859,7 +859,7 @@
           "type": "question",
           "id": "q2-2",
           "kind": "single",
-          "prompt": "Comment décrivez-vous les symptômes actuels de Mme R. ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -908,7 +908,7 @@
           "type": "question",
           "id": "q2-3",
           "kind": "single",
-          "prompt": "Quelle médication actuelle inscrivez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -960,7 +960,7 @@
           "type": "question",
           "id": "q2-4",
           "kind": "single",
-          "prompt": "Quels constats médicaux inscrivez-vous après votre examen ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1016,7 +1016,7 @@
           "type": "question",
           "id": "q2-5",
           "kind": "single",
-          "prompt": "Quels diagnostics ayant une incidence sur la capacité de travail inscrivez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1069,7 +1069,7 @@
           "type": "question",
           "id": "q2-6",
           "kind": "single",
-          "prompt": "Quels diagnostics sans incidence sur la capacité de travail mentionnez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1121,7 +1121,7 @@
           "type": "question",
           "id": "q2-7",
           "kind": "single",
-          "prompt": "Quel pronostic donnez-vous sur la capacité de travail de Mme R. ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1173,7 +1173,7 @@
           "type": "question",
           "id": "q2-8",
           "kind": "single",
-          "prompt": "Quelles prochaines mesures et quel plan de traitement indiquez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1226,7 +1226,7 @@
           "type": "question",
           "id": "q3-1",
           "kind": "single",
-          "prompt": "Quelle est l'activité actuelle de Mme R. ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1279,7 +1279,7 @@
           "type": "question",
           "id": "q3-2",
           "kind": "single",
-          "prompt": "Que mentionnez-vous sur sa situation professionnelle ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1341,7 +1341,7 @@
           "type": "question",
           "id": "q3-3",
           "kind": "single",
-          "prompt": "Comment décrivez-vous les exigences de son poste ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1407,7 +1407,7 @@
           "type": "question",
           "id": "q3-4",
           "kind": "single",
-          "prompt": "Quelles limitations fonctionnelles décrivez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1471,7 +1471,7 @@
           "type": "question",
           "id": "q3-5",
           "kind": "single",
-          "prompt": "Quelles ressources utiles à sa réinsertion mentionnez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1524,7 +1524,7 @@
           "type": "question",
           "id": "q3-6",
           "kind": "single",
-          "prompt": "Que répondez-vous sur sa capacité de conduire ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1577,7 +1577,7 @@
           "type": "question",
           "id": "q4-1",
           "kind": "single",
-          "prompt": "Combien d'heures par jour peut-on attendre de Mme R. dans son métier d'aide-soignante ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1625,7 +1625,7 @@
           "type": "question",
           "id": "q4-2",
           "kind": "single",
-          "prompt": "Combien d'heures par jour dans une activité adaptée à ses limitations ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1677,7 +1677,7 @@
           "type": "question",
           "id": "q4-3",
           "kind": "single",
-          "prompt": "Quel pronostic donnez-vous sur son potentiel de réadaptation ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1726,7 +1726,7 @@
           "type": "question",
           "id": "q4-4",
           "kind": "single",
-          "prompt": "Quels obstacles à la réadaptation signalez-vous ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1787,7 +1787,7 @@
           "type": "question",
           "id": "q4-5",
           "kind": "single",
-          "prompt": "Dans quelle mesure Mme R. est-elle limitée dans les tâches ménagères ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -1889,7 +1889,7 @@
           "type": "question",
           "id": "qannexes",
           "kind": "single",
-          "prompt": "Que joignez-vous au rapport ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -2065,7 +2065,7 @@
           "type": "question",
           "id": "qamelioration",
           "kind": "single",
-          "prompt": "Jusqu'à quel taux et dans quel délai sa capacité de travail peut-elle s'améliorer ?",
+          "prompt": "Que reportez-vous pour Mme R. ?",
           "options": [
             {
               "id": "a",
@@ -2137,7 +2137,7 @@
           "type": "question",
           "id": "qmc-limitations",
           "kind": "single",
-          "prompt": "Quelle limitation retenez-vous pour M. C. ?",
+          "prompt": "Que reportez-vous pour M. C. ?",
           "options": [
             {
               "id": "a",

@@ -42,7 +42,7 @@ function wrongQuestionsSection(prefix, wrong, ctx) {
       return `
         <li class="review__item">
           <div class="review__text">
-            <span class="review__screen">${inline(screen.kicker ?? screen.title)}</span>
+            <span class="review__screen">${inline([screen.kicker, screen.title].filter(Boolean).join(' · '))}</span>
             <span class="review__prompt">${inline(question.prompt)}</span>
             <dl class="review__answers">
               <div class="review__answer review__answer--wrong"><dt>Votre réponse</dt><dd>${optionTexts(question, chosen)}</dd></div>
@@ -59,7 +59,7 @@ function wrongQuestionsSection(prefix, wrong, ctx) {
             }
           </div>
           <button type="button" class="btn btn--secondary btn--small" data-retry="${escapeHtml(question.id)}"
-            aria-label="Reprendre la question : ${escapeHtml(plainText(question.prompt))}">Reprendre</button>
+            aria-label="Reprendre la question : ${escapeHtml(plainText(screen.title))}">Reprendre</button>
         </li>`;
     })
     .join('');

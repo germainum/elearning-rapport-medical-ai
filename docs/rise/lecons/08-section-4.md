@@ -29,7 +29,7 @@ Vous entrez dans la section clé : combien de temps Mme R. peut-elle travailler,
 
 ## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Combien d'heures par jour peut-on attendre de Mme R. dans son métier d'aide-soignante ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. 4 heures par jour, puisqu'une reprise partielle paraît possible.
@@ -122,7 +122,7 @@ Quelque chose pourrait-il freiner son retour au travail ?
 
 ## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Quels obstacles à la réadaptation signalez-vous ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Son âge (47 ans) rend une reconversion professionnelle peu réaliste.
@@ -162,7 +162,7 @@ Mme R. travaille à 80 % : l'office AI tient aussi compte de ses empêchements d
 
 ## Bloc 25 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Dans quelle mesure Mme R. est-elle limitée dans les tâches ménagères ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Aucune limitation : c'est son mari qui s'occupe désormais de tout le ménage.

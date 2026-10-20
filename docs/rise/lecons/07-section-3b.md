@@ -72,7 +72,7 @@ Mme R. a aussi des atouts : vous cherchez ce qui pourrait l'aider à rebondir.
 
 ## Bloc 11 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Quelles ressources utiles à sa réinsertion mentionnez-vous ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Aucune ressource particulière, compte tenu de ses douleurs persistantes.
@@ -111,7 +111,7 @@ Elle se rend d'habitude au travail en voiture : peut-elle encore conduire ?
 
 ## Bloc 15 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Que répondez-vous sur sa capacité de conduire ?
+**Question** : Que reportez-vous pour Mme R. ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. Non : le paracétamol n'altère pas la vigilance ; elle conduit sans difficulté.  ✅ **BONNE RÉPONSE**
