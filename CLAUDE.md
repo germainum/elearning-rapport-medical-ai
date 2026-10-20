@@ -13,7 +13,8 @@
   (1.1 à 4.5, section 5, pièces jointes, annexe des travaux exigibles, annexe réadaptation 1 et 2), puis 2 écrans
   M. C. et 3 écrans pratiques. Chaque écran : une phrase d'accroche au plus, l'extrait vide, **une question à
   choix unique à exactement 3 réponses** et son feedback (sans « réponse remplie » : redondant avec le feedback, retirée le 14.10.2026). Pas d'encadré « À retenir » : l'essentiel
-  passe dans le feedback. 35 écrans, 33 questions, ~45 min. Champ `section` : regroupe les écrans dans le sommaire.
+  passe dans le feedback. 38 écrans, 33 questions, ~45 min. L'**accueil est réparti sur 3 écrans courts** (vidéo, « Ce que vous
+  allez apprendre », « Comment se déroule la formation »). Champ `section` : regroupe les écrans dans le sommaire.
   Intitulés exacts : `docs/formulaire-002099.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins
@@ -92,13 +93,13 @@ guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/aper
 (second cas, psychosocial). Tous ont un texte alternatif (portraits compris). Fonds blancs opaques (pas de transparence
 en JPEG). Remplacer une illustration = même nom de fichier ; adapter le texte alternatif dans `module.json`.
 Objectifs pédagogiques : champ `objectives` (`title`, `items`) d'un écran `text`, carte à coches vertes affichée
-sous le texte, avant la frise (`objectivesHtml`, `common.js`) ; 4 objectifs sur l'écran d'accueil, repris par l'export Rise.
+sous le texte, avant la frise (`objectivesHtml`, `common.js`) ; 4 objectifs sur l'écran « Ce que vous allez apprendre », repris par l'export Rise.
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).
 Des photos réelles (OAI / SVM) pourraient remplacer les illustrations : même nom de fichier.
 Glossaire : champ `glossary` à la racine (43 termes en 6 rubriques, repris du « Glossaire et notions clés —
 assurance-invalidité » de l'OAI Vaud, fourni le 14.10.2026). Bouton « Glossaire » du bandeau, à toutes les tailles
 d'écran → `<dialog>` avec recherche insensible aux accents et compteur annoncé (`role="status"`).
-Sur ≤ 360 px, la progression du bandeau passe en forme courte « 10/35 » (forme longue lue par les lecteurs d'écran).
+Sur ≤ 360 px, la progression du bandeau passe en forme courte « 10/38 » (forme longue lue par les lecteurs d'écran).
 Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback par conséquence.
 
 ### Couche SCORM isolée
@@ -136,7 +137,7 @@ Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback
   la synthèse affiche pour chaque question fausse la réponse donnée, la bonne réponse et son explication
   (`feedback.correct`) ; « Reprendre » mène à la question avec un bandeau « Révision · question k sur n »,
   les réponses dans un **ordre mélangé** (`shuffledOptions`, déterministe), et « Suivant » devient « Question
-  suivante à revoir (k sur n) » puis « Revenir à mon résultat » (plus de clics sur les 36 écrans). Une **seconde
+  suivante à revoir (k sur n) » puis « Revenir à mon résultat » (plus de clics sur les 38 écrans). Une **seconde
   erreur** à la reprise affiche l'explication de la bonne réponse. La file de révision (`q`) et le nombre de
   reprises par question (`t`) sont dans `suspend_data` : la révision survit à un rechargement. Le score est
   recalculé après la révision (une bonne réponse à la reprise compte) ; à confirmer avec Acamedia. Le statut

@@ -45,9 +45,9 @@ N'hésitez pas à nous contacter si vous avez besoin de renseignements compléme
 
 Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'Office AI.
 
-Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre plus tard.
-
 ## Bloc 4 · Texte : objectifs
+
+Voici ce que vous saurez faire à la fin de ce module. Comptez environ 45 minutes ; vous pouvez l'interrompre et le reprendre plus tard.
 
 **À la fin de ce module, vous saurez :**
 
@@ -56,7 +56,11 @@ Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre pl
 - chiffrer **deux capacités de travail distinctes** (en heures par jour, sur un 100 %), donner un **pronostic avec taux et délai** et apprécier l'**aptitude à la réadaptation** (section 4 et annexes) ;
 - séparer le **médical du psychosocial**, joindre les bonnes pièces et connaître les démarches : **MedAI, secret médical, détection précoce**.
 
-## Bloc 5 · Processus (« Votre parcours dans ce module »)
+## Bloc 5 · Texte
+
+Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'Office AI à la décision.
+
+## Bloc 6 · Processus (« Votre parcours dans ce module »)
 
 1. **Le courrier** — L'Office AI vous demande un rapport pour Mme R.
 2. **Le dossier** — Vous reprenez ses antécédents et son status.

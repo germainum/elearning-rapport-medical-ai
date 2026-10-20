@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.27.1",
+  "version": "0.28.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -288,7 +288,7 @@
       "type": "text",
       "kicker": "Introduction",
       "title": "Votre rapport, pièce maîtresse du dossier AI",
-      "continueLabel": "Ouvrir le courrier de l'Office AI",
+      "continueLabel": "Voir les objectifs",
       "video": {
         "src": "videos/rapport-medical-oai.mp4",
         "captions": "videos/rapport-medical-oai.fr.vtt",
@@ -314,8 +314,18 @@
       },
       "body": [
         "*Contenu provisoire : cas fictif et bonnes réponses à valider par l'Office AI du canton de Vaud.*",
-        "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'Office AI.",
-        "Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre plus tard."
+        "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'Office AI."
+      ],
+      "section": "Avant de commencer"
+    },
+    {
+      "id": "objectifs",
+      "type": "text",
+      "kicker": "Introduction",
+      "title": "Ce que vous allez apprendre",
+      "continueLabel": "Voir le parcours",
+      "body": [
+        "Voici ce que vous saurez faire à la fin de ce module. Comptez environ 45 minutes ; vous pouvez l'interrompre et le reprendre plus tard."
       ],
       "objectives": {
         "title": "À la fin de ce module, vous saurez :",
@@ -326,6 +336,15 @@
           "séparer le **médical du psychosocial**, joindre les bonnes pièces et connaître les démarches : **MedAI, secret médical, détection précoce**."
         ]
       },
+      "section": "Avant de commencer"
+    },
+    {
+      "id": "parcours",
+      "type": "text",
+      "kicker": "Introduction",
+      "title": "Comment se déroule la formation",
+      "continueLabel": "Ouvrir le courrier de l'Office AI",
+      "body": ["Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'Office AI à la décision."],
       "journey": {
         "title": "Votre parcours dans ce module",
         "steps": [

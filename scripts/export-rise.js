@@ -39,8 +39,8 @@ const CONTEXT = {
   mc: "M. C., 46 ans, menuisier et chef d'équipe (7 personnes), arthrose du poignet droit et épicondylite chronique à droite, état dépressif réactionnel, divorce difficile depuis 8 mois.",
 };
 
-// Objectifs pédagogiques : repris de l'écran d'accueil (champ « objectives » de module.json)
-const OBJECTIVES = screens.get('introduction').objectives.items;
+// Objectifs pédagogiques : repris de l'écran « Ce que vous allez apprendre » (champ « objectives » de module.json)
+const OBJECTIVES = screens.get('objectifs').objectives.items;
 
 const LESSONS = [
   { file: '01-bienvenue', title: 'Votre rapport, pièce maîtresse du dossier AI', section: 'Avant de commencer', kind: 'bienvenue' },
@@ -141,13 +141,17 @@ function formNoteMd(s) {
 /* ---------- Leçons ---------- */
 
 function bienvenue() {
+  // L'accueil du module SCORM est réparti sur trois écrans (vidéo, objectifs, parcours) : ils forment une seule leçon Rise
   const s = screen('introduction');
+  const goals = screen('objectifs');
+  const path = screen('parcours');
   const b = lesson();
   b.add('Vidéo', `Fichier vidéo : \`content/videos/${s.video.src.replace('videos/', '')}\` (${s.video.duration})\nSous-titres (.vtt) : \`content/videos/${s.video.captions.replace('videos/', '')}\` (langue : français)\nTitre : ${s.video.title}\n\n*Rise ne permet pas de démarrer la vidéo à la 8ᵉ seconde ni de la lancer automatiquement : voir le plan du cours.*`);
   b.add('Accordéon « Lire la transcription »', `Un seul élément, titre « Transcription de la vidéo », contenu :\n\n${text(s.video.transcript)}`);
   b.add('Texte (paragraphes)', s.body.filter((line) => !isProvisional(line)).join('\n\n'));
-  b.add('Texte : objectifs', `**${s.objectives.title}**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
-  b.add(`Processus (« ${s.journey.title} »)`, s.journey.steps.map((step, i) => `${i + 1}. **${step.label}** — ${step.text}`).join('\n'));
+  b.add('Texte : objectifs', `${text(goals.body)}\n\n**${goals.objectives.title}**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
+  b.add('Texte', text(path.body));
+  b.add(`Processus (« ${path.journey.title} »)`, path.journey.steps.map((step, i) => `${i + 1}. **${step.label}** — ${step.text}`).join('\n'));
   return { title: s.title, body: b.toString() };
 }
 
