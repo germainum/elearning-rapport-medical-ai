@@ -16,7 +16,7 @@
   passe dans le feedback. 40 écrans, 33 questions, ~45 min. L'**accueil est réparti sur 3 écrans courts** (vidéo, « Ce que vous
   allez apprendre », « Comment se déroule la formation »). L'**écran du courrier est découpé en 3** (lettre + formulaire joint, dossier de
   Mme R., « Le rôle de votre rapport »). La **conclusion** (synthèse, merci) forme sa propre section « Conclusion »,
-  sans dossier patient (`hidePatientFile`). Champ `section` : regroupe les écrans dans le sommaire.
+  sans dossier patient (`hidePatientFile`). Champ `section` : regroupe les écrans dans le sommaire, toujours sous la forme « Surtitre · Nom » (Démarrage, Section 1 à 5, Second cas, En pratique, Conclusion, Facultatif).
   Intitulés exacts : `docs/formulaire-002099.md` (à citer tels quels, ne pas reformuler).
   Scénario pédagogique : `docs/storyboard.md` (en attente de validation par l'OAI).
   Source officielle : `docs/source-video-oai.md` (transcription de la vidéo OAI pour les médecins

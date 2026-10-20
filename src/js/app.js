@@ -671,7 +671,7 @@ async function start() {
           ${rest.length ? `<span class="toc__section-over">${escapeHtml(overline)}</span>` : ''}
           <span class="toc__section-title">${escapeHtml(label)}</span>
         </span>
-        <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${done}/${total}</span><span class="visually-hidden">${done} écrans terminés sur ${total}</span></span>
+        <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${done}/${total}</span><span class="visually-hidden">${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
         <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
       toggle.addEventListener('click', () => {
         openSection = open ? null : group.section;

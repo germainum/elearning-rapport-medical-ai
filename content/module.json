@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.40.0",
+  "version": "0.40.1",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -321,7 +321,7 @@
       "body": [
         "Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI."
       ],
-      "section": "Avant de commencer"
+      "section": "Démarrage · Accueil"
     },
     {
       "id": "objectifs",
@@ -339,7 +339,7 @@
           "Séparer le médical du psychosocial et connaître les démarches : pièces jointes, MedAI, secret médical, détection précoce"
         ]
       },
-      "section": "Avant de commencer"
+      "section": "Démarrage · Accueil"
     },
     {
       "id": "parcours",
@@ -362,7 +362,7 @@
           { "icon": "decision", "label": "La suite à l'AI", "text": "Un rapport précis, une décision plus rapide." }
         ]
       },
-      "section": "Avant de commencer"
+      "section": "Démarrage · Accueil"
     },
     {
       "id": "courrier",
@@ -560,7 +560,7 @@
           }
         }
       ],
-      "section": "Avant de commencer"
+      "section": "Démarrage · Le cas de Mme R."
     },
     {
       "id": "dossier-mme-r",
@@ -569,7 +569,7 @@
       "title": "Le dossier de Mme R.",
       "continueLabel": "Voir à quoi sert ce rapport",
       "blocks": [{"type": "patientFile"}],
-      "section": "Avant de commencer"
+      "section": "Démarrage · Le cas de Mme R."
     },
     {
       "id": "but-rapport",
@@ -609,7 +609,7 @@
           }
         }
       ],
-      "section": "Avant de commencer"
+      "section": "Démarrage · Le cas de Mme R."
     },
     {
       "id": "1-1",
@@ -1778,7 +1778,7 @@
     {
       "id": "5",
       "type": "scene",
-      "section": "Section 5 et annexes",
+      "section": "Section 5 · Pièces jointes et annexes",
       "kicker": "Section 5 du formulaire",
       "title": "Divers",
       "blocks": [
@@ -1827,7 +1827,7 @@
     {
       "id": "annexes",
       "type": "scene",
-      "section": "Section 5 et annexes",
+      "section": "Section 5 · Pièces jointes et annexes",
       "kicker": "Pièces jointes",
       "title": "Les documents à joindre",
       "blocks": [
@@ -1880,7 +1880,7 @@
     {
       "id": "exigibles",
       "type": "scene",
-      "section": "Section 5 et annexes",
+      "section": "Section 5 · Pièces jointes et annexes",
       "kicker": "Annexe du formulaire (page 5)",
       "title": "Les travaux exigibles",
       "blocks": [
@@ -1941,7 +1941,7 @@
     {
       "id": "reinsertion",
       "type": "scene",
-      "section": "Section 5 et annexes",
+      "section": "Section 5 · Pièces jointes et annexes",
       "kicker": "Annexe du formulaire (page 6) · question 1",
       "title": "La mesure de réinsertion",
       "blocks": [
@@ -1996,7 +1996,7 @@
     {
       "id": "amelioration",
       "type": "scene",
-      "section": "Section 5 et annexes",
+      "section": "Section 5 · Pièces jointes et annexes",
       "kicker": "Annexe du formulaire (page 6) · question 2",
       "title": "Le pronostic d'amélioration",
       "blocks": [
@@ -2043,7 +2043,7 @@
     {
       "id": "mc-limitations",
       "type": "scene",
-      "section": "Second cas : M. C.",
+      "section": "Second cas · M. C.",
       "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas · question 3.4",
@@ -2121,7 +2121,7 @@
     {
       "id": "mc-contexte",
       "type": "scene",
-      "section": "Second cas : M. C.",
+      "section": "Second cas · M. C.",
       "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas · question 2.1",
@@ -2180,7 +2180,7 @@
     {
       "id": "envoi",
       "type": "scene",
-      "section": "En pratique",
+      "section": "En pratique · Au cabinet",
       "storyTitle": "Informations pratiques",
       "hidePatientFile": true,
       "kicker": "En pratique",
@@ -2229,7 +2229,7 @@
     {
       "id": "secret",
       "type": "scene",
-      "section": "En pratique",
+      "section": "En pratique · Au cabinet",
       "storyTitle": "Informations pratiques",
       "hidePatientFile": true,
       "kicker": "En pratique",
@@ -2267,7 +2267,7 @@
     {
       "id": "detection",
       "type": "scene",
-      "section": "En pratique",
+      "section": "En pratique · Au cabinet",
       "storyTitle": "Informations pratiques",
       "hidePatientFile": true,
       "kicker": "En pratique",
@@ -2321,7 +2321,7 @@
         "passed": "Votre rapport permet à l'office AI d'orienter Mme R. sans vous relancer.",
         "failed": "Certaines réponses entraîneraient une demande de complément. Reprenez les questions pour atteindre le seuil de réussite."
       },
-      "section": "Conclusion",
+      "section": "Conclusion · Votre résultat",
       "continueLabel": "Un dernier mot",
       "storyTitle": "Conclusion",
       "hidePatientFile": true,
@@ -2331,7 +2331,7 @@
     {
       "id": "avis",
       "type": "survey",
-      "section": "Conclusion",
+      "section": "Facultatif · Avis et remerciements",
       "hidePatientFile": true,
       "hideReport": true,
       "kicker": "Votre avis",
@@ -2475,7 +2475,7 @@
     {
       "id": "merci",
       "type": "text",
-      "section": "Conclusion",
+      "section": "Facultatif · Avis et remerciements",
       "hidePatientFile": true,
       "kicker": "Merci",
       "title": "Merci pour votre engagement",
