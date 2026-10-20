@@ -54,6 +54,8 @@ const els = {
   helpCard: byId('help-card'),
   helpCardTitle: byId('help-card-title'),
   helpCardBody: byId('help-card-body'),
+  helpCardIcon: byId('help-card-icon'),
+  helpCardActions: byId('help-card-actions'),
   crumbs: byId('crumbs'),
   progressPill: byId('progress-pill'),
   appBody: byId('app-body'),
@@ -566,6 +568,8 @@ const ICONS = {
   steps: '<path d="M4 6h16M4 12h16M4 18h10" />',
   question: '<circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01" />',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5" />',
+  phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />',
+  mail: '<path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" /><path d="M22 6l-10 7L2 6" />',
 };
 
 const icon = (name, size = 16) =>
@@ -585,6 +589,17 @@ function renderSidebarIntro(module) {
   if (module.help) {
     els.helpCardTitle.textContent = plainText(module.help.title);
     els.helpCardBody.innerHTML = rich(module.help.body);
+    els.helpCardIcon.innerHTML = icon('question', 20);
+    // Téléphone et courriel : boutons d'action (« phone » / « email » facultatifs dans module.json)
+    const { phone, email } = module.help;
+    els.helpCardActions.innerHTML = [
+      phone
+        ? `<a class="help-card__action help-card__action--primary" href="tel:${escapeHtml(phone.replace(/[^\d+]/g, ''))}">${icon('phone', 18)}<span><span class="visually-hidden">Appeler : </span>${escapeHtml(phone)}</span></a>`
+        : '',
+      email
+        ? `<a class="help-card__action" href="mailto:${escapeHtml(email)}">${icon('mail', 18)}<span><span class="visually-hidden">Écrire à : </span>${escapeHtml(email)}</span></a>`
+        : '',
+    ].join('');
     els.helpCard.hidden = false;
   }
 }

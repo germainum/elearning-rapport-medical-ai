@@ -96,7 +96,9 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 ```
 
 - `storyTitle` : fil rouge affiché dans le bandeau, à côté de la progression (facultatif).
-- `help` : carte d'aide en bas du panneau de gauche sur ordinateur, `{ "title": "Une question ?", "body": ["…"] }` (facultatif).
+- `help` : carte d'aide en bas du panneau de gauche sur ordinateur (facultatif) :
+  `{ "title": "Une question ?", "body": ["Horaires de la centrale…"], "phone": "021 925 24 24", "email": "info@vd.oai.ch" }`.
+  `phone` et `email` deviennent deux boutons (appel `tel:` et courriel `mailto:`) ; sans eux, seul le texte du `body` s'affiche.
 - `glossary` : glossaire consultable à tout moment par le bouton « Glossaire » du bandeau, dans une
   fenêtre avec recherche (insensible aux accents). Facultatif :
   `{ "title": "Glossaire", "source": "…", "sections": [{ "title": "Rubrique", "terms": [{ "term": "Invalidité", "definition": "…" }] }] }`.

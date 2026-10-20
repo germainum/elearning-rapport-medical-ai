@@ -587,12 +587,31 @@ button.toc__item:hover {
 
 .help-card {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-3);
   margin-top: var(--space-6);
   padding: var(--space-4);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: var(--color-primary-tint);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
   font-size: var(--font-size-small);
+}
+
+.help-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.help-card__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--color-primary-tint);
+  color: var(--color-heading);
 }
 
 .help-card__title {
@@ -603,6 +622,51 @@ button.toc__item:hover {
 
 .help-card .prose {
   gap: var(--space-1);
+  color: var(--color-muted);
+}
+
+.help-card__actions {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.help-card__actions:empty {
+  display: none;
+}
+
+/* Téléphone (bouton plein) et courriel (bouton discret) : cibles tactiles de 44 px au minimum */
+.help-card__action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-heading);
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: background-color 0.15s ease;
+}
+
+.help-card__action:hover {
+  background: var(--color-primary-tint-hover);
+}
+
+.help-card__action--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.help-card__action--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.help-card__action svg {
+  flex: none;
 }
 
 /* ---------- Fenêtres (dossier patient, formulaire) ---------- */

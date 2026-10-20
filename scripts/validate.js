@@ -438,7 +438,9 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     if (!isObject(module.help)) {
       error('module', '« help » doit être un objet { "title": …, "body": […] }.');
     } else {
-      checkKeys(module.help, ['title', 'body'], 'help');
+      checkKeys(module.help, ['title', 'body', 'phone', 'email'], 'help');
+      if (module.help.phone !== undefined && !isText(module.help.phone)) error('help', '« phone » doit être un texte (ex. "021 925 24 24").');
+      if (module.help.email !== undefined && !(isText(module.help.email) && module.help.email.includes('@'))) error('help', '« email » doit être une adresse électronique (ex. "info@vd.oai.ch").');
       if (!isText(module.help.title)) error('help', '« title » est obligatoire (ex. "Une question ?").');
       if (!isRichText(module.help.body)) error('help', '« body » est obligatoire.');
     }

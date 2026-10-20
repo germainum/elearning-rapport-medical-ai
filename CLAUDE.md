@@ -178,6 +178,8 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   e-learning : fond gris clair `#f3f4f8`, panneaux et cartes blancs arrondis (10 / 16 / 20 px), ombres
   douces, surtitres en pastilles, boutons secondaires sur teinte bleue `#eef0fb`, barre de navigation
   flottante sur ordinateur. Numéros de la synthèse dans un carré vert arrondi (écho au logo).
+- Carte d'aide du panneau de gauche (`help` : `title`, `body`, `phone`, `email`) : pastille « ? », horaires, **bouton téléphone**
+  (`tel:`) plein et **bouton courriel** (`mailto:`), cibles de 44 px.
 - Logo dans le bandeau via `logo` dans `module.json` ; sur mobile, logo + « Écran x sur n » seulement.
 
 ### Mise en page par taille d'écran (14.10.2026)
