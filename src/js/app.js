@@ -336,6 +336,8 @@ async function start() {
     return show(summary, { notice: 'Révision terminée : votre score est recalculé.' });
   }
 
+  const nextState = { index: -1, locked: true }; // état du bouton « Suivant » au dernier affichage
+
   function updateChrome() {
     const total = screens.length;
     const done = screens.filter((_, i) => tracker.isScreenDone(i)).length;
@@ -364,7 +366,19 @@ async function start() {
     els.prev.disabled = index === 0;
     els.next.hidden = index === total - 1;
     els.next.textContent = reviewNextLabel() ?? plainText(screens[index].continueLabel ?? DEFAULT_CONTINUE_LABEL);
-    els.next.setAttribute('aria-disabled', String(!tracker.isScreenDone(index)));
+    const nextLocked = !tracker.isScreenDone(index);
+    els.next.setAttribute('aria-disabled', String(nextLocked));
+    // Le bouton se « débloque » sous les yeux de l'apprenant (dernière réponse validée, dernière étape révélée) : il s'éclaire
+    // et sa flèche invite à avancer. Rien quand on arrive sur un écran déjà terminé.
+    if (nextState.index === index && nextState.locked && !nextLocked) {
+      els.next.classList.remove('btn--ready', 'btn--denied');
+      void els.next.offsetWidth; // relance l'animation si elle a déjà eu lieu
+      els.next.classList.add('btn--ready');
+    } else if (nextLocked || nextState.index !== index) {
+      els.next.classList.remove('btn--ready');
+    }
+    nextState.index = index;
+    nextState.locked = nextLocked;
 
     renderToc();
     // « hidePatientFile » : écrans d'un autre cas, où le dossier de la patiente principale n'a pas sa place
@@ -861,6 +875,11 @@ async function start() {
       goNext();
       return;
     }
+    // Écran pas terminé : le bouton se secoue, en plus du message
+    els.next.classList.remove('btn--denied');
+    void els.next.offsetWidth;
+    els.next.classList.add('btn--denied');
+    setTimeout(() => els.next.classList.remove('btn--denied'), 600);
     const pending = [...els.screen.querySelectorAll('.question')].find(
       (form) => !tracker.isAnswered(form.dataset.question),
     );
