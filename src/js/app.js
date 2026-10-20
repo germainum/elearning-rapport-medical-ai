@@ -4,6 +4,7 @@
  */
 
 import { createScorm } from './scorm.js';
+import { buildReport, reportDocument, reportFileName, reportHtml } from './report.js';
 import { createTracker, questionsOf, stepsOf } from './tracker.js';
 import { escapeHtml, inline, plainText, rich } from './format.js';
 import { renderBlock } from './screens/blocks.js';
@@ -65,6 +66,18 @@ const els = {
   fileSideBody: byId('file-side-body'),
   fileSideClose: byId('file-side-close'),
   folderTab: byId('folder-tab'),
+  fileToReport: byId('file-to-report'),
+  reportTab: byId('report-tab'),
+  reportSide: byId('report-side'),
+  reportSideBody: byId('report-side-body'),
+  reportSideClose: byId('report-side-close'),
+  reportToFile: byId('report-to-file'),
+  reportToggle: byId('report-toggle'),
+  menuReport: byId('menu-report'),
+  reportDialog: byId('report-dialog'),
+  reportDialogBody: byId('report-dialog-body'),
+  reportClose: byId('report-close'),
+  reportPrint: byId('report-print'),
   notice: byId('notice'),
   screen: byId('screen'),
   pager: byId('pager'),
@@ -155,6 +168,17 @@ async function start() {
     asset,
     getAnswer: (questionId) => tracker.getAnswer(questionId),
     retakeCount: (questionId) => tracker.retakeCount(questionId),
+    report: module.report
+      ? {
+          summary: () => {
+            const data = buildReport(module, tracker);
+            return { filled: data.filled, total: data.total };
+          },
+          open: () => openReportView(),
+          print: () => printReport(),
+          download: () => downloadReport(),
+        }
+      : null,
     result: () => tracker.result(passingScore),
     getRevealed: (screen) => tracker.revealedCount(screen),
 
@@ -304,12 +328,19 @@ async function start() {
 
     renderToc();
     // « hidePatientFile » : écrans d'un autre cas, où le dossier de la patiente principale n'a pas sa place
-    const fileUnlocked = isPatientFileUnlocked() && !screens[index].hidePatientFile;
+    const fileUnlocked = isFileAvailable();
     els.fileToggle.hidden = !fileUnlocked;
     els.menuFile.hidden = !fileUnlocked; // même dossier, depuis le menu burger (mobile)
-    // Ordinateur : onglet « Dossier patient » à droite ; le dossier garde son état d'un écran à l'autre
+    // Ordinateur : onglets « Dossier patient » et « Mon rapport » à droite ; le panneau garde son état d'un écran à l'autre
     els.folderTab.hidden = !fileUnlocked;
-    applyFolderState(fileUnlocked && folderOpen);
+    const reportAvailable = isReportAvailable();
+    els.reportToggle.hidden = !reportAvailable;
+    els.menuReport.hidden = !reportAvailable;
+    els.reportTab.hidden = !reportAvailable;
+    els.fileToReport.hidden = !reportAvailable;
+    els.reportToFile.hidden = !fileUnlocked;
+    refreshReport();
+    applyPanels();
   }
 
   /* ---------- Dossier du patient (bouton du bandeau) ---------- */
@@ -337,30 +368,46 @@ async function start() {
     return tracker.isViewed(screenIndex) && tracker.revealedCount(screens[screenIndex]) >= step;
   }
 
-  // État ouvert / fermé du dossier : préférence d'affichage propre à ce navigateur (fermé par défaut)
-  const FOLDER_KEY = `dossier-ouvert:${module.id}`;
-  let folderOpen = false;
+  // Panneau latéral (ordinateur) : dossier patient ou rapport, un seul ouvert à la fois. Préférence propre à ce navigateur.
+  const PANEL_KEY = `panneau-ouvert:${module.id}`;
+  let openPanel = null;
   try {
-    folderOpen = localStorage.getItem(FOLDER_KEY) === '1';
+    const saved = localStorage.getItem(PANEL_KEY);
+    openPanel =
+      saved === 'dossier' || saved === 'rapport' ? saved : localStorage.getItem(`dossier-ouvert:${module.id}`) === '1' ? 'dossier' : null;
   } catch {
-    // Stockage indisponible : le dossier démarre fermé
+    // Stockage indisponible : les panneaux démarrent fermés
   }
 
-  function applyFolderState(open) {
-    els.fileSide.hidden = !open;
-    els.appBody.classList.toggle('app-body--with-file', open);
-    els.folderTab.setAttribute('aria-expanded', String(open));
-    els.folderTab.classList.toggle('folder-tab--open', open);
+  // « report.availableFrom » (id d'écran) : le rapport n'apparaît qu'à partir de cet écran ; « hideReport » le masque (autre cas)
+  const reportFromIndex = module.report?.availableFrom ? screens.findIndex((screen) => screen.id === module.report.availableFrom) : -1;
+  const isReportAvailable = () =>
+    Boolean(module.report) && !screens[index].hideReport && (reportFromIndex < 0 || index >= reportFromIndex);
+  const isFileAvailable = () => isPatientFileUnlocked() && !screens[index].hidePatientFile;
+
+  function applyPanels() {
+    const showFile = openPanel === 'dossier' && isFileAvailable();
+    const showReport = openPanel === 'rapport' && isReportAvailable();
+    els.fileSide.hidden = !showFile;
+    els.reportSide.hidden = !showReport;
+    els.appBody.classList.toggle('app-body--with-file', showFile || showReport);
+    for (const [tab, shown] of [
+      [els.folderTab, showFile],
+      [els.reportTab, showReport],
+    ]) {
+      tab.setAttribute('aria-expanded', String(shown));
+      tab.classList.toggle('folder-tab--open', showFile || showReport);
+    }
   }
 
-  function setFolderOpen(open) {
-    folderOpen = open;
+  function setPanel(name) {
+    openPanel = name;
     try {
-      localStorage.setItem(FOLDER_KEY, open ? '1' : '0');
+      localStorage.setItem(PANEL_KEY, name ?? '');
     } catch {
       // Préférence non mémorisée : sans conséquence
     }
-    applyFolderState(open && isPatientFileUnlocked() && !screens[index].hidePatientFile);
+    applyPanels();
   }
 
   if (module.patientFile) {
@@ -372,16 +419,16 @@ async function start() {
       photo.hidden = false;
     }
     els.folderTab.addEventListener('click', () => {
-      setFolderOpen(true);
+      setPanel('dossier');
       els.fileSideClose.focus();
     });
     els.fileSideClose.addEventListener('click', () => {
-      setFolderOpen(false);
+      setPanel(null);
       els.folderTab.focus();
     });
     els.fileSide.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        setFolderOpen(false);
+        setPanel(null);
         els.folderTab.focus();
       }
     });
@@ -392,6 +439,127 @@ async function start() {
       if (event.target === els.fileDialog) els.fileDialog.close();
     });
     els.fileDialog.addEventListener('close', () => focusVisible(els.fileToggle, els.tocToggle));
+  }
+
+  /* ---------- Mon rapport : le formulaire qui se remplit au fil des réponses ---------- */
+
+  let reportSignature = '';
+  let reportStatuses = new Map();
+
+  /** Met à jour le compteur, le panneau et l'onglet après chaque réponse. */
+  function refreshReport() {
+    if (!module.report) return;
+    const data = buildReport(module, tracker);
+    document.querySelectorAll('[data-report-count]').forEach((element) => {
+      element.textContent = `${data.filled}/${data.total}`;
+    });
+    const fields = data.sections.flatMap((section) => section.fields);
+    const signature = fields.map((field) => field.status[0]).join('');
+    if (signature === reportSignature) return;
+    reportSignature = signature;
+
+    const scroll = els.reportSideBody.scrollTop;
+    els.reportSideBody.innerHTML = reportHtml(data, module);
+    els.reportSideBody.scrollTop = scroll;
+
+    // Champs qui viennent de se remplir : mise en évidence, et petit rebond de l'onglet
+    const fresh = fields.filter((field) => reportStatuses.has(field.id) && reportStatuses.get(field.id) !== field.status && field.status !== 'empty');
+    for (const field of fresh) {
+      els.reportSideBody.querySelector(`[data-field="${CSS.escape(field.id)}"]`)?.classList.add('report__field--new');
+    }
+    if (fresh.length) {
+      els.reportTab.classList.remove('folder-tab--pulse');
+      void els.reportTab.offsetWidth; // relance l'animation
+      els.reportTab.classList.add('folder-tab--pulse');
+    }
+    reportStatuses = new Map(fields.map((field) => [field.id, field.status]));
+  }
+
+  const renderReportDialog = () => {
+    els.reportDialogBody.innerHTML = reportHtml(buildReport(module, tracker), module);
+  };
+
+  /** Ordinateur : panneau latéral ; tablette et mobile : fenêtre. */
+  function openReportView() {
+    if (window.matchMedia('(min-width: 64rem)').matches) {
+      setPanel('rapport');
+      els.reportSideClose.focus();
+    } else {
+      renderReportDialog();
+      els.reportDialog.showModal();
+    }
+  }
+
+  /** Impression (ou « Enregistrer en PDF » du navigateur) : seul le rapport est imprimé. */
+  function printReport() {
+    els.reportPrint.innerHTML = reportHtml(buildReport(module, tracker), module);
+    document.body.classList.add('printing-report');
+    const done = () => {
+      document.body.classList.remove('printing-report');
+      els.reportPrint.replaceChildren();
+      window.removeEventListener('afterprint', done);
+    };
+    window.addEventListener('afterprint', done);
+    try {
+      window.print();
+    } catch {
+      done();
+      downloadReport(); // impression refusée (iframe du LMS) : on propose le fichier
+    }
+  }
+
+  /** Fichier HTML autonome : s'ouvre dans le navigateur, s'imprime ou s'enregistre en PDF. */
+  function downloadReport() {
+    const blob = new Blob([reportDocument(buildReport(module, tracker), module)], { type: 'text/html;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${reportFileName(module)}.html`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  }
+
+  if (module.report) {
+    els.reportTab.addEventListener('click', () => {
+      setPanel('rapport');
+      els.reportSideClose.focus();
+    });
+    els.reportSideClose.addEventListener('click', () => {
+      setPanel(null);
+      els.reportTab.focus();
+    });
+    els.reportSide.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setPanel(null);
+        els.reportTab.focus();
+      }
+    });
+    // Passer d'un panneau à l'autre
+    els.fileToReport.addEventListener('click', () => {
+      setPanel('rapport');
+      els.reportSideClose.focus();
+    });
+    els.reportToFile.addEventListener('click', () => {
+      setPanel('dossier');
+      els.fileSideClose.focus();
+    });
+    // Tablette et mobile : fenêtre
+    els.reportToggle.addEventListener('click', () => {
+      renderReportDialog();
+      els.reportDialog.showModal();
+    });
+    els.menuReport.addEventListener('click', () => {
+      setTocOpen(false);
+      els.reportToggle.click();
+    });
+    els.reportClose.addEventListener('click', () => els.reportDialog.close());
+    els.reportDialog.addEventListener('click', (event) => {
+      if (event.target === els.reportDialog) els.reportDialog.close();
+    });
+    els.reportDialog.addEventListener('close', () => focusVisible(els.reportToggle, els.tocToggle));
+    document.querySelectorAll('[data-report-print]').forEach((button) => button.addEventListener('click', printReport));
+    document.querySelectorAll('[data-report-download]').forEach((button) => button.addEventListener('click', downloadReport));
   }
 
   /* ---------- Sommaire ---------- */

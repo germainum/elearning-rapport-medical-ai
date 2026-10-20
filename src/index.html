@@ -69,6 +69,10 @@
             </svg>
               <span class="btn__label">Dossier patient</span>
             </button>
+            <button type="button" class="btn btn--ghost btn--small btn--icon" id="report-toggle" aria-haspopup="dialog" title="Voir mon rapport" hidden>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v4h4M9.5 14l2 2 3.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="btn__label">Mon rapport</span>
+            </button>
             <button type="button" class="btn btn--ghost btn--small btn--icon" id="toc-toggle" aria-expanded="false" aria-controls="toc" hidden>
               <svg class="icon icon--list" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
                 <path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -94,6 +98,10 @@
             <button type="button" class="menu-action" id="menu-file" hidden>
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 4h6v3H9zM8.5 12h7M8.5 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <span>Dossier patient</span>
+            </button>
+            <button type="button" class="menu-action" id="menu-report" hidden>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v4h4M9.5 14l2 2 3.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Mon rapport</span>
             </button>
           </div>
           <h2 class="menu__title">Sommaire</h2>
@@ -126,13 +134,36 @@
         </svg>
         <h2 class="folder__title" id="file-side-title">Dossier patient</h2>
       </div>
-      <button type="button" class="btn btn--ghost btn--small folder__close" id="file-side-close">Fermer le dossier</button>
+      <div class="folder__tools">
+        <button type="button" class="btn btn--ghost btn--small" id="file-to-report" hidden>Mon rapport</button>
+        <button type="button" class="btn btn--ghost btn--small folder__close" id="file-side-close">Fermer le dossier</button>
+      </div>
       <div class="folder__sheet">
         <svg class="folder__clip" viewBox="0 0 24 48" width="18" height="36" aria-hidden="true" focusable="false">
           <path d="M8 44V10a6 6 0 0 1 12 0v28a4 4 0 0 1-8 0V14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
         <div id="file-side-body"></div>
         <span class="folder__stamp" aria-hidden="true">Confidentiel</span>
+      </div>
+    </aside>
+
+    <!-- Mon rapport : le formulaire de la patiente qui se remplit au fil des réponses (ordinateur) -->
+    <aside class="folder folder--report" id="report-side" aria-labelledby="report-side-title" hidden>
+      <div class="folder__tab-top">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v4h4M9.5 14l2 2 3.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2 class="folder__title" id="report-side-title">Mon rapport</h2>
+      </div>
+      <div class="folder__tools">
+        <button type="button" class="btn btn--ghost btn--small" id="report-to-file">Dossier patient</button>
+        <button type="button" class="btn btn--ghost btn--small folder__close" id="report-side-close">Fermer le rapport</button>
+      </div>
+      <div class="folder__sheet folder__sheet--report">
+        <p class="report-progress" aria-live="polite">Rapport rempli : <strong data-report-count></strong> champs</p>
+        <div class="report-side__body" id="report-side-body"></div>
+        <div class="report-actions">
+          <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer ou enregistrer en PDF</button>
+          <button type="button" class="btn btn--secondary btn--small" data-report-download>Télécharger</button>
+        </div>
       </div>
     </aside>
   </div>
@@ -145,6 +176,11 @@
     </svg>
     <span class="folder-tab__label">Dossier patient</span>
   </button>
+  <button type="button" class="folder-tab folder-tab--report" id="report-tab" aria-expanded="false" aria-controls="report-side" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v4h4M9.5 14l2 2 3.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="folder-tab__label">Mon rapport</span>
+    <span class="folder-tab__count" data-report-count></span>
+  </button>
 
   <dialog class="file-dialog" id="file-dialog" aria-labelledby="file-dialog-title">
     <div class="file-dialog__header">
@@ -152,6 +188,18 @@
       <button type="button" class="btn btn--ghost btn--small" id="file-close">Fermer</button>
     </div>
     <div class="file-dialog__body" id="file-dialog-body"></div>
+  </dialog>
+
+  <dialog class="file-dialog file-dialog--wide" id="report-dialog" aria-labelledby="report-dialog-title">
+    <div class="file-dialog__header">
+      <h2 class="file-dialog__title" id="report-dialog-title">Mon rapport</h2>
+      <div class="file-dialog__actions">
+        <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer / PDF</button>
+        <button type="button" class="btn btn--secondary btn--small" data-report-download>Télécharger</button>
+        <button type="button" class="btn btn--ghost btn--small" id="report-close">Fermer</button>
+      </div>
+    </div>
+    <div class="file-dialog__body" id="report-dialog-body"></div>
   </dialog>
 
   <dialog class="file-dialog file-dialog--wide glossary-dialog" id="glossary-dialog" aria-labelledby="glossary-dialog-title">
@@ -166,5 +214,6 @@
     </div>
     <div class="file-dialog__body glossary" id="glossary-body"></div>
   </dialog>
+  <div id="report-print" aria-hidden="true"></div>
 </body>
 </html>

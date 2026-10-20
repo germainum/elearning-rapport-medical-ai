@@ -88,6 +88,11 @@ Même rendu pour les documents `kind: "dossier"` (M. C.). Dans la chemise latér
 Fiche patient : définie une fois à la racine (`patientFile`), affichée dans une scène par le bloc
 `{ "type": "patientFile" }` et consultable ensuite à tout moment via le bouton « Dossier patient » du bandeau
 (`<dialog>` natif : focus piégé, Échap pour fermer, focus rendu au bouton).
+« Mon rapport » (21.10.2026, v0.38.0) : second onglet du bord droit sous « Dossier patient » (`#report-tab`, `src/js/report.js`).
+Vue réduite du 002.099 qui se remplit : racine `report`, `reportAnswer` sur 27 questions, champ `correct` / `corrigé` / vide
+(`buildReport`). Un panneau à la fois (bouton pour passer de l'un à l'autre, `panneau-ouvert:<id>`) ; < 1024 px : fenêtre
+(burger : tuile ; tablette : bouton icône). Impression via `body.printing-report` + `#report-print` ; téléchargement = HTML autonome.
+`hideReport` (M. C.), `showReport` (carte « Votre rapport » sur la synthèse).
 Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
 guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/apercu-illustrations.html`) : un **médecin généraliste** suit le parcours —
 `cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),

@@ -31,10 +31,11 @@ const QUESTION_KINDS = ['single', 'multiple'];
 const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
-const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'section'];
+const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'section'];
 
 const ALLOWED_KEYS = {
-  module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'scoring', 'screens'],
+  module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'screens'],
+  report: ['title', 'availableFrom', 'fileName', 'header', 'note'],
   logo: ['src', 'alt'],
   patientFile: ['title', 'subtitle', 'body', 'data', 'image', 'reference', 'sections', 'journal', 'availableFrom'],
   patientFileBlock: ['type'],
@@ -51,7 +52,7 @@ const ALLOWED_KEYS = {
   videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
   scene: [...SCREEN_COMMON_KEYS, 'blocks'],
   quiz: [...SCREEN_COMMON_KEYS, 'body', 'questions'],
-  summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'messages'],
+  summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'showReport', 'messages'],
   textBlock: ['type', 'title', 'body', 'image'],
   documentBlock: ['type', 'kind', 'title', 'subtitle', 'body', 'data', 'image', 'sender', 'recipient', 'date', 'signature', 'enclosures', 'reference', 'sections', 'journal'],
   formBlock: ['type', 'title', 'reference', 'items'],
@@ -61,8 +62,8 @@ const ALLOWED_KEYS = {
   revealBlock: ['type', 'label'],
   dataItem: ['label', 'value'],
   image: ['src', 'alt', 'caption', 'position', 'decorative'],
-  question: ['id', 'kind', 'prompt', 'options', 'feedback', 'points'],
-  questionBlock: ['type', 'id', 'kind', 'prompt', 'options', 'feedback', 'points'],
+  question: ['id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer'],
+  questionBlock: ['type', 'id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer'],
   option: ['id', 'text', 'correct', 'feedback'],
   feedback: ['correct', 'incorrect'],
   feedbackObject: ['title', 'body'],
@@ -169,6 +170,9 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
   function checkQuestion(question, where, questionIds, allowedKeys = ALLOWED_KEYS.question) {
     if (!isObject(question)) return error(where, 'chaque question doit être un objet.');
     checkKeys(question, allowedKeys, where);
+    if (question.reportAnswer !== undefined && !isRichText(question.reportAnswer)) {
+      error(where, '« reportAnswer » (réponse affichée dans « Mon rapport ») doit être un texte ou une liste de lignes.');
+    }
 
     if (!isText(question.id) || !ID_PATTERN.test(question.id)) {
       error(where, '« id » obligatoire : lettres sans accents, chiffres, « - » ou « _ », sans espace.');
@@ -495,6 +499,19 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       checkRecord(file, 'patientFile');
     }
   }
+  if (module.report !== undefined) {
+    const report = module.report;
+    if (!isObject(report)) {
+      error('module', '« report » doit être un objet { "title": …, "availableFrom": …, "header": [ … ] }.');
+    } else {
+      checkKeys(report, ALLOWED_KEYS.report, 'report');
+      if (!isText(report.title)) error('report', '« title » est obligatoire (ex. "Rapport médical de Mme R.").');
+      for (const key of ['availableFrom', 'fileName', 'note']) {
+        if (report[key] !== undefined && !isText(report[key])) error('report', `« ${key} » doit être un texte.`);
+      }
+      if (report.header !== undefined) checkData(report.header, 'report');
+    }
+  }
   if (module.form !== undefined) {
     if (!isObject(module.form)) {
       error('module', '« form » doit être un objet { "title": …, "reference": … }.');
@@ -552,6 +569,9 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     }
     checkKeys(screen, ALLOWED_KEYS[screen.type], where);
     if (screen.hidePatientFile !== undefined && typeof screen.hidePatientFile !== 'boolean') error(where, '« hidePatientFile » doit valoir true ou false.');
+    for (const key of ['hideReport', 'showReport']) {
+      if (screen[key] !== undefined && typeof screen[key] !== 'boolean') error(where, `« ${key} » doit valoir true ou false.`);
+    }
     for (const key of ['kicker', 'continueLabel', 'storyTitle', 'section']) {
       if (screen[key] !== undefined && !isText(screen[key])) error(where, `« ${key} » doit être un texte.`);
     }
@@ -635,6 +655,23 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     warn('scoring', '« passingScore » absent : seuil de réussite par défaut de 80 %.');
   }
 
+  if (module.report?.availableFrom !== undefined && !screenIds.has(module.report.availableFrom)) {
+    error('report', `« availableFrom » doit être l'identifiant d'un écran existant (reçu : « ${module.report.availableFrom} »).`);
+  }
+  {
+    const withAnswer = module.screens.filter((screen) => allQuestions({ screens: [screen] }).some((q) => q.reportAnswer !== undefined));
+    if (withAnswer.length && module.report === undefined) {
+      error('module', 'des questions ont un « reportAnswer » : ajoutez « report » à la racine ({ "title": … }).');
+    }
+    for (const screen of withAnswer) {
+      if (!screen.blocks?.some((block) => block?.type === 'form')) {
+        warn(`écran « ${screen.id} »`, 'une question a un « reportAnswer » mais l\'écran n\'a pas de bloc « form » : l\'intitulé du champ sera tiré de l\'énoncé.');
+      }
+    }
+    if (module.screens.some((screen) => screen?.showReport === true) && module.report === undefined) {
+      error('module', '« showReport » est utilisé : ajoutez « report » à la racine.');
+    }
+  }
   if (module.patientFile?.availableFrom !== undefined && !screenIds.has(module.patientFile.availableFrom)) {
     error('patientFile', `« availableFrom » doit être l'identifiant d'un écran existant (reçu : « ${module.patientFile.availableFrom} »).`);
   }

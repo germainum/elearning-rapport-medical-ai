@@ -381,8 +381,21 @@
 
   /* Un seul bouton dans le bandeau : le glossaire et le dossier patient sont dans le menu */
   #glossary-toggle,
-  #file-toggle {
+  #file-toggle,
+  #report-toggle {
     display: none !important;
+  }
+}
+
+/* Tablette : quatre boutons ne tiennent pas en largeur ; « Mon rapport » garde son icône et reste lisible par les lecteurs d'écran */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  #report-toggle .btn__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
@@ -887,6 +900,227 @@ button.toc__item:hover {
   margin: 0;
   color: var(--color-muted);
   font-size: var(--font-size-small);
+}
+
+
+/* ---------- Mon rapport : le formulaire qui se remplit au fil des réponses ---------- */
+
+.report {
+  display: grid;
+  gap: var(--space-3);
+  color: var(--color-text);
+  font-size: 0.8125rem;
+}
+
+.report__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-heading);
+}
+
+.report__title {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.report__ref {
+  color: var(--color-muted);
+}
+
+.report__subject {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.report__person {
+  display: grid;
+  gap: 0.125rem;
+  margin: 0;
+}
+
+.report__person-row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.report__person-row dt {
+  min-width: 8rem;
+  color: var(--color-muted);
+}
+
+.report__person-row dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.report__section-title {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.report__field {
+  padding: var(--space-2) var(--space-1);
+  border-bottom: 1px dashed var(--color-step);
+}
+
+.report__label {
+  margin: 0 0 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.report__num {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.report__answer {
+  display: grid;
+  gap: 0.125rem;
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+/* Champ à remplir : deux lignes pointillées */
+.report__blank {
+  display: block;
+  height: 2.25rem;
+  background-image: linear-gradient(transparent calc(1.125rem - 1px), var(--color-step) calc(1.125rem - 1px), var(--color-step) 1.125rem, transparent 1.125rem);
+  background-size: 100% 1.125rem;
+}
+
+/* Réponse fausse : le corrigé est affiché, en gris et signalé */
+.report__field--corrected .report__answer {
+  color: var(--color-muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.report__tag {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--color-muted);
+  border-radius: 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.6875rem;
+}
+
+.report__legend,
+.report__note {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+/* Champ qui vient de se remplir */
+.report__field--new {
+  animation: report-flash 1.8s ease-out;
+}
+
+@keyframes report-flash {
+  from {
+    background: var(--color-accent-bg);
+  }
+}
+
+@keyframes tab-pulse {
+  30% {
+    transform: translateX(-0.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report__field--new,
+  .folder-tab--pulse {
+    animation: none;
+  }
+}
+
+.report-progress {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.report-progress strong {
+  color: var(--color-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.report-actions {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+/* Carte « Votre rapport » de la synthèse */
+.report-card {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--color-heading);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.report-card .section-title {
+  margin-bottom: 0;
+}
+
+.report-card p {
+  margin: 0;
+}
+
+.report-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Impression : seul le rapport (conteneur #report-print) sort sur le papier ou dans le PDF */
+#report-print {
+  display: none;
+}
+
+@media print {
+  body.printing-report > *:not(#report-print) {
+    display: none !important;
+  }
+
+  body.printing-report {
+    background: #ffffff;
+  }
+
+  body.printing-report #report-print {
+    display: block;
+  }
+
+  .report {
+    font-size: 10.5pt;
+  }
+
+  .report__field {
+    break-inside: avoid;
+  }
+
+  .report__field--new {
+    animation: none;
+  }
 }
 
 /* ---------- Zone principale ---------- */
@@ -2275,7 +2509,8 @@ button.toc__item:hover {
 
 @media (min-width: 64rem) {
   /* Le bouton du bandeau est remplacé par l'onglet du bord droit */
-  #file-toggle {
+  #file-toggle,
+  #report-toggle {
     display: none !important;
   }
 
@@ -2459,6 +2694,72 @@ button.toc__item:hover {
   .folder .record__journal li {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  /* --- Onglet « Mon rapport », sous celui du dossier --- */
+  .folder-tab--report {
+    top: calc(var(--shell-pad) + 7.5rem + 3.5rem);
+    border: 1px solid var(--color-border);
+    border-right: 0;
+    background: var(--color-surface);
+    color: var(--color-heading);
+    box-shadow: -4px 6px 18px rgb(15 29 150 / 0.18);
+  }
+
+  .folder-tab--report:hover {
+    background: var(--color-primary-tint);
+  }
+
+  /* Sans l'onglet du dossier (autre écran), celui du rapport prend sa place */
+  .folder-tab[hidden] ~ .folder-tab--report {
+    top: calc(var(--shell-pad) + 7.5rem);
+  }
+
+  .folder-tab__count {
+    padding: 0 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-brand);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Un champ vient de se remplir : l'onglet « rebondit » */
+  .folder-tab--pulse {
+    animation: tab-pulse 0.8s ease-out;
+  }
+
+  /* --- Boutons du haut du panneau : passer à l'autre panneau, fermer --- */
+  .folder__tools {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .folder__tools .btn {
+    background: rgb(255 255 255 / 0.7);
+  }
+
+  .folder__tools .folder__close {
+    position: static;
+  }
+
+  /* --- Panneau du rapport : feuille sans inclinaison, contenu défilant --- */
+  .folder__sheet--report {
+    transform: none;
+    animation: none;
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .folder__sheet--report::before {
+    display: none;
+  }
+
+  #report-side-body {
+    max-height: calc(100vh - 2 * var(--shell-pad) - 17rem);
+    overflow-y: auto;
   }
 }
 

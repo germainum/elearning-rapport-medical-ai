@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.37.0",
+  "version": "0.38.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -279,6 +279,13 @@
         "text": "Status : Lasègue négatif, distance doigts-sol 30 cm, pas de déficit moteur."
       }
     ]
+  },
+  "report": {
+    "title": "Rapport médical de Mme R.",
+    "availableFrom": "1-1",
+    "fileName": "rapport-medical-mme-r",
+    "header": [{"label": "Personne assurée", "value": "Mme R."},{"label": "Date de naissance", "value": "1979"}],
+    "note": "Cas fictif, à usage de formation."
   },
   "scoring": { "passingScore": 70, "allowRetry": true },
   "screens": [
@@ -655,7 +662,11 @@
               "title": "Un suivi difficile à situer…",
               "body": "Sans dates ni autres intervenants, l'office AI doit vous recontacter ou chercher lui-même les médecins qui ont suivi Mme R."
             }
-          }
+          },
+          "reportAnswer": [
+            "Ambulatoire, du 03.03.2014 à ce jour.",
+            "Dernier contrôle : 05.10.2026. Contrôles précédents : chirurgien orthopédiste (opération du 10.02.2026, contrôle du 15.06.2026)."
+          ]
         }
       ]
     },
@@ -697,7 +708,8 @@
               "title": "Un suivi difficile à apprécier…",
               "body": "Sans fréquence actuelle, l'office AI ne sait pas si votre appréciation repose sur un suivi récent."
             }
-          }
+          },
+          "reportAnswer": "Une fois par mois."
         }
       ]
     },
@@ -752,7 +764,11 @@
               "title": "Des incohérences qui appellent des questions…",
               "body": "Si les périodes ne correspondent pas aux certificats, l'office AI doit vous recontacter. Reportez chaque période avec ses dates et son taux exacts."
             }
-          }
+          },
+          "reportAnswer": [
+            "100 % du 12.01.2026 au 31.10.2026, dans son activité d'aide-soignante en EMS.",
+            "Autres intervenants : chirurgien orthopédiste, physiothérapeute. Rapports joints."
+          ]
         }
       ]
     },
@@ -810,7 +826,8 @@
               "title": "Un historique à reconstituer…",
               "body": "Sans évolution datée, le médecin du SMR doit reconstituer l'historique à partir des pièces, ou vous recontacter."
             }
-          }
+          },
+          "reportAnswer": "Lombosciatalgie droite depuis le 12.01.2026, cure de hernie discale L5-S1 le 10.02.2026. Amélioration partielle sous physiothérapie depuis mars 2026."
         }
       ]
     },
@@ -856,7 +873,8 @@
               "title": "Des symptômes flous…",
               "body": "Sans description précise, l'office AI ne peut pas relier les symptômes aux limitations que vous décrirez plus loin."
             }
-          }
+          },
+          "reportAnswer": "Douleurs lombaires résiduelles à l'effort et en position assise prolongée, sans irradiation actuelle."
         }
       ]
     },
@@ -902,7 +920,8 @@
               "title": "Un traitement impossible à apprécier…",
               "body": "Sans dosage ni observance, le médecin du SMR ne peut pas apprécier si le traitement est adéquat et bien suivi."
             }
-          }
+          },
+          "reportAnswer": "Paracétamol 1 g jusqu'à 3×/jour. Bonne observance."
         }
       ]
     },
@@ -951,7 +970,8 @@
               "title": "Sans constats objectifs…",
               "body": "…l'office AI ne dispose pas des éléments cliniques qui expliquent les limitations de Mme R. Il devra les obtenir autrement, par exemple par une expertise."
             }
-          }
+          },
+          "reportAnswer": "Status du 05.10.2026 : distance doigts-sol 30 cm, Lasègue négatif, pas de déficit moteur, hypoesthésie résiduelle S1 à droite."
         }
       ]
     },
@@ -1004,7 +1024,8 @@
               "title": "L'office AI doit faire le tri…",
               "body": "Un diagnostic sans incidence ou sans date brouille la lecture du dossier."
             }
-          }
+          },
+          "reportAnswer": "Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), cure de hernie le 10.02.2026 · depuis le 12.01.2026"
         }
       ]
     },
@@ -1054,7 +1075,8 @@
               "title": "Un tableau clinique incomplet…",
               "body": "Les diagnostics sans incidence complètent le tableau ; s'ils manquent ou sont mal classés, l'office AI doit clarifier."
             }
-          }
+          },
+          "reportAnswer": "Hypertension artérielle traitée (CIM-10 I10) · depuis 2019"
         }
       ]
     },
@@ -1103,7 +1125,8 @@
               "title": "Une suite difficile à planifier…",
               "body": "Sans taux ni délai, l'office AI ne sait pas quand réévaluer la situation de Mme R., ni quand solliciter le SMR."
             }
-          }
+          },
+          "reportAnswer": "Favorable. Activité habituelle : pas de reprise envisageable. Activité adaptée : amélioration jusqu'à 100 % dans un délai de 3 à 6 mois."
         }
       ]
     },
@@ -1152,7 +1175,8 @@
               "title": "Une réadaptation sans calendrier…",
               "body": "Sans plan de traitement concret, l'office AI ne sait pas si une opération ou un traitement va modifier la situation."
             }
-          }
+          },
+          "reportAnswer": "Poursuite de la physiothérapie pendant 3 mois, exercices à domicile. Contrôle chez le chirurgien orthopédiste en décembre 2026. Pas de nouvelle intervention prévue."
         }
       ]
     },
@@ -1202,7 +1226,8 @@
               "title": "Un poste inconnu…",
               "body": "Sans le métier et le taux, l'office AI ne peut pas apprécier la capacité de travail dans l'activité habituelle."
             }
-          }
+          },
+          "reportAnswer": "Aide-soignante en EMS à 80 %, en arrêt de travail à 100 % depuis le 12.01.2026."
         }
       ]
     },
@@ -1252,7 +1277,8 @@
               "title": "Une piste de réinsertion manquée…",
               "body": "Ce que vous savez de l'emploi aide l'office AI à envisager un retour chez le même employeur."
             }
-          }
+          },
+          "reportAnswer": "Même employeur depuis 2006. Contrat maintenu à ce jour, selon la patiente."
         }
       ]
     },
@@ -1312,7 +1338,8 @@
               "title": "Un poste inconnu…",
               "body": "Sans les exigences du poste, l'office AI doit les demander à l'employeur avant de pouvoir apprécier la capacité de travail."
             }
-          }
+          },
+          "reportAnswer": "Soins de base, mobilisation et transferts de résidents, port de charges, travail debout prolongé, horaires en rotation d'équipes."
         }
       ]
     },
@@ -1379,7 +1406,13 @@
               "title": "Quelques semaines plus tard…",
               "body": "L'office AI vous adresse une demande de précisions. Faute de limitations concrètes, aucune activité adaptée n'a pu être définie pour Mme R."
             }
-          }
+          },
+          "reportAnswer": [
+            "- Pas de port de charges de plus de 5 kg.",
+            "- Pas de travail penché en avant ni en torsion du tronc.",
+            "- Alternance des positions assise et debout toutes les 30 à 45 minutes.",
+            "Effet sur l'activité exercée jusqu'ici : la mobilisation de résidents et le port de charges ne sont plus possibles."
+          ]
         }
       ]
     },
@@ -1432,7 +1465,8 @@
               "title": "Un projet de réadaptation sans appui…",
               "body": "Les ressources orientent le choix d'une activité adaptée. Sans elles, le conseiller en réadaptation part de zéro."
             }
-          }
+          },
+          "reportAnswer": "Bilingue français-portugais. 20 ans d'expérience des soins aux personnes âgées. Pratique la marche."
         }
       ]
     },
@@ -1482,7 +1516,8 @@
               "title": "Une piste écartée à tort…",
               "body": "Un doute non fondé peut écarter des postes ou des trajets que Mme R. pourrait assumer."
             }
-          }
+          },
+          "reportAnswer": "Non. Paracétamol sans effet sur la vigilance ; conduit sans difficulté."
         }
       ]
     },
@@ -1528,7 +1563,8 @@
               "title": "Une capacité surestimée…",
               "body": "L'office AI pourrait envisager un retour au poste habituel que ses limitations excluent."
             }
-          }
+          },
+          "reportAnswer": "0 heure par jour depuis le 12.01.2026 : mobilisation de résidents et port de charges incompatibles avec les limitations."
         }
       ]
     },
@@ -1577,7 +1613,8 @@
               "title": "Une réadaptation impossible à planifier…",
               "body": "Sans capacité chiffrée en activité adaptée, l'office AI ne sait pas vers quoi orienter Mme R. Un examen complémentaire devient probable."
             }
-          }
+          },
+          "reportAnswer": "4 heures par jour depuis le 01.06.2026, en respectant les limitations décrites en 3.4."
         }
       ]
     },
@@ -1626,7 +1663,8 @@
               "title": "Une capacité mal calculée…",
               "body": "Calculée sur le taux contractuel ou fondée sur des critères non médicaux, la capacité fausse l'évaluation du droit aux prestations."
             }
-          }
+          },
+          "reportAnswer": "Favorable. Capacité de 50 % dans une activité adaptée, sur un taux de 100 %, avec une augmentation progressive jusqu'à 100 % en 3 à 6 mois."
         }
       ]
     },
@@ -1672,7 +1710,8 @@
               "title": "Le médical et le non-médical mélangés…",
               "body": "Des obstacles non médicaux, présentés par le médecin, brouillent l'évaluation. L'office AI devra faire le tri."
             }
-          }
+          },
+          "reportAnswer": "Aucun obstacle médical. Douleurs résiduelles nécessitant la poursuite de la physiothérapie."
         }
       ]
     },
@@ -1731,7 +1770,8 @@
               "title": "Une évaluation incohérente…",
               "body": "Si les tâches ménagères ne concordent pas avec les limitations, l'office AI devra clarifier, par exemple lors d'une enquête à domicile."
             }
-          }
+          },
+          "reportAnswer": "Pas de port de charges lourdes (courses, lessive) ; les autres tâches restent possibles en alternant les positions."
         }
       ]
     },
@@ -1779,7 +1819,8 @@
               "title": "Une section mal utilisée…",
               "body": "La section 5 sert à signaler un élément utile qui n'a pas sa place dans les questions précédentes."
             }
-          }
+          },
+          "reportAnswer": "IRM de contrôle prévue le 20.11.2026 ; je vous transmettrai le compte rendu."
         }
       ]
     },
@@ -1827,7 +1868,12 @@
               "title": "Des pièces manquantes ou superflues…",
               "body": "Sans les rapports de spécialistes, l'office AI devra les demander lui-même ; un dossier complet, à l'inverse, noie l'information utile."
             }
-          }
+          },
+          "reportAnswer": [
+            "Compte rendu opératoire du 10.02.2026.",
+            "Rapport du chirurgien orthopédiste du 15.06.2026.",
+            "Compte rendu de l'IRM lombaire."
+          ]
         }
       ]
     },
@@ -1881,7 +1927,14 @@
               "title": "Une annexe incohérente…",
               "body": "Si l'annexe contredit la question 3.4, l'office AI ne sait pas laquelle retenir et doit vous recontacter."
             }
-          }
+          },
+          "reportAnswer": [
+            "- Activités dans différentes positions : oui, 4 h par jour, rendement 100 %.",
+            "- Se pencher, rotation, accroupi, à genoux : non.",
+            "- Soulever/porter : oui, près du corps, limite de poids 5 kg.",
+            "- Concentration, compréhension, adaptation, résistance : non limitées.",
+            "Depuis le 01.06.2026. Points particuliers : alternance assis/debout, augmentation progressive."
+          ]
         }
       ]
     },
@@ -1935,7 +1988,8 @@
               "title": "Des mois d'attente…",
               "body": "Plus l'arrêt de travail se prolonge, plus le retour à l'emploi devient difficile. Une reprise progressive dès 8 heures par semaine était compatible avec la physiothérapie."
             }
-          }
+          },
+          "reportAnswer": "Non. Une telle mesure aurait été possible depuis le 01.06.2026."
         }
       ]
     },
@@ -1981,7 +2035,8 @@
               "title": "Une suite difficile à planifier…",
               "body": "Indiquez jusqu'à quel taux (sur un 100 %) et dans quel délai la capacité de travail peut s'améliorer."
             }
-          }
+          },
+          "reportAnswer": "Jusqu'à 100 % dans une activité adaptée, dans un délai de 3 à 6 mois."
         }
       ]
     },
@@ -2060,7 +2115,8 @@
             }
           }
         }
-      ]
+      ],
+      "hideReport": true
     },
     {
       "id": "mc-contexte",
@@ -2118,7 +2174,8 @@
             }
           }
         }
-      ]
+      ],
+      "hideReport": true
     },
     {
       "id": "envoi",
@@ -2268,7 +2325,8 @@
       "section": "Conclusion",
       "continueLabel": "Un dernier mot",
       "storyTitle": "Conclusion",
-      "hidePatientFile": true
+      "hidePatientFile": true,
+      "showReport": true
     },
     {
       "id": "merci",

@@ -103,6 +103,12 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   fenêtre avec recherche (insensible aux accents). Facultatif :
   `{ "title": "Glossaire", "source": "…", "sections": [{ "title": "Rubrique", "terms": [{ "term": "Invalidité", "definition": "…" }] }] }`.
   Les définitions acceptent le gras, l'italique et les liens.
+- `report` : « Mon rapport », le rapport de Mme R. qui se remplit au fil du module (facultatif) :
+  `{ "title": "Rapport médical de Mme R.", "availableFrom": "1-1", "fileName": "…", "header": [ … ], "note": "…" }`.
+  Chaque question peut porter un `reportAnswer` (texte ou lignes) : la réponse modèle écrite dans le champ du
+  formulaire quand la question est réussie ; sinon le champ montre le corrigé, signalé « Corrigé ». L'intitulé du champ
+  vient du bloc `form` de l'écran. `hideReport: true` masque l'onglet sur un écran (ex. M. C.) ; `showReport: true` sur la
+  synthèse ajoute la carte « Votre rapport » (voir, imprimer / PDF, télécharger).
 - `logo` : logo affiché en haut à gauche, `{ "src": "images/logo-aivd.png", "alt": "AI VD – Office de l'assurance-invalidité pour le canton de Vaud" }` (facultatif).
 - `form` : en-tête affiché sur chaque « extrait du formulaire » (voir les blocs `form`).
 - `passingScore` : seuil de réussite en pourcentage (80 si absent).

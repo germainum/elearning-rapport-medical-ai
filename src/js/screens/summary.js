@@ -74,6 +74,25 @@ function wrongQuestionsSection(prefix, wrong, ctx) {
     </section>`;
 }
 
+/** Carte « Votre rapport » : le formulaire rempli au fil du module, à garder comme modèle. */
+function reportCard(prefix, ctx) {
+  const { filled, total } = ctx.report.summary();
+  const status =
+    filled === total
+      ? 'Tous les champs sont remplis par vos bonnes réponses.'
+      : `${filled} champs sur ${total} sont remplis par vos bonnes réponses ; les autres figurent avec leur corrigé.`;
+  return `
+    <section class="report-card" aria-labelledby="${prefix}-report">
+      <h3 class="section-title" id="${prefix}-report">Votre rapport</h3>
+      <p>${escapeHtml(status)} Gardez-le comme modèle : imprimez-le, enregistrez-le en PDF ou téléchargez-le.</p>
+      <div class="report-card__actions">
+        <button type="button" class="btn btn--secondary btn--small" data-report-open>Voir mon rapport</button>
+        <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer ou enregistrer en PDF</button>
+        <button type="button" class="btn btn--secondary btn--small" data-report-download>Télécharger</button>
+      </div>
+    </section>`;
+}
+
 export function renderSummary(screen, ctx) {
   const prefix = escapeHtml(`screen-${screen.id}`);
   const result = ctx.result();
@@ -111,7 +130,11 @@ export function renderSummary(screen, ctx) {
 
   const body = screen.body ? `<div class="prose">${rich(screen.body)}</div>` : '';
 
-  const element = createScreen(screen, 'summary', resultHtml + review + keyPoints + body);
+  const reportSection = screen.showReport && ctx.report ? reportCard(prefix, ctx) : '';
+  const element = createScreen(screen, 'summary', resultHtml + reportSection + review + keyPoints + body);
+  element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
+  element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());
+  element.querySelector('[data-report-download]')?.addEventListener('click', () => ctx.report.download());
   element.querySelectorAll('[data-retry]').forEach((button) => {
     button.addEventListener('click', () => ctx.retryQuestions([button.dataset.retry]));
   });
