@@ -985,8 +985,10 @@ function animateScreenIn(article, direction) {
 }
 
 /**
- * On « descend » dans le formulaire : la question qui vient d'être remplie remonte et s'efface, la suivante glisse à sa place
- * et s'illumine un instant, comme un surligneur. Seulement d'une question à la suivante d'une même section de la feuille.
+ * On « descend » dans le formulaire, comme un papier que l'on fait défiler sous un en-tête fixe : la question qui vient d'être
+ * remplie (avec sa réponse écrite) glisse vers le haut et passe sous le bandeau de la feuille, la question suivante monte à sa
+ * place et s'illumine un instant, comme avec un surligneur. Tout est un seul défilement (même durée, même courbe) : la fenêtre de
+ * la feuille se resserre pendant que son contenu monte. Seulement d'une question à la suivante d'une même section.
  */
 function animateSheetDescent(article, previousItem, previousTitle) {
   if (REDUCED_MOTION.matches) return;
@@ -995,24 +997,40 @@ function animateSheetDescent(article, previousItem, previousTitle) {
   const current = list?.querySelector('.form-sheet__item');
   if (!sheet || !current || sheet.querySelector('.form-sheet__title')?.textContent !== previousTitle) return;
 
-  (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la feuille ne « monte » pas avec l'écran : c'est son contenu qui défile
+  (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la feuille reste en place : c'est le papier qui défile
+
+  // Fenêtre qui découpe le papier (overflow caché), contenant la liste des questions
+  const window_ = document.createElement('div');
+  window_.className = 'form-sheet__scroll form-sheet__scroll--moving';
+  list.replaceWith(window_);
+  window_.append(list);
+
   previousItem.classList.add('form-sheet__ghost');
   previousItem.setAttribute('aria-hidden', 'true');
   previousItem.setAttribute('inert', '');
   list.prepend(previousItem);
 
-  const height = previousItem.getBoundingClientRect().height;
   const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
-  previousItem.style.overflow = 'hidden';
-  const slide = previousItem.animate(
-    [
-      { height: `${height}px`, opacity: 1, transform: 'translateY(0)', marginBottom: '0px' },
-      { height: '0px', opacity: 0, transform: 'translateY(-1.25rem)', marginBottom: `-${gap}px` },
-    ],
-    { duration: 1000, delay: 250, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'both' },
+  const shift = previousItem.getBoundingClientRect().height + gap; // distance dont le papier remonte
+  const fullHeight = window_.getBoundingClientRect().height;
+  const timing = { duration: 1150, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'both' };
+
+  const paper = list.animate([{ transform: 'translateY(0)' }, { transform: `translateY(-${shift}px)` }], timing);
+  const frame = window_.animate([{ height: `${fullHeight}px` }, { height: `${fullHeight - shift}px` }], timing);
+  // la feuille « tire » légèrement au démarrage, comme un papier qu'on saisit
+  sheet.animate(
+    [{ transform: 'translateY(0)' }, { transform: 'translateY(3px)', offset: 0.18 }, { transform: 'translateY(0)' }],
+    { duration: 900, delay: 300, easing: 'ease-out' },
   );
-  slide.finished.then(() => previousItem.remove()).catch(() => previousItem.remove());
   current.classList.add('form-sheet__item--now');
+
+  const settle = () => {
+    previousItem.remove();
+    paper.cancel();
+    frame.cancel();
+    window_.replaceWith(list); // la mise en page redevient celle de la feuille ordinaire
+  };
+  Promise.all([paper.finished, frame.finished]).then(settle, settle);
 }
 
 /** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */

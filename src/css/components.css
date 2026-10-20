@@ -4639,7 +4639,7 @@ html {
   margin-inline: calc(var(--space-2) * -1);
   padding-inline: var(--space-2);
   border-radius: 0.25rem;
-  animation: sheet-marker 2.2s ease-out 0.9s backwards;
+  animation: sheet-marker 2.2s ease-out 1.2s backwards;
 }
 
 @keyframes sheet-marker {
@@ -4658,4 +4658,14 @@ html {
   .form-sheet__item--now {
     animation: none;
   }
+}
+
+/* Fenêtre de la feuille pendant le défilement : le texte passe sous le bandeau et s'estompe à son bord */
+.form-sheet__scroll {
+  overflow: hidden;
+}
+
+.form-sheet__scroll--moving {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 1.5rem);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 1.5rem);
 }
