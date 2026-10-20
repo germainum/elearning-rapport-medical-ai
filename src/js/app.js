@@ -456,9 +456,18 @@ async function start() {
       toggle.dataset.group = String(g);
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-controls', subId);
+      // « Section 2 · Situation médicale » : surtitre « SECTION 2 » puis nom ; les autres titres s'affichent seuls
+      const [overline, ...rest] = plainText(group.section ?? 'Autres écrans').split(' · ');
+      const label = rest.length ? rest.join(' · ') : overline;
+      const total = group.indexes.length;
+      const complete = done === total;
       toggle.innerHTML = `
-        <span class="toc__section-title">${escapeHtml(plainText(group.section ?? 'Autres écrans'))}</span>
-        <span class="toc__count${done === group.indexes.length ? ' toc__count--done' : ''}">${done} sur ${group.indexes.length}<span class="visually-hidden"> écrans terminés</span></span>
+        <span class="toc__ring${complete ? ' toc__ring--done' : ''}" style="--pct:${Math.round((done / total) * 100)}" aria-hidden="true">${complete ? icon('check', 14) : ''}</span>
+        <span class="toc__section-text">
+          ${rest.length ? `<span class="toc__section-over">${escapeHtml(overline)}</span>` : ''}
+          <span class="toc__section-title">${escapeHtml(label)}</span>
+        </span>
+        <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${done}/${total}</span><span class="visually-hidden">${done} écrans terminés sur ${total}</span></span>
         <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
       toggle.addEventListener('click', () => {
         openSection = open ? null : group.section;

@@ -198,10 +198,11 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   le focus revient à l'onglet. ≥ 1280 px : la chemise ouverte occupe une 3ᵉ colonne ; 1024–1279 px :
   elle s'ouvre par-dessus le contenu. < 1024 px : bouton du bandeau → fenêtre (inchangé).
 - **≥ 1440 px** : tout grandit progressivement (taille de base 16 px à 1440 px → 20 px max vers 2560 px,
-  relative à la taille choisie dans le navigateur) ; **≥ 1920 px** : colonnes élargies (17 / 50 / 21rem).
+  relative à la taille choisie dans le navigateur) ; **colonnes latérales** : sommaire à gauche 17,5 rem (≥ 1024 px), 18,5 rem (≥ 1440 px), 20 rem (≥ 1920 px) ; dossier patient à droite 21 / 22 / 24 rem ; contenu 46 rem (50 rem dès 1920 px).
 - Le sommaire est rendu deux fois (menu `#toc-list` et colonne `#toc-side-list`), une seule
   version visible à la fois. **Allègement de l'interface (20.10.2026, « trop d'information »)** : le sommaire est **replié
-  par section** (« Section 2 · 3 sur 8 », une seule section ouverte à la fois, celle de l'écran affiché ; `tocItems`) ;
+  par section** : une rubrique par section (anneau de progression, surtitre « SECTION 2 » + nom, « 3/8 », chevron), une seule
+  ouverte à la fois, celle de l'écran affiché ; `tocItems` ;
   les pastilles durée / étapes / questions ne s'affichent qu'à l'accueil ; un seul indicateur de progression (pastille
   « n / total ») ; l'en-tête n'affiche plus que le fil rouge (le surtitre et le titre sont dans l'écran) ; l'extrait du
   formulaire d'une scène tient sur **une ligne d'en-tête** (`formSheet(..., { compact: true })`) ; l'illustration latérale

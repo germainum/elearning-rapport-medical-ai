@@ -310,41 +310,102 @@
   position: relative;
 }
 
-/* Rubrique repliable du sommaire (une section du formulaire) : titre, « 3 sur 8 », chevron */
+/* Rubrique repliable du sommaire (une section du formulaire) : anneau de progression, titre, « 2/3 », chevron */
 .toc__group + .toc__group {
   margin-top: var(--space-1);
 }
 
 .toc__section {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: center;
   gap: var(--space-2);
   width: 100%;
-  min-height: var(--tap-size);
-  padding: var(--space-2) var(--space-3);
+  min-height: 3.25rem;
+  padding: var(--space-2);
   border: 0;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   background: transparent;
-  color: var(--color-accent);
+  color: var(--color-text);
   font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 700;
   text-align: left;
   cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
 .toc__section:hover {
   background: var(--color-surface-muted);
 }
 
-.toc__section-title {
-  flex: 1 1 auto;
+/* Section de l'écran affiché : fond teinté */
+.toc__section[aria-expanded="true"] {
+  background: var(--color-primary-tint);
+}
+
+/* Anneau : la part de la section déjà terminée ; coche verte pleine quand tout est fait */
+.toc__ring {
+  --pct: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  background: conic-gradient(var(--color-brand) calc(var(--pct) * 1%), var(--color-step) 0);
+  color: #ffffff;
+}
+
+.toc__ring::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+.toc__section[aria-expanded="true"] .toc__ring::before {
+  background: var(--color-primary-tint);
+}
+
+.toc__ring--done {
+  background: var(--color-brand);
+}
+
+.toc__ring--done::before {
+  display: none;
+}
+
+.toc__ring svg {
+  position: relative;
+}
+
+.toc__section-text {
+  display: grid;
+  gap: 0.0625rem;
   min-width: 0;
 }
 
+.toc__section-over {
+  color: var(--color-accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.toc__section-title {
+  color: var(--color-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  /* Un mot long est coupé avec un trait d'union (« profession-nelle »), sans déborder sur le compteur */
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
 .toc__count {
-  flex: none;
   color: var(--color-muted);
+  font-size: 0.8125rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -354,7 +415,6 @@
 }
 
 .toc__chevron {
-  flex: none;
   color: var(--color-muted);
   transition: transform 0.15s ease;
 }
@@ -363,10 +423,11 @@
   transform: rotate(180deg);
 }
 
+/* Écrans de la section : légèrement en retrait sous leur rubrique */
 .toc__sublist {
   display: grid;
-  margin: 0 0 var(--space-2);
-  padding: 0;
+  margin: var(--space-1) 0 var(--space-2);
+  padding: 0 0 0 var(--space-2);
   list-style: none;
 }
 
@@ -1915,8 +1976,8 @@ button.toc__item:hover {
 
 @media (min-width: 64rem) {
   :root {
-    --sidebar-width: 16rem;
-    --file-width: 19rem;
+    --sidebar-width: 17.5rem;
+    --file-width: 21rem;
     --layout-gap: 1.5rem;
     --shell-pad: 1.5rem;
   }
@@ -2287,14 +2348,20 @@ button.toc__item:hover {
   html {
     font-size: clamp(100%, calc(0.357vw + 0.679rem), 125%);
   }
+
+  /* Colonnes latérales plus larges : sommaire à gauche, dossier patient à droite */
+  :root {
+    --sidebar-width: 18.5rem;
+    --file-width: 22rem;
+  }
 }
 
 /* À partir de 1920 px : colonnes un peu plus larges, lignes de texte toujours lisibles */
 @media (min-width: 120rem) {
   :root {
     --measure: 50rem;
-    --sidebar-width: 17rem;
-    --file-width: 21rem;
+    --sidebar-width: 20rem;
+    --file-width: 24rem;
     --layout-gap: 2rem;
     --shell-pad: 2rem;
   }
