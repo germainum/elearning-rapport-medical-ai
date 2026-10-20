@@ -2956,16 +2956,29 @@ html {
   padding: var(--space-3) var(--gutter) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
 }
 
-.pager__msg {
+.pager__notes {
+  display: grid;
   max-width: var(--measure);
+  min-height: 1.5rem;
   margin: 0 auto var(--space-2);
+}
+
+.pager__notes > p {
+  grid-area: 1 / 1;
+  margin: 0;
+}
+
+.pager__msg {
+  z-index: 1;
+  background: var(--color-surface);
   color: var(--color-error);
   font-size: var(--font-size-small);
   font-weight: 600;
 }
 
+/* Vide, le message laisse voir le rappel dessous (même case) */
 .pager__msg:empty {
-  display: none;
+  visibility: hidden;
 }
 
 .pager__buttons {
@@ -3105,10 +3118,15 @@ html {
     padding: var(--space-5) 0 var(--space-6);
   }
 
+  /* La colonne occupe toute la hauteur : même avec peu de contenu, la barre reste en bas, à la même place */
+  .app-column {
+    min-height: calc(100dvh - 2 * var(--shell-pad));
+  }
+
   /* Barre de navigation flottante */
   .pager {
     bottom: var(--shell-pad);
-    margin-bottom: var(--shell-pad);
+    margin-bottom: 0;
     padding: var(--space-3) var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -4536,15 +4554,13 @@ html {
 
 /* Rappel sous le bouton « Suivant » grisé */
 .pager__hint {
-  max-width: var(--measure);
-  margin: 0 auto var(--space-2);
   color: var(--color-muted);
   font-size: 0.8125rem;
   text-align: right;
 }
 
 .pager__hint:empty {
-  display: none;
+  visibility: hidden;
 }
 
 /* Énoncé du formulaire : seul le numéro est en gras, pour que le regard aille du titre aux réponses */
