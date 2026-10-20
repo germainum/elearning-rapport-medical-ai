@@ -4627,3 +4627,35 @@ html {
   padding-top: var(--space-1);
   padding-bottom: var(--space-1);
 }
+
+/* ---------- Descente dans le formulaire : la question précédente remonte, la suivante s'illumine ---------- */
+
+.form-sheet__ghost {
+  pointer-events: none;
+}
+
+/* Surligneur : la question à remplir se teinte, puis la teinte s'estompe */
+.form-sheet__item--now {
+  margin-inline: calc(var(--space-2) * -1);
+  padding-inline: var(--space-2);
+  border-radius: 0.25rem;
+  animation: sheet-marker 2.2s ease-out 0.9s backwards;
+}
+
+@keyframes sheet-marker {
+  from {
+    background: rgb(255 214 64 / 0);
+  }
+  25% {
+    background: rgb(255 214 64 / 0.5);
+  }
+  to {
+    background: rgb(255 214 64 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-sheet__item--now {
+    animation: none;
+  }
+}

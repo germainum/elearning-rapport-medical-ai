@@ -282,11 +282,16 @@ async function start() {
     setNotice(notice, { sticky: stickyNotice });
     openSection = screen.section ?? null; // le sommaire ouvre la section de l'écran affiché
     els.pagerMsg.textContent = '';
+    // Question précédente de la feuille (avec la réponse écrite), gardée pour la faire « défiler » vers le haut
+    const sheetBefore = els.screen.querySelector('.form-sheet');
+    const previousItem = target === previous + 1 ? sheetBefore?.querySelector('.form-sheet__item')?.cloneNode(true) : null;
+    const previousTitle = sheetBefore?.querySelector('.form-sheet__title')?.textContent;
     const article = render(screen, ctx);
     els.screen.replaceChildren(article);
     const banner = reviewBanner();
     if (banner) els.screen.prepend(banner);
     animateScreenIn(article, target >= previous ? 'forward' : 'backward');
+    if (previousItem) animateSheetDescent(article, previousItem, previousTitle);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
     updateChrome();
@@ -977,6 +982,37 @@ function animateScreenIn(article, direction) {
   article.classList.add('screen--enter');
   // L'entrée terminée, la classe est retirée : elle ne doit pas gêner les animations de la réponse
   setTimeout(() => article.classList.remove('screen--enter'), 2400);
+}
+
+/**
+ * On « descend » dans le formulaire : la question qui vient d'être remplie remonte et s'efface, la suivante glisse à sa place
+ * et s'illumine un instant, comme un surligneur. Seulement d'une question à la suivante d'une même section de la feuille.
+ */
+function animateSheetDescent(article, previousItem, previousTitle) {
+  if (REDUCED_MOTION.matches) return;
+  const sheet = article.querySelector('.form-sheet');
+  const list = sheet?.querySelector('.form-sheet__items');
+  const current = list?.querySelector('.form-sheet__item');
+  if (!sheet || !current || sheet.querySelector('.form-sheet__title')?.textContent !== previousTitle) return;
+
+  (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la feuille ne « monte » pas avec l'écran : c'est son contenu qui défile
+  previousItem.classList.add('form-sheet__ghost');
+  previousItem.setAttribute('aria-hidden', 'true');
+  previousItem.setAttribute('inert', '');
+  list.prepend(previousItem);
+
+  const height = previousItem.getBoundingClientRect().height;
+  const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
+  previousItem.style.overflow = 'hidden';
+  const slide = previousItem.animate(
+    [
+      { height: `${height}px`, opacity: 1, transform: 'translateY(0)', marginBottom: '0px' },
+      { height: '0px', opacity: 0, transform: 'translateY(-1.25rem)', marginBottom: `-${gap}px` },
+    ],
+    { duration: 1000, delay: 250, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'both' },
+  );
+  slide.finished.then(() => previousItem.remove()).catch(() => previousItem.remove());
+  current.classList.add('form-sheet__item--now');
 }
 
 /** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */
