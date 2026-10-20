@@ -4634,32 +4634,6 @@ html {
   pointer-events: none;
 }
 
-/* Surligneur : la question à remplir se teinte, puis la teinte s'estompe */
-.form-sheet__item--now {
-  margin-inline: calc(var(--space-2) * -1);
-  padding-inline: var(--space-2);
-  border-radius: 0.25rem;
-  animation: sheet-marker 2.2s ease-out 1.2s backwards;
-}
-
-@keyframes sheet-marker {
-  from {
-    background: rgb(255 214 64 / 0);
-  }
-  25% {
-    background: rgb(255 214 64 / 0.5);
-  }
-  to {
-    background: rgb(255 214 64 / 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .form-sheet__item--now {
-    animation: none;
-  }
-}
-
 /* Fenêtre de la feuille pendant le défilement : le texte passe sous le bandeau et s'estompe à son bord */
 .form-sheet__scroll {
   overflow: hidden;

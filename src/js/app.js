@@ -987,7 +987,7 @@ function animateScreenIn(article, direction) {
 /**
  * On « descend » dans le formulaire, comme un papier que l'on fait défiler sous un en-tête fixe : la question qui vient d'être
  * remplie (avec sa réponse écrite) glisse vers le haut et passe sous le bandeau de la feuille, la question suivante monte à sa
- * place et s'illumine un instant, comme avec un surligneur. Tout est un seul défilement (même durée, même courbe) : la fenêtre de
+ * place. Tout est un seul défilement (même durée, même courbe) : la fenêtre de
  * la feuille se resserre pendant que son contenu monte. Seulement d'une question à la suivante d'une même section.
  */
 function animateSheetDescent(article, previousItem, previousTitle) {
@@ -1027,7 +1027,6 @@ function animateSheetDescent(article, previousItem, previousTitle) {
     [{ transform: 'translateY(0)' }, { transform: 'translateY(3px)', offset: 0.18 }, { transform: 'translateY(0)' }],
     { duration: 900, delay: 300, easing: 'ease-out' },
   );
-  current.classList.add('form-sheet__item--now');
 
   const settle = () => {
     previousItem.remove();
