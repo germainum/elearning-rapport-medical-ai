@@ -367,6 +367,13 @@ async function start() {
     els.next.hidden = index === total - 1;
     els.next.textContent = reviewNextLabel() ?? plainText(screens[index].continueLabel ?? DEFAULT_CONTINUE_LABEL);
     const nextLocked = !tracker.isScreenDone(index);
+    // Rappel discret (non annoncé) sous le bouton grisé : ce qu'il reste à faire pour continuer
+    const hint = byId('pager-hint');
+    hint.textContent = !nextLocked
+      ? ''
+      : questionsOf(screens[index]).some((q) => !tracker.isAnswered(q.id))
+        ? 'Répondez à la question pour continuer'
+        : 'Poursuivez la lecture pour continuer';
     els.next.setAttribute('aria-disabled', String(nextLocked));
     // Le bouton se « débloque » sous les yeux de l'apprenant (dernière réponse validée, dernière étape révélée) : il s'éclaire
     // et sa flèche invite à avancer. Rien quand on arrive sur un écran déjà terminé.

@@ -4516,3 +4516,114 @@ html {
     display: none;
   }
 }
+
+/* ---------- Pistes UX : question reliée à la feuille, en-tête resserré, hiérarchie plus claire ---------- */
+
+/* Consigne discrète au-dessus des réponses quand l'énoncé est masqué */
+.question__cue {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* « Valider ma réponse » à droite, comme « Suivant » qui prendra sa place juste après */
+.question__actions {
+  justify-content: flex-end;
+}
+
+/* Rappel sous le bouton « Suivant » grisé */
+.pager__hint {
+  max-width: var(--measure);
+  margin: 0 auto var(--space-2);
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  text-align: right;
+}
+
+.pager__hint:empty {
+  display: none;
+}
+
+/* Énoncé du formulaire : seul le numéro est en gras, pour que le regard aille du titre aux réponses */
+.form-sheet__label {
+  font-weight: 500;
+}
+
+.form-sheet__header {
+  border-bottom: 1.5px solid #3b3f4a;
+}
+
+.form-sheet__ref {
+  color: #4d5160;
+}
+
+/* Champ rempli : la réponse s'écrit à l'encre bleue sur les lignes du formulaire */
+.form-sheet__filled {
+  margin-top: var(--space-2);
+  padding-bottom: 0.25rem;
+  background-image: linear-gradient(transparent calc(1.5rem - 1px), #a9aebb calc(1.5rem - 1px), #a9aebb 1.5rem, transparent 1.5rem);
+  background-size: 100% 1.5rem;
+  color: #0f1d96;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.form-sheet__filled p,
+.form-sheet__filled ul,
+.form-sheet__filled ol {
+  margin: 0;
+}
+
+.form-sheet__filled--corrected {
+  color: #5d6170;
+}
+
+.form-sheet__tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0 0.4rem;
+  border: 1px solid #5d6170;
+  border-radius: 0.25rem;
+  font-size: 0.6875rem;
+  font-style: normal;
+  line-height: 1.25rem;
+}
+
+/* Écriture : chaque ligne se dévoile de gauche à droite, comme tracée au stylo */
+.form-sheet__filled--write p,
+.form-sheet__filled--write li {
+  animation: ink-write 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(0.5s + var(--n, 0) * 0.35s);
+}
+
+@keyframes ink-write {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-sheet__filled--write p,
+  .form-sheet__filled--write li {
+    animation: none;
+  }
+}
+
+/* Haut de page : moins de vide au-dessus du titre (les boutons Paramètres et Glossaire restent à droite) */
+@media (min-width: 64rem) {
+  .app-main {
+    padding-top: var(--space-2);
+  }
+}
+
+.app-header__inner {
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-1);
+}

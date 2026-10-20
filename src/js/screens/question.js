@@ -68,6 +68,7 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
   form.dataset.question = question.id;
   form.innerHTML = `
     <fieldset class="question__fieldset">
+      ${question.hidePrompt ? '<p class="question__cue" aria-hidden="true">Choisissez la réponse à reporter</p>' : ''}
       <legend class="question__legend${question.hidePrompt ? ' visually-hidden' : ''}">
         ${total > 1 ? `<span class="question__number">Question ${number} sur ${total}</span>` : ''}
         <span class="question__prompt">${inline(question.prompt)}</span>

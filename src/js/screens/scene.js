@@ -5,11 +5,30 @@
  * qu'après avoir validé les questions déjà affichées.
  */
 
-import { stepsOf, questionsOf } from '../tracker.js';
-import { inline } from '../format.js';
+import { stepsOf, questionsOf, evaluate } from '../tracker.js';
+import { inline, rich } from '../format.js';
 import { createScreen } from './common.js';
 import { renderBlock } from './blocks.js';
 import { renderQuestion } from './question.js';
+
+/**
+ * Remplit le champ de l'extrait du formulaire avec la réponse modèle de la question (« reportAnswer »), à l'encre bleue ;
+ * si la réponse choisie était fausse, le corrigé est écrit en gris et signalé, comme dans « Mon rapport ».
+ */
+function fillSheet(step, question, correct, { animate }) {
+  const blank = step.querySelector('.form-sheet__blank');
+  if (!blank || question.reportAnswer === undefined) return;
+  const filled = document.createElement('div');
+  filled.className = `form-sheet__filled form-sheet__filled--${correct ? 'correct' : 'corrected'}${animate ? ' form-sheet__filled--write' : ''}`;
+  filled.innerHTML = `${rich(question.reportAnswer)}${correct ? '' : '<span class="form-sheet__tag">Corrigé</span>'}`;
+  // l'étiquette « Champ à remplir » lue par les lecteurs d'écran n'a plus lieu d'être
+  blank.nextElementSibling?.classList.contains('visually-hidden') && blank.nextElementSibling.remove();
+  blank.replaceWith(filled);
+  if (animate) {
+    // les lignes s'écrivent l'une après l'autre
+    filled.querySelectorAll('p, li').forEach((line, i) => line.style.setProperty('--n', String(i)));
+  }
+}
 
 export function renderScene(screen, ctx) {
   const steps = stepsOf(screen);
@@ -23,9 +42,21 @@ export function renderScene(screen, ctx) {
     step.tabIndex = -1;
     for (const block of steps[index].blocks) {
       if (block.type === 'question') {
-        step.append(
-          renderQuestion(block, { number: questions.indexOf(block) + 1, total: questions.length, ...ctx }),
-        );
+        const form = renderQuestion(block, {
+          number: questions.indexOf(block) + 1,
+          total: questions.length,
+          ...ctx,
+          // réponse validée : le champ du formulaire se remplit sous les yeux de l'apprenant
+          submit(question, ids) {
+            const result = ctx.submit(question, ids);
+            fillSheet(step, question, result.correct, { animate: true });
+            return result;
+          },
+        });
+        step.append(form);
+        // réponse déjà donnée (reprise, retour en arrière) : le champ est rempli sans animation
+        const previous = ctx.getAnswer(block.id);
+        if (previous) fillSheet(step, block, evaluate(block, previous).correct, { animate: false });
       } else {
         step.append(renderBlock(block, ctx));
       }
