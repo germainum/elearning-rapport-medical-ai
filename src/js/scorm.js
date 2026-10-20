@@ -75,6 +75,17 @@ const ADAPTERS = {
       set(`${prefix}result`, interaction.result === 'correct' ? 'correct' : 'wrong');
     },
 
+    /** Réponse à un questionnaire (sans bonne réponse) : { id, type: 'likert'|'choice'|'text', response: texte ou liste } */
+    recordSurvey({ get, set }, entry) {
+      const count = get('cmi.interactions._count');
+      if (count === '') return;
+      const prefix = `cmi.interactions.${Number(count)}.`;
+      set(`${prefix}id`, entry.id);
+      set(`${prefix}type`, entry.type === 'text' ? 'fill-in' : entry.type);
+      set(`${prefix}time`, clockTime(new Date()));
+      set(`${prefix}student_response`, [].concat(entry.response).join(",").slice(0, 250));
+    },
+
     formatDuration: cmiTimespan,
   },
 
@@ -131,6 +142,17 @@ const ADAPTERS = {
       set(`${prefix}correct_responses.0.pattern`, interaction.correct.join('[,]'));
       set(`${prefix}result`, interaction.result === 'correct' ? 'correct' : 'incorrect');
       if (interaction.description) set(`${prefix}description`, interaction.description.slice(0, 250));
+    },
+
+    recordSurvey({ get, set }, entry) {
+      const count = get('cmi.interactions._count');
+      if (count === '') return;
+      const prefix = `cmi.interactions.${Number(count)}.`;
+      set(`${prefix}id`, entry.id);
+      set(`${prefix}type`, entry.type === 'text' ? 'fill-in' : entry.type);
+      set(`${prefix}timestamp`, isoTimestamp(new Date()));
+      set(`${prefix}learner_response`, [].concat(entry.response).join("[,]").slice(0, 250));
+      if (entry.description) set(`${prefix}description`, entry.description.slice(0, 250));
     },
 
     formatDuration: isoDuration,
@@ -318,6 +340,9 @@ export function createScorm({ storageKey = 'scorm-simule', debug = false } = {})
 
     /** { id, response: [ids], correct: [ids], result: 'correct'|'incorrect', weighting, description } */
     recordInteraction: (interaction) => adapter.recordInteraction(io, interaction),
+
+    /** { id, type: 'likert'|'choice'|'text', response: texte, description } : réponse au questionnaire de satisfaction */
+    recordSurvey: (entry) => adapter.recordSurvey(io, entry),
 
     commit() {
       if (active()) call('commit', '');

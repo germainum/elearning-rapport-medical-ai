@@ -57,6 +57,7 @@
 | `scene`   | Scène narrative : blocs `text`, `document`, `form`, `callout`, `question`, séparés par des boutons d'action `reveal` |
 | `quiz`    | QCM à choix unique (`single`) ou multiple (`multiple`), avec feedback |
 | `summary` | Synthèse finale : points clés + score                      |
+| `survey`  | Questionnaire de satisfaction (Kirkpatrick), facultatif, non noté, après la synthèse |
 
 Champs communs : `section` (titre de groupe dans le sommaire), `kicker` (surtitre), `continueLabel` (texte du bouton vers l'écran suivant),
 `storyTitle` (fil rouge propre à l'écran), `hidePatientFile` (masque le dossier de Mme R., ex. second cas).
@@ -97,6 +98,9 @@ Confort de lecture (21.10.2026, v0.39.0, `src/js/comfort.js`) : **temps restant 
 **taille du texte** A− / A+ (3 niveaux 100 / 112,5 / 125 %, `--text-scale` sur `html`, `localStorage` `taille-texte:<id>`, sidebar ≥ 1024 px et menu en dessous) ;
 **raccourcis clavier** (ordinateur) : ← → écran précédent / suivant, 1–9 choisir la réponse, Entrée valider (inactifs dans un champ, une fenêtre, un panneau latéral).
 **Résultats par section** sur la synthèse (`tracker.sectionResults`, « Solide » ≥ 80 %, « À consolider » ≥ 50 %, « À revoir »), bouton « Revoir » par section.
+Questionnaire de satisfaction (21.10.2026, v0.40.0) : écran `avis` (`survey`, `screens/survey.js`) après la synthèse : 3 étapes (réaction, apprentissage perçu,
+transfert), non noté, n'affecte ni score ni complétion. Réponses gardées dans `suspend_data` (`e`, `f`) et envoyées au LMS à l'envoi
+(`scorm.recordSurvey`, interactions `eval-<id>`). Détail, niveau 4 et points à confirmer : `docs/evaluation-kirkpatrick.md`.
 Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
 guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/apercu-illustrations.html`) : un **médecin généraliste** suit le parcours —
 `cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),

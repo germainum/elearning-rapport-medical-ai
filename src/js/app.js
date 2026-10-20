@@ -13,6 +13,7 @@ import { renderText } from './screens/text.js';
 import { renderScene } from './screens/scene.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderSummary } from './screens/summary.js';
+import { renderSurvey } from './screens/survey.js';
 import { setupShortcuts, setupTextSize, timeLeftText } from './comfort.js';
 
 const CONTENT_URL = 'content/module.json';
@@ -24,6 +25,7 @@ const RENDERERS = {
   scene: renderScene,
   quiz: renderQuiz,
   summary: renderSummary,
+  survey: renderSurvey,
 };
 
 const byId = (id) => document.getElementById(id);
@@ -206,6 +208,27 @@ async function start() {
       return result;
     },
 
+    survey: {
+      get: (id) => tracker.getSurvey(id),
+      set(id, value) {
+        tracker.setSurvey(id, value);
+        sync();
+      },
+      sent: () => tracker.surveySent,
+      /** Envoie les réponses au LMS : une interaction par question répondue, une seule fois. */
+      submit(items) {
+        if (tracker.surveySent) return;
+        for (const item of items) {
+          const value = tracker.getSurvey(item.id);
+          if (!value) continue;
+          const type = item.kind === 'scale' ? 'likert' : item.kind === 'text' ? 'text' : 'choice';
+          const response = item.kind === 'multiple' ? [...value] : value;
+          scorm.recordSurvey({ id: `eval-${item.id}`, type, response, description: plainText(item.prompt) });
+        }
+        tracker.markSurveySent();
+        sync();
+      },
+    },
     wrongQuestions: () => tracker.wrongQuestions(),
     sectionResults: () => tracker.sectionResults(),
 

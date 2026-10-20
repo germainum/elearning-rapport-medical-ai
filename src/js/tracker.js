@@ -6,7 +6,8 @@
  *   { "v": 1, "c": "<écran courant>", "s": ["<écrans vus>"],
  *     "r": { "<écran scene>": <étapes révélées en plus de la première> },
  *     "a": { "<question>": "<options>" }, "n": <tentative>,
- *     "q": ["<questions en cours de révision>"], "t": { "<question>": <nombre de reprises> } }
+ *     "q": ["<questions en cours de révision>"], "t": { "<question>": <nombre de reprises> },
+ *     "e": { "<question du questionnaire>": "<réponse>" }, "f": 1 (questionnaire envoyé) }
  * « q » et « t » sont facultatifs (absents tant qu'aucune question n'a été reprise).
  * Les identifiants d'options font un caractère : « ac » = options a et c.
  */
@@ -61,6 +62,8 @@ export function createTracker(module) {
   const answers = new Map(); // id de question → [ids d'options]
   const retakes = new Map(); // id de question → nombre de reprises depuis la synthèse
   let reviewQueue = []; // questions en cours de révision, dans l'ordre du module
+  const survey = new Map(); // questionnaire de satisfaction : id de question → réponse (texte court)
+  let surveySent = false;
   const screenOf = new Map(); // id de question → index de son écran
   screens.forEach((screen, i) => questionsOf(screen).forEach((q) => screenOf.set(q.id, i)));
 
@@ -114,6 +117,10 @@ export function createTracker(module) {
         if (questions.has(id) && Number.isInteger(count) && count > 0) retakes.set(id, count);
       }
       if (Array.isArray(data.q)) reviewQueue = data.q.filter((id) => questions.has(id));
+      for (const [id, value] of Object.entries(data.e ?? {})) {
+        if (typeof value === 'string' && value) survey.set(id, value);
+      }
+      surveySent = data.f === 1;
       return true;
     },
 
@@ -127,6 +134,8 @@ export function createTracker(module) {
         n: attempt,
         ...(reviewQueue.length ? { q: reviewQueue } : {}),
         ...(retakes.size ? { t: Object.fromEntries(retakes) } : {}),
+        ...(survey.size ? { e: Object.fromEntries(survey) } : {}),
+        ...(surveySent ? { f: 1 } : {}),
       });
     },
 
@@ -138,6 +147,19 @@ export function createTracker(module) {
     isViewed: (index) => viewed.has(screens[index].id),
     isAnswered,
     getAnswer: (questionId) => answers.get(questionId) ?? null,
+
+    /** Questionnaire de satisfaction : réponses gardées à part, jamais dans le score. */
+    getSurvey: (id) => survey.get(id) ?? null,
+    setSurvey(id, value) {
+      if (value) survey.set(id, value);
+      else survey.delete(id);
+    },
+    get surveySent() {
+      return surveySent;
+    },
+    markSurveySent() {
+      surveySent = true;
+    },
 
     answer(questionId, ids) {
       answers.set(questionId, [...ids]);

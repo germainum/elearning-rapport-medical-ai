@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.39.2",
+  "version": "0.40.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -2325,7 +2325,152 @@
       "continueLabel": "Un dernier mot",
       "storyTitle": "Conclusion",
       "hidePatientFile": true,
-      "showReport": true
+      "showReport": true,
+      "continueLabel": "Donner mon avis"
+    },
+    {
+      "id": "avis",
+      "type": "survey",
+      "section": "Conclusion",
+      "hidePatientFile": true,
+      "hideReport": true,
+      "kicker": "Votre avis",
+      "title": "Votre avis sur la formation",
+      "storyTitle": "Conclusion",
+      "intro": [
+        "Trois étapes courtes, environ deux minutes. Votre avis nous aide à améliorer cette formation.",
+        "C'est facultatif : vous pouvez aussi passer directement à l'écran suivant."
+      ],
+      "continueLabel": "Un dernier mot",
+      "submitLabel": "Envoyer mon avis",
+      "scaleLabels": [
+        "Pas du tout d'accord",
+        "Plutôt pas d'accord",
+        "Ni l'un ni l'autre",
+        "Plutôt d'accord",
+        "Tout à fait d'accord"
+      ],
+      "privacy": "Vos réponses sont transmises à la plateforme de formation avec le reste de votre parcours. Elles servent uniquement à améliorer le module.",
+      "thanks": [
+        "Vos réponses ont bien été enregistrées. Merci d'avoir pris ce temps."
+      ],
+      "steps": [
+        {
+          "title": "Votre expérience",
+          "items": [
+            {
+              "id": "satisfaction",
+              "kind": "scale",
+              "prompt": "Cette formation m'a donné satisfaction dans son ensemble."
+            },
+            {
+              "id": "pertinence",
+              "kind": "scale",
+              "prompt": "Les contenus correspondent à ma pratique de médecin généraliste."
+            },
+            {
+              "id": "clarte",
+              "kind": "scale",
+              "prompt": "Le module est clair et facile à utiliser."
+            },
+            {
+              "id": "duree",
+              "kind": "choice",
+              "prompt": "La durée du module (environ 45 minutes) m'a paru :",
+              "options": [
+                {
+                  "id": "c",
+                  "text": "Trop courte"
+                },
+                {
+                  "id": "a",
+                  "text": "Adaptée"
+                },
+                {
+                  "id": "l",
+                  "text": "Trop longue"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Ce que vous avez appris",
+          "items": [
+            {
+              "id": "attentes",
+              "kind": "scale",
+              "prompt": "Je sais maintenant ce que l'office AI attend à chaque point du rapport médical."
+            },
+            {
+              "id": "limitations",
+              "kind": "scale",
+              "prompt": "Je sais décrire des limitations fonctionnelles et une capacité de travail de façon exploitable."
+            },
+            {
+              "id": "autonomie",
+              "kind": "scale",
+              "prompt": "Je me sens à l'aise pour remplir seul·e le formulaire 002.099."
+            }
+          ]
+        },
+        {
+          "title": "Dans votre cabinet",
+          "items": [
+            {
+              "id": "usage",
+              "kind": "choice",
+              "prompt": "Comptez-vous appliquer ce que vous avez appris dans vos prochains rapports ?",
+              "options": [
+                {
+                  "id": "p",
+                  "text": "Oui, dès mon prochain rapport"
+                },
+                {
+                  "id": "o",
+                  "text": "Oui, à l'occasion"
+                },
+                {
+                  "id": "n",
+                  "text": "Je ne sais pas encore"
+                },
+                {
+                  "id": "x",
+                  "text": "Non"
+                }
+              ]
+            },
+            {
+              "id": "freins",
+              "kind": "multiple",
+              "prompt": "Qu'est-ce qui pourrait vous en empêcher ?",
+              "options": [
+                {
+                  "id": "t",
+                  "text": "Le manque de temps"
+                },
+                {
+                  "id": "i",
+                  "text": "Des informations qui manquent sur le patient"
+                },
+                {
+                  "id": "f",
+                  "text": "Des points du formulaire encore peu clairs"
+                },
+                {
+                  "id": "r",
+                  "text": "Rien de particulier"
+                }
+              ]
+            },
+            {
+              "id": "amelioration",
+              "kind": "text",
+              "prompt": "Que faudrait-il améliorer dans cette formation ?"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "merci",

@@ -24,7 +24,8 @@ const VIDEO_EXTENSIONS = /\.(mp4|webm)$/i;
 const SCORM12_SUSPEND_LIMIT = 4096;
 const VIDEO_SIZE_WARNING = 50 * 1024 * 1024;
 
-const SCREEN_TYPES = ['text', 'scene', 'quiz', 'summary'];
+const SCREEN_TYPES = ['text', 'scene', 'quiz', 'summary', 'survey'];
+const SURVEY_KINDS = ['scale', 'choice', 'multiple', 'text'];
 const BLOCK_TYPES = ['text', 'video', 'attachment', 'writing', 'document', 'patientFile', 'form', 'callout', 'question', 'reveal'];
 const DOCUMENT_KINDS = ['dossier', 'courrier', 'note'];
 const QUESTION_KINDS = ['single', 'multiple'];
@@ -36,6 +37,9 @@ const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 's
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'screens'],
   report: ['title', 'availableFrom', 'fileName', 'header', 'note'],
+  survey: [...SCREEN_COMMON_KEYS, 'intro', 'steps', 'scaleLabels', 'submitLabel', 'privacy', 'thanks'],
+  surveyStep: ['title', 'items'],
+  surveyItem: ['id', 'kind', 'prompt', 'options'],
   logo: ['src', 'alt'],
   patientFile: ['title', 'subtitle', 'body', 'data', 'image', 'reference', 'sections', 'journal', 'availableFrom'],
   patientFileBlock: ['type'],
@@ -545,6 +549,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
 
   const screenIds = new Set();
   const questionIds = new Set();
+  const surveyIds = new Set();
   const summaries = [];
   let hasQuestions = false;
 
@@ -622,6 +627,54 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
         hasQuestions = true;
         break;
 
+      case 'survey': {
+        if (screen.intro !== undefined && !isRichText(screen.intro)) error(where, '« intro » doit être un texte ou une liste de lignes.');
+        if (screen.thanks !== undefined && !isRichText(screen.thanks)) error(where, '« thanks » doit être un texte ou une liste de lignes.');
+        for (const key of ['submitLabel', 'privacy']) {
+          if (screen[key] !== undefined && !isText(screen[key])) error(where, `« ${key} » doit être un texte.`);
+        }
+        if (screen.scaleLabels !== undefined && !(Array.isArray(screen.scaleLabels) && screen.scaleLabels.length >= 2 && screen.scaleLabels.every(isText))) {
+          error(where, '« scaleLabels » doit être une liste d\'au moins deux libellés (du plus faible au plus fort accord).');
+        }
+        if (!Array.isArray(screen.steps) || screen.steps.length === 0) {
+          error(where, '« steps » est obligatoire : au moins une étape { "title": …, "items": [ … ] }.');
+          break;
+        }
+        screen.steps.forEach((step, s) => {
+          const at = `${where} › étape ${s + 1}`;
+          if (!isObject(step)) return error(at, 'doit être un objet { "title": …, "items": [ … ] }.');
+          checkKeys(step, ALLOWED_KEYS.surveyStep, at);
+          if (!isText(step.title)) error(at, '« title » est obligatoire.');
+          if (!Array.isArray(step.items) || step.items.length === 0) return error(at, '« items » doit contenir au moins une question.');
+          step.items.forEach((item, k) => {
+            const itemAt = `${at} › question ${k + 1}`;
+            if (!isObject(item)) return error(itemAt, 'doit être un objet.');
+            checkKeys(item, ALLOWED_KEYS.surveyItem, itemAt);
+            if (!isText(item.id) || !/^[a-z0-9-]{1,24}$/.test(item.id)) error(itemAt, '« id » est obligatoire : lettres minuscules, chiffres et tirets, 24 caractères au plus.');
+            else if (surveyIds.has(item.id)) error(itemAt, `l'id « ${item.id} » est déjà utilisé dans le questionnaire.`);
+            else surveyIds.add(item.id);
+            if (!SURVEY_KINDS.includes(item.kind)) error(itemAt, `« kind » doit valoir ${SURVEY_KINDS.map((x) => `"${x}"`).join(', ')}.`);
+            if (!isText(item.prompt)) error(itemAt, '« prompt » (l\'énoncé) est obligatoire.');
+            if (item.kind === 'choice' || item.kind === 'multiple') {
+              if (!Array.isArray(item.options) || item.options.length < 2) return error(itemAt, '« options » : au moins deux réponses { "id": "a", "text": … }.');
+              const optionIds = new Set();
+              item.options.forEach((option) => {
+                if (!isObject(option) || !/^[a-z0-9]$/.test(option.id ?? '') || !isText(option.text)) {
+                  error(itemAt, 'chaque option doit avoir un « id » d\'un caractère [a-z0-9] et un « text ».');
+                } else if (optionIds.has(option.id)) {
+                  error(itemAt, `l'option « ${option.id} » est en double.`);
+                } else {
+                  optionIds.add(option.id);
+                }
+              });
+            } else if (item.options !== undefined) {
+              error(itemAt, '« options » n\'est utilisé que pour "choice" et "multiple".');
+            }
+          });
+        });
+        break;
+      }
+
       case 'summary':
         summaries.push(i);
         if (screen.keyPoints !== undefined && !(Array.isArray(screen.keyPoints) && screen.keyPoints.every(isText))) {
@@ -647,9 +700,9 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     warn('module', 'aucun écran "summary" : l\'apprenant ne verra pas son score à la fin.');
   } else if (summaries.length > 1) {
     error('module', 'il ne peut y avoir qu\'un écran "summary".');
-  } else if (module.screens.slice(summaries[0] + 1).some((screen) => screen?.type !== 'text')) {
+  } else if (module.screens.slice(summaries[0] + 1).some((screen) => screen?.type !== 'text' && screen?.type !== 'survey')) {
     // Après la synthèse : seulement des écrans « text » (ex. remerciements), qui ne conditionnent pas la complétion
-    error('module', 'après l\'écran "summary", seuls des écrans "text" sont admis (ex. remerciements).');
+    error('module', 'après l\'écran "summary", seuls des écrans "text" et "survey" sont admis (ex. questionnaire, remerciements).');
   }
   if (hasQuestions && module.scoring?.passingScore === undefined) {
     warn('scoring', '« passingScore » absent : seuil de réussite par défaut de 80 %.');

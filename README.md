@@ -126,7 +126,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 | Champ           | Rôle                                                                 |
 |-----------------|----------------------------------------------------------------------|
 | `id`            | identifiant unique de l'écran                                        |
-| `type`          | `text`, `scene`, `quiz` ou `summary`                                 |
+| `type`          | `text`, `scene`, `quiz`, `summary` ou `survey`                        |
 | `kicker`        | surtitre facultatif, au-dessus du titre (ex. « Question 4 du formulaire ») |
 | `title`         | titre de l'écran                                                     |
 | `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. C. ») |
@@ -373,6 +373,33 @@ Toujours en **dernier**, un seul par module.
   }
 }
 ```
+
+### Écran « questionnaire de satisfaction » (`survey`)
+
+Facultatif et non noté (modèle de Kirkpatrick, voir `docs/evaluation-kirkpatrick.md`), à placer après la synthèse. Il se déroule
+en étapes courtes ; les réponses sont gardées au fil de la saisie et transmises au LMS à l'envoi (une interaction `eval-<id>` par question).
+
+```json
+{
+  "id": "avis",
+  "type": "survey",
+  "title": "Votre avis sur la formation",
+  "intro": ["Trois étapes courtes…"],
+  "scaleLabels": ["Pas du tout d'accord", "…", "Tout à fait d'accord"],
+  "privacy": "Texte sur l'usage des réponses.",
+  "thanks": ["Merci…"],
+  "steps": [
+    { "title": "Votre expérience", "items": [
+      { "id": "satisfaction", "kind": "scale", "prompt": "Cette formation m'a donné satisfaction." },
+      { "id": "duree", "kind": "choice", "prompt": "La durée m'a paru :", "options": [ { "id": "a", "text": "Adaptée" }, { "id": "l", "text": "Trop longue" } ] },
+      { "id": "amelioration", "kind": "text", "prompt": "Que faudrait-il améliorer ?" }
+    ] }
+  ]
+}
+```
+
+`kind` : `scale` (échelle d'accord en 5 cases), `choice` (un choix), `multiple` (plusieurs choix), `text` (commentaire libre, 250 caractères).
+Les `id` de questions (minuscules, chiffres, tirets) et d'options (un caractère) servent de clés dans le LMS : ne pas les renommer en ligne.
 
 ---
 
