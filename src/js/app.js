@@ -14,7 +14,7 @@ import { renderScene } from './screens/scene.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderSummary } from './screens/summary.js';
 import { renderSurvey } from './screens/survey.js';
-import { setupShortcuts, setupTextSize, timeLeftText } from './comfort.js';
+import { setupShortcuts, setupShortcutsSetting, setupTextSize, timeLeftText } from './comfort.js';
 
 const CONTENT_URL = 'content/module.json';
 const DEFAULT_PASSING_SCORE = 80;
@@ -42,6 +42,10 @@ const els = {
   fileDialogBody: byId('file-dialog-body'),
   fileClose: byId('file-close'),
   glossaryToggle: byId('glossary-toggle'),
+  settingsToggle: byId('settings-toggle'),
+  menuSettings: byId('menu-settings'),
+  settingsDialog: byId('settings-dialog'),
+  settingsClose: byId('settings-close'),
   glossaryDialog: byId('glossary-dialog'),
   glossaryTitle: byId('glossary-dialog-title'),
   glossaryClose: byId('glossary-close'),
@@ -804,6 +808,21 @@ async function start() {
   /* ---------- Navigation ---------- */
 
   setupTextSize(module.id);
+  setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
+
+  /* ---------- Paramètres : taille du texte, raccourcis clavier ---------- */
+
+  function openSettings() {
+    setTocOpen(false);
+    els.settingsDialog.showModal();
+  }
+  els.settingsToggle.addEventListener('click', openSettings);
+  els.menuSettings.addEventListener('click', openSettings);
+  els.settingsClose.addEventListener('click', () => els.settingsDialog.close());
+  els.settingsDialog.addEventListener('click', (event) => {
+    if (event.target === els.settingsDialog) els.settingsDialog.close();
+  });
+  els.settingsDialog.addEventListener('close', () => focusVisible(els.settingsToggle, els.tocToggle));
   setupShortcuts({ screenEl: els.screen, prev: els.prev, next: els.next });
 
   els.prev.addEventListener('click', () => {

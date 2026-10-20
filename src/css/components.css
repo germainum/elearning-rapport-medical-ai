@@ -1397,9 +1397,6 @@ button.toc__item:hover {
   font-size: 0.8125rem;
 }
 
-.text-size {
-  margin-top: var(--space-5);
-}
 
 /* Menu (mobile, tablette) : temps restant et taille du texte en tête ; masqué quand la colonne de gauche est là */
 .menu-tools {
@@ -1408,37 +1405,86 @@ button.toc__item:hover {
   padding: var(--space-3) var(--space-4) 0;
 }
 
-.menu-tools .text-size {
-  margin-top: 0;
-}
-
-.shortcuts {
-  display: none;
-  margin-top: var(--space-4);
-  color: var(--color-muted);
-  font-size: 0.8125rem;
-  line-height: 1.8;
-}
-
-.shortcuts kbd {
-  padding: 0 0.375rem;
-  border: 1px solid var(--color-border);
-  border-bottom-width: 2px;
-  border-radius: 0.25rem;
-  background: var(--color-surface);
-  font: inherit;
-  font-weight: 600;
-}
-
 @media (min-width: 64rem) {
   .menu-tools {
     display: none;
   }
 }
 
-@media (min-width: 64rem) and (hover: hover) {
-  .shortcuts {
-    display: block;
+/* Paramètres (fenêtre) : taille du texte et raccourcis clavier */
+.settings {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.settings__section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.settings__title {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+}
+
+.settings__check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+.settings__check input {
+  width: 1.375rem;
+  height: 1.375rem;
+  accent-color: var(--color-heading);
+}
+
+.settings__keys {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+  list-style: none;
+}
+
+.settings__combo {
+  display: inline-block;
+  min-width: 7rem;
+  margin-right: var(--space-2);
+}
+
+.settings kbd,
+.settings__combo kbd {
+  padding: 0 0.375rem;
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 0.25rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+}
+
+/* Bouton « Paramètres » : dans le bandeau sur ordinateur, dans le menu en dessous */
+.menu-settings {
+  justify-self: start;
+}
+
+@media (max-width: 63.99rem) {
+  #settings-toggle {
+    display: none !important;
+  }
+}
+
+@media (min-width: 64rem) {
+  .menu-settings {
+    display: none;
   }
 }
 

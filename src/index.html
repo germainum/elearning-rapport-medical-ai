@@ -35,8 +35,6 @@
         <p class="overall__text" data-time-left hidden></p>
       </div>
       <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
-      <div class="text-size" data-text-size id="text-size-side"></div>
-      <p class="shortcuts" aria-label="Raccourcis clavier">Raccourcis : <kbd>←</kbd> <kbd>→</kbd> naviguer · <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> choisir · <kbd>Entrée</kbd> valider</p>
       <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
         <div class="help-card__head">
           <span class="help-card__icon" id="help-card-icon" aria-hidden="true"></span>
@@ -62,6 +60,10 @@
           </div>
           <div class="app-header__actions">
             <span class="progress-pill" id="progress-pill" aria-hidden="true"></span>
+            <button type="button" class="btn btn--ghost btn--small btn--icon" id="settings-toggle" aria-haspopup="dialog" title="Ouvrir les paramètres">
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></svg>
+              <span class="btn__label">Paramètres</span>
+            </button>
             <button type="button" class="btn btn--ghost btn--small btn--icon" id="glossary-toggle" aria-haspopup="dialog" title="Ouvrir le glossaire" hidden>
               <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
               <path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -106,7 +108,10 @@
               <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="overall__fill"></span></div>
               <p class="overall__text" data-time-left hidden></p>
             </div>
-            <div class="text-size" data-text-size id="text-size-menu"></div>
+            <button type="button" class="btn btn--secondary btn--small menu-settings" id="menu-settings" aria-haspopup="dialog">
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></svg>
+              <span>Paramètres</span>
+            </button>
           </div>
           <div class="menu-actions">
             <button type="button" class="menu-action" id="menu-glossary" hidden>
@@ -231,6 +236,29 @@
       </div>
     </div>
     <div class="file-dialog__body glossary" id="glossary-body"></div>
+  </dialog>
+  <dialog class="file-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-dialog-title">
+    <div class="file-dialog__header">
+      <h2 class="file-dialog__title" id="settings-dialog-title">Paramètres</h2>
+      <button type="button" class="btn btn--ghost btn--small" id="settings-close">Fermer</button>
+    </div>
+    <div class="file-dialog__body settings">
+      <section class="settings__section" aria-label="Taille du texte">
+        <div class="text-size" data-text-size id="text-size-dialog"></div>
+      </section>
+      <section class="settings__section" aria-labelledby="settings-shortcuts-title">
+        <h3 class="settings__title" id="settings-shortcuts-title">Raccourcis clavier</h3>
+        <label class="settings__check">
+          <input type="checkbox" id="shortcuts-enabled" checked>
+          <span>Activer les raccourcis clavier</span>
+        </label>
+        <ul class="settings__keys">
+          <li><span class="settings__combo"><kbd>←</kbd> <kbd>→</kbd></span> écran précédent, écran suivant</li>
+          <li><span class="settings__combo"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></span> choisir une réponse</li>
+          <li><span class="settings__combo"><kbd>Entrée</kbd></span> valider la réponse</li>
+        </ul>
+      </section>
+    </div>
   </dialog>
   <div id="report-print" aria-hidden="true"></div>
 </body>

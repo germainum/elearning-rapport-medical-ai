@@ -75,6 +75,27 @@ export function timeLeftText(module, tracker, index) {
 
 /* ---------- Raccourcis clavier ---------- */
 
+let shortcutsOn = true;
+
+/** Case « Activer les raccourcis clavier » des paramètres : préférence gardée dans le navigateur (WCAG 2.1.4). */
+export function setupShortcutsSetting(moduleId, input) {
+  const key = `raccourcis:${moduleId}`;
+  try {
+    shortcutsOn = localStorage.getItem(key) !== '0';
+  } catch {
+    // préférence non conservée : raccourcis actifs
+  }
+  input.checked = shortcutsOn;
+  input.addEventListener('change', () => {
+    shortcutsOn = input.checked;
+    try {
+      localStorage.setItem(key, shortcutsOn ? '1' : '0');
+    } catch {
+      // idem
+    }
+  });
+}
+
 const TYPING = 'input[type="text"], input[type="search"], input[type="email"], textarea, select, [contenteditable="true"]';
 
 /**
@@ -83,7 +104,7 @@ const TYPING = 'input[type="text"], input[type="search"], input[type="email"], t
  */
 export function setupShortcuts({ screenEl, prev, next }) {
   document.addEventListener('keydown', (event) => {
-    if (event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey) return;
+    if (!shortcutsOn || event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey) return;
     if (document.querySelector('dialog[open]')) return;
     const target = event.target;
     if (target.closest?.(TYPING) || target.closest?.('.folder, .toc, #toc, video, audio, summary')) return;

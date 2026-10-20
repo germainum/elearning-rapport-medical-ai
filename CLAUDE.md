@@ -95,8 +95,8 @@ Vue réduite du 002.099 qui se remplit : racine `report`, `reportAnswer` sur 27 
 (burger : tuile ; tablette : bouton icône). Impression via `body.printing-report` + `#report-print` ; téléchargement = HTML autonome.
 `hideReport` (M. C.), `showReport` (carte « Votre rapport » sur la synthèse).
 Confort de lecture (21.10.2026, v0.39.0, `src/js/comfort.js`) : **temps restant estimé** (`durationMinutes` réparti au prorata des écrans et questions restants, sidebar et menu) ;
-**taille du texte** A− / A+ (3 niveaux 100 / 112,5 / 125 %, `--text-scale` sur `html`, `localStorage` `taille-texte:<id>`, sidebar ≥ 1024 px et menu en dessous) ;
-**raccourcis clavier** (ordinateur) : ← → écran précédent / suivant, 1–9 choisir la réponse, Entrée valider (inactifs dans un champ, une fenêtre, un panneau latéral).
+**taille du texte** A− / A+ (3 niveaux 100 / 112,5 / 125 %, `--text-scale` sur `html`, `localStorage` `taille-texte:<id>`), réunie avec la liste des raccourcis dans la fenêtre **Paramètres** (v0.45.0 : bouton « Paramètres » du bandeau ≥ 1024 px, bouton du menu en dessous) ;
+**raccourcis clavier** (ordinateur) : ← → écran précédent / suivant, 1–9 choisir la réponse, Entrée valider (inactifs dans un champ, une fenêtre, un panneau latéral), désactivables dans les Paramètres (`localStorage` `raccourcis:<id>`, WCAG 2.1.4).
 **Résultats par section** sur la synthèse (`tracker.sectionResults`, « Solide » ≥ 80 %, « À consolider » ≥ 50 %, « À revoir »), bouton « Revoir » par section.
 Questionnaire de satisfaction (21.10.2026, v0.40.0) : écran `avis` (`survey`, `screens/survey.js`) après la synthèse : 3 étapes (réaction, apprentissage perçu,
 transfert), non noté, n'affecte ni score ni complétion. Réponses gardées dans `suspend_data` (`e`, `f`) et envoyées au LMS à l'envoi
