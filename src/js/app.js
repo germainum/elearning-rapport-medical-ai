@@ -605,13 +605,19 @@ async function start() {
   function renderToc() {
     els.tocList.replaceChildren(...tocItems('toc-list'));
     els.tocSideList.replaceChildren(...tocItems('toc-side-list'));
+    stepsPrimed.add('toc-list').add('toc-side-list');
   }
+
+  // Anneaux et repères du sommaire : état au dernier affichage, pour n'animer que ce qui vient de changer
+  const ringState = new Map(); // « liste:rubrique » → { pct, complete }
+  const stepsDone = new Set(); // « liste:écran » déjà terminés
+  const stepsPrimed = new Set(); // listes déjà affichées une première fois (rien ne rebondit à ce moment-là)
 
   // Section ouverte dans le sommaire : celle de l'écran affiché (une seule à la fois, ouverte à la main ou automatiquement)
   let openSection = screens[0].section ?? null;
 
   /** Une ligne du sommaire (frise de progression) pour l'écran i. */
-  function stepItem(screen, i) {
+  function stepItem(screen, i, listId = '') {
     const item = document.createElement('li');
     const title = escapeHtml(plainText(screen.title));
     let status = 'disponible';
@@ -634,8 +640,12 @@ async function start() {
     // Repère de la frise : coche (terminé), point plein (écran actuel), cercle vide (à venir)
     const state = i === index ? 'current' : tracker.isScreenDone(i) ? 'done' : tracker.canAccess(i) ? 'open' : 'locked';
     item.className = `toc__step toc__step--${state}`;
+    // Repère qui vient de passer à « terminé » : petit rebond
+    const stepKey = `${listId}:${i}`;
+    const justDone = state === 'done' && stepsPrimed.has(listId) && !stepsDone.has(stepKey) && !REDUCED_MOTION.matches;
+    if (state === 'done') stepsDone.add(stepKey);
     element.innerHTML = `
-      <span class="toc__marker" aria-hidden="true">${state === 'done' ? icon('check', 14) : ''}</span>
+      <span class="toc__marker${justDone ? ' toc__marker--pop' : ''}" aria-hidden="true">${state === 'done' ? icon('check', 14) : ''}</span>
       <span class="toc__label">${title}</span>
       <span class="toc__status">${status}</span>`;
     item.append(element);
@@ -652,7 +662,7 @@ async function start() {
    * Sans champ « section » dans le contenu, la liste reste à plat.
    */
   function tocItems(listId) {
-    if (!screens.some((screen) => screen.section)) return screens.map(stepItem);
+    if (!screens.some((screen) => screen.section)) return screens.map((screen, i) => stepItem(screen, i));
 
     const groups = [];
     screens.forEach((screen, i) => {
@@ -745,14 +755,33 @@ async function start() {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-controls', subId);
     const total = group.indexes.length;
+    const pct = Math.round((done / total) * 100);
+    const ringKey = `${listId}:${g}`;
+    const before = ringState.get(ringKey);
+    ringState.set(ringKey, { pct, complete });
+    const animate = Boolean(before) && !REDUCED_MOTION.matches && (before.pct !== pct || before.complete !== complete) && !(before.complete && !complete);
+    const startPct = animate ? before.pct : pct;
+    const startComplete = animate ? before.complete : complete;
     toggle.innerHTML = `
-      <span class="toc__ring${complete ? ' toc__ring--done' : ''}" style="--pct:${Math.round((done / total) * 100)}" aria-hidden="true">${complete ? icon('check', 14) : ''}</span>
+      <span class="toc__ring${startComplete ? ' toc__ring--done' : ''}" style="--pct:${startPct}" aria-hidden="true">${startComplete ? icon('check', 14) : ''}</span>
       <span class="toc__section-text">
         ${group.overline && !group.sharedOverline ? `<span class="toc__section-over">${escapeHtml(group.overline)}</span>` : ''}
         <span class="toc__section-title">${escapeHtml(group.label)}</span>
       </span>
       <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${locked ? icon('lock', 14) : complete || done === 0 ? '' : `${done}/${total}`}</span><span class="visually-hidden">${locked ? 'à venir, ' : ''}${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
       <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
+    if (animate) {
+      const ring = toggle.querySelector('.toc__ring');
+      // deux images plus tard, pour que la transition CSS parte de la part précédente
+      requestAnimationFrame(() => requestAnimationFrame(() => ring.style.setProperty('--pct', String(pct))));
+      if (complete && !before.complete) {
+        // l'anneau se ferme, puis la coche apparaît avec un rebond
+        setTimeout(() => {
+          ring.classList.add('toc__ring--done', 'toc__ring--pop');
+          ring.innerHTML = icon('check', 14);
+        }, 850);
+      }
+    }
     toggle.addEventListener('click', () => {
       openSection = open ? null : group.section;
       renderToc();
@@ -763,7 +792,7 @@ async function start() {
     sub.className = 'toc__sublist';
     sub.id = subId;
     sub.hidden = !open;
-    for (const i of group.indexes) sub.append(stepItem(screens[i], i));
+    for (const i of group.indexes) sub.append(stepItem(screens[i], i, listId));
 
     const li = document.createElement('li');
     li.className = `toc__group${optional ? ' toc__group--optional' : ''}${locked ? ' toc__group--locked' : ''}`;

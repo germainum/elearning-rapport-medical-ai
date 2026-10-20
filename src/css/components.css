@@ -544,10 +544,18 @@
   background: var(--color-primary-tint);
 }
 
+/* La part de l'anneau est une valeur animable : il se remplit en douceur quand une rubrique avance */
+@property --pct {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 /* Anneau : la part de la section déjà terminée ; coche verte pleine quand tout est fait */
 .toc__ring {
   --pct: 0;
   position: relative;
+  transition: --pct 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   display: grid;
   place-items: center;
   width: 1.875rem;
@@ -3940,6 +3948,61 @@ html {
 
   .overall--gain .overall__fill,
   .overall--gain .overall__percent {
+    animation: none;
+  }
+}
+
+/* Rubrique ou écran qui vient d'être terminé : rebond, halo et coche qui se dessine */
+.toc__ring--pop,
+.toc__marker--pop {
+  animation: toc-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), toc-halo 0.9s ease-out;
+}
+
+.toc__ring--pop svg path,
+.toc__marker--pop svg path {
+  stroke-dasharray: 24;
+  animation: toc-check 0.45s 0.1s ease-out both;
+}
+
+@keyframes toc-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  55% {
+    transform: scale(1.22);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes toc-halo {
+  from {
+    box-shadow: 0 0 0 0 rgb(47 191 90 / 0.6);
+  }
+  to {
+    box-shadow: 0 0 0 0.6rem rgb(47 191 90 / 0);
+  }
+}
+
+@keyframes toc-check {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc__ring {
+    transition: none;
+  }
+
+  .toc__ring--pop,
+  .toc__marker--pop,
+  .toc__ring--pop svg path,
+  .toc__marker--pop svg path {
     animation: none;
   }
 }
