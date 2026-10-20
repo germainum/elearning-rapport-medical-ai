@@ -1040,9 +1040,9 @@ function animateSheetDescent(article, previousItem, previousTitle) {
 }
 
 /**
- * Changement de section de la feuille : on tourne la page. L'ancienne feuille, posée par-dessus la nouvelle, pivote autour de
- * son bord haut (comme la page d'un bloc-notes à spirale), se soulève vers l'écran, s'assombrit et disparaît quand elle est de chant ;
- * la nouvelle page est déjà là, dessous. Jusqu'à 90°, la page reste dans le cadre de la feuille : rien ne déborde.
+ * Changement de section de la feuille : l'ancienne feuille, posée par-dessus la nouvelle, glisse vers le haut et sort par le bord
+ * supérieur du cadre (elle y est coupée, sans passer sur l'accroche), laissant apparaître la nouvelle page déjà en place dessous.
+ * Mouvement à plat, sans 3D.
  */
 function animateSheetTurn(article, oldSheet) {
   if (REDUCED_MOTION.matches) return;
@@ -1050,11 +1050,14 @@ function animateSheetTurn(article, oldSheet) {
   const holder = sheet?.parentElement;
   if (!sheet || !holder) return;
 
-  (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la nouvelle page ne bouge pas : c'est l'ancienne qui tourne
+  (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la nouvelle page ne bouge pas : c'est l'ancienne qui sort
 
   oldSheet.setAttribute('aria-hidden', 'true');
   oldSheet.setAttribute('inert', '');
   holder.style.position = 'relative'; // avant de mesurer : offsetTop / offsetLeft sont alors relatifs à ce conteneur
+  holder.style.zIndex = '8';
+  // Coupe le haut seulement (la page sort par là) ; les côtés et le bas gardent leur place pour les ombres de la pile de feuilles
+  holder.style.clipPath = 'inset(0 -2rem -3rem -2rem)';
   Object.assign(oldSheet.style, {
     position: 'absolute',
     top: `${sheet.offsetTop}px`,
@@ -1063,31 +1066,26 @@ function animateSheetTurn(article, oldSheet) {
     margin: '0',
     zIndex: '5',
     pointerEvents: 'none',
-    transformOrigin: 'center top',
-    backfaceVisibility: 'hidden',
     willChange: 'transform',
   });
-  holder.style.zIndex = '8'; // la page qui tourne passe au-dessus du bloc de réponses, mais sous la barre de navigation (z-index 10)
-  holder.style.perspective = '2200px';
-  holder.style.perspectiveOrigin = '50% 0%'; // le point de vue au niveau de la charnière : peu de déformation
   holder.append(oldSheet);
 
-  const turn = oldSheet.animate(
+  const distance = oldSheet.getBoundingClientRect().height + 24;
+  const slide = oldSheet.animate(
     [
-      { transform: 'rotateX(0deg)', filter: 'brightness(1)', boxShadow: '0 1px 2px rgb(18 20 26 / 0.1), 0 22px 32px -14px rgb(18 20 26 / 0.3)' },
-      { transform: 'rotateX(50deg)', filter: 'brightness(0.88)', boxShadow: '0 22px 34px rgb(18 20 26 / 0.35)', offset: 0.55 },
-      { transform: 'rotateX(100deg)', filter: 'brightness(0.62)', boxShadow: '0 30px 44px rgb(18 20 26 / 0.4)' },
+      { transform: 'translateY(0)', opacity: 1 },
+      { transform: `translateY(-${distance * 0.6}px)`, opacity: 1, offset: 0.6 },
+      { transform: `translateY(-${distance}px)`, opacity: 0.85 },
     ],
-    { duration: 1200, delay: 250, easing: 'cubic-bezier(0.5, 0, 0.25, 1)', fill: 'both' },
+    { duration: 950, delay: 250, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'both' },
   );
   const cleanup = () => {
     oldSheet.remove();
     holder.style.position = '';
     holder.style.zIndex = '';
-    holder.style.perspective = '';
-    holder.style.perspectiveOrigin = '';
+    holder.style.clipPath = '';
   };
-  turn.finished.then(cleanup, cleanup);
+  slide.finished.then(cleanup, cleanup);
 }
 
 /** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */
