@@ -43,7 +43,7 @@ N'hésitez pas à nous contacter si vous avez besoin de renseignements compléme
 
 ## Bloc 3 · Texte (paragraphes)
 
-Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre.
+Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'Office AI.
 
 Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre plus tard.
 
@@ -51,10 +51,10 @@ Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre pl
 
 **À la fin de ce module, vous saurez :**
 
-- décrire des **diagnostics précis, datés et codés (CIM-10)**, en séparant ceux qui ont une incidence sur la capacité de travail de ceux qui n'en ont pas ;
-- formuler des **limitations fonctionnelles mesurables** : ce que la personne ne peut plus faire, sans répéter le diagnostic ;
-- chiffrer **deux capacités de travail distinctes**, en heures par jour et sur un 100 %, et donner un pronostic avec un taux et un délai ;
-- éviter les erreurs qui provoquent des **demandes de complément** et des allers-retours avec l'Office AI.
+- décrire l'état de santé par des **constats objectifs**, des **diagnostics précis, datés et classés** selon leur incidence, et des **incapacités attestées avec dates et taux exacts** (sections 1 et 2) ;
+- décrire le **poste réel** et formuler des **limitations fonctionnelles mesurables**, sans répéter le diagnostic (section 3) ;
+- chiffrer **deux capacités de travail distinctes** (en heures par jour, sur un 100 %), donner un **pronostic avec taux et délai** et apprécier l'**aptitude à la réadaptation** (section 4 et annexes) ;
+- séparer le **médical du psychosocial**, joindre les bonnes pièces et connaître les démarches : **MedAI, secret médical, détection précoce**.
 
 ## Bloc 5 · Processus (« Votre parcours dans ce module »)
 
