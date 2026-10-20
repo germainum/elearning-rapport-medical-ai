@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.36.0",
+  "version": "0.37.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -362,7 +362,7 @@
       "type": "scene",
       "kicker": "Mme R., 47 ans",
       "title": "Un courrier de l'office AI",
-      "continueLabel": "Commencer par la question 1.1",
+      "continueLabel": "Ouvrir le dossier de Mme R.",
       "blocks": [
         {
           "type": "text",
@@ -551,15 +551,31 @@
             ],
             "footer": ["Date · Prénom, nom, adresse exacte (cabinet/service) et signature du médecin · Annexes"]
           }
-        },
-        { "type": "reveal", "label": "Ouvrir le dossier de Mme R." },
-        { "type": "patientFile" },
-        { "type": "reveal", "label": "Prendre le formulaire" },
+        }
+      ],
+      "section": "Avant de commencer"
+    },
+    {
+      "id": "dossier-mme-r",
+      "type": "scene",
+      "kicker": "Mme R., 47 ans",
+      "title": "Le dossier de Mme R.",
+      "continueLabel": "Voir à quoi sert ce rapport",
+      "blocks": [{"type": "patientFile"}],
+      "section": "Avant de commencer"
+    },
+    {
+      "id": "but-rapport",
+      "type": "scene",
+      "kicker": "Avant de commencer",
+      "title": "Le rôle de votre rapport",
+      "continueLabel": "Commencer par la question 1.1",
+      "blocks": [
         {
           "type": "question",
           "id": "but-du-rapport",
           "kind": "single",
-          "prompt": "Avant de commencer : à quoi sert ce rapport pour l'office AI ?",
+          "prompt": "À quoi sert ce rapport pour l'office AI ?",
           "options": [
             {
               "id": "a",

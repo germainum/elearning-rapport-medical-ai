@@ -83,7 +83,7 @@ Texte alternatif : Portrait illustré de Mme R., 47 ans, les cheveux attachés e
 
 ## Bloc 6 · Contrôle des connaissances · Choix multiple (non noté)
 
-**Question** : Avant de commencer : à quoi sert ce rapport pour l'office AI ?
+**Question** : À quoi sert ce rapport pour l'office AI ?
 
 **Réponses** (une seule bonne réponse ; activer « mélanger les réponses » si l'option existe) :
 1. À appuyer la demande de rente de votre patiente, dont vous connaissez bien la situation.

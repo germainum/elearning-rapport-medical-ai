@@ -182,7 +182,8 @@ function courrier() {
     `Fichier : \`content/documents/${attachment.src.replace('documents/', '')}\`\nTitre : ${attachment.title}\nDescription : ${attachment.meta}\nTexte du bouton : ${attachment.label}`,
   );
   b.add('Accordéon « Dossier patient »', `Un seul élément, titre « Dossier de Mme R. », contenu :\n\n${recordMd(module.patientFile)}\n\nImage à placer dans l'élément : \`content/images/mme-r.jpg\`\nTexte alternatif : ${module.patientFile.image.alt}`);
-  const q = questionsOf(s)[0];
+  // La question « À quoi sert ce rapport ? » a son propre écran dans le module (courrier, dossier, question)
+  const q = questionsOf(screen('but-rapport'))[0];
   b.add('Contrôle des connaissances · Choix multiple (non noté)', questionMd(q));
   return { title: s.title, body: b.toString() };
 }
