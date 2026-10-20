@@ -15,13 +15,17 @@ Divers
 
 *Section 5 du formulaire*
 
-## Bloc 3 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 3 · Texte
+
+Vous arrivez à la section « Divers », un espace laissé à votre jugement.
+
+## Bloc 4 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 5 Divers*
 
 **Quels autres éléments pourraient entrer en ligne de compte dans l'évaluation de la situation de votre patient ? Avez-vous d'autres informations à nous communiquer ?**
 
-## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : À quoi peut servir la section 5 ?
 
@@ -42,13 +46,17 @@ Divers
 > - « Résumer à nouveau les diagnostics et la capacité de travail, pour plus de clarté et de li… » : Ils figurent déjà aux sections 2 et 4.
 > - « Demander une décision rapide en raison de la situation financière difficile de la patient… » : Le rapport reste médical ; la situation financière relève d'autres canaux.
 
-## Bloc 5 · Titre
+## Bloc 6 · Titre
 
 Les documents à joindre
 
 *Pièces jointes*
 
-## Bloc 6 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 7 · Texte
+
+Votre rapport est presque terminé : que faut-il y joindre ?
+
+## Bloc 8 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023*
 
@@ -56,7 +64,7 @@ Les documents à joindre
 
 Veuillez joindre les copies des rapports existants (question 1.3) et, si vous en disposez, une description du poste (question 3.3).
 
-## Bloc 7 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Que joignez-vous au rapport ?
 
@@ -77,17 +85,17 @@ Veuillez joindre les copies des rapports existants (question 1.3) et, si vous en
 > - « Les notes de toutes vos consultations depuis le début du suivi en 2014. » : Trop : l'information utile se perd. Seules les pièces en lien avec l'atteinte comptent.
 > - « Rien : le rapport doit se suffire à lui-même, sans documents annexés. » : Le formulaire demande les copies des rapports existants.
 
-## Bloc 8 · Titre
+## Bloc 10 · Titre
 
 Les travaux exigibles
 
 *Annexe du formulaire (page 5)*
 
-## Bloc 9 · Texte
+## Bloc 11 · Texte
 
 L'annexe traduit vos limitations en travaux encore exigibles, activité par activité : oui ou non, combien d'heures par jour, avec quel rendement.
 
-## Bloc 10 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 12 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Annexe : travaux exigibles dans une activité adaptée — Formulaire 002.099 · v. 09.2023*
 
@@ -96,11 +104,11 @@ L'annexe traduit vos limitations en travaux encore exigibles, activité par acti
 Veuillez séparer en activités/durée/performance (rendement).
 Pour chaque activité : oui / non · durée exigible (temps complet oui/non, sinon nombre d'heures par jour) · performance (en %).
 
-## Bloc 11 · Texte : règle à retenir
+## Bloc 13 · Texte : règle à retenir
 
 Cohérente avec la question 3.4 : les spécialistes en réadaptation s'appuient sur cette annexe pour chercher un poste.
 
-## Bloc 12 · Texte : exemple rempli pour Mme R.
+## Bloc 14 · Texte : exemple rempli pour Mme R.
 
 - Activités dans différentes positions : oui, 4 h par jour, rendement 100 %.
 
@@ -112,17 +120,21 @@ Cohérente avec la question 3.4 : les spécialistes en réadaptation s'appuient 
 
 Depuis le 01.06.2026. Points particuliers : alternance assis/debout, augmentation progressive.
 
-## Bloc 13 · Déclaration, style « Note »
+## Bloc 15 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
 
-## Bloc 14 · Titre
+## Bloc 16 · Titre
 
 La mesure de réinsertion
 
 *Annexe du formulaire (page 6) · question 1*
 
-## Bloc 15 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 17 · Texte
+
+L'office AI se demande si Mme R. pourrait déjà suivre une mesure de réinsertion.
+
+## Bloc 18 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Annexe relative à l'aptitude à la réadaptation — Formulaire 002.099 · v. 09.2023*
 
@@ -133,25 +145,29 @@ Une mesure de réinsertion de l'AI n'est pas une mesure thérapeutique (ergothé
 ☐ Si oui, lesquelles ?
 ☐ Si non, depuis quand une telle mesure aurait-elle été possible ?
 
-## Bloc 16 · Texte : règle à retenir
+## Bloc 19 · Texte : règle à retenir
 
 Vous indiquez aussi depuis quand la mesure aurait été possible, comme le demande le formulaire.
 
-## Bloc 17 · Texte : exemple rempli pour Mme R.
+## Bloc 20 · Texte : exemple rempli pour Mme R.
 
 **1** Non. Une telle mesure aurait été possible depuis le 01.06.2026.
 
-## Bloc 18 · Déclaration, style « Note »
+## Bloc 21 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
 
-## Bloc 19 · Titre
+## Bloc 22 · Titre
 
 Le pronostic d'amélioration
 
 *Annexe du formulaire (page 6) · question 2*
 
-## Bloc 20 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 23 · Texte
+
+Il reste à dire jusqu'où, et en combien de temps, Mme R. peut encore progresser.
+
+## Bloc 24 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Annexe relative à l'aptitude à la réadaptation — Formulaire 002.099 · v. 09.2023*
 
@@ -160,7 +176,7 @@ Le pronostic d'amélioration
 Jusqu'à quel taux ? ………………
 Dans quel délai ?
 
-## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 25 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Jusqu'à quel taux et dans quel délai sa capacité de travail peut-elle s'améliorer ?
 

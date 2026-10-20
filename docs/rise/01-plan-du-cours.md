@@ -31,21 +31,21 @@ Chaque ligne est une **leçon** ; les en-têtes en gras sont des **sections** (s
 | 2 | Glossaire (leçon facultative) | `glossaire.md` | 12 |  |
 | 3 | Un courrier de l'office AI | `lecons/02-courrier.md` | 6 | 1 |
 | | **Section 1 · Informations générales** | | | |
-| 4 | Section 1 · Informations générales | `lecons/03-section-1.md` | 12 | 2 |
+| 4 | Section 1 · Informations générales | `lecons/03-section-1.md` | 15 | 2 |
 | | **Section 2 · Situation médicale** | | | |
-| 5 | Section 2 · Antécédents, symptômes, médication et constats | `lecons/04-section-2a.md` | 16 | 3 |
-| 6 | Section 2 · Diagnostics, pronostic et plan de traitement | `lecons/05-section-2b.md` | 17 | 2 |
+| 5 | Section 2 · Antécédents, symptômes, médication et constats | `lecons/04-section-2a.md` | 19 | 3 |
+| 6 | Section 2 · Diagnostics, pronostic et plan de traitement | `lecons/05-section-2b.md` | 21 | 2 |
 | | **Section 3 · Situation professionnelle** | | | |
-| 7 | Section 3 · La situation professionnelle | `lecons/06-section-3a.md` | 13 | 2 |
-| 8 | Section 3 · Limitations, ressources et conduite | `lecons/07-section-3b.md` | 13 | 2 |
+| 7 | Section 3 · La situation professionnelle | `lecons/06-section-3a.md` | 15 | 2 |
+| 8 | Section 3 · Limitations, ressources et conduite | `lecons/07-section-3b.md` | 15 | 2 |
 | | **Section 4 · Potentiel de réadaptation** | | | |
-| 9 | Section 4 · Potentiel de réadaptation | `lecons/08-section-4.md` | 21 | 3 |
+| 9 | Section 4 · Potentiel de réadaptation | `lecons/08-section-4.md` | 25 | 3 |
 | | **Section 5 et annexes** | | | |
-| 10 | Section 5 et annexes | `lecons/09-section-5-annexes.md` | 21 | 3 |
+| 10 | Section 5 et annexes | `lecons/09-section-5-annexes.md` | 25 | 3 |
 | | **Second cas** | | | |
 | 11 | Second cas : M. C. | `lecons/10-second-cas.md` | 6 |  |
 | | **En pratique** | | | |
-| 12 | En pratique | `lecons/11-en-pratique.md` | 7 | 3 |
+| 12 | En pratique | `lecons/11-en-pratique.md` | 9 | 3 |
 | | **Évaluation** | | | |
 | 13 | Évaluation finale (leçon Quiz notée) | `evaluation-finale.md` | 12 questions |  |
 | | **Conclusion** | | | |

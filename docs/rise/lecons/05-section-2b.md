@@ -15,7 +15,11 @@ Diagnostics avec incidence
 
 *Question 2.5 du formulaire*
 
-## Bloc 3 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 3 · Texte
+
+Dans tout ce parcours, vous cherchez ce qui empêche vraiment Mme R. de travailler.
+
+## Bloc 4 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
@@ -24,25 +28,29 @@ Diagnostics avec incidence
 (pour les affections psychiatriques, veuillez indiquer le code CIM-10 ou DSM-5.)
 Diagnostics · Depuis
 
-## Bloc 4 · Texte : règle à retenir
+## Bloc 5 · Texte : règle à retenir
 
 Uniquement les diagnostics qui limitent la capacité de travail, datés, avec leur code CIM-10 et classés du plus limitant au moins limitant.
 
-## Bloc 5 · Texte : exemple rempli pour Mme R.
+## Bloc 6 · Texte : exemple rempli pour Mme R.
 
 **2.5** Lombosciatalgie droite chronique sur hernie discale L5-S1 (CIM-10 M51.1), cure de hernie le 10.02.2026 · depuis le 12.01.2026
 
-## Bloc 6 · Déclaration, style « Note »
+## Bloc 7 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
 
-## Bloc 7 · Titre
+## Bloc 8 · Titre
 
 Diagnostics sans incidence
 
 *Question 2.6 du formulaire*
 
-## Bloc 8 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 9 · Texte
+
+Vous relisez la liste de ses autres problèmes de santé, un par un.
+
+## Bloc 10 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
@@ -51,7 +59,7 @@ Diagnostics sans incidence
 Quand ces diagnostics ont-ils été posés ?
 Diagnostics · Depuis
 
-## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 11 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Quels diagnostics sans incidence sur la capacité de travail mentionnez-vous ?
 
@@ -72,43 +80,51 @@ Diagnostics · Depuis
 > - « Aucun : seuls les diagnostics qui limitent la patiente intéressent l'AI. » : Le formulaire les demande : ils complètent le tableau clinique.
 > - « Lombosciatalgie droite, en voie d'amélioration sous physiothérapie. » : Elle limite encore Mme R. : sa place est à la question 2.5.
 
-## Bloc 10 · Titre
+## Bloc 12 · Titre
 
 Le pronostic
 
 *Question 2.7 du formulaire*
 
-## Bloc 11 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 13 · Texte
+
+L'office AI voudra savoir où en sera Mme R. dans quelques mois.
+
+## Bloc 14 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
 **2.7 Votre pronostic sur la capacité de travail du patient/de la patiente sur un taux de 100%**
 
-## Bloc 12 · Texte : règle à retenir
+## Bloc 15 · Texte : règle à retenir
 
 Une tendance, un taux sur 100 % et un délai : le gestionnaire et le conseiller en réadaptation, qui ne sont pas médecins, savent quand réévaluer la situation.
 
-## Bloc 13 · Texte : exemple rempli pour Mme R.
+## Bloc 16 · Texte : exemple rempli pour Mme R.
 
 **2.7** Favorable. Activité habituelle : pas de reprise envisageable. Activité adaptée : amélioration jusqu'à 100 % dans un délai de 3 à 6 mois.
 
-## Bloc 14 · Déclaration, style « Note »
+## Bloc 17 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
 
-## Bloc 15 · Titre
+## Bloc 18 · Titre
 
 Le plan de traitement
 
 *Question 2.8 du formulaire*
 
-## Bloc 16 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 19 · Texte
+
+Et maintenant ? Vous réfléchissez à la suite de sa prise en charge.
+
+## Bloc 20 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
 **2.8 Prochaines mesures que vous envisagez / votre plan de traitement (thérapies, opérations chirurgicales, médication)**
 
-## Bloc 17 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Quelles prochaines mesures et quel plan de traitement indiquez-vous ?
 

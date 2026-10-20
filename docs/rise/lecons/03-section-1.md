@@ -15,7 +15,11 @@ Le traitement dispensé
 
 *Question 1.1 du formulaire*
 
-## Bloc 3 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 3 · Texte
+
+Vous ouvrez le formulaire à côté du dossier de Mme R. La première question porte sur votre suivi.
+
+## Bloc 4 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 1 Informations générales*
 
@@ -26,7 +30,7 @@ Date du dernier contrôle que vous avez effectué
 Des contrôles ont été effectués précédemment par
 Des contrôles ont été effectués à une date ultérieure par
 
-## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Comment présentez-vous le traitement dispensé à Mme R. ?
 
@@ -47,19 +51,23 @@ Des contrôles ont été effectués à une date ultérieure par
 > - « Patiente suivie au cabinet depuis de nombreuses années, avec des contrôles réguliers et r… » : Sans dates, l'office AI ne peut pas situer votre suivi.
 > - « Traitement ambulatoire au cabinet depuis 2014, sans hospitalisation ni autre médecin. » : Il manque le dernier contrôle et les autres médecins qui l'ont suivie.
 
-## Bloc 5 · Titre
+## Bloc 6 · Titre
 
 La fréquence des consultations
 
 *Question 1.2 du formulaire*
 
-## Bloc 6 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 7 · Texte
+
+Vous feuilletez vos consultations avec Mme R. pour répondre juste.
+
+## Bloc 8 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 1 Informations générales*
 
 **1.2 A quelle fréquence voyez-vous le patient / la patiente actuellement ?**
 
-## Bloc 7 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Que répondez-vous sur la fréquence de vos consultations ?
 
@@ -80,13 +88,17 @@ La fréquence des consultations
 > - « Selon les besoins, quand la patiente prend rendez-vous. » : Trop vague : l'office AI veut savoir à quel rythme vous la voyez.
 > - « Régulièrement, depuis le début du suivi en 2014. » : Le formulaire demande la fréquence **actuelle**.
 
-## Bloc 8 · Titre
+## Bloc 10 · Titre
 
 L'incapacité de travail attestée
 
 *Question 1.3 du formulaire*
 
-## Bloc 9 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 11 · Texte
+
+Reste l'arrêt de travail que vous avez établi en janvier.
+
+## Bloc 12 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 1 Informations générales*
 
@@ -97,16 +109,16 @@ Pour quelles activités avez-vous attesté une incapacité de travail ?
 Y a-t-il d'autres intervenants (médecins spécialistes, hôpitaux ou thérapeutes) ?
 Veuillez joindre les copies des rapports existants.
 
-## Bloc 10 · Texte : règle à retenir
+## Bloc 13 · Texte : règle à retenir
 
 Des périodes datées, chiffrées sur un 100 % et cohérentes avec vos certificats : l'office AI peut vérifier le **délai d'attente** d'une éventuelle rente.
 
-## Bloc 11 · Texte : exemple rempli pour Mme R.
+## Bloc 14 · Texte : exemple rempli pour Mme R.
 
 **1.3** 100 % du 12.01.2026 au 31.10.2026, dans son activité d'aide-soignante en EMS.
 
 Autres intervenants : chirurgien orthopédiste, physiothérapeute. Rapports joints.
 
-## Bloc 12 · Déclaration, style « Note »
+## Bloc 15 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.

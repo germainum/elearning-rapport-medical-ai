@@ -41,7 +41,11 @@ Le secret médical
 
 *En pratique*
 
-## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 5 · Texte
+
+Avant d'envoyer, un scrupule vous traverse : le secret médical.
+
+## Bloc 6 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Pouvez-vous transmettre le rapport et les documents utiles sans nouvel accord de Mme R. ?
 
@@ -60,13 +64,17 @@ Le secret médical
 > - « Non : il faut une procuration signée de sa main pour chaque rapport transmis. » : L'autorisation est donnée lors du dépôt de la demande.
 > - « Seulement les documents médicaux dont elle a déjà pris connaissance elle-même. » : Vous pouvez transmettre tous les documents utiles à l'examen de sa demande.
 
-## Bloc 6 · Titre
+## Bloc 7 · Titre
 
 La détection précoce
 
 *En pratique*
 
-## Bloc 7 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 8 · Texte
+
+Un autre patient, en arrêt depuis des semaines, vous inquiète.
+
+## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Un patient est en arrêt de travail sans date de retour prévisible. Pouvez-vous le signaler à l'AI avant toute demande ?
 

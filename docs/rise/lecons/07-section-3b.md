@@ -57,7 +57,11 @@ Les ressources
 
 *Question 3.5 du formulaire*
 
-## Bloc 9 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 9 · Texte
+
+Mme R. a aussi des atouts : vous cherchez ce qui pourrait l'aider à rebondir.
+
+## Bloc 10 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 3 Situation professionnelle*
 
@@ -66,7 +70,7 @@ Les ressources
 (par exemple : connaissances linguistiques / formations continues / activités de la vie quotidienne / activités bénévoles / hobbys / temps libre / contacts avec des amis / voyages)
 ☐ Je ne suis pas en mesure de répondre à cette question
 
-## Bloc 10 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 11 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Quelles ressources utiles à sa réinsertion mentionnez-vous ?
 
@@ -87,13 +91,17 @@ Les ressources
 > - « Aucune ressource particulière, compte tenu de ses douleurs persistantes. » : Les douleurs ne suppriment pas ses compétences : langues, expérience…
 > - « Bonne situation financière grâce au salaire de son mari. » : Ce n'est pas une ressource pour la réinsertion professionnelle.
 
-## Bloc 11 · Titre
+## Bloc 12 · Titre
 
 La capacité de conduire
 
 *Question 3.6 du formulaire*
 
-## Bloc 12 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 13 · Texte
+
+Elle se rend d'habitude au travail en voiture : peut-elle encore conduire ?
+
+## Bloc 14 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 3 Situation professionnelle*
 
@@ -101,7 +109,7 @@ La capacité de conduire
 
 ☐ Je ne suis pas en mesure de répondre à cette question
 
-## Bloc 13 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 15 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Que répondez-vous sur sa capacité de conduire ?
 

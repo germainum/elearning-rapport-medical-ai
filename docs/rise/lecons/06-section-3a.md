@@ -15,7 +15,11 @@ L'activité actuelle
 
 *Question 3.1 du formulaire*
 
-## Bloc 3 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 3 · Texte
+
+Vous passez à sa vie professionnelle : à quoi ressemblent aujourd'hui ses journées ?
+
+## Bloc 4 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 3 Situation professionnelle*
 
@@ -23,7 +27,7 @@ L'activité actuelle
 
 ☐ Je ne suis pas en mesure de répondre à cette question
 
-## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Quelle est l'activité actuelle de Mme R. ?
 
@@ -44,13 +48,17 @@ L'activité actuelle
 > - « Sans activité actuellement, en arrêt de travail depuis janvier. » : L'arrêt ne supprime pas son poste : précisez son métier et son taux.
 > - « ☐ Je ne suis pas en mesure de répondre à cette question. » : Vous connaissez son métier : notez-le.
 
-## Bloc 5 · Titre
+## Bloc 6 · Titre
 
 La situation professionnelle
 
 *Question 3.2 du formulaire*
 
-## Bloc 6 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 7 · Texte
+
+Vous vous rappelez ce que Mme R. vous a dit de son employeur.
+
+## Bloc 8 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 3 Situation professionnelle*
 
@@ -58,7 +66,7 @@ La situation professionnelle
 
 ☐ Aucune information
 
-## Bloc 7 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Que mentionnez-vous sur sa situation professionnelle ?
 
@@ -79,17 +87,17 @@ La situation professionnelle
 > - « ☐ Aucune information » : Mme R. vous en a parlé : quelques mots suffisent.
 > - « Voir avec l'employeur, qui connaît bien mieux la situation professionnelle que moi. » : L'office AI le fera ; notez ce que vous savez.
 
-## Bloc 8 · Titre
+## Bloc 10 · Titre
 
 Les exigences du poste
 
 *Question 3.3 du formulaire*
 
-## Bloc 9 · Texte
+## Bloc 11 · Texte
 
 C'est l'une des questions les plus importantes pour le médecin du SMR : elle permet de comparer le poste réel et les limitations.
 
-## Bloc 10 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 12 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 3 Situation professionnelle*
 
@@ -99,14 +107,14 @@ C'est l'une des questions les plus importantes pour le médecin du SMR : elle pe
 ☐ Je ne suis pas en mesure de répondre à cette question
 Au cas où vous disposez d'une description du poste, veuillez en joindre une copie.
 
-## Bloc 11 · Texte : règle à retenir
+## Bloc 13 · Texte : règle à retenir
 
 Les exigences concrètes du poste. Si la patiente a une **description du poste**, joignez-en une copie.
 
-## Bloc 12 · Texte : exemple rempli pour Mme R.
+## Bloc 14 · Texte : exemple rempli pour Mme R.
 
 **3.3** Soins de base, mobilisation et transferts de résidents, port de charges, travail debout prolongé, horaires en rotation d'équipes.
 
-## Bloc 13 · Déclaration, style « Note »
+## Bloc 15 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.

@@ -15,7 +15,11 @@ Heures par jour : l'activité habituelle
 
 *Question 4.1 du formulaire*
 
-## Bloc 3 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 3 · Texte
+
+Vous entrez dans la section clé : combien de temps Mme R. peut-elle travailler, chaque jour, dans son métier ?
+
+## Bloc 4 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 4 Potentiel de réadaptation*
 
@@ -23,7 +27,7 @@ Heures par jour : l'activité habituelle
 
 ☐ Je ne suis pas en mesure de répondre à cette question
 
-## Bloc 4 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 5 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Combien d'heures par jour peut-on attendre de Mme R. dans son métier d'aide-soignante ?
 
@@ -44,67 +48,79 @@ Heures par jour : l'activité habituelle
 > - « 4 heures par jour, puisqu'une reprise partielle paraît possible. » : Dans son métier d'aide-soignante, ses limitations excluent toute reprise.
 > - « 6,7 heures par jour, soit son taux contractuel de 80 %. » : C'est son temps de travail habituel, pas ce qu'on peut raisonnablement attendre d'elle.
 
-## Bloc 5 · Titre
+## Bloc 6 · Titre
 
 Heures par jour : une activité adaptée
 
 *Question 4.2 du formulaire*
 
-## Bloc 6 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 7 · Texte
+
+Et si on lui proposait un poste adapté à ses limitations ?
+
+## Bloc 8 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 4 Potentiel de réadaptation*
 
 **4.2 Combien d'heures de travail par jour peut-on raisonnablement attendre de votre patient/votre patiente dans une activité qui tienne compte de l'atteinte à sa santé ?**
 
-## Bloc 7 · Texte : règle à retenir
+## Bloc 9 · Texte : règle à retenir
 
 Une capacité chiffrée et datée dans une activité qui respecte ses limitations : l'office AI peut orienter Mme R.
 
-## Bloc 8 · Texte : exemple rempli pour Mme R.
+## Bloc 10 · Texte : exemple rempli pour Mme R.
 
 **4.2** 4 heures par jour depuis le 01.06.2026, en respectant les limitations décrites en 3.4.
 
-## Bloc 9 · Déclaration, style « Note »
+## Bloc 11 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
 
-## Bloc 10 · Titre
+## Bloc 12 · Titre
 
 Le potentiel de réadaptation
 
 *Question 4.3 du formulaire*
 
-## Bloc 11 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 13 · Texte
+
+Vous pensez à l'avenir : jusqu'où Mme R. pourra-t-elle reprendre ?
+
+## Bloc 14 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 4 Potentiel de réadaptation*
 
 **4.3 Votre pronostic sur le potentiel de réadaptation du patient/de la patiente. Capacité de travail sur un taux de 100% (même si le taux contractuel est inférieur).**
 
-## Bloc 12 · Texte : règle à retenir
+## Bloc 15 · Texte : règle à retenir
 
 Un pronostic chiffré sur un 100 %, avec une progression et un délai.
 
-## Bloc 13 · Texte : exemple rempli pour Mme R.
+## Bloc 16 · Texte : exemple rempli pour Mme R.
 
 **4.3** Favorable. Capacité de 50 % dans une activité adaptée, sur un taux de 100 %, avec une augmentation progressive jusqu'à 100 % en 3 à 6 mois.
 
-## Bloc 14 · Déclaration, style « Note »
+## Bloc 17 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
 
-## Bloc 15 · Titre
+## Bloc 18 · Titre
 
 Les obstacles à la réadaptation
 
 *Question 4.4 du formulaire*
 
-## Bloc 16 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 19 · Texte
+
+Quelque chose pourrait-il freiner son retour au travail ?
+
+## Bloc 20 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 4 Potentiel de réadaptation*
 
 **4.4 Quels sont les facteurs qui font obstacle à une réadaptation ?**
 
-## Bloc 17 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Quels obstacles à la réadaptation signalez-vous ?
 
@@ -125,17 +141,17 @@ Les obstacles à la réadaptation
 > - « Son âge (47 ans) rend une reconversion professionnelle peu réaliste. » : C'est une appréciation non médicale, qui revient à l'office AI.
 > - « Le marché du travail est difficile pour les aides-soignantes. » : Le marché du travail ne relève pas de votre appréciation médicale.
 
-## Bloc 18 · Titre
+## Bloc 22 · Titre
 
 Les tâches ménagères
 
 *Question 4.5 du formulaire*
 
-## Bloc 19 · Texte
+## Bloc 23 · Texte
 
 Mme R. travaille à 80 % : l'office AI tient aussi compte de ses empêchements dans les tâches ménagères.
 
-## Bloc 20 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 24 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 4 Potentiel de réadaptation*
 
@@ -144,7 +160,7 @@ Mme R. travaille à 80 % : l'office AI tient aussi compte de ses empêchements d
 (Par ex. : tenue du ménage / préparation des repas / nettoyage / achats / lessive / prise en charge des enfants)
 ☐ Je ne suis pas en mesure de répondre à cette question
 
-## Bloc 21 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 25 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Dans quelle mesure Mme R. est-elle limitée dans les tâches ménagères ?
 

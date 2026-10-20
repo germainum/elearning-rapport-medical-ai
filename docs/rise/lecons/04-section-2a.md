@@ -55,13 +55,17 @@ Situation et symptômes actuels
 
 *Question 2.2 du formulaire*
 
-## Bloc 7 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 7 · Texte
+
+Vous repensez à la dernière consultation : ce que Mme R. vous a dit de ses douleurs.
+
+## Bloc 8 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
 **2.2 Situation et symptômes médicaux actuels**
 
-## Bloc 8 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 9 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Comment décrivez-vous les symptômes actuels de Mme R. ?
 
@@ -82,19 +86,23 @@ Situation et symptômes actuels
 > - « Patiente très algique, qui se plaint de douleurs importantes à chaque consultation. » : Une impression générale ne décrit pas les symptômes ni leurs circonstances.
 > - « État stationnaire depuis plusieurs mois, sans changement notable. » : Le formulaire demande les symptômes actuels, pas seulement leur évolution.
 
-## Bloc 9 · Titre
+## Bloc 10 · Titre
 
 La médication actuelle
 
 *Question 2.3 du formulaire*
 
-## Bloc 10 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 11 · Texte
+
+Vous vérifiez ce que Mme R. prend réellement contre la douleur.
+
+## Bloc 12 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
 **2.3 Médication actuelle (y compris le dosage)**
 
-## Bloc 11 · Contrôle des connaissances · Choix multiple (non noté)
+## Bloc 13 · Contrôle des connaissances · Choix multiple (non noté)
 
 **Question** : Quelle médication actuelle inscrivez-vous ?
 
@@ -115,26 +123,30 @@ La médication actuelle
 > - « Antalgiques selon besoin, la patiente gère elle-même son traitement. » : Le formulaire demande la médication **y compris le dosage**.
 > - « Physiothérapie deux fois par semaine depuis le mois de mars 2026. » : La physiothérapie n'est pas une médication : sa place est à la question 2.8.
 
-## Bloc 12 · Titre
+## Bloc 14 · Titre
 
 Les constats médicaux
 
 *Question 2.4 du formulaire*
 
-## Bloc 13 · Déclaration, style « Note » (extrait du formulaire 002.099)
+## Bloc 15 · Texte
+
+Vous reprenez vos notes de l'examen clinique du 5 octobre.
+
+## Bloc 16 · Déclaration, style « Note » (extrait du formulaire 002.099)
 
 *Rapport médical somatique : Réadaptation professionnelle / Rente — Formulaire 002.099 · v. 09.2023 · 2 Situation médicale*
 
 **2.4 Constats médicaux complets sur la base des examens que vous avez pratiqués**
 
-## Bloc 14 · Texte : règle à retenir
+## Bloc 17 · Texte : règle à retenir
 
 Des constats objectifs, datés et mesurés : ce sont eux qui expliquent les limitations.
 
-## Bloc 15 · Texte : exemple rempli pour Mme R.
+## Bloc 18 · Texte : exemple rempli pour Mme R.
 
 **2.4** Status du 05.10.2026 : distance doigts-sol 30 cm, Lasègue négatif, pas de déficit moteur, hypoesthésie résiduelle S1 à droite.
 
-## Bloc 16 · Déclaration, style « Note »
+## Bloc 19 · Déclaration, style « Note »
 
 **À vous de jouer** : une question sur ce point figure dans l'évaluation finale.
