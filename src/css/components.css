@@ -4669,3 +4669,42 @@ html {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 1.5rem);
   mask-image: linear-gradient(to bottom, transparent 0, #000 1.5rem);
 }
+
+/* ---------- Zone des réponses stable d'une question à l'autre ---------- */
+
+/* Champ du formulaire : trois lignes, vide comme rempli, pour que la feuille garde la même hauteur d'une question à l'autre */
+.form-sheet__blank {
+  height: 4.5rem;
+}
+
+.form-sheet__filled {
+  min-height: 4.5rem;
+}
+
+/* À l'arrivée sur un écran, le bloc de réponses n'avance plus : il apparaît en fondu, à sa place */
+.screen--enter .question.enter-item {
+  animation-name: screen-fade;
+}
+
+@keyframes screen-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.screen--enter .question__options > .option {
+  animation-name: option-fade;
+}
+
+@keyframes option-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen--enter .question.enter-item,
+  .screen--enter .question__options > .option {
+    animation: none;
+  }
+}

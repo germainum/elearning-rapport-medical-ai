@@ -1011,12 +1011,17 @@ function animateSheetDescent(article, previousItem, previousTitle) {
   list.prepend(previousItem);
 
   const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
-  const shift = previousItem.getBoundingClientRect().height + gap; // distance dont le papier remonte
+  const ghostHeight = previousItem.getBoundingClientRect().height;
+  const shift = ghostHeight + gap; // distance dont le papier remonte
   const fullHeight = window_.getBoundingClientRect().height;
+  // La fenêtre montre d'abord la question précédente (comme l'écran d'avant), puis la nouvelle : sa hauteur ne varie que de
+  // la différence entre les deux, donc la zone des réponses, juste dessous, reste en place.
+  const startHeight = fullHeight - shift - current.getBoundingClientRect().height + ghostHeight;
+  const endHeight = fullHeight - shift;
   const timing = { duration: 1150, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'both' };
 
   const paper = list.animate([{ transform: 'translateY(0)' }, { transform: `translateY(-${shift}px)` }], timing);
-  const frame = window_.animate([{ height: `${fullHeight}px` }, { height: `${fullHeight - shift}px` }], timing);
+  const frame = window_.animate([{ height: `${startHeight}px` }, { height: `${endHeight}px` }], timing);
   // la feuille « tire » légèrement au démarrage, comme un papier qu'on saisit
   sheet.animate(
     [{ transform: 'translateY(0)' }, { transform: 'translateY(3px)', offset: 0.18 }, { transform: 'translateY(0)' }],
