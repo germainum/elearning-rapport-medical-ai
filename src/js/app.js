@@ -285,13 +285,14 @@ async function start() {
     // Question précédente de la feuille (avec la réponse écrite), gardée pour la faire « défiler » vers le haut
     const sheetBefore = els.screen.querySelector('.form-sheet');
     const previousItem = target === previous + 1 ? sheetBefore?.querySelector('.form-sheet__item')?.cloneNode(true) : null;
+    const previousSheet = target === previous + 1 ? sheetBefore?.cloneNode(true) : null;
     const previousTitle = sheetBefore?.querySelector('.form-sheet__title')?.textContent;
     const article = render(screen, ctx);
     els.screen.replaceChildren(article);
     const banner = reviewBanner();
     if (banner) els.screen.prepend(banner);
     animateScreenIn(article, target >= previous ? 'forward' : 'backward');
-    if (previousItem) animateSheetDescent(article, previousItem, previousTitle);
+    if (previousItem && !animateSheetDescent(article, previousItem, previousTitle) && previousSheet) animateSheetTurn(article, previousSheet);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
     updateChrome();
@@ -991,11 +992,11 @@ function animateScreenIn(article, direction) {
  * la feuille se resserre pendant que son contenu monte. Seulement d'une question à la suivante d'une même section.
  */
 function animateSheetDescent(article, previousItem, previousTitle) {
-  if (REDUCED_MOTION.matches) return;
+  if (REDUCED_MOTION.matches) return true; // rien à animer, et pas de page tournée non plus
   const sheet = article.querySelector('.form-sheet');
   const list = sheet?.querySelector('.form-sheet__items');
   const current = list?.querySelector('.form-sheet__item');
-  if (!sheet || !current || sheet.querySelector('.form-sheet__title')?.textContent !== previousTitle) return;
+  if (!sheet || !current || sheet.querySelector('.form-sheet__title')?.textContent !== previousTitle) return false;
 
   (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la feuille reste en place : c'est le papier qui défile
 
@@ -1035,6 +1036,54 @@ function animateSheetDescent(article, previousItem, previousTitle) {
     window_.replaceWith(list); // la mise en page redevient celle de la feuille ordinaire
   };
   Promise.all([paper.finished, frame.finished]).then(settle, settle);
+  return true;
+}
+
+/**
+ * Changement de section de la feuille : on tourne la page. L'ancienne feuille, posée par-dessus la nouvelle, pivote autour de
+ * son bord gauche (comme la page d'un bloc ou d'un livre), s'assombrit en s'éloignant et disparaît quand elle est de chant ;
+ * la nouvelle page est déjà là, dessous. Jusqu'à 90°, la page reste dans le cadre de la feuille : rien ne déborde.
+ */
+function animateSheetTurn(article, oldSheet) {
+  if (REDUCED_MOTION.matches) return;
+  const sheet = article.querySelector('.form-sheet');
+  const holder = sheet?.parentElement;
+  if (!sheet || !holder) return;
+
+  (sheet.closest('.enter-item') ?? sheet).classList.remove('enter-item'); // la nouvelle page ne bouge pas : c'est l'ancienne qui tourne
+
+  oldSheet.setAttribute('aria-hidden', 'true');
+  oldSheet.setAttribute('inert', '');
+  holder.style.position = 'relative'; // avant de mesurer : offsetTop / offsetLeft sont alors relatifs à ce conteneur
+  Object.assign(oldSheet.style, {
+    position: 'absolute',
+    top: `${sheet.offsetTop}px`,
+    left: `${sheet.offsetLeft}px`,
+    width: `${sheet.offsetWidth}px`,
+    margin: '0',
+    zIndex: '5',
+    pointerEvents: 'none',
+    transformOrigin: 'left center',
+    backfaceVisibility: 'hidden',
+    willChange: 'transform',
+  });
+  holder.style.perspective = '2800px';
+  holder.append(oldSheet);
+
+  const turn = oldSheet.animate(
+    [
+      { transform: 'rotateY(0deg)', filter: 'brightness(1)', boxShadow: '0 1px 2px rgb(18 20 26 / 0.1), 0 22px 32px -14px rgb(18 20 26 / 0.3)' },
+      { transform: 'rotateY(-52deg) skewY(-1.2deg)', filter: 'brightness(0.88)', boxShadow: '12px 14px 30px rgb(18 20 26 / 0.35)', offset: 0.55 },
+      { transform: 'rotateY(-100deg) skewY(0deg)', filter: 'brightness(0.62)', boxShadow: '24px 18px 40px rgb(18 20 26 / 0.4)' },
+    ],
+    { duration: 1200, delay: 250, easing: 'cubic-bezier(0.5, 0, 0.25, 1)', fill: 'both' },
+  );
+  const cleanup = () => {
+    oldSheet.remove();
+    holder.style.position = '';
+    holder.style.perspective = '';
+  };
+  turn.finished.then(cleanup, cleanup);
 }
 
 /** Compte de 0 à n % en douceur (instantané si l'utilisateur a demandé moins de mouvement). */
