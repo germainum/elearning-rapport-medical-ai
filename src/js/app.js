@@ -659,6 +659,7 @@ async function start() {
       group.done = group.indexes.filter((i) => tracker.isScreenDone(i)).length;
       group.complete = group.done === group.indexes.length;
       group.optional = group.indexes.every((i) => screens[i].optional === true);
+      group.locked = !group.open && !tracker.canAccess(group.indexes[0]);
       group.part = screens[group.indexes[0]].part ?? null;
       // « Section 2 · Situation médicale » : surtitre « SECTION 2 » puis nom ; les autres titres s'affichent seuls
       const [overline, ...rest] = plainText(group.section ?? 'Autres écrans').split(' · ');
@@ -727,7 +728,7 @@ async function start() {
   }
 
   function groupItem(group, listId) {
-    const { g, open, done, complete, optional } = group;
+    const { g, open, done, complete, optional, locked } = group;
     const subId = `${listId}-groupe-${g}`;
 
     const toggle = document.createElement('button');
@@ -743,7 +744,7 @@ async function start() {
         ${group.overline && !group.sharedOverline ? `<span class="toc__section-over">${escapeHtml(group.overline)}</span>` : ''}
         <span class="toc__section-title">${escapeHtml(group.label)}</span>
       </span>
-      <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${complete ? '' : `${done}/${total}`}</span><span class="visually-hidden">${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
+      <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${locked ? icon('lock', 14) : complete || done === 0 ? '' : `${done}/${total}`}</span><span class="visually-hidden">${locked ? 'à venir, ' : ''}${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
       <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
     toggle.addEventListener('click', () => {
       openSection = open ? null : group.section;
@@ -758,7 +759,7 @@ async function start() {
     for (const i of group.indexes) sub.append(stepItem(screens[i], i));
 
     const li = document.createElement('li');
-    li.className = `toc__group${optional ? ' toc__group--optional' : ''}`;
+    li.className = `toc__group${optional ? ' toc__group--optional' : ''}${locked ? ' toc__group--locked' : ''}`;
     li.append(toggle, sub);
     return li;
   }
@@ -864,6 +865,7 @@ const ICONS = {
   steps: '<path d="M4 6h16M4 12h16M4 18h10" />',
   question: '<circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01" />',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5" />',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" />',
   phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />',
   mail: '<path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" /><path d="M22 6l-10 7L2 6" />',
 };

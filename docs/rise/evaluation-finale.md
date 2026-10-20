@@ -260,7 +260,7 @@ Mme R. suit encore de la physiothérapie. Existe-t-il une contre-indication méd
 
 ## Question 11 sur 12
 
-**Question** : M. C., 46 ans, menuisier et chef d'équipe (7 personnes), arthrose du poignet droit et épicondylite chronique à droite, état dépressif réactionnel, divorce difficile depuis 8 mois.
+**Question** : Mme R., 47 ans, aide-soignante en EMS à 80 %, opérée d'une hernie discale L5-S1 le 10.02.2026, en arrêt de travail à 100 % depuis le 12.01.2026.
 
 Extrait du formulaire — **3.4 Existe-t-il des limitations fonctionnelles ? Quels effets ont-elles sur l'activité que le patient a exercée jusqu'ici ?**
 
@@ -287,7 +287,7 @@ Quelle limitation retenez-vous pour M. C. ?
 
 ## Question 12 sur 12
 
-**Question** : M. C., 46 ans, menuisier et chef d'équipe (7 personnes), arthrose du poignet droit et épicondylite chronique à droite, état dépressif réactionnel, divorce difficile depuis 8 mois.
+**Question** : Mme R., 47 ans, aide-soignante en EMS à 80 %, opérée d'une hernie discale L5-S1 le 10.02.2026, en arrêt de travail à 100 % depuis le 12.01.2026.
 
 Extrait du formulaire — **2.1 Antécédents médicaux et évolution de la situation du patient/de la patiente**
 

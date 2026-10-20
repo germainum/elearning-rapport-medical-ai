@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.41.1",
+  "version": "0.42.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -2070,7 +2070,8 @@
     {
       "id": "mc-limitations",
       "type": "scene",
-      "section": "Second cas · M. C.",
+      "section": "Le cas de M. C.",
+      "part": "S'entraîner",
       "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas · question 3.4",
@@ -2148,7 +2149,8 @@
     {
       "id": "mc-contexte",
       "type": "scene",
-      "section": "Second cas · M. C.",
+      "section": "Le cas de M. C.",
+      "part": "S'entraîner",
       "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas · question 2.1",
@@ -2207,7 +2209,8 @@
     {
       "id": "envoi",
       "type": "scene",
-      "section": "En pratique · Au cabinet",
+      "section": "Au cabinet",
+      "part": "S'entraîner",
       "storyTitle": "Informations pratiques",
       "hidePatientFile": true,
       "kicker": "En pratique",
@@ -2256,7 +2259,8 @@
     {
       "id": "secret",
       "type": "scene",
-      "section": "En pratique · Au cabinet",
+      "section": "Au cabinet",
+      "part": "S'entraîner",
       "storyTitle": "Informations pratiques",
       "hidePatientFile": true,
       "kicker": "En pratique",
@@ -2294,7 +2298,8 @@
     {
       "id": "detection",
       "type": "scene",
-      "section": "En pratique · Au cabinet",
+      "section": "Au cabinet",
+      "part": "S'entraîner",
       "storyTitle": "Informations pratiques",
       "hidePatientFile": true,
       "kicker": "En pratique",
@@ -2348,7 +2353,8 @@
         "passed": "Votre rapport permet à l'office AI d'orienter Mme R. sans vous relancer.",
         "failed": "Certaines réponses entraîneraient une demande de complément. Reprenez les questions pour atteindre le seuil de réussite."
       },
-      "section": "Conclusion · Votre résultat",
+      "section": "Votre résultat",
+      "part": "Pour finir",
       "continueLabel": "Un dernier mot",
       "storyTitle": "Conclusion",
       "hidePatientFile": true,
@@ -2358,7 +2364,8 @@
     {
       "id": "avis",
       "type": "survey",
-      "section": "Facultatif · Votre avis",
+      "section": "Votre avis (facultatif)",
+      "part": "Pour finir",
       "optional": true,
       "hidePatientFile": true,
       "hideReport": true,
@@ -2503,7 +2510,8 @@
     {
       "id": "merci",
       "type": "text",
-      "section": "Facultatif · Votre avis",
+      "section": "Votre avis (facultatif)",
+      "part": "Pour finir",
       "optional": true,
       "hidePatientFile": true,
       "kicker": "Merci",
