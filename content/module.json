@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.41.0",
+  "version": "0.41.1",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -1800,7 +1800,7 @@
     {
       "id": "5",
       "type": "scene",
-      "section": "Section 5 · Pièces jointes et annexes",
+      "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Section 5 du formulaire",
       "title": "Divers",
@@ -1850,7 +1850,7 @@
     {
       "id": "annexes",
       "type": "scene",
-      "section": "Section 5 · Pièces jointes et annexes",
+      "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Pièces jointes",
       "title": "Les documents à joindre",
@@ -1904,7 +1904,7 @@
     {
       "id": "exigibles",
       "type": "scene",
-      "section": "Section 5 · Pièces jointes et annexes",
+      "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 5)",
       "title": "Les travaux exigibles",
@@ -1966,7 +1966,7 @@
     {
       "id": "reinsertion",
       "type": "scene",
-      "section": "Section 5 · Pièces jointes et annexes",
+      "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 1",
       "title": "La mesure de réinsertion",
@@ -2022,7 +2022,7 @@
     {
       "id": "amelioration",
       "type": "scene",
-      "section": "Section 5 · Pièces jointes et annexes",
+      "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 2",
       "title": "Le pronostic d'amélioration",
@@ -2358,7 +2358,7 @@
     {
       "id": "avis",
       "type": "survey",
-      "section": "Facultatif · Avis et remerciements",
+      "section": "Facultatif · Votre avis",
       "optional": true,
       "hidePatientFile": true,
       "hideReport": true,
@@ -2503,7 +2503,7 @@
     {
       "id": "merci",
       "type": "text",
-      "section": "Facultatif · Avis et remerciements",
+      "section": "Facultatif · Votre avis",
       "optional": true,
       "hidePatientFile": true,
       "kicker": "Merci",

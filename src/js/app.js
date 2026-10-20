@@ -660,6 +660,14 @@ async function start() {
       group.complete = group.done === group.indexes.length;
       group.optional = group.indexes.every((i) => screens[i].optional === true);
       group.part = screens[group.indexes[0]].part ?? null;
+      // « Section 2 · Situation médicale » : surtitre « SECTION 2 » puis nom ; les autres titres s'affichent seuls
+      const [overline, ...rest] = plainText(group.section ?? 'Autres écrans').split(' · ');
+      group.overline = rest.length ? overline : null;
+      group.label = rest.length ? rest.join(' · ') : overline;
+    });
+    // Un même surtitre sur des rubriques voisines (« Démarrage ») s'affiche une fois, en intertitre
+    groups.forEach((group, g) => {
+      group.sharedOverline = Boolean(group.overline) && (groups[g - 1]?.overline === group.overline || groups[g + 1]?.overline === group.overline);
     });
 
     let doneRun = 0;
@@ -677,7 +685,7 @@ async function start() {
       toggle.innerHTML = `
         <span class="toc__ring toc__ring--done" aria-hidden="true">${icon('check', 14)}</span>
         <span class="toc__section-title">${folded ? `${doneRun} parties terminées` : 'Masquer les parties terminées'}</span>
-        <span class="toc__count toc__count--done"><span aria-hidden="true">${screensDone}</span><span class="visually-hidden">${screensDone} écrans terminés</span></span>
+        <span class="toc__count toc__count--done"><span class="visually-hidden">${screensDone} écrans terminés</span></span>
         <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
       toggle.addEventListener('click', () => {
         doneExpanded = folded;
@@ -691,6 +699,7 @@ async function start() {
     }
 
     let previousPart = null;
+    let previousOverline = null;
     for (const group of folded ? groups.slice(doneRun) : groups) {
       // Intertitre quand on entre dans un ensemble de rubriques ; simple filet quand on en sort
       if (group.part !== previousPart) {
@@ -705,6 +714,13 @@ async function start() {
         if (group.part || previousPart) items.push(separator);
       }
       previousPart = group.part;
+      if (group.sharedOverline && group.overline !== previousOverline) {
+        const heading = document.createElement('li');
+        heading.className = 'toc__heading';
+        heading.textContent = group.overline;
+        items.push(heading);
+      }
+      previousOverline = group.sharedOverline ? group.overline : null;
       items.push(groupItem(group, listId));
     }
     return items;
@@ -720,17 +736,14 @@ async function start() {
     toggle.dataset.group = String(g);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-controls', subId);
-    // « Section 2 · Situation médicale » : surtitre « SECTION 2 » puis nom ; les autres titres s'affichent seuls
-    const [overline, ...rest] = plainText(group.section ?? 'Autres écrans').split(' · ');
-    const label = rest.length ? rest.join(' · ') : overline;
     const total = group.indexes.length;
     toggle.innerHTML = `
       <span class="toc__ring${complete ? ' toc__ring--done' : ''}" style="--pct:${Math.round((done / total) * 100)}" aria-hidden="true">${complete ? icon('check', 14) : ''}</span>
       <span class="toc__section-text">
-        ${rest.length ? `<span class="toc__section-over">${escapeHtml(overline)}</span>` : ''}
-        <span class="toc__section-title">${escapeHtml(label)}</span>
+        ${group.overline && !group.sharedOverline ? `<span class="toc__section-over">${escapeHtml(group.overline)}</span>` : ''}
+        <span class="toc__section-title">${escapeHtml(group.label)}</span>
       </span>
-      <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${done}/${total}</span><span class="visually-hidden">${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
+      <span class="toc__count${complete ? ' toc__count--done' : ''}"><span aria-hidden="true">${complete ? '' : `${done}/${total}`}</span><span class="visually-hidden">${done} écran${done > 1 ? 's' : ''} terminé${done > 1 ? 's' : ''} sur ${total}</span></span>
       <svg class="toc__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
     toggle.addEventListener('click', () => {
       openSection = open ? null : group.section;
