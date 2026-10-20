@@ -320,7 +320,7 @@ Pour passer à l'écran suivant, utilisez `continueLabel`.
 - Marquez les bonnes réponses avec `"correct": true`.
 - Une question à choix multiple ne rapporte ses points que si **toutes** les bonnes réponses
   et **aucune** mauvaise sont cochées.
-- Le `feedback` d'une option s'affiche si l'apprenant l'a choisie.
+- Le `feedback` d'une option s'affiche si l'apprenant l'a choisie : **écrivez-le en une phrase**, c'est ce qui apparaît d'abord.
 - `points` : facultatif, 1 par défaut.
 - L'`id` d'une question doit être unique dans tout le module.
 
@@ -337,7 +337,10 @@ Pour passer à l'écran suivant, utilisez `continueLabel`.
 }
 ```
 
-L'apprenant voit d'abord « ✗ Réponse incorrecte », puis le titre en grand, puis le texte.
+**Le retour s'affiche en deux niveaux.** Visible tout de suite : le verdict et une phrase (bonne réponse : le texte de `correct` ;
+mauvaise réponse : le `feedback` de l'option choisie, à défaut le `title` de `incorrect`). Replié sous « Voir l'explication » :
+la conséquence (`title` et `body` de `incorrect`) et pourquoi la bonne réponse est la bonne (`correct`). Après une seconde erreur à la
+reprise, l'explication de la bonne réponse reste visible. Gardez donc un `correct` court : c'est la phrase que l'on lit.
 
 ### Écran « synthèse » (`summary`)
 

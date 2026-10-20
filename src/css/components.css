@@ -2540,6 +2540,28 @@ button.toc__item:hover {
   color: var(--color-muted);
 }
 
+/* Retour en deux niveaux : une phrase visible, le détail replié */
+.feedback__note {
+  margin: 0;
+}
+
+.feedback__more {
+  margin-top: var(--space-2);
+}
+
+.feedback__more summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  color: var(--color-link);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feedback__more[open] > summary {
+  margin-bottom: var(--space-1);
+}
+
 /* Seconde erreur : explication de la bonne réponse */
 .feedback__why {
   margin-top: var(--space-3);

@@ -130,37 +130,53 @@ function lock(form, question, ids, result, retake = 0) {
   }
 
   const status = result.correct ? 'Bonne réponse' : result.partial ? 'Réponse partiellement correcte' : 'Réponse incorrecte';
-  const { title, body } = normalizeFeedback(result.correct ? question.feedback?.correct : question.feedback?.incorrect);
+  const correctFb = normalizeFeedback(question.feedback?.correct);
+  const wrongFb = normalizeFeedback(question.feedback?.incorrect);
   const notes = question.options.filter((option) => ids.includes(option.id) && option.feedback);
 
-  // Seconde erreur (reprise) : on explique pourquoi la bonne réponse est la bonne, sans laisser l'apprenant bloqué
+  const titleHtml = (value) => (value ? `<p class="feedback__title">${inline(value)}</p>` : '');
+  const proseHtml = (value) => (value ? `<div class="prose">${rich(value)}</div>` : '');
+  const explainHtml = (fb) => `${titleHtml(fb.title)}${proseHtml(fb.body)}`;
+  const hasExplanation = Boolean(correctFb.title || correctFb.body);
+
+  // Niveau 1, toujours visible : le verdict et une phrase.
+  //  - bonne réponse : l'explication ;
+  //  - mauvaise réponse : pourquoi ce choix ne convient pas (remarque sur l'option choisie), à défaut l'accroche de la conséquence.
+  // Niveau 2, replié sous « Voir l'explication » : la conséquence concrète (« Quelques semaines plus tard… »)
+  // et pourquoi la bonne réponse est la bonne.
+  let main;
+  let more = '';
   let why = '';
-  if (!result.correct && retake >= 1) {
-    const explanation = normalizeFeedback(question.feedback?.correct);
-    if (explanation.title || explanation.body) {
-      why = `<div class="feedback__why">
-        <p class="feedback__why-title">Pourquoi c'est la bonne réponse</p>
-        ${explanation.title ? `<p class="feedback__title">${inline(explanation.title)}</p>` : ''}
-        ${explanation.body ? `<div class="prose">${rich(explanation.body)}</div>` : ''}
-      </div>`;
-    }
+  if (result.correct) {
+    main = explainHtml(correctFb);
+  } else {
+    const noteHtml =
+      notes.length === 1
+        ? `<p class="feedback__note">${inline(notes[0].feedback)}</p>`
+        : notes.length
+          ? `<ul class="feedback__notes">${notes
+              .map((option) => `<li><span class="feedback__option">${inline(option.text)}</span> ${inline(option.feedback)}</li>`)
+              .join('')}</ul>`
+          : '';
+    main = noteHtml || titleHtml(wrongFb.title);
+
+    // Seconde erreur (reprise) : l'explication de la bonne réponse reste visible, pour ne pas laisser l'apprenant bloqué
+    const explanation = hasExplanation
+      ? `<div class="feedback__why"><p class="feedback__why-title">Pourquoi c'est la bonne réponse</p>${explainHtml(correctFb)}</div>`
+      : '';
+    if (retake >= 1) why = explanation;
+
+    const detail = [noteHtml ? titleHtml(wrongFb.title) : '', proseHtml(wrongFb.body), retake >= 1 ? '' : explanation].join('').trim();
+    if (detail) more = `<details class="feedback__more"><summary>Voir l'explication</summary>${detail}</details>`;
   }
 
-  // Feedback par conséquence : le titre raconte ce qui se passe ensuite (« Quelques semaines plus tard… »).
   const feedback = form.querySelector('.feedback');
   feedback.classList.add(result.correct ? 'feedback--correct' : 'feedback--incorrect');
   feedback.innerHTML = `
     <p class="feedback__status"><span aria-hidden="true">${result.correct ? '✓' : '✗'}</span> ${status}</p>
-    ${title ? `<p class="feedback__title">${inline(title)}</p>` : ''}
-    ${body ? `<div class="prose">${rich(body)}</div>` : ''}
-    ${
-      notes.length
-        ? `<ul class="feedback__notes">${notes
-            .map((option) => `<li><span class="feedback__option">${inline(option.text)}</span> ${inline(option.feedback)}</li>`)
-            .join('')}</ul>`
-        : ''
-    }
-    ${why}`;
+    ${main}
+    ${why}
+    ${more}`;
   feedback.hidden = false;
 }
 
