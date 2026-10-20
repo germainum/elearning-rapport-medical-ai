@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.55.0",
+  "version": "0.56.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -618,6 +618,7 @@
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.1 du formulaire",
+      "hideKicker": true,
       "title": "Le traitement dispensé",
       "blocks": [
         { "type": "text", "body": ["Vous ouvrez le formulaire à côté du dossier de Mme R. La première question porte sur votre suivi."] },
@@ -680,6 +681,7 @@
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.2 du formulaire",
+      "hideKicker": true,
       "title": "La fréquence des consultations",
       "blocks": [
         { "type": "text", "body": ["Vous feuilletez vos consultations avec Mme R. pour répondre juste."] },
@@ -726,6 +728,7 @@
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.3 du formulaire",
+      "hideKicker": true,
       "title": "L'incapacité de travail attestée",
       "blocks": [
         { "type": "text", "body": ["Reste l'arrêt de travail que vous avez établi en janvier."] },
@@ -788,6 +791,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.1 du formulaire",
+      "hideKicker": true,
       "title": "Antécédents et évolution",
       "blocks": [
         {
@@ -849,6 +853,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.2 du formulaire",
+      "hideKicker": true,
       "title": "Situation et symptômes actuels",
       "blocks": [
         { "type": "text", "body": ["Vous repensez à la dernière consultation : ce que Mme R. vous a dit de ses douleurs."] },
@@ -899,6 +904,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.3 du formulaire",
+      "hideKicker": true,
       "title": "La médication actuelle",
       "blocks": [
         { "type": "text", "body": ["Vous vérifiez ce que Mme R. prend réellement contre la douleur."] },
@@ -949,6 +955,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.4 du formulaire",
+      "hideKicker": true,
       "title": "Les constats médicaux",
       "blocks": [
         { "type": "text", "body": ["Vous reprenez vos notes de l'examen clinique du 5 octobre."] },
@@ -1002,6 +1009,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.5 du formulaire",
+      "hideKicker": true,
       "title": "Diagnostics avec incidence",
       "blocks": [
         { "type": "text", "body": ["Dans tout ce parcours, vous cherchez ce qui empêche vraiment Mme R. de travailler."] },
@@ -1059,6 +1067,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.6 du formulaire",
+      "hideKicker": true,
       "title": "Diagnostics sans incidence",
       "blocks": [
         { "type": "text", "body": ["Vous relisez la liste de ses autres problèmes de santé, un par un."] },
@@ -1113,6 +1122,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.7 du formulaire",
+      "hideKicker": true,
       "title": "Le pronostic",
       "blocks": [
         { "type": "text", "body": ["L'office AI voudra savoir où en sera Mme R. dans quelques mois."] },
@@ -1166,6 +1176,7 @@
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.8 du formulaire",
+      "hideKicker": true,
       "title": "Le plan de traitement",
       "blocks": [
         { "type": "text", "body": ["Et maintenant ? Vous réfléchissez à la suite de sa prise en charge."] },
@@ -1219,6 +1230,7 @@
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.1 du formulaire",
+      "hideKicker": true,
       "title": "L'activité actuelle",
       "blocks": [
         { "type": "text", "body": ["Vous passez à sa vie professionnelle : à quoi ressemblent aujourd'hui ses journées ?"] },
@@ -1273,6 +1285,7 @@
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.2 du formulaire",
+      "hideKicker": true,
       "title": "La situation professionnelle",
       "blocks": [
         { "type": "text", "body": ["Vous vous rappelez ce que Mme R. vous a dit de son employeur."] },
@@ -1327,6 +1340,7 @@
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.3 du formulaire",
+      "hideKicker": true,
       "title": "Les exigences du poste",
       "blocks": [
         {
@@ -1390,6 +1404,7 @@
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.4 du formulaire",
+      "hideKicker": true,
       "title": "Les limitations fonctionnelles",
       "blocks": [
         {
@@ -1465,6 +1480,7 @@
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.5 du formulaire",
+      "hideKicker": true,
       "title": "Les ressources",
       "blocks": [
         { "type": "text", "body": ["Mme R. a aussi des atouts : vous cherchez ce qui pourrait l'aider à rebondir."] },
@@ -1522,6 +1538,7 @@
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.6 du formulaire",
+      "hideKicker": true,
       "title": "La capacité de conduire",
       "blocks": [
         { "type": "text", "body": ["Elle se rend d'habitude au travail en voiture : peut-elle encore conduire ?"] },
@@ -1576,6 +1593,7 @@
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.1 du formulaire",
+      "hideKicker": true,
       "title": "Heures par jour : l'activité habituelle",
       "blocks": [
         { "type": "text", "body": ["Vous entrez dans la section clé : combien de temps Mme R. peut-elle travailler, chaque jour, dans son métier ?"] },
@@ -1626,6 +1644,7 @@
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.2 du formulaire",
+      "hideKicker": true,
       "title": "Heures par jour : une activité adaptée",
       "blocks": [
         { "type": "text", "body": ["Et si on lui proposait un poste adapté à ses limitations ?"] },
@@ -1679,6 +1698,7 @@
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.3 du formulaire",
+      "hideKicker": true,
       "title": "Le potentiel de réadaptation",
       "blocks": [
         { "type": "text", "body": ["Vous pensez à l'avenir : jusqu'où Mme R. pourra-t-elle reprendre ?"] },
@@ -1732,6 +1752,7 @@
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.4 du formulaire",
+      "hideKicker": true,
       "title": "Les obstacles à la réadaptation",
       "blocks": [
         { "type": "text", "body": ["Quelque chose pourrait-il freiner son retour au travail ?"] },
@@ -1782,6 +1803,7 @@
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.5 du formulaire",
+      "hideKicker": true,
       "title": "Les tâches ménagères",
       "blocks": [
         {
@@ -1844,6 +1866,7 @@
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Section 5 du formulaire",
+      "hideKicker": true,
       "title": "Divers",
       "blocks": [
         { "type": "text", "body": ["Vous arrivez à la section « Divers », un espace laissé à votre jugement."] },
@@ -1895,6 +1918,7 @@
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Pièces jointes",
+      "hideKicker": true,
       "title": "Les documents à joindre",
       "blocks": [
         { "type": "text", "body": ["Votre rapport est presque terminé : que faut-il y joindre ?"] },
@@ -1951,6 +1975,7 @@
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 5)",
+      "hideKicker": true,
       "title": "Les travaux exigibles",
       "blocks": [
         {
@@ -2013,6 +2038,7 @@
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 1",
+      "hideKicker": true,
       "title": "La mesure de réinsertion",
       "blocks": [
         { "type": "text", "body": ["L'office AI se demande si Mme R. pourrait déjà suivre une mesure de réinsertion."] },
@@ -2070,6 +2096,7 @@
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 2",
+      "hideKicker": true,
       "title": "Le pronostic d'amélioration",
       "blocks": [
         { "type": "text", "body": ["Il reste à dire jusqu'où, et en combien de temps, Mme R. peut encore progresser."] },
@@ -2122,6 +2149,7 @@
       "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas · question 3.4",
+      "hideKicker": true,
       "title": "Les limitations de M. C.",
       "blocks": [
         { "type": "text", "body": ["L'office AI vous demande maintenant un rapport pour M. C., 46 ans."] },
@@ -2202,6 +2230,7 @@
       "storyTitle": "Second cas : M. C.",
       "hidePatientFile": true,
       "kicker": "Second cas · question 2.1",
+      "hideKicker": true,
       "title": "Le contexte psychosocial",
       "blocks": [
         {

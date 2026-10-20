@@ -133,6 +133,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
 | `title`         | titre de l'écran                                                     |
 | `section`       | groupe du sommaire, sous la forme « Surtitre · Nom » (ex. « Section 2 · Situation médicale ») |
 | `part`          | intertitre au-dessus d'un ensemble de sections voisines dans le sommaire (ex. « Le formulaire 002.099 ») |
+| `hideKicker`    | `true` : masque le surtitre à l'écran (il reste lu par les lecteurs d'écran) ; utile quand l'extrait du formulaire porte déjà le numéro de la question |
 | `optional`      | `true` : écran facultatif, sa rubrique est affichée en retrait dans le sommaire |
 | `storyTitle`    | remplace le fil rouge du fil d'Ariane pour cet écran (ex. « Second cas : M. C. ») |
 | `section`       | titre de groupe dans le sommaire (ex. « Section 2 · Situation médicale ») : affiché quand il change d'un écran à l'autre |

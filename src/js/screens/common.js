@@ -9,7 +9,8 @@ import { renderQuestion } from './question.js';
  */
 export function createScreen(screen, modifier, innerHtml) {
   const titleId = `screen-${screen.id}-title`;
-  const kicker = screen.kicker ? `<p class="screen__kicker">${inline(screen.kicker)}</p>` : '';
+  // « hideKicker » : le surtitre reste lu par les lecteurs d'écran mais n'est plus affiché (ex. quand l'extrait du formulaire porte déjà le numéro)
+  const kicker = screen.kicker ? `<p class="screen__kicker${screen.hideKicker ? ' visually-hidden' : ''}">${inline(screen.kicker)}</p>` : '';
   const element = document.createElement('article');
   element.className = `screen screen--${modifier}`;
   element.setAttribute('aria-labelledby', titleId);
