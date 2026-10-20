@@ -66,8 +66,8 @@ const ALLOWED_KEYS = {
   revealBlock: ['type', 'label'],
   dataItem: ['label', 'value'],
   image: ['src', 'alt', 'caption', 'position', 'decorative'],
-  question: ['id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer'],
-  questionBlock: ['type', 'id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer'],
+  question: ['id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer', 'hidePrompt'],
+  questionBlock: ['type', 'id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer', 'hidePrompt'],
   option: ['id', 'text', 'correct', 'feedback'],
   feedback: ['correct', 'incorrect'],
   feedbackObject: ['title', 'body'],
@@ -174,6 +174,9 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
   function checkQuestion(question, where, questionIds, allowedKeys = ALLOWED_KEYS.question) {
     if (!isObject(question)) return error(where, 'chaque question doit être un objet.');
     checkKeys(question, allowedKeys, where);
+    if (question.hidePrompt !== undefined && typeof question.hidePrompt !== 'boolean') {
+      error(where, '« hidePrompt » doit valoir true ou false.');
+    }
     if (question.reportAnswer !== undefined && !isRichText(question.reportAnswer)) {
       error(where, '« reportAnswer » (réponse affichée dans « Mon rapport ») doit être un texte ou une liste de lignes.');
     }

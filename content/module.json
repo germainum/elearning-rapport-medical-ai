@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.54.0",
+  "version": "0.55.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -642,6 +642,7 @@
           "id": "q1-1",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -694,6 +695,7 @@
           "id": "q1-2",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -748,6 +750,7 @@
           "id": "q1-3",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -811,6 +814,7 @@
           "id": "q2-1",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -860,6 +864,7 @@
           "id": "q2-2",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -909,6 +914,7 @@
           "id": "q2-3",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -961,6 +967,7 @@
           "id": "q2-4",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1017,6 +1024,7 @@
           "id": "q2-5",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1070,6 +1078,7 @@
           "id": "q2-6",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1122,6 +1131,7 @@
           "id": "q2-7",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1174,6 +1184,7 @@
           "id": "q2-8",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1227,6 +1238,7 @@
           "id": "q3-1",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1280,6 +1292,7 @@
           "id": "q3-2",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1342,6 +1355,7 @@
           "id": "q3-3",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1408,6 +1422,7 @@
           "id": "q3-4",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1472,6 +1487,7 @@
           "id": "q3-5",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1525,6 +1541,7 @@
           "id": "q3-6",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1578,6 +1595,7 @@
           "id": "q4-1",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1626,6 +1644,7 @@
           "id": "q4-2",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1678,6 +1697,7 @@
           "id": "q4-3",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1727,6 +1747,7 @@
           "id": "q4-4",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1788,6 +1809,7 @@
           "id": "q4-5",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -1890,6 +1912,7 @@
           "id": "qannexes",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -2066,6 +2089,7 @@
           "id": "qamelioration",
           "kind": "single",
           "prompt": "Que reportez-vous pour Mme R. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",
@@ -2138,6 +2162,7 @@
           "id": "qmc-limitations",
           "kind": "single",
           "prompt": "Que reportez-vous pour M. C. ?",
+          "hidePrompt": true,
           "options": [
             {
               "id": "a",

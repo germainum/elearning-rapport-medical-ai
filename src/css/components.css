@@ -2667,6 +2667,13 @@ html {
   padding: 0;
 }
 
+/* Énoncé masqué (hidePrompt) : reste lu par les lecteurs d'écran, sans occuper de place ni élargir la page */
+.question__legend.visually-hidden {
+  display: block;
+  width: 1px;
+  margin: -1px;
+}
+
 .question__number {
   font-size: 0.8125rem;
   font-weight: 700;
