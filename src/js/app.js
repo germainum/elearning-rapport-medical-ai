@@ -340,10 +340,10 @@ async function start() {
     for (const element of document.querySelectorAll('[data-overall]')) {
       element.querySelector('.overall__bar span').style.width = `${percent}%`;
       element.querySelector('.overall__bar').setAttribute('aria-valuenow', String(percent));
-      element.querySelector('[data-overall-text]').textContent = `${percent} % terminé · ${done} écran${done > 1 ? 's' : ''} sur ${total}`;
+      element.querySelector('[data-overall-text]').textContent = `${percent} % terminé`;
     }
     els.progressPill.textContent = `${index + 1} / ${total}`;
-    // Pastilles de durée / étapes / questions : utiles à l'accueil seulement
+    // Pastilles de durée / questions : utiles à l'accueil seulement
     els.sideMeta.hidden = screens[index].section !== screens[0].section;
     const timeLeft = timeLeftText(module, tracker, index);
     for (const element of document.querySelectorAll('[data-time-left]')) {
@@ -886,7 +886,6 @@ function renderSidebarIntro(module) {
   const questionCount = module.screens.reduce((n, screen) => n + questionsOf(screen).length, 0);
   const chips = [
     module.durationMinutes ? [icon('clock'), `${module.durationMinutes} min`] : null,
-    [icon('steps'), `${module.screens.length} étapes`],
     questionCount ? [icon('question'), `${questionCount} questions`] : null,
   ].filter(Boolean);
   els.sideMeta.innerHTML = chips.map(([svg, text]) => `<li class="chip">${svg}<span>${escapeHtml(text)}</span></li>`).join('');

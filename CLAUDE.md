@@ -102,7 +102,7 @@ Questionnaire de satisfaction (21.10.2026, v0.40.0) : écran `avis` (`survey`, `
 transfert), non noté, n'affecte ni score ni complétion. Réponses gardées dans `suspend_data` (`e`, `f`) et envoyées au LMS à l'envoi
 (`scorm.recordSurvey`, interactions `eval-<id>`). Détail, niveau 4 et points à confirmer : `docs/evaluation-kirkpatrick.md`.
 Sommaire (21.10.2026, v0.41.0) : les rubriques terminées du début du parcours (au moins 2) se replient en une ligne « n parties terminées » (dépliable) ;
-champ `part` = intertitre d'un ensemble de rubriques (« Le formulaire 002.099 »), filet à la sortie ; champ `optional` = rubrique en retrait (anneau en pointillés, sans vert). Un surtitre partagé par des rubriques voisines (« Démarrage ») s'affiche une fois, en intertitre ; le compteur « n/total » n'apparaît que qu'une fois la rubrique commencée et tant qu'elle n'est pas finie (coche = terminé). Rubrique à venir (aucun écran accessible) : atténuée, cadenas à la place du compteur. Barre d'avancement d'ensemble (v0.43.0, `[data-overall]`, `role="progressbar"`) sous « Votre progression » et en tête du menu : « 10 % terminé · 4 écrans sur 41 ». Quatre ensembles : Démarrage (surtitre partagé), « Le formulaire 002.099 » (sections 1 à 5), « S'entraîner » (cas de M. C., au cabinet), « Pour finir » (résultat, avis facultatif) ; surtitre vert réservé aux sections 1 à 5.
+champ `part` = intertitre d'un ensemble de rubriques (« Le formulaire 002.099 »), filet à la sortie ; champ `optional` = rubrique en retrait (anneau en pointillés, sans vert). Un surtitre partagé par des rubriques voisines (« Démarrage ») s'affiche une fois, en intertitre ; le compteur « n/total » n'apparaît que qu'une fois la rubrique commencée et tant qu'elle n'est pas finie (coche = terminé). Rubrique à venir (aucun écran accessible) : atténuée, cadenas à la place du compteur. Barre d'avancement d'ensemble (v0.43.0, `[data-overall]`, `role="progressbar"`) sous « Votre progression » et en tête du menu : « 10 % terminé ». Quatre ensembles : Démarrage (surtitre partagé), « Le formulaire 002.099 » (sections 1 à 5), « S'entraîner » (cas de M. C., au cabinet), « Pour finir » (résultat, avis facultatif) ; surtitre vert réservé aux sections 1 à 5.
 Illustrations (`content/images/`, **JPEG** 2D à contours sombres, bleu et accents verts sur fond blanc, fournies le 15.10.2026 ;
 guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/apercu-illustrations.html`) : un **médecin généraliste** suit le parcours —
 `cabinet-courrier.jpg` (courrier), `consultation.jpg` (anamnèse), `redaction-rapport.jpg` (limitations),
@@ -210,7 +210,7 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   44 px). Il déploie un panneau sous le bandeau avec les tuiles **Glossaire** et **Dossier patient** (visible dès la section 1, comme
   l'onglet) puis le **Sommaire** replié par section. Se referme par un clic en dehors, Échap ou le choix d'un écran ; le focus revient au
   burger à la fermeture d'une fenêtre. De 768 à 1023 px, le bandeau garde les boutons « Glossaire », « Dossier patient » et « Sommaire ».
-- **≥ 1024 px** : **panneau de gauche** (`.app-sidebar--toc`) : logo, titre, pastilles (durée, étapes,
+- **≥ 1024 px** : **panneau de gauche** (`.app-sidebar--toc`) : logo, titre, pastilles (durée,
   questions, calculées), **frise de progression** (coche verte = terminé, point bleu = écran actuel,
   cercle gris = verrouillé ; l'état est aussi écrit pour les lecteurs d'écran), carte d'aide (`help`).
   Au centre : fil d'Ariane (`storyTitle › kicker › title`) + pastille « n / total », contenu (46rem).
@@ -230,7 +230,7 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   version visible à la fois. **Allègement de l'interface (20.10.2026, « trop d'information »)** : le sommaire est **replié
   par section** : une rubrique par section (anneau de progression, surtitre « SECTION 2 » + nom, « 3/8 », chevron), une seule
   ouverte à la fois, celle de l'écran affiché ; `tocItems` ;
-  les pastilles durée / étapes / questions ne s'affichent qu'à l'accueil ; un seul indicateur de progression (pastille
+  les pastilles durée / questions ne s'affichent qu'à l'accueil ; un seul indicateur de progression (pastille
   « n / total ») ; l'en-tête n'affiche plus que le fil rouge (le surtitre et le titre sont dans l'écran) ; l'extrait du
   formulaire d'une scène tient sur **une ligne d'en-tête** (`formSheet(..., { compact: true })`) ; l'illustration latérale
   est plus petite ; le message « Vous reprenez le module… » est une **bulle qui disparaît seule** après 5 s (`setNotice` ;
