@@ -149,7 +149,7 @@ function bienvenue() {
   b.add('Vidéo', `Fichier vidéo : \`content/videos/${s.video.src.replace('videos/', '')}\` (${s.video.duration})\nSous-titres (.vtt) : \`content/videos/${s.video.captions.replace('videos/', '')}\` (langue : français)\nTitre : ${s.video.title}\n\n*Rise ne permet pas de démarrer la vidéo à la 8ᵉ seconde ni de la lancer automatiquement : voir le plan du cours.*`);
   b.add('Accordéon « La transcription de la vidéo »', `Un seul élément, titre « La transcription de la vidéo », contenu :\n\n${text(s.video.transcript)}`);
   b.add('Texte (paragraphes)', s.body.filter((line) => !isProvisional(line)).join('\n\n'));
-  b.add('Texte : objectifs', `${text(goals.body)}\n\n**${goals.objectives.title}**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
+  b.add('Texte : objectifs', `${text(goals.body)}\n\n**${goals.objectives.title ?? goals.title}**\n\n${OBJECTIVES.map((o) => `- ${o}`).join('\n')}`);
   b.add('Texte', text(path.body));
   b.add(`Processus (« ${path.journey.title} »)`, path.journey.steps.map((step, i) => `${i + 1}. **${step.label}** — ${step.text}`).join('\n'));
   return { title: s.title, body: b.toString() };

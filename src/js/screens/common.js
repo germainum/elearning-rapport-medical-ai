@@ -169,6 +169,7 @@ const JOURNEY_ICONS = {
 /** Objectifs pédagogiques : carte « À la fin de ce module, vous saurez : » avec une coche par objectif. */
 export function objectivesHtml(objectives, idPrefix) {
   const titleId = escapeHtml(`${idPrefix}-objectifs`);
+  const heading = objectives.title ? `<h3 class="section-title" id="${titleId}">${inline(objectives.title)}</h3>` : '';
   const items = objectives.items
     .map(
       (item) => `
@@ -181,8 +182,8 @@ export function objectivesHtml(objectives, idPrefix) {
     )
     .join('');
   return `
-    <section class="objectives" aria-labelledby="${titleId}">
-      <h3 class="section-title" id="${titleId}">${inline(objectives.title ?? 'Objectifs de la formation')}</h3>
+    <section class="objectives" ${objectives.title ? `aria-labelledby="${titleId}"` : 'aria-label="Objectifs de la formation"'}>
+      ${heading}
       <ul class="objectives__list" role="list">${items}</ul>
     </section>`;
 }

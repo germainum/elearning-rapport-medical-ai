@@ -176,8 +176,10 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
     sous-titres affichés, avec un bouton « Activer le son ». Pas de lecture automatique si
     l'utilisateur a demandé à réduire les animations (réglage du système).
 - `objectives` (facultatif) affiche les **objectifs pédagogiques** dans une carte à coches vertes, sous le texte et avant la
-  frise : `{ "title": "À la fin de ce module, vous saurez :", "items": ["décrire des **diagnostics précis**…", "…"] }`.
-  Une phrase par objectif, commençant par un verbe à l'infinitif ; le gras est autorisé.
+  frise : `{ "items": ["Décrire l'état de santé…", "Attester l'incapacité de travail…"] }`.
+  Un objectif par ligne, court, commençant par un **verbe à l'infinitif différent** (évitez de répéter les mêmes mots d'un objectif à
+  l'autre) ; le gras est autorisé. `title` est facultatif : sans lui, la carte n'a pas d'intitulé et suit le titre de l'écran, ce
+  qui évite de répéter « vous allez apprendre / à la fin vous saurez ».
 - `journey` (facultatif) affiche une **frise de parcours** sous le texte, en ligne sur grand écran et
   en colonne sur mobile :
 

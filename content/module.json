@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.33.0",
+  "version": "0.34.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -323,16 +323,14 @@
       "kicker": "Introduction",
       "title": "Ce que vous allez apprendre",
       "continueLabel": "Voir le parcours",
-      "body": [
-        "Voici ce que vous saurez faire à la fin de ce module. Comptez environ 45 minutes ; vous pouvez l'interrompre et le reprendre plus tard."
-      ],
+      "body": ["Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre plus tard."],
       "objectives": {
-        "title": "À la fin de ce module, vous saurez :",
         "items": [
-          "décrire l'état de santé par des constats objectifs, des diagnostics précis, datés et classés selon leur incidence, et des incapacités attestées avec dates et taux exacts ;",
-          "décrire le poste réel et formuler des limitations fonctionnelles mesurables, sans répéter le diagnostic ;",
-          "chiffrer deux capacités de travail distinctes, donner un pronostic avec taux et délai et apprécier l'aptitude à la réadaptation ;",
-          "séparer le médical du psychosocial, joindre les bonnes pièces et connaître les démarches : MedAI, secret médical, détection précoce."
+          "Décrire l'état de santé : constats objectifs, diagnostics précis, datés et classés selon leur incidence",
+          "Attester l'incapacité de travail avec des périodes et des taux exacts",
+          "Cerner le poste réel et formuler des limitations mesurables",
+          "Chiffrer deux capacités de travail distinctes, le pronostic et l'aptitude à la réadaptation",
+          "Séparer le médical du psychosocial et connaître les démarches : pièces jointes, MedAI, secret médical, détection précoce"
         ]
       },
       "section": "Avant de commencer"

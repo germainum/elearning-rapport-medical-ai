@@ -47,14 +47,15 @@ Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **
 
 ## Bloc 4 · Texte : objectifs
 
-Voici ce que vous saurez faire à la fin de ce module. Comptez environ 45 minutes ; vous pouvez l'interrompre et le reprendre plus tard.
+Comptez environ 45 minutes. Vous pouvez interrompre le module et le reprendre plus tard.
 
-**À la fin de ce module, vous saurez :**
+**Ce que vous allez apprendre**
 
-- décrire l'état de santé par des constats objectifs, des diagnostics précis, datés et classés selon leur incidence, et des incapacités attestées avec dates et taux exacts ;
-- décrire le poste réel et formuler des limitations fonctionnelles mesurables, sans répéter le diagnostic ;
-- chiffrer deux capacités de travail distinctes, donner un pronostic avec taux et délai et apprécier l'aptitude à la réadaptation ;
-- séparer le médical du psychosocial, joindre les bonnes pièces et connaître les démarches : MedAI, secret médical, détection précoce.
+- Décrire l'état de santé : constats objectifs, diagnostics précis, datés et classés selon leur incidence
+- Attester l'incapacité de travail avec des périodes et des taux exacts
+- Cerner le poste réel et formuler des limitations mesurables
+- Chiffrer deux capacités de travail distinctes, le pronostic et l'aptitude à la réadaptation
+- Séparer le médical du psychosocial et connaître les démarches : pièces jointes, MedAI, secret médical, détection précoce
 
 ## Bloc 5 · Texte
 
