@@ -2953,14 +2953,15 @@ html {
   z-index: 10;
   border-top: 1px solid var(--color-border);
   background: var(--color-surface);
-  padding: var(--space-3) var(--gutter) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  padding: var(--space-2) var(--gutter) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
 }
 
 .pager__notes {
+  position: relative;
   display: grid;
-  max-width: var(--measure);
-  min-height: 1.5rem;
-  margin: 0 auto var(--space-2);
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
 }
 
 .pager__notes > p {
@@ -2972,8 +2973,10 @@ html {
   z-index: 1;
   background: var(--color-surface);
   color: var(--color-error);
-  font-size: var(--font-size-small);
+  font-size: 0.8125rem;
   font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
 }
 
 /* Vide, le message laisse voir le rappel dessous (même case) */
@@ -2983,6 +2986,7 @@ html {
 
 .pager__buttons {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
   max-width: var(--measure);
@@ -3127,7 +3131,7 @@ html {
   .pager {
     bottom: var(--shell-pad);
     margin-bottom: 0;
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-float);
@@ -4556,7 +4560,8 @@ html {
 .pager__hint {
   color: var(--color-muted);
   font-size: 0.8125rem;
-  text-align: right;
+  line-height: 1.25;
+  text-align: center;
 }
 
 .pager__hint:empty {
@@ -4696,5 +4701,48 @@ html {
   .screen--enter .question.enter-item,
   .screen--enter .question__options > .option {
     animation: none;
+  }
+}
+
+/* Petits écrans : pas de place entre les boutons ; le rappel disparaît et le message d'erreur flotte au-dessus de la barre (hors flux, la barre ne grandit pas) */
+@media (max-width: 39.99rem) {
+  .pager__hint {
+    display: none;
+  }
+
+  .pager__notes {
+    flex: 0 0 0;
+  }
+
+  .pager__msg {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + var(--space-4));
+    left: calc(-1 * var(--space-2));
+    width: max-content;
+    max-width: calc(100vw - 2 * var(--gutter));
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    text-align: left;
+  }
+}
+
+/* ---------- Haut de page : respiration entre les boutons, le titre et l'accroche ---------- */
+
+/* Le titre et son accroche forment un bloc ; les boutons Paramètres / Glossaire s'en détachent nettement */
+.screen--scene {
+  gap: var(--space-4);
+}
+
+@media (min-width: 64rem) {
+  .app-header__inner {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-2);
+  }
+
+  .app-main {
+    padding-top: var(--space-4);
   }
 }
