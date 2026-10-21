@@ -293,17 +293,35 @@
 
 /* Panneau du menu (mobile, tablette) : se déploie sous le bandeau, par-dessus le contenu */
 .toc {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  position: fixed;
+  top: var(--toc-top, 4rem);
   right: 0;
-  max-height: calc(100vh - 5rem);
-  max-height: calc(100dvh - 5rem);
-  padding: var(--space-3) var(--gutter) var(--space-4);
+  bottom: 0;
+  left: 0;
+  padding: var(--space-3) var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
-  border-bottom: 1px solid var(--color-border);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: var(--shadow-float);
+  animation: toc-open 0.22s ease-out;
+}
+
+@keyframes toc-open {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc {
+    animation: none;
+  }
 }
 
 .toc > * {
@@ -314,9 +332,14 @@
 /* Glossaire et dossier patient : dans le menu burger, sur mobile seulement */
 .menu-actions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+/* Nombre impair de tuiles : la dernière prend toute la largeur */
+.menu-action:not([hidden]):last-child:nth-child(odd) {
+  grid-column: 1 / -1;
 }
 
 .menu-action {
@@ -401,9 +424,17 @@
 
 @media (min-width: 48rem) {
   .btn__label--narrow,
-  .menu-actions,
   .menu__title {
     display: none;
+  }
+
+  /* Tablette : Glossaire, Dossier patient et Mon rapport ont leur bouton dans le bandeau ; reste « Paramètres » */
+  .menu-actions > .menu-action:not(#menu-settings) {
+    display: none;
+  }
+
+  .menu-actions {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1542,19 +1573,9 @@ button.toc__item:hover {
 }
 
 /* Bouton « Paramètres » : dans le bandeau sur ordinateur, dans le menu en dessous */
-.menu-settings {
-  justify-self: start;
-}
-
 @media (max-width: 63.99rem) {
   #settings-toggle {
     display: none !important;
-  }
-}
-
-@media (min-width: 64rem) {
-  .menu-settings {
-    display: none;
   }
 }
 
@@ -4790,5 +4811,16 @@ html {
   /* Le titre ne passe pas sous les boutons */
   .screen__header {
     padding-right: 7rem;
+  }
+}
+
+/* Menu burger : l'avancement colle au bandeau (pas de marge haute en trop), et le menu disparaît dès que la colonne de gauche prend le relais */
+.toc .overall {
+  margin-top: 0;
+}
+
+@media (min-width: 64rem) {
+  .menu-actions {
+    display: none;
   }
 }

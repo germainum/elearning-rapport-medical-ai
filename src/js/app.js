@@ -831,9 +831,20 @@ async function start() {
   }
 
   function setTocOpen(open) {
+    if (open) {
+      // Le panneau commence sous le bandeau, où qu'il soit (barre de test, zone d'encoche) : on mesure à l'ouverture
+      const header = els.toc.closest('.app-header');
+      els.toc.style.setProperty('--toc-top', `${Math.round(header.getBoundingClientRect().bottom)}px`);
+    }
     els.toc.hidden = !open;
     els.tocToggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('menu-open', open); // la page ne défile pas derrière le menu
   }
+
+  // Passage en grand écran (rotation, redimensionnement) : le menu, remplacé par la colonne de gauche, se referme
+  window.addEventListener('resize', () => {
+    if (!els.toc.hidden && window.innerWidth >= 1024) setTocOpen(false);
+  });
 
   els.tocToggle.hidden = false;
   els.tocToggle.addEventListener('click', () => setTocOpen(els.toc.hidden));
