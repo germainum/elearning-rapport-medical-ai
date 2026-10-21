@@ -148,6 +148,13 @@ function letter(block, ctx) {
   const lines = (value) => [].concat(value ?? []).map(inline).join('<br>');
   const logo = ctx.logo ? `<img class="letter__logo" src="${escapeHtml(ctx.asset(ctx.logo.src))}" alt="${escapeHtml(ctx.logo.alt ?? '')}">` : '';
   const enclosures = [].concat(block.enclosures ?? []);
+  // « {today} » : la date du jour de l'apprenant, en toutes lettres (« 21 octobre 2026 », « 1er novembre 2026 »)
+  const today = (() => {
+    const now = new Date();
+    const month = new Intl.DateTimeFormat('fr-CH', { month: 'long' }).format(now);
+    return `${now.getDate() === 1 ? '1er' : now.getDate()} ${month} ${now.getFullYear()}`;
+  })();
+  const date = block.date ? String(block.date).replace('{today}', today) : '';
   return `
     <section class="letter" aria-label="Courrier reçu">
       <div class="letter__paper">
@@ -159,7 +166,7 @@ function letter(block, ctx) {
           </div>
         </header>
         ${block.recipient ? `<address class="letter__recipient">${lines(block.recipient)}</address>` : ''}
-        ${block.date ? `<p class="letter__date">${inline(block.date)}</p>` : ''}
+        ${date ? `<p class="letter__date">${inline(date)}</p>` : ''}
         ${block.subtitle ? `<p class="letter__reference">${inline(block.subtitle)}</p>` : ''}
         ${block.body ? `<div class="letter__body">${rich(block.body)}</div>` : ''}
         ${block.signature ? `<p class="letter__signature">${lines(block.signature)}</p>` : ''}

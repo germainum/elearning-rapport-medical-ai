@@ -23,7 +23,7 @@ Lundi matin, parmi le courrier du cabinet, une enveloppe de l'office AI du canto
 > À l'attention du médecin traitant
 > 1000 Lausanne
 >
-> Vevey, le 1er octobre 2026
+> Vevey, le (date du jour)
 >
 > **Concerne : Mme R., née en 1979 · demande de prestations AI**
 >

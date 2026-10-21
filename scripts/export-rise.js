@@ -169,7 +169,7 @@ function courrier() {
       [
         `**${letter.title}**\n${arr(letter.sender).join('\n')}`,
         arr(letter.recipient).join('\n'),
-        letter.date,
+        String(letter.date ?? '').replace('{today}', '(date du jour)'),
         `**${letter.subtitle}**`,
         text(letter.body),
         `${arr(letter.signature).join('\n')}`,
