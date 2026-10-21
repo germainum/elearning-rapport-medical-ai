@@ -4950,7 +4950,7 @@ html {
 /* ---------- Écran d'accueil « hero » : la vidéo en vedette ---------- */
 
 .hero__lead {
-  max-width: 38rem;
+  max-width: none; /* même largeur que la vidéo */
   font-size: 1.125rem;
   line-height: 1.55;
 }
