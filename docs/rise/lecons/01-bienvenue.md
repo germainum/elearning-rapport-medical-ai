@@ -1,4 +1,4 @@
-# Leçon 01 — Votre rapport, pièce maîtresse du dossier AI
+# Leçon 01 — Remplir le rapport médical AI, point par point
 
 > Section du sommaire : **Avant de commencer** · Type : **leçon de contenu** · Contenu généré depuis `content/module.json` : ne pas modifier ce fichier à la main.
 > Les blocs sont à créer **dans cet ordre**. La mise en forme légère du texte (**gras**, *italique*, listes « - » ou « 1. ») s'applique avec l'éditeur de Rise : ne pas taper les astérisques.
@@ -43,7 +43,7 @@ N'hésitez pas à nous contacter si vous avez besoin de renseignements compléme
 
 ## Bloc 3 · Texte (paragraphes)
 
-Vous allez remplir le **rapport médical AI** de Mme R. (formulaire 002.099), **point par point** : à chaque écran, une question du formulaire et trois façons d'y répondre. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI.
+Vous remplissez le rapport de Mme R. (formulaire 002.099), une question à la fois. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI.
 
 ## Bloc 4 · Texte : objectifs
 

@@ -4864,3 +4864,85 @@ html {
   border-radius: var(--radius-lg);
   background: var(--color-bg);
 }
+
+/* ---------- Écran d'accueil « éditorial » : titre et promesse à gauche, vidéo à droite ---------- */
+
+.editorial {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.editorial__text {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.editorial__lead {
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+.editorial__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.editorial__fact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text);
+}
+
+.editorial__fact svg {
+  flex: none;
+  color: var(--color-accent);
+}
+
+/* Sous 1024 px, la barre « Précédent / Suivant » est juste dessous : pas de bouton en double */
+.editorial__cta {
+  display: none;
+  justify-self: start;
+  padding-inline: var(--space-5);
+}
+
+.editorial__media {
+  min-width: 0;
+}
+
+.screen--editorial .screen__title {
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 64rem) {
+  .editorial {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  /* Titre plus grand, sans la réserve de droite (les boutons Paramètres / Glossaire sont au-dessus de la vidéo) */
+  .screen--editorial .screen__title {
+    font-size: 2rem;
+  }
+
+  .screen--editorial .screen__header {
+    padding-right: 0;
+  }
+
+  .editorial__media {
+    margin-top: 3.5rem;
+  }
+
+  /* La vidéo de la colonne de droite : le bouton « Voir les objectifs » du texte double celui de la barre du bas */
+  .editorial__cta {
+    display: inline-flex;
+    margin-top: var(--space-2);
+  }
+}

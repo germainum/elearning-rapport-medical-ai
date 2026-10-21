@@ -173,6 +173,9 @@ async function start() {
     patientFile: module.patientFile,
     logo: module.logo,
     asset,
+    // chiffres cités par les écrans (« {minutes} minutes », « {questions} questions ») et avance depuis le contenu
+    stats: { minutes: module.durationMinutes, questions: screens.reduce((n, s) => n + questionsOf(s).length, 0) },
+    advance: () => els.next.click(),
     getAnswer: (questionId) => tracker.getAnswer(questionId),
     retakeCount: (questionId) => tracker.retakeCount(questionId),
     report: module.report

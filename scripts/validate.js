@@ -45,7 +45,8 @@ const ALLOWED_KEYS = {
   patientFileBlock: ['type'],
   form: ['title', 'reference'],
   scoring: ['passingScore', 'allowRetry'],
-  text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video', 'objectives', 'journey'],
+  text: [...SCREEN_COMMON_KEYS, 'body', 'image', 'video', 'objectives', 'journey', 'layout', 'facts'],
+  fact: ['icon', 'text'],
   objectives: ['title', 'items'],
   journey: ['title', 'steps'],
   journeyStep: ['icon', 'label', 'text'],
@@ -599,6 +600,21 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
             if (screen.objectives.title !== undefined && !isText(screen.objectives.title)) error(at, '« title » doit être un texte.');
             screen.objectives.items.forEach((item, k) => {
               if (!isText(item)) error(`${at} › objectif ${k + 1}`, 'doit être un texte.');
+            });
+          }
+        }
+        if (screen.layout !== undefined && screen.layout !== 'editorial') error(where, '« layout » ne peut valoir que "editorial".');
+        if (screen.facts !== undefined) {
+          const at = `${where} › facts`;
+          if (!Array.isArray(screen.facts)) {
+            error(at, '« facts » doit être une liste de repères { "icon": "clock", "text": "…" }.');
+          } else {
+            screen.facts.forEach((fact, k) => {
+              const factAt = `${at} › repère ${k + 1}`;
+              if (!isObject(fact)) return error(factAt, 'doit être un objet { "icon": …, "text": … }.');
+              checkKeys(fact, ALLOWED_KEYS.fact, factAt);
+              if (!['clock', 'questions', 'resume'].includes(fact.icon)) error(factAt, '« icon » doit valoir "clock", "questions" ou "resume".');
+              if (!isText(fact.text)) error(factAt, '« text » est obligatoire (peut citer {minutes} et {questions}).');
             });
           }
         }
