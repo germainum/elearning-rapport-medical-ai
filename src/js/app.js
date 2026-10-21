@@ -986,6 +986,7 @@ function animateScreenIn(article, direction) {
   for (const child of article.children) {
     if (child.classList.contains('screen__header')) continue;
     if (child.classList.contains('scene__steps')) items.push(...child.querySelectorAll('.scene__step > *'));
+    else if (child.classList.contains('objectives')) items.push(...child.querySelectorAll('.objectives__item')); // chaque objectif entre à son tour
     else items.push(child);
   }
   items.filter(Boolean).forEach((item, i) => {

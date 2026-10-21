@@ -108,7 +108,7 @@ guide de style et prompts : `docs/guide-illustrations.txt`, galerie : `docs/aper
 `envoi-rapport.jpg` (en pratique), `merci.jpg` (remerciements) — + portraits `mme-r.jpg` et `m-c.jpg`
 (second cas, psychosocial). Tous ont un texte alternatif (portraits compris). Fonds blancs opaques (pas de transparence
 en JPEG). Remplacer une illustration = même nom de fichier ; adapter le texte alternatif dans `module.json`.
-Objectifs pédagogiques : champ `objectives` (`title`, `items`) d'un écran `text`, carte à coches vertes affichée
+Objectifs pédagogiques : champ `objectives` (`title`, `items`) d'un écran `text`, **une carte par objectif** (v0.66.0, coche verte dans un rond, entrée en cascade) affichées
 sous le texte, avant la frise (`objectivesHtml`, `common.js`) ; 5 objectifs courts, sans titre de carte, sur l'écran « Ce que vous
 allez apprendre » (verbes tous différents, pas de répétition avec le titre ni l'intro), repris par l'export Rise.
 Frise de parcours : champ `journey` d'un écran `text` (HTML accessible, icônes du moteur).

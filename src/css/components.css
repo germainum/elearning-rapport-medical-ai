@@ -5010,3 +5010,27 @@ html {
     padding-right: 7rem;
   }
 }
+
+/* ---------- Objectifs : une carte par objectif ---------- */
+
+.objectives {
+  margin-top: var(--space-5);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.objectives__item {
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.objectives__check {
+  margin-top: 0;
+}
