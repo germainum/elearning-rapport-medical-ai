@@ -4856,3 +4856,11 @@ html {
     padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* Illustrations : le fond blanc du JPEG disparaît par multiplication avec la couleur de la page. Pendant l'animation d'entrée, le bloc
+   est isolé (opacité, déplacement) et la multiplication ne voit plus la page : le fond blanc réapparaissait jusqu'à la fin de l'animation.
+   Le cadre prend donc la couleur de la page, que l'image multiplie : même rendu pendant et après l'animation. */
+.figure {
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
