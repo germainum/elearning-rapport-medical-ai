@@ -43,7 +43,7 @@ N'hésitez pas à nous contacter si vous avez besoin de renseignements compléme
 
 ## Bloc 3 · Texte (paragraphes)
 
-Vous remplissez le rapport de Mme R. (formulaire 002.099), une question à la fois. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI.
+Cette formation en ligne vous fait remplir le rapport d'une patiente, une question à la fois, avec un retour immédiat à chaque réponse. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI.
 
 ## Bloc 4 · Texte : objectifs
 

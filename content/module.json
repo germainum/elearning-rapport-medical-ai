@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.65.1",
+  "version": "0.65.2",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -292,7 +292,7 @@
     {
       "id": "introduction",
       "type": "text",
-      "kicker": "Bienvenue",
+      "kicker": "E-learning · Formation continue",
       "title": "Remplir le rapport médical AI, point par point",
       "layout": "hero",
       "continueLabel": "Voir les objectifs",
@@ -319,7 +319,7 @@
           "N'hésitez pas à nous contacter si vous avez besoin de renseignements complémentaires. Notre centrale d'information vous accueille et répond à vos questions au 021 925 24 24 du lundi au vendredi ou par mail à info@vd.oai.ch."
         ]
       },
-      "body": ["Vous remplissez le rapport de Mme R. (formulaire 002.099), une question à la fois. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI."],
+      "body": ["Cette formation en ligne vous fait remplir le rapport d'une patiente, une question à la fois, avec un retour immédiat à chaque réponse. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI."],
       "facts": [
         { "icon": "clock", "text": "{minutes} minutes" },
         { "icon": "questions", "text": "{questions} questions" },
