@@ -16,6 +16,8 @@ Merci pour votre engagement
 
 Vous avez pris le temps de suivre cette formation, malgré un agenda chargé. **Merci beaucoup.**
 
+Mme R. est un cas fictif, mais derrière chaque rapport, il y a un vrai patient.
+
 Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.
 
 Pour vos patients, c'est une réponse plus rapide et, souvent, une réadaptation qui commence plus tôt.

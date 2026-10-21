@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.63.1",
+  "version": "0.64.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -2429,16 +2429,61 @@
       ],
       "showScore": true,
       "messages": {
-        "passed": "Votre rapport permet à l'office AI d'orienter Mme R. sans vous relancer.",
+        "passed": "Votre rapport permet à l'office AI d'orienter Mme R. sans vous relancer. Que se passe-t-il ensuite ?",
         "failed": "Certaines réponses entraîneraient une demande de complément. Reprenez les questions pour atteindre le seuil de réussite."
       },
       "section": "Votre résultat",
       "part": "Pour finir",
-      "continueLabel": "Un dernier mot",
       "storyTitle": "Conclusion",
       "hidePatientFile": true,
       "showReport": true,
-      "continueLabel": "Donner mon avis"
+      "continueLabel": "Trois mois plus tard"
+    },
+    {
+      "id": "epilogue",
+      "type": "text",
+      "section": "Trois mois plus tard",
+      "part": "Pour finir",
+      "hidePatientFile": true,
+      "hideReport": true,
+      "kicker": "Épilogue",
+      "title": "Trois mois plus tard",
+      "storyTitle": "Conclusion",
+      "continueLabel": "Donner mon avis",
+      "body": [
+        "Janvier. Une enveloppe de l'office AI arrive au cabinet : la décision concernant Mme R.",
+        "Votre rapport a suffi : l'office AI n'a eu ni à vous relancer, ni à mandater une expertise."
+      ],
+      "journey": {
+        "title": "Les trois mois de Mme R.",
+        "steps": [
+          {
+            "icon": "envoi",
+            "label": "Octobre",
+            "text": "Votre rapport est envoyé, complet dès la première fois."
+          },
+          {
+            "icon": "examen",
+            "label": "Novembre",
+            "text": "Le médecin du SMR s'appuie sur ses limitations mesurables."
+          },
+          {
+            "icon": "decision",
+            "label": "Décembre",
+            "text": "L'office AI oriente Mme R. vers une mesure de réinsertion adaptée."
+          },
+          {
+            "icon": "dossier",
+            "label": "Janvier",
+            "text": "Mme R. reprend, par étapes, une activité adaptée à son dos."
+          }
+        ]
+      },
+      "image": {
+        "src": "images/mme-r.jpg",
+        "alt": "Portrait illustré de Mme R., 47 ans, les cheveux attachés en chignon et vêtue d’une tunique bleue.",
+        "position": "side"
+      }
     },
     {
       "id": "avis",
@@ -2597,6 +2642,7 @@
       "title": "Merci pour votre engagement",
       "body": [
         "Vous avez pris le temps de suivre cette formation, malgré un agenda chargé. **Merci beaucoup.**",
+        "Mme R. est un cas fictif, mais derrière chaque rapport, il y a un vrai patient.",
         "Un rapport précis et complet, c'est un dossier qui avance. Grâce à ces formations, l'office AI peut décider de façon **plus efficace** et **plus rapide**, en **évitant au maximum les allers-retours** avec votre cabinet : demandes de précisions, relances, examens complémentaires.",
         "Pour vos patients, c'est une réponse plus rapide et, souvent, une réadaptation qui commence plus tôt.",
         "Ensemble, nous gagnons du temps : vous, nous et, surtout, vos patients.",
