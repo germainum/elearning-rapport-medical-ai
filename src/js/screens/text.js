@@ -47,7 +47,36 @@ function renderEditorial(screen, ctx) {
   return element;
 }
 
+/**
+ * Mise en page « hero » (écran d'accueil) : une seule colonne, dans l'ordre de lecture — titre, phrase clé, vidéo en vedette,
+ * repères en pastilles. La barre du bas porte le bouton d'action. Les repères peuvent citer {minutes} et {questions}.
+ */
+function renderHero(screen, ctx) {
+  const stats = ctx.stats ?? {};
+  const fill = (text) => String(text).replace('{minutes}', stats.minutes ?? '').replace('{questions}', stats.questions ?? '');
+  const facts = (screen.facts ?? [])
+    .map(
+      (fact) => `
+        <li class="hero__fact">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${FACT_ICONS[fact.icon] ?? ''}</svg>
+          <span>${inline(fill(fact.text))}</span>
+        </li>`,
+    )
+    .join('');
+  const video = screen.video ? videoFigure(screen.video, ctx.asset) : '';
+  const element = createScreen(
+    screen,
+    'text',
+    `<div class="prose hero__lead">${rich(screen.body)}</div>
+     ${video}
+     ${facts ? `<ul class="hero__facts" role="list" aria-label="En bref">${facts}</ul>` : ''}`,
+  );
+  element.classList.add('screen--hero');
+  return element;
+}
+
 export function renderText(screen, ctx) {
+  if (screen.layout === 'hero') return renderHero(screen, ctx);
   if (screen.layout === 'editorial') return renderEditorial(screen, ctx);
   const video = screen.video ? videoFigure(screen.video, ctx.asset) : '';
   const image = screen.image ? figure(screen.image, ctx.asset) : '';

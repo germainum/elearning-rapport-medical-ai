@@ -193,7 +193,8 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   Un objectif par ligne, court, commençant par un **verbe à l'infinitif différent** (évitez de répéter les mêmes mots d'un objectif à
   l'autre) ; le gras est autorisé. `title` est facultatif : sans lui, la carte n'a pas d'intitulé et suit le titre de l'écran, ce
   qui évite de répéter « vous allez apprendre / à la fin vous saurez ».
-- `layout: "editorial"` (écran `text` d'accueil) : deux colonnes sur ordinateur, titre + phrase clé (`body`) + repères (`facts`) + bouton à gauche, vidéo à droite ; empilé sur tablette et mobile. `facts` : `[ { "icon": "clock", "text": "{minutes} minutes, à votre rythme" } ]` (icônes `clock`, `questions`, `resume` ; `{minutes}` et `{questions}` sont remplacés par la durée annoncée et le nombre de questions).
+- `layout: "hero"` (écran `text` d'accueil, **utilisé** par l'écran `introduction`) : une colonne, la vidéo en vedette entre la phrase clé (`body`) et les repères en pastilles (`facts`). Même format de `facts` que ci-dessous.
+- `layout: "editorial"` (variante, non utilisée) : deux colonnes sur ordinateur, titre + phrase clé (`body`) + repères (`facts`) + bouton à gauche, vidéo à droite ; empilé sur tablette et mobile. `facts` : `[ { "icon": "clock", "text": "{minutes} minutes, à votre rythme" } ]` (icônes `clock`, `questions`, `resume` ; `{minutes}` et `{questions}` sont remplacés par la durée annoncée et le nombre de questions).
 - `journey` (facultatif) affiche une **frise de parcours** sous le texte, en ligne sur grand écran et
   en colonne sur mobile :
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.65.0",
+  "version": "0.65.1",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -294,7 +294,7 @@
       "type": "text",
       "kicker": "Bienvenue",
       "title": "Remplir le rapport médical AI, point par point",
-      "layout": "editorial",
+      "layout": "hero",
       "continueLabel": "Voir les objectifs",
       "video": {
         "src": "videos/rapport-medical-oai.mp4",
@@ -321,8 +321,8 @@
       },
       "body": ["Vous remplissez le rapport de Mme R. (formulaire 002.099), une question à la fois. Un rapport précis évite les demandes de complément et les allers-retours avec l'office AI."],
       "facts": [
-        { "icon": "clock", "text": "{minutes} minutes, à votre rythme" },
-        { "icon": "questions", "text": "{questions} questions sur un cas concret" },
+        { "icon": "clock", "text": "{minutes} minutes" },
+        { "icon": "questions", "text": "{questions} questions" },
         { "icon": "resume", "text": "Reprise là où vous vous arrêtez" }
       ],
       "section": "Démarrage · Accueil"

@@ -603,7 +603,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
             });
           }
         }
-        if (screen.layout !== undefined && screen.layout !== 'editorial') error(where, '« layout » ne peut valoir que "editorial".');
+        if (screen.layout !== undefined && !['editorial', 'hero'].includes(screen.layout)) error(where, '« layout » doit valoir "hero" ou "editorial".');
         if (screen.facts !== undefined) {
           const at = `${where} › facts`;
           if (!Array.isArray(screen.facts)) {

@@ -4946,3 +4946,67 @@ html {
     margin-top: var(--space-2);
   }
 }
+
+/* ---------- Écran d'accueil « hero » : la vidéo en vedette ---------- */
+
+.hero__lead {
+  max-width: 38rem;
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+.screen--hero .screen__title {
+  max-width: 34rem;
+  font-size: 2rem;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+/* Vidéo : grande, coins arrondis ; la transcription devient un lien discret sous la légende */
+.screen--hero .video__player {
+  border-radius: var(--radius-xl);
+}
+
+.screen--hero .video__transcript {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.screen--hero .video__transcript > summary {
+  padding: var(--space-1) 0;
+  font-size: var(--font-size-small);
+}
+
+.hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero__fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+}
+
+.hero__fact svg {
+  flex: none;
+  color: var(--color-accent);
+}
+
+@media (min-width: 64rem) {
+  .screen--hero .screen__header {
+    padding-right: 7rem;
+  }
+}
