@@ -367,7 +367,7 @@ async function start() {
 
     // En-tête : le fil rouge seul (ex. « Rapport de Mme R. »)
     const screen = screens[index];
-    els.crumbs.innerHTML = [screen.storyTitle ?? module.storyTitle]
+    els.crumbs.innerHTML = [screen.storyTitle ?? module.storyTitle, ...String(screen.section ?? '').split(' · ')]
       .filter(Boolean)
       .map((text, i, all) => `<li${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(text)}</li>`)
       .join('');

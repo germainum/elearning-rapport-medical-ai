@@ -1,0 +1,347 @@
+/*
+ * Design E (choisi le 27.10.2026) : application d'apprentissage claire, aux bords très arrondis,
+ * dans un cadre sombre sur ordinateur. Chargé en dernier : il surcharge components.css sans le modifier.
+ * Pour revenir à l'ancien aspect : retirer le lien vers ce fichier dans index.html
+ * (sauvegarde complète : étiquette git « sauvegarde-avant-design-e »).
+ * Tout passe par les jetons : le thème sombre reste valable.
+ */
+
+:root {
+  --font-sans: "Outfit", "Work Sans", Arial, "Helvetica Neue", Helvetica, system-ui, sans-serif;
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 1.75rem;
+  --shadow-card: none;
+  --shadow-float: 0 8px 28px rgb(15 29 150 / 0.12);
+
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f5fa;
+  --color-border: #d9dbe6;
+  --color-step: #c5c8d6;
+  --color-primary-tint: #eef0fb;
+  --color-frame: #17181b;
+}
+
+:root[data-theme="dark"] {
+  --color-frame: #05060a;
+}
+
+/* ---------- Titres : plus fins, plus serrés ---------- */
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+
+.screen__title,
+.screen h1 {
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+/* ---------- Boutons : angles arrondis, sans ombre ---------- */
+
+.btn {
+  border-radius: var(--radius);
+  font-weight: 500;
+}
+
+.btn--primary {
+  box-shadow: none;
+}
+
+.btn--secondary {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover {
+  background: var(--color-primary-tint);
+}
+
+/* ---------- Barres de progression : aplats, sans dégradé ni reflet ---------- */
+
+.progress,
+.overall__bar {
+  background: var(--color-border);
+}
+
+.progress__bar,
+.overall__fill {
+  background: var(--color-primary);
+}
+
+.overall__fill::before,
+.overall__fill::after {
+  display: none;
+}
+
+.overall {
+  background: transparent;
+  padding: 0;
+}
+
+.overall__label {
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.overall__percent {
+  color: var(--color-heading);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.overall__bar {
+  height: 0.75rem;
+}
+
+/* ---------- Réponses : lignes arrondies à grand rayon ---------- */
+
+.option {
+  min-height: 3.5rem;
+  align-items: center;
+  border-width: 1px;
+  border-radius: 1.125rem;
+}
+
+.option:has(.option__input:checked) {
+  border-width: 2px;
+}
+
+.question--answered .option.option--correct,
+.question--answered .option.option--incorrect,
+.question--answered .option.option--missed {
+  border-width: 2px;
+}
+
+/* ---------- Sommaire : « Votre progression » à coches bleues ---------- */
+
+.toc__ring {
+  background: conic-gradient(var(--color-primary) calc(var(--pct) * 1%), var(--color-step) 0);
+}
+
+.toc__ring--done,
+.toc__step--done .toc__marker {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.toc__step--done:not(:last-child):not(:has(+ .toc__section))::before {
+  background: var(--color-primary);
+}
+
+.toc__ring {
+  color: var(--color-on-primary);
+}
+
+.toc__section[aria-expanded="true"] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.toc__section[aria-expanded="true"] .toc__section-title,
+.toc__section[aria-expanded="true"] .toc__section-over,
+.toc__section[aria-expanded="true"] .toc__count,
+.toc__section[aria-expanded="true"] .toc__chevron {
+  color: var(--color-on-primary);
+}
+
+.toc__section[aria-expanded="true"] .toc__ring::before {
+  background: var(--color-primary);
+}
+
+.toc__section[aria-expanded="true"] .toc__ring {
+  background: conic-gradient(var(--color-on-primary) calc(var(--pct) * 1%), rgb(255 255 255 / 0.35) 0);
+}
+
+.toc__section[aria-expanded="true"] .toc__ring--done {
+  background: var(--color-on-primary);
+  color: var(--color-primary);
+}
+
+.toc__item[aria-current="step"] {
+  background: var(--color-surface-muted);
+  color: var(--color-heading);
+}
+
+/* ---------- Ordinateur : fenêtre arrondie dans un cadre sombre ---------- */
+
+@media screen and (min-width: 64rem) {
+  :root {
+    --frame-pad: 1.5rem;
+    --shell-pad: 1.5rem;
+  }
+
+  body {
+    padding: var(--frame-pad);
+    background: var(--color-frame);
+  }
+
+  .debug-bar {
+    margin: calc(-1 * var(--frame-pad)) calc(-1 * var(--frame-pad)) var(--frame-pad);
+  }
+
+  .app-body {
+    padding: 0;
+    column-gap: 0;
+    align-items: stretch;
+    justify-content: stretch;
+    border-radius: 2.25rem;
+    background: var(--color-surface);
+    /* clip (et non hidden) : le panneau de gauche reste collant au défilement */
+    overflow: clip;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  }
+
+  .app-body--with-file {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--file-width);
+  }
+
+  /* Panneau de gauche : à plat, séparé du contenu par un simple filet */
+  .app-sidebar--toc {
+    top: var(--frame-pad);
+    height: calc(100dvh - 2 * var(--frame-pad));
+    padding: var(--space-5) var(--space-4);
+    border: 0;
+    border-right: 1px solid var(--color-border);
+    border-radius: 0;
+    box-shadow: none;
+    background: var(--color-surface);
+  }
+
+  /* Le pourcentage et la barre passent en haut de la colonne centrale ; la colonne de gauche garde le titre « Votre progression » */
+  .app-sidebar--toc .overall {
+    margin: var(--space-4) 0 var(--space-2);
+    padding: 0 var(--space-2);
+  }
+
+  .app-sidebar--toc .overall__percent,
+  .app-sidebar--toc .overall__bar,
+  .app-sidebar--toc .overall__text {
+    display: none;
+  }
+
+  .app-sidebar--toc .overall__label {
+    color: var(--color-text);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .app-sidebar--toc .help-card {
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-muted);
+    border: 0;
+    box-shadow: none;
+  }
+
+  /* Colonne centrale : respiration d'une fenêtre d'application */
+  .app-column {
+    padding: 0 2.5rem;
+    min-height: calc(100dvh - 2 * var(--frame-pad));
+  }
+
+  .app-main {
+    max-width: var(--measure);
+    padding-top: var(--space-3);
+  }
+
+  /* Bandeau : fil d'Ariane à gauche, avancement et boutons à droite, de nouveau dans le flux */
+  .app-header {
+    position: static;
+    height: auto;
+    pointer-events: auto;
+  }
+
+  .app-header__inner {
+    max-width: none;
+    padding: 1.75rem 0 0;
+    gap: var(--space-5);
+  }
+
+  .app-header__text {
+    flex: 1 1 auto;
+  }
+
+  .crumbs {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    flex-wrap: wrap;
+    color: var(--color-subtle);
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  .crumbs li + li::before {
+    margin-right: var(--space-3);
+    margin-left: var(--space-1);
+  }
+
+  .crumbs [aria-current="page"] {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .overall--top {
+    display: grid;
+    flex: none;
+    width: 20rem;
+    margin: 0;
+  }
+
+  .overall--top .overall__text {
+    margin-top: 0.125rem;
+    text-align: right;
+  }
+
+  .screen__header {
+    padding-right: 0;
+  }
+
+  /* Boutons d'outils : carrés arrondis, sans ombre */
+  .app-header__actions .btn--icon {
+    border-radius: var(--radius);
+    box-shadow: none;
+  }
+
+  /* Barre de navigation : sobre, sans ombre portée prononcée */
+  .pager {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-float);
+  }
+}
+
+/* L'avancement du bandeau n'existe que sur ordinateur ; ailleurs, le menu et la barre du bandeau le portent */
+@media (max-width: 63.99rem) {
+  .overall--top {
+    display: none;
+  }
+}
+
+@media print {
+  body {
+    padding: 0;
+    background: #ffffff;
+  }
+
+  .overall--top {
+    display: none;
+  }
+}
+
+/* Écrans de 1024 à 1279 px : avancement plus étroit pour laisser de la place au fil d'Ariane */
+@media screen and (min-width: 64rem) and (max-width: 79.99rem) {
+  .overall--top {
+    width: 13rem;
+  }
+
+  .crumbs {
+    font-size: 1.0625rem;
+  }
+}

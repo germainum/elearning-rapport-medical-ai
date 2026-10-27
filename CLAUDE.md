@@ -182,6 +182,10 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   `npm start`). Ouvrir `index.html` en double-clic ne fonctionne pas.
 - **Visuel** : thème clair par défaut ; **thème sombre** au choix dans les Paramètres (21.10.2026, v0.46.0) : Clair / Sombre / Automatique (suit l'appareil), `localStorage` `theme-affichage`, attribut `data-theme` sur `html` posé avant le premier rendu (script en tête de `index.html`) puis par `setupTheme` (`comfort.js`). Palette sombre dans `tokens.css` (`@media screen`, impression toujours claire, contrastes ≥ 7:1 pour le texte) ; **tout nouveau composant doit passer par les jetons** (pas de couleur en dur sur un fond de page). Lettre, dossier médical et chemise gardent un aspect "papier" clair (jetons clairs réaffectés dans `components.css`) ; logo sur pastille blanche ; illustrations sur fond blanc.
 
+### Design E (27.10.2026, v0.68.0)
+
+Après comparaison de cinq propositions (A à E, canevas Design), **le design E est adopté** : fenêtre d'application aux bords très arrondis dans un **cadre sombre** (≥ 1024 px), fond blanc, **bleu AI VD `#0f1d96` comme seule couleur d'accent** (coches, boutons, barres, entrée active du sommaire), police **Outfit** embarquée (`src/fonts/`, licence `OFL-Outfit.txt`), panneau de gauche à plat séparé par un filet (« Votre progression » = sommaire à coches), **fil d'Ariane** (fil rouge › section) et **barre de progression** en haut de la colonne centrale (pourcentage + temps restant, `.overall--top`, mise à jour avec les autres `[data-overall]`), réponses en lignes très arrondies. Tout est dans **`src/css/theme-e.css`**, chargé après `components.css` (qui n'a pas été modifié) ; tout passe par les jetons, le thème sombre reste valable. Retour à l'ancien aspect : retirer le lien vers `theme-e.css` dans `index.html` ; **sauvegarde complète : étiquette git `sauvegarde-avant-design-e`** (v0.67.0). Écart avec la maquette E : le sommaire reste à gauche (la maquette le met à droite), car la colonne de droite sert au dossier patient.
+
 ### Décisions validées (13.10.2026, inspiration « Pathogen Patrol », Articulate Rise)
 
 - ~~Palette chaude~~ remplacée le 14.10.2026 par la **charte AI VD** (voir ci-dessous).
@@ -259,6 +263,7 @@ src/css/fonts.css          @font-face Work Sans (fichiers dans src/fonts/, licen
 src/css/tokens.css         couleurs, typo, espacements (charte graphique)
 src/css/base.css           reset, focus visible, utilitaires a11y
 src/css/components.css     composants
+src/css/theme-e.css        design E (surcharge components.css : cadre, arrondis, accent bleu, fil d'Ariane, barre de progression)
 src/js/scorm.js            SEULE couche SCORM (recherche API, adaptateurs 1.2 / 2004, API simulée)
 src/js/tracker.js          état apprenant, score, sérialisation suspend_data
 src/js/app.js              démarrage, navigation, sommaire, liaison tracker ↔ scorm
