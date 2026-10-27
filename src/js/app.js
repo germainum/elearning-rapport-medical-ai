@@ -75,6 +75,7 @@ const els = {
   sideModule: byId('side-module'),
   sideMeta: byId('side-meta'),
   helpCard: byId('help-card'),
+  helpToggle: byId('help-toggle'),
   helpCardTitle: byId('help-card-title'),
   helpCardBody: byId('help-card-body'),
   helpCardIcon: byId('help-card-icon'),
@@ -484,6 +485,17 @@ async function start() {
     }
   }
 
+  function setHelpOpen(open) {
+    els.helpToggle.setAttribute('aria-expanded', String(open));
+    els.helpCard.classList.toggle('help-card--open', open);
+  }
+  els.helpToggle.addEventListener('click', () => setHelpOpen(els.helpToggle.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && els.helpToggle.getAttribute('aria-expanded') === 'true') {
+      setHelpOpen(false);
+      els.helpToggle.focus();
+    }
+  });
   els.sideHome.addEventListener('click', () => show(0));
   els.sidePath.addEventListener('click', () => els.pathDialog.showModal());
   els.pathClose.addEventListener('click', () => els.pathDialog.close());
@@ -1255,6 +1267,7 @@ function renderSidebarIntro(module) {
         : '',
     ].join('');
     els.helpCard.hidden = false;
+    els.helpToggle.hidden = false;
   }
 }
 

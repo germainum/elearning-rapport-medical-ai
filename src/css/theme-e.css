@@ -1023,3 +1023,57 @@ h3 {
     border-top: 1px solid var(--color-border);
   }
 }
+
+/* ================================================================
+   Aide : réduite à un bouton « ? » en bas du menu de gauche ; un clic déplie la carte avec toutes ses infos
+   ================================================================ */
+
+.help {
+  display: contents;
+}
+
+.help__toggle {
+  display: none;
+}
+
+@media screen and (min-width: 64rem) {
+  .help {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: auto;
+  }
+
+  .help__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-surface);
+    color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .help__toggle[hidden] {
+    display: none;
+  }
+
+  .help__toggle:hover,
+  .help__toggle[aria-expanded="true"] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  .help .help-card {
+    display: none;
+    margin-top: 0;
+  }
+
+  .help .help-card.help-card--open:not([hidden]) {
+    display: grid;
+  }
+}

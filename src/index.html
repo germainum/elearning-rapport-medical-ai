@@ -45,6 +45,7 @@
         <li><button type="button" class="side-nav__item" id="side-glossary" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Glossaire</span></button></li>
         <li><button type="button" class="side-nav__item" id="side-settings"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h9M19 7h1M4 17h1M11 17h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="7" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="17" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Paramètres</span></button></li>
       </ul>
+      <div class="help" id="help">
       <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
         <div class="help-card__head">
           <span class="help-card__icon" id="help-card-icon" aria-hidden="true"></span>
@@ -53,6 +54,10 @@
         <div class="help-card__body prose" id="help-card-body"></div>
         <div class="help-card__actions" id="help-card-actions"></div>
       </aside>
+        <button type="button" class="help__toggle" id="help-toggle" aria-expanded="false" aria-controls="help-card" aria-label="Une question ? Afficher l'aide" hidden>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </nav>
 
     <div class="app-column">
