@@ -744,3 +744,8 @@ h3 {
     margin-bottom: var(--space-3);
   }
 }
+
+/* Plus de trait vert qui balaie le haut de l'écran à chaque changement de page */
+.screen--enter::before {
+  display: none;
+}
