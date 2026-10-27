@@ -188,7 +188,7 @@ export function renderSummary(screen, ctx) {
   const body = screen.body ? `<div class="prose">${rich(screen.body)}</div>` : '';
 
   const reportSection = screen.showReport && ctx.report ? nextStepsCard(prefix, ctx) : '';
-  const element = createScreen(screen, 'summary', resultHtml + (result ? sectionResultsSection(prefix, ctx) : '') + reportSection + review + keyPoints + body);
+  const element = createScreen(screen, 'summary', resultHtml + reportSection + (result ? sectionResultsSection(prefix, ctx) : '') + review + keyPoints + body);
   element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
   element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());
   element.querySelector('[data-report-download]')?.addEventListener('click', () => ctx.report.download());
