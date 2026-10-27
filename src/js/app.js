@@ -15,6 +15,9 @@ import { renderQuiz } from './screens/quiz.js';
 import { renderSummary } from './screens/summary.js';
 import { renderSurvey } from './screens/survey.js';
 import { setupShortcuts, setupShortcutsSetting, setupTextSize, setupTheme, timeLeftText } from './comfort.js';
+import { setupDialogMotion } from './dialog-motion.js';
+
+setupDialogMotion();
 
 const CONTENT_URL = 'content/module.json';
 const DEFAULT_PASSING_SCORE = 80;

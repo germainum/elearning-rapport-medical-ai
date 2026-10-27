@@ -1241,3 +1241,66 @@ h3 {
 .help-dialog .help-card__head {
   padding-right: 3.5rem;
 }
+
+/* ---------- Fenêtres du menu (Parcours, Glossaire, Paramètres, dossier, rapport) : même mouvement que l'aide ---------- */
+
+.file-dialog {
+  transform-origin: 3rem 50%;
+}
+
+.file-dialog[open] {
+  animation: dialog-pop 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+.file-dialog--closing[open] {
+  animation: dialog-out 0.24s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.file-dialog::backdrop {
+  background: rgb(10 14 60 / 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.file-dialog[open]::backdrop {
+  animation: help-backdrop 0.35s ease-out both;
+}
+
+.file-dialog--closing[open]::backdrop {
+  animation: help-backdrop 0.24s ease-in reverse both;
+}
+
+/* Le corps monte juste après l'ouverture ; l'en-tête reste fixe pour ne pas gêner la lecture */
+.file-dialog[open] .file-dialog__body {
+  animation: help-rise 0.5s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.file-dialog--closing[open] .file-dialog__body {
+  animation: none;
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: translate(-2.5rem, 1rem) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translate(-1.25rem, 0.5rem) scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .file-dialog[open],
+  .file-dialog[open]::backdrop,
+  .file-dialog[open] .file-dialog__body {
+    animation: none;
+  }
+}
