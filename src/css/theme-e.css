@@ -737,3 +737,289 @@ h3 {
 .screen--enter::before {
   display: none;
 }
+
+/* ================================================================
+   Dossier patient et Mon rapport (maquettes E5 et E6) : cartes blanches en colonne de droite,
+   bascule « Dossier | Rapport », croix pour fermer ; plus de chemise cartonnée ni de papier incliné
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  .folder {
+    animation: none;
+  }
+
+  .folder:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "title close" "switch switch" "sheet sheet";
+    gap: var(--space-3);
+    align-content: start;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .folder__tab-top {
+    position: static;
+    grid-area: title;
+    align-self: center;
+    width: auto;
+    height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .folder__tab-top svg {
+    display: none;
+  }
+
+  .folder__title {
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+
+  .folder__tools {
+    position: static;
+    display: contents;
+  }
+
+  .folder__close {
+    position: static;
+    grid-area: close;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .folder__close:hover {
+    background: var(--color-surface-muted);
+  }
+
+  /* Bascule à deux onglets : la page en cours est blanche, l'autre est grise */
+  .folder__switch {
+    grid-area: switch;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--radius);
+    background: var(--color-surface-muted);
+  }
+
+  .folder__switch:has([hidden]) {
+    display: none;
+  }
+
+  .folder__switch-btn {
+    min-height: 2.75rem;
+    border: 0;
+    border-radius: 0.75rem;
+    background: transparent;
+    color: var(--color-muted);
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .folder__switch-btn[aria-current] {
+    background: var(--color-surface);
+    color: var(--color-primary);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgb(15 29 150 / 0.12);
+    cursor: default;
+  }
+
+  .folder__sheet,
+  .folder__sheet--report {
+    grid-area: sheet;
+    margin: 0;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    box-shadow: none;
+    transform: none;
+    animation: none;
+  }
+
+  .folder__sheet::before,
+  .folder__clip {
+    display: none;
+  }
+
+  /* « Confidentiel » : une étiquette sobre, plus un tampon */
+  .folder__stamp {
+    position: static;
+    display: inline-block;
+    margin-top: var(--space-3);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    opacity: 1;
+    transform: none;
+  }
+
+  #file-side-body,
+  #report-side-body {
+    max-height: calc(100dvh - 2 * var(--frame-pad) - 19rem);
+    overflow-y: auto;
+  }
+
+  /* Rapport : compteur et barre de progression */
+  .report-progress {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-2);
+    font-size: 0.875rem;
+  }
+
+  .report-progress strong {
+    color: var(--color-primary);
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  .report-bar {
+    height: 0.5rem;
+    margin-bottom: var(--space-3);
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    background: var(--color-border);
+  }
+
+  .report-bar span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-primary);
+    transition: width 0.4s ease;
+  }
+
+  .report-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .report-actions .btn {
+    min-height: 3.25rem;
+    border-radius: var(--radius);
+    font-size: 0.9375rem;
+  }
+
+  /* Feuille du rapport à plat : puces de section grises, réponses en bleu, corrigés en gris */
+  .report__section-title {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface-muted);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+  }
+
+  .report__field {
+    padding: var(--space-3) 0;
+    border-bottom: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .report__label {
+    color: var(--color-text);
+    font-size: 0.875rem;
+  }
+
+  .report__num {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .report__answer {
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .report__field--corrected .report__answer {
+    color: var(--color-muted);
+    font-style: normal;
+  }
+
+  .report__tag {
+    border: 0;
+    border-radius: 0.625rem;
+    background: var(--color-surface-muted);
+    color: var(--color-text);
+    padding: 0.125rem 0.625rem;
+    font-weight: 600;
+  }
+}
+
+@media screen and (min-width: 80rem) {
+  /* Le dossier ou le rapport ouverts remplacent aussi le bloc « Et maintenant ? » */
+  .app-body--with-file .next-side {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  /* Fiche du dossier dans le panneau : texte sans empattement, titres de rubrique en bleu, journal en lignes sobres */
+  .folder .record {
+    gap: var(--space-3);
+    color: var(--color-text);
+  }
+
+  .folder .record__top {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .folder .record__kind {
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  .folder .record__notes,
+  .folder .record__journal li {
+    font-family: var(--font-sans);
+  }
+
+  .folder .record__photo img {
+    border-radius: 1rem;
+    box-shadow: none;
+  }
+
+  .folder .record__photo::before {
+    display: none;
+  }
+
+  .folder .record__section-title {
+    border-bottom: 0;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .folder .record__row,
+  .folder .record__journal li {
+    border-bottom: 0;
+    border-top: 1px solid var(--color-border);
+  }
+}

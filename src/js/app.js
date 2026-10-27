@@ -609,6 +609,9 @@ async function start() {
     document.querySelectorAll('[data-report-count]').forEach((element) => {
       element.textContent = `${data.filled}/${data.total}`;
     });
+    document.querySelectorAll('[data-report-bar]').forEach((element) => {
+      element.style.width = `${Math.round((data.filled / data.total) * 100)}%`;
+    });
     const fields = data.sections.flatMap((section) => section.fields);
     const signature = fields.map((field) => field.status[0]).join('');
     if (signature === reportSignature) return;

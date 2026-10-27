@@ -191,8 +191,11 @@
         <h2 class="folder__title" id="file-side-title">Dossier patient</h2>
       </div>
       <div class="folder__tools">
-        <button type="button" class="btn btn--ghost btn--small" id="file-to-report" hidden>Mon rapport</button>
-        <button type="button" class="btn btn--ghost btn--small folder__close" id="file-side-close">Fermer le dossier</button>
+        <div class="folder__switch" role="group" aria-label="Choisir le panneau">
+          <button type="button" class="folder__switch-btn" aria-current="true">Dossier</button>
+          <button type="button" class="folder__switch-btn" id="file-to-report" hidden>Rapport</button>
+        </div>
+        <button type="button" class="folder__close" id="file-side-close" aria-label="Fermer le dossier"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
       <div class="folder__sheet">
         <svg class="folder__clip" viewBox="0 0 24 48" width="18" height="36" aria-hidden="true" focusable="false">
@@ -210,14 +213,18 @@
         <h2 class="folder__title" id="report-side-title">Mon rapport</h2>
       </div>
       <div class="folder__tools">
-        <button type="button" class="btn btn--ghost btn--small" id="report-to-file">Dossier patient</button>
-        <button type="button" class="btn btn--ghost btn--small folder__close" id="report-side-close">Fermer le rapport</button>
+        <div class="folder__switch" role="group" aria-label="Choisir le panneau">
+          <button type="button" class="folder__switch-btn" id="report-to-file">Dossier</button>
+          <button type="button" class="folder__switch-btn" aria-current="true">Rapport</button>
+        </div>
+        <button type="button" class="folder__close" id="report-side-close" aria-label="Fermer le rapport"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
       <div class="folder__sheet folder__sheet--report">
-        <p class="report-progress" aria-live="polite">Rapport rempli : <strong data-report-count></strong> champs</p>
+        <p class="report-progress" aria-live="polite"><span>Champs remplis</span> <strong data-report-count></strong></p>
+        <div class="report-bar" aria-hidden="true"><span data-report-bar></span></div>
         <div class="report-side__body" id="report-side-body"></div>
         <div class="report-actions">
-          <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer ou enregistrer en PDF</button>
+          <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer en PDF</button>
           <button type="button" class="btn btn--secondary btn--small" data-report-download>Télécharger</button>
         </div>
       </div>
