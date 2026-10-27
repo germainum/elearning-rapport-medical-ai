@@ -115,21 +115,30 @@ function sectionResultsSection(prefix, ctx) {
     </section>`;
 }
 
-/** Carte « Votre rapport » : le formulaire rempli au fil du module, à garder comme modèle. */
-function reportCard(prefix, ctx) {
+/** Bloc « Et maintenant ? » : revoir la section la plus faible, ouvrir, imprimer ou télécharger le rapport rempli. */
+function nextStepsCard(prefix, ctx) {
   const { filled, total } = ctx.report.summary();
   const status =
     filled === total
-      ? 'Tous les champs sont remplis par vos bonnes réponses.'
-      : `${filled} champs sur ${total} sont remplis par vos bonnes réponses ; les autres figurent avec leur corrigé.`;
+      ? 'Tous les champs de votre rapport sont remplis par vos bonnes réponses.'
+      : `${filled} champs sur ${total} de votre rapport sont remplis par vos bonnes réponses ; les autres figurent avec leur corrigé.`;
+  const weakest = ctx.allowRetry
+    ? ctx
+        .sectionResults()
+        .filter((group) => group.total > 0 && group.wrongIds.length)
+        .sort((x, y) => x.correct / x.total - y.correct / y.total)[0]
+    : null;
+  const action = (attrs, label) =>
+    `<button type="button" class="next-steps__action" ${attrs}><span>${label}</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
   return `
-    <section class="report-card" aria-labelledby="${prefix}-report">
-      <h3 class="section-title" id="${prefix}-report">Votre rapport</h3>
-      <p>${escapeHtml(status)} Gardez-le comme modèle : imprimez-le, enregistrez-le en PDF ou téléchargez-le.</p>
-      <div class="report-card__actions">
-        <button type="button" class="btn btn--secondary btn--small" data-report-open>Voir mon rapport</button>
-        <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer ou enregistrer en PDF</button>
-        <button type="button" class="btn btn--secondary btn--small" data-report-download>Télécharger</button>
+    <section class="report-card next-steps" aria-labelledby="${prefix}-report">
+      <h3 class="section-title" id="${prefix}-report">Et maintenant ?</h3>
+      <p>${escapeHtml(status)} Gardez-le comme modèle.</p>
+      <div class="next-steps__actions">
+        ${weakest ? action(`data-retry-section="${escapeHtml(weakest.wrongIds.join(','))}"`, `Revoir ${inline(weakest.section)}`) : ''}
+        ${action('data-report-open', 'Voir mon rapport complet')}
+        ${action('data-report-print', 'Imprimer ou enregistrer en PDF')}
+        ${action('data-report-download', 'Télécharger mon rapport')}
       </div>
     </section>`;
 }
@@ -178,7 +187,7 @@ export function renderSummary(screen, ctx) {
 
   const body = screen.body ? `<div class="prose">${rich(screen.body)}</div>` : '';
 
-  const reportSection = screen.showReport && ctx.report ? reportCard(prefix, ctx) : '';
+  const reportSection = screen.showReport && ctx.report ? nextStepsCard(prefix, ctx) : '';
   const element = createScreen(screen, 'summary', resultHtml + (result ? sectionResultsSection(prefix, ctx) : '') + reportSection + review + keyPoints + body);
   element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
   element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());
