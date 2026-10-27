@@ -1067,13 +1067,168 @@ h3 {
     border-color: var(--color-primary);
     color: var(--color-on-primary);
   }
+}
 
-  .help .help-card {
-    display: none;
-    margin-top: 0;
+/* ---------- Fenêtre d'aide : jaillit du bouton « ? » (en bas à gauche), éléments en cascade ---------- */
+
+.help-dialog {
+  position: fixed;
+  inset: auto auto 1.5rem 1.5rem;
+  width: min(24rem, calc(100vw - 2rem));
+  margin: 0;
+  padding: var(--space-5);
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 24px 60px rgb(15 29 150 / 0.28), 0 2px 8px rgb(15 29 150 / 0.12);
+  transform-origin: 2rem calc(100% - 1rem);
+}
+
+.help-dialog[open] {
+  animation: help-pop 0.55s cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+
+.help-dialog--closing[open] {
+  animation: help-out 0.24s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.help-dialog::backdrop {
+  background: rgb(10 14 60 / 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.help-dialog[open]::backdrop {
+  animation: help-backdrop 0.35s ease-out both;
+}
+
+.help-dialog--closing[open]::backdrop {
+  animation: help-backdrop 0.24s ease-in reverse both;
+}
+
+.help-dialog .help-card {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 1rem;
+}
+
+.help-dialog__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  cursor: pointer;
+}
+
+.help-dialog__close:hover {
+  background: var(--color-surface-muted);
+}
+
+/* Le contenu monte en cascade, après l'ouverture de la fenêtre */
+.help-dialog[open] .help-card__head,
+.help-dialog[open] .help-card__body,
+.help-dialog[open] .help-card__action {
+  animation: help-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.help-dialog[open] .help-card__head {
+  animation-delay: 0.12s;
+}
+
+.help-dialog[open] .help-card__body {
+  animation-delay: 0.2s;
+}
+
+.help-dialog[open] .help-card__action:nth-child(1) {
+  animation-delay: 0.28s;
+}
+
+.help-dialog[open] .help-card__action:nth-child(2) {
+  animation-delay: 0.36s;
+}
+
+.help-dialog--closing[open] .help-card__head,
+.help-dialog--closing[open] .help-card__body,
+.help-dialog--closing[open] .help-card__action {
+  animation: none;
+}
+
+/* Le bouton « ? » pulse une fois quand la fenêtre s'ouvre */
+.help__toggle[aria-expanded="true"] {
+  animation: help-ping 0.5s ease-out;
+}
+
+@keyframes help-pop {
+  from {
+    opacity: 0;
+    transform: translate(-1.5rem, 2rem) scale(0.7);
   }
 
-  .help .help-card.help-card--open:not([hidden]) {
-    display: grid;
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes help-out {
+  to {
+    opacity: 0;
+    transform: translate(-0.75rem, 1rem) scale(0.9);
+  }
+}
+
+@keyframes help-backdrop {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes help-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes help-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgb(15 29 150 / 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0.875rem rgb(15 29 150 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .help-dialog[open],
+  .help-dialog[open]::backdrop,
+  .help-dialog[open] .help-card__head,
+  .help-dialog[open] .help-card__body,
+  .help-dialog[open] .help-card__action,
+  .help__toggle[aria-expanded="true"] {
+    animation: none;
   }
 }

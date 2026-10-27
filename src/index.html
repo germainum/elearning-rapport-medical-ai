@@ -46,15 +46,7 @@
         <li><button type="button" class="side-nav__item" id="side-settings"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h9M19 7h1M4 17h1M11 17h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="7" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="17" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Paramètres</span></button></li>
       </ul>
       <div class="help" id="help">
-      <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
-        <div class="help-card__head">
-          <span class="help-card__icon" id="help-card-icon" aria-hidden="true"></span>
-          <h2 class="help-card__title" id="help-card-title"></h2>
-        </div>
-        <div class="help-card__body prose" id="help-card-body"></div>
-        <div class="help-card__actions" id="help-card-actions"></div>
-      </aside>
-        <button type="button" class="help__toggle" id="help-toggle" aria-expanded="false" aria-controls="help-card" aria-label="Une question ? Afficher l'aide" hidden>
+        <button type="button" class="help__toggle" id="help-toggle" aria-expanded="false" aria-haspopup="dialog" aria-controls="help-dialog" aria-label="Une question ? Afficher l'aide" hidden>
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
@@ -282,6 +274,18 @@
     </div>
     <div class="file-dialog__body glossary" id="glossary-body"></div>
   </dialog>
+  <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-card-title">
+    <button type="button" class="help-dialog__close" id="help-close" aria-label="Fermer l'aide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
+      <div class="help-card__head">
+        <span class="help-card__icon" id="help-card-icon" aria-hidden="true"></span>
+        <h2 class="help-card__title" id="help-card-title"></h2>
+      </div>
+      <div class="help-card__body prose" id="help-card-body"></div>
+      <div class="help-card__actions" id="help-card-actions"></div>
+    </aside>
+  </dialog>
+
   <dialog class="file-dialog path-dialog" id="path-dialog" aria-labelledby="path-dialog-title">
     <div class="file-dialog__header">
       <h2 class="file-dialog__title" id="path-dialog-title">Parcours</h2>

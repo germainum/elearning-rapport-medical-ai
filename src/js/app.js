@@ -485,16 +485,47 @@ async function start() {
     }
   }
 
-  function setHelpOpen(open) {
-    els.helpToggle.setAttribute('aria-expanded', String(open));
-    els.helpCard.classList.toggle('help-card--open', open);
+  /** Aide : fenêtre qui jaillit du bouton « ? », se referme en douceur (fondu et rétrécissement). */
+  const helpDialog = byId('help-dialog');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function openHelp() {
+    helpDialog.classList.remove('help-dialog--closing');
+    helpDialog.showModal();
+    els.helpToggle.setAttribute('aria-expanded', 'true');
   }
-  els.helpToggle.addEventListener('click', () => setHelpOpen(els.helpToggle.getAttribute('aria-expanded') !== 'true'));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && els.helpToggle.getAttribute('aria-expanded') === 'true') {
-      setHelpOpen(false);
-      els.helpToggle.focus();
+  function closeHelp() {
+    if (!helpDialog.open || helpDialog.classList.contains('help-dialog--closing')) return;
+    let timer = 0;
+    const onEnd = (event) => {
+      if (event.target === helpDialog) finish();
+    };
+    const finish = () => {
+      clearTimeout(timer);
+      helpDialog.removeEventListener('animationend', onEnd);
+      if (!helpDialog.open) return;
+      helpDialog.classList.remove('help-dialog--closing');
+      helpDialog.close();
+    };
+    if (reducedMotion.matches) {
+      finish();
+      return;
     }
+    helpDialog.classList.add('help-dialog--closing');
+    helpDialog.addEventListener('animationend', onEnd);
+    timer = setTimeout(finish, 400); // filet de sécurité si l'animation ne se termine pas (onglet en arrière-plan)
+  }
+  els.helpToggle.addEventListener('click', openHelp);
+  byId('help-close').addEventListener('click', closeHelp);
+  helpDialog.addEventListener('click', (event) => {
+    if (event.target === helpDialog) closeHelp();
+  });
+  helpDialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeHelp();
+  });
+  helpDialog.addEventListener('close', () => {
+    els.helpToggle.setAttribute('aria-expanded', 'false');
+    els.helpToggle.focus();
   });
   els.sideHome.addEventListener('click', () => show(0));
   els.sidePath.addEventListener('click', () => els.pathDialog.showModal());
