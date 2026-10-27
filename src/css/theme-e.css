@@ -665,10 +665,6 @@ h3 {
 }
 
 /* ≥ 1280 px, synthèse : « Et maintenant ? » en colonne de droite, message en grand titre (maquette E) */
-.next-steps__continue {
-  display: none;
-}
-
 .next-side {
   display: none;
 }
@@ -710,14 +706,6 @@ h3 {
     padding: var(--space-3);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
-  }
-
-  .next-steps__continue {
-    display: inline-flex;
-    justify-content: center;
-    gap: var(--space-2);
-    min-height: 3.75rem;
-    font-size: 1.0625rem;
   }
 
   /* Titres des blocs de la synthèse : lus par les lecteurs d'écran, plus affichés */

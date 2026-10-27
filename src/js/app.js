@@ -458,9 +458,6 @@ async function start() {
     els.nextSide.hidden = !inSide;
     els.progressSide.toggleAttribute('data-away', inSide);
   }
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('[data-next-screen]')) els.next.click();
-  });
 
   /** Colonne de droite : les écrans de la section en cours, avec leur état (terminé, actuel, à venir). */
   function renderProgressSide() {
