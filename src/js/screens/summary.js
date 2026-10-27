@@ -116,7 +116,7 @@ function sectionResultsSection(prefix, ctx) {
 }
 
 /** Bloc « Et maintenant ? » : revoir la section la plus faible, ouvrir, imprimer ou télécharger le rapport rempli. */
-function nextStepsCard(prefix, ctx) {
+function nextStepsCard(prefix, ctx, screen) {
   const { filled, total } = ctx.report.summary();
   const status =
     filled === total
@@ -135,11 +135,12 @@ function nextStepsCard(prefix, ctx) {
       <h3 class="section-title" id="${prefix}-report">Et maintenant ?</h3>
       <p>${escapeHtml(status)} Gardez-le comme modèle.</p>
       <div class="next-steps__actions">
-        ${weakest ? action(`data-retry-section="${escapeHtml(weakest.wrongIds.join(','))}"`, `Revoir ${inline(weakest.section)}`) : ''}
-        ${action('data-report-open', 'Voir mon rapport complet')}
-        ${action('data-report-print', 'Imprimer ou enregistrer en PDF')}
-        ${action('data-report-download', 'Télécharger mon rapport')}
+        ${weakest ? action(`data-retry-section="${escapeHtml(weakest.wrongIds.join(','))}"`, /^Section \d/.test(weakest.section) ? `Revoir la ${inline(weakest.section.split(' · ')[0].toLowerCase())}` : `Revoir ${inline(weakest.section.split(' · ').pop())}`) : ''}
+        ${action('data-report-open', 'Voir mon rapport')}
+        ${action('data-report-print', 'Imprimer en PDF')}
+        ${action('data-report-download', 'Télécharger')}
       </div>
+      ${screen.continueLabel ? `<button type="button" class="btn btn--primary next-steps__continue" data-next-screen>${inline(screen.continueLabel)} <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : ''}
     </section>`;
 }
 
@@ -187,7 +188,7 @@ export function renderSummary(screen, ctx) {
 
   const body = screen.body ? `<div class="prose">${rich(screen.body)}</div>` : '';
 
-  const reportSection = screen.showReport && ctx.report ? nextStepsCard(prefix, ctx) : '';
+  const reportSection = screen.showReport && ctx.report ? nextStepsCard(prefix, ctx, screen) : '';
   const element = createScreen(screen, 'summary', resultHtml + reportSection + (result ? sectionResultsSection(prefix, ctx) : '') + review + keyPoints + body);
   element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
   element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());

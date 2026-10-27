@@ -663,3 +663,84 @@ h3 {
 .next-steps__action:hover {
   background: var(--color-primary-tint);
 }
+
+/* ≥ 1280 px, synthèse : « Et maintenant ? » en colonne de droite, message en grand titre (maquette E) */
+.next-steps__continue {
+  display: none;
+}
+
+.next-side {
+  display: none;
+}
+
+@media screen and (min-width: 80rem) {
+  .progress-side[data-away] {
+    display: none;
+  }
+
+  .next-side:not([hidden]) {
+    display: block;
+    grid-column: 3;
+    align-self: start;
+    position: sticky;
+    top: var(--frame-pad);
+    padding: 2rem 2rem 2rem 0;
+  }
+
+  .next-side .next-steps {
+    padding: var(--space-3);
+  }
+
+  .next-side .next-steps > p {
+    display: none;
+  }
+
+  .next-side .next-steps .section-title {
+    margin-bottom: 0;
+    font-size: 1.375rem;
+    font-weight: 500;
+  }
+
+  .next-side .next-steps {
+    border: 0;
+    padding: 0;
+  }
+
+  .next-side .next-steps__actions {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .next-steps__continue {
+    display: inline-flex;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 3.75rem;
+    font-size: 1.0625rem;
+  }
+
+  /* Titres des blocs de la synthèse : lus par les lecteurs d'écran, plus affichés */
+  .screen--summary .result > .section-title,
+  .screen--summary .by-section > .section-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .result .prose {
+    order: 3;
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--color-heading);
+  }
+
+  .result {
+    margin-bottom: var(--space-3);
+  }
+}

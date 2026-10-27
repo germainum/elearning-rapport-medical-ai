@@ -59,6 +59,7 @@ const els = {
   tocList: byId('toc-list'),
   tocSideList: byId('toc-side-list'),
   progressSide: byId('progress-side'),
+  nextSide: byId('next-side'),
   progressTitle: byId('progress-side-title'),
   progressCount: byId('progress-side-count'),
   progressList: byId('progress-side-list'),
@@ -432,7 +433,34 @@ async function start() {
       if (button.hasAttribute('aria-current')) button.setAttribute('aria-current', 'page');
     }
     renderProgressSide();
+    placeNextSteps();
   }
+
+  /** Synthèse : sur ordinateur large, le bloc « Et maintenant ? » passe dans la colonne de droite (à la place de l'avancement). */
+  let movedNext = null;
+  function placeNextSteps() {
+    if (movedNext && !movedNext.marker.isConnected) {
+      movedNext.block.remove();
+      movedNext = null;
+    }
+    const block = els.screen.querySelector('.next-steps') ?? movedNext?.block;
+    if (block && WIDE.matches) {
+      if (!movedNext) {
+        const marker = document.createComment('next-steps');
+        block.before(marker);
+        movedNext = { block, marker };
+      }
+      els.nextSide.append(block);
+    } else if (movedNext) {
+      movedNext.marker.after(movedNext.block);
+    }
+    const inSide = Boolean(block) && WIDE.matches;
+    els.nextSide.hidden = !inSide;
+    els.progressSide.toggleAttribute('data-away', inSide);
+  }
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-next-screen]')) els.next.click();
+  });
 
   /** Colonne de droite : les écrans de la section en cours, avec leur état (terminé, actuel, à venir). */
   function renderProgressSide() {
@@ -514,6 +542,7 @@ async function start() {
 
   const WIDE = window.matchMedia('(min-width: 80rem)');
   WIDE.addEventListener('change', () => applyPanels());
+  WIDE.addEventListener('change', () => placeNextSteps());
 
   function applyPanels() {
     const showFile = WIDE.matches && openPanel === 'dossier' && isFileAvailable();
