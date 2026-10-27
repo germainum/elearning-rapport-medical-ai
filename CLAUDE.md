@@ -154,7 +154,7 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
 - **Sous le seuil** (tous les écrans vus, score < `passingScore`) : statut `failed`. Si
   `scoring.allowRetry` vaut `true`, la synthèse liste les **questions fausses** (« Questions à revoir ») :
   reprise d'une question ou de toutes, proposée **même si le module est réussi**. Seules les réponses
-  fausses sont effacées (les bonnes sont conservées). **Révision guidée** (15.10.2026, `tracker.startReview`) :
+  fausses sont effacées (les bonnes sont conservées). **Révision guidée** (15.10.2026, `tracker.startReview`) ; **depuis le 27.10.2026 (v0.73.0), la liste « Questions à revoir » est retirée de la synthèse** : la reprise passe par les boutons « Revoir » de chaque section et par « Revoir la section n » du bloc « Et maintenant ? » (ce qui suit décrit l'ancienne liste, le parcours de révision lui-même est inchangé) :
   la synthèse affiche pour chaque question fausse la réponse donnée, la bonne réponse et son explication
   (`feedback.correct`) ; « Reprendre » mène à la question avec un bandeau « Révision · question k sur n »,
   les réponses dans un **ordre mélangé** (`shuffledOptions`, déterministe), et « Suivant » devient « Question

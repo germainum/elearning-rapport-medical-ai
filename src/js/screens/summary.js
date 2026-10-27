@@ -10,69 +10,6 @@ const DEFAULT_MESSAGES = {
 };
 
 const points = (n) => `${n} point${n > 1 ? 's' : ''}`;
-const questions = (n) => `${n} question${n > 1 ? 's' : ''}`;
-
-/**
- * Questions répondues de façon incorrecte : chacune peut être reprise seule, ou toutes d'affilée.
- * Seules les réponses fausses sont effacées ; les bonnes réponses sont conservées.
- */
-function wrongQuestionsSection(prefix, wrong, ctx) {
-  if (!ctx.allowRetry) return '';
-  if (!wrong.length) {
-    return `
-      <section class="review review--clear" aria-labelledby="${prefix}-review">
-        <h3 class="section-title" id="${prefix}-review">Questions à revoir</h3>
-        <p>Toutes vos réponses sont justes : aucune question à reprendre.</p>
-      </section>`;
-  }
-  const optionTexts = (question, ids) =>
-    question.options
-      .filter((option) => ids.includes(option.id))
-      .map((option) => inline(option.text))
-      .join('<br>');
-  const items = wrong
-    .map(({ question, screen }) => {
-      const chosen = ctx.getAnswer(question.id) ?? [];
-      const expected = question.options.filter((option) => option.correct).map((option) => option.id);
-      // Explication de la bonne réponse : « feedback.correct » (texte, ou { title, body })
-      const raw = question.feedback?.correct;
-      const explanation = raw && typeof raw === 'object' && !Array.isArray(raw) ? [raw.title, raw.body] : [null, raw];
-      const [why, whyBody] = explanation;
-      const hasWhy = Boolean(why || whyBody);
-      return `
-        <li class="review__item">
-          <div class="review__text">
-            <span class="review__screen">${inline([screen.kicker, screen.title].filter(Boolean).join(' · '))}</span>
-            <span class="review__prompt">${inline(question.prompt)}</span>
-            <dl class="review__answers">
-              <div class="review__answer review__answer--wrong"><dt>Votre réponse</dt><dd>${optionTexts(question, chosen)}</dd></div>
-              <div class="review__answer review__answer--right"><dt>Bonne réponse</dt><dd>${optionTexts(question, expected)}</dd></div>
-            </dl>
-            ${
-              hasWhy
-                ? `<details class="review__why">
-                     <summary>Voir l'explication</summary>
-                     ${why ? `<p class="review__why-title">${inline(why)}</p>` : ''}
-                     ${whyBody ? `<div class="prose">${rich(whyBody)}</div>` : ''}
-                   </details>`
-                : ''
-            }
-          </div>
-          <button type="button" class="btn btn--secondary btn--small" data-retry="${escapeHtml(question.id)}"
-            aria-label="Reprendre la question : ${escapeHtml(plainText(screen.title))}">Reprendre</button>
-        </li>`;
-    })
-    .join('');
-  return `
-    <section class="review" aria-labelledby="${prefix}-review">
-      <h3 class="section-title" id="${prefix}-review">Questions à revoir</h3>
-      <p class="review__intro">Vous avez répondu de façon incorrecte à ${questions(wrong.length)}. Relisez la bonne réponse et son explication, puis refaites la question : les réponses sont proposées dans un nouvel ordre, vos bonnes réponses sont conservées et votre score sera recalculé.</p>
-      <ol class="review__list" role="list">${items}</ol>
-      <button type="button" class="btn btn--primary" data-retry-all>
-        Reprendre ${wrong.length > 1 ? `les ${wrong.length} questions fausses` : 'la question fausse'}
-      </button>
-    </section>`;
-}
 
 /** Niveau de maîtrise d'une section : le texte porte l'information, la couleur ne fait que l'appuyer. */
 function levelOf(correct, total) {
@@ -147,7 +84,6 @@ function nextStepsCard(prefix, ctx, screen) {
 export function renderSummary(screen, ctx) {
   const prefix = escapeHtml(`screen-${screen.id}`);
   const result = ctx.result();
-  const wrong = ctx.wrongQuestions();
   const messages = { ...DEFAULT_MESSAGES, ...screen.messages };
   let resultHtml = '';
 
@@ -177,8 +113,6 @@ export function renderSummary(screen, ctx) {
       </section>`;
   }
 
-  const review = result ? wrongQuestionsSection(prefix, wrong, ctx) : '';
-
   const keyPoints = screen.keyPoints?.length
     ? `<section aria-labelledby="${prefix}-key-points">
          <h3 class="section-title" id="${prefix}-key-points">Points clés</h3>
@@ -189,18 +123,12 @@ export function renderSummary(screen, ctx) {
   const body = screen.body ? `<div class="prose">${rich(screen.body)}</div>` : '';
 
   const reportSection = screen.showReport && ctx.report ? nextStepsCard(prefix, ctx, screen) : '';
-  const element = createScreen(screen, 'summary', resultHtml + reportSection + (result ? sectionResultsSection(prefix, ctx) : '') + review + keyPoints + body);
+  const element = createScreen(screen, 'summary', resultHtml + reportSection + (result ? sectionResultsSection(prefix, ctx) : '') + keyPoints + body);
   element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
   element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());
   element.querySelector('[data-report-download]')?.addEventListener('click', () => ctx.report.download());
-  element.querySelectorAll('[data-retry]').forEach((button) => {
-    button.addEventListener('click', () => ctx.retryQuestions([button.dataset.retry]));
-  });
   element.querySelectorAll('[data-retry-section]').forEach((button) => {
     button.addEventListener('click', () => ctx.retryQuestions(button.dataset.retrySection.split(',')));
-  });
-  element.querySelector('[data-retry-all]')?.addEventListener('click', () => {
-    ctx.retryQuestions(wrong.map(({ question }) => question.id));
   });
   return element;
 }
