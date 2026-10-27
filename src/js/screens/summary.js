@@ -73,7 +73,6 @@ function nextStepsCard(prefix, ctx) {
       <p>${escapeHtml(status)} Gardez-le comme modèle.</p>
       <div class="next-steps__actions">
         ${weakest ? action(`data-retry-section="${escapeHtml(weakest.wrongIds.join(','))}"`, /^Section \d/.test(weakest.section) ? `Revoir la ${inline(weakest.section.split(' · ')[0].toLowerCase())}` : `Revoir ${inline(weakest.section.split(' · ').pop())}`) : ''}
-        ${action('data-report-open', 'Voir mon rapport')}
         ${action('data-report-print', 'Imprimer en PDF')}
         ${action('data-report-download', 'Télécharger')}
       </div>
