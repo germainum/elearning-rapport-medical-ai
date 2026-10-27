@@ -1304,3 +1304,33 @@ h3 {
     animation: none;
   }
 }
+
+/* ≥ 1280 px : la barre « Votre progression » passe tout en haut à droite de la fenêtre, au-dessus de la colonne de droite */
+@media screen and (min-width: 80rem) {
+  .app-body {
+    position: relative;
+  }
+
+  .overall--top {
+    position: absolute;
+    top: 1.75rem;
+    right: 2rem;
+    z-index: 2;
+    width: calc(var(--file-width) - 2rem);
+  }
+
+  /* La colonne de droite commence sous la barre */
+  .progress-side,
+  .next-side:not([hidden]) {
+    padding-top: 6.5rem;
+  }
+
+  .app-body--with-file .folder {
+    margin-top: 6rem;
+  }
+
+  /* Le fil d'Ariane peut occuper toute la largeur du centre */
+  .app-header__inner {
+    padding-right: 0;
+  }
+}
