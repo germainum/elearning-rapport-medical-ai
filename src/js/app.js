@@ -58,6 +58,18 @@ const els = {
   toc: byId('toc'),
   tocList: byId('toc-list'),
   tocSideList: byId('toc-side-list'),
+  progressSide: byId('progress-side'),
+  progressTitle: byId('progress-side-title'),
+  progressCount: byId('progress-side-count'),
+  progressList: byId('progress-side-list'),
+  pathDialog: byId('path-dialog'),
+  pathClose: byId('path-close'),
+  sideHome: byId('side-home'),
+  sidePath: byId('side-path'),
+  sideFile: byId('side-file'),
+  sideReport: byId('side-report'),
+  sideGlossary: byId('side-glossary'),
+  sideSettings: byId('side-settings'),
   sideLogo: byId('side-logo'),
   sideModule: byId('side-module'),
   sideMeta: byId('side-meta'),
@@ -411,7 +423,52 @@ async function start() {
     els.reportToFile.hidden = !fileUnlocked;
     refreshReport();
     applyPanels();
+    els.sideFile.hidden = !fileUnlocked;
+    els.sideReport.hidden = !reportAvailable;
+    els.sideGlossary.hidden = els.glossaryToggle.hidden;
+    els.sideHome.toggleAttribute('aria-current', index === 0);
+    els.sidePath.toggleAttribute('aria-current', index !== 0);
+    for (const button of [els.sideHome, els.sidePath]) {
+      if (button.hasAttribute('aria-current')) button.setAttribute('aria-current', 'page');
+    }
+    renderProgressSide();
   }
+
+  /** Colonne de droite : les écrans de la section en cours, avec leur état (terminé, actuel, à venir). */
+  function renderProgressSide() {
+    const section = screens[index].section ?? null;
+    const indexes = screens.map((_, i) => i).filter((i) => (screens[i].section ?? null) === section);
+    const [overline, ...rest] = plainText(section ?? 'Écrans').split(' · ');
+    els.progressTitle.textContent = overline;
+    const position = indexes.indexOf(index) + 1;
+    els.progressCount.textContent = `${position}/${indexes.length}`;
+    els.progressCount.setAttribute('aria-label', `écran ${position} sur ${indexes.length} de cette partie`);
+    els.progressSide.setAttribute('aria-label', rest.length ? rest.join(' · ') : overline);
+    els.progressList.replaceChildren(...indexes.map((i) => stepItem(screens[i], i, 'progress-side-list')));
+    stepsPrimed.add('progress-side-list');
+  }
+
+  /* ---------- Menu de gauche (ordinateur) ---------- */
+
+  function openFileView() {
+    if (WIDE.matches) {
+      setPanel('dossier');
+      els.fileSideClose.focus();
+    } else {
+      els.fileDialog.showModal();
+    }
+  }
+
+  els.sideHome.addEventListener('click', () => show(0));
+  els.sidePath.addEventListener('click', () => els.pathDialog.showModal());
+  els.pathClose.addEventListener('click', () => els.pathDialog.close());
+  els.pathDialog.addEventListener('click', (event) => {
+    if (event.target === els.pathDialog) els.pathDialog.close();
+  });
+  els.sideFile.addEventListener('click', openFileView);
+  els.sideReport.addEventListener('click', () => openReportView());
+  els.sideGlossary.addEventListener('click', () => els.glossaryToggle.click());
+  els.sideSettings.addEventListener('click', () => els.settingsToggle.click());
 
   /* ---------- Dossier du patient (bouton du bandeau) ---------- */
 
@@ -455,9 +512,12 @@ async function start() {
     Boolean(module.report) && !screens[index].hideReport && (reportFromIndex < 0 || index >= reportFromIndex);
   const isFileAvailable = () => isPatientFileUnlocked() && !screens[index].hidePatientFile;
 
+  const WIDE = window.matchMedia('(min-width: 80rem)');
+  WIDE.addEventListener('change', () => applyPanels());
+
   function applyPanels() {
-    const showFile = openPanel === 'dossier' && isFileAvailable();
-    const showReport = openPanel === 'rapport' && isReportAvailable();
+    const showFile = WIDE.matches && openPanel === 'dossier' && isFileAvailable();
+    const showReport = WIDE.matches && openPanel === 'rapport' && isReportAvailable();
     els.fileSide.hidden = !showFile;
     els.reportSide.hidden = !showReport;
     els.appBody.classList.toggle('app-body--with-file', showFile || showReport);
@@ -494,12 +554,12 @@ async function start() {
     });
     els.fileSideClose.addEventListener('click', () => {
       setPanel(null);
-      els.folderTab.focus();
+      els.sideFile.focus();
     });
     els.fileSide.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         setPanel(null);
-        els.folderTab.focus();
+        els.sideFile.focus();
       }
     });
     els.fileToggle.addEventListener('click', () => els.fileDialog.showModal());
@@ -551,7 +611,7 @@ async function start() {
 
   /** Ordinateur : panneau latéral ; tablette et mobile : fenêtre. */
   function openReportView() {
-    if (window.matchMedia('(min-width: 64rem)').matches) {
+    if (WIDE.matches) {
       setPanel('rapport');
       els.reportSideClose.focus();
     } else {
@@ -597,12 +657,12 @@ async function start() {
     });
     els.reportSideClose.addEventListener('click', () => {
       setPanel(null);
-      els.reportTab.focus();
+      els.sideReport.focus();
     });
     els.reportSide.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         setPanel(null);
-        els.reportTab.focus();
+        els.sideReport.focus();
       }
     });
     // Passer d'un panneau à l'autre

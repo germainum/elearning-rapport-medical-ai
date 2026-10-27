@@ -345,3 +345,148 @@ h3 {
     font-size: 1.0625rem;
   }
 }
+
+/* ================================================================
+   Menus de la maquette E : navigation à gauche, avancement de la section à droite
+   ================================================================ */
+
+.side-nav,
+.progress-side {
+  display: none;
+}
+
+@media screen and (min-width: 64rem) {
+  /* Menu de gauche : une ligne par outil, la page en cours en pastille bleue */
+  .side-nav {
+    display: grid;
+    gap: var(--space-1);
+    margin: var(--space-5) 0 var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .side-nav li[hidden],
+  .side-nav__item[hidden] {
+    display: none;
+  }
+
+  .side-nav__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    min-height: 3rem;
+    padding: 0 var(--space-4);
+    border: 0;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    font-size: 1.0625rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .side-nav__item svg {
+    flex: none;
+  }
+
+  .side-nav__item:hover {
+    background: var(--color-surface-muted);
+  }
+
+  .side-nav__item[aria-current="page"] {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-weight: 500;
+  }
+
+  /* Les boutons du bandeau et les onglets du bord droit sont remplacés par ce menu */
+  .app-header__actions,
+  .folder-tab,
+  #folder-tab,
+  #report-tab {
+    display: none !important;
+  }
+
+  .sidebar-meta {
+    margin-bottom: 0;
+  }
+}
+
+/* ≥ 1280 px : la colonne de droite montre l'avancement de la section ; le dossier et le rapport la remplacent quand on les ouvre */
+@media screen and (min-width: 80rem) {
+  :root {
+    --sidebar-width: 15.5rem;
+    --file-width: 19.5rem;
+  }
+
+  .app-body,
+  .app-body--with-file {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--file-width);
+  }
+
+  .progress-side {
+    display: block;
+    grid-column: 3;
+    align-self: start;
+    position: sticky;
+    top: var(--frame-pad);
+    padding: 2rem 2rem 2rem 0;
+  }
+
+  .app-body--with-file .progress-side {
+    display: none;
+  }
+
+  .app-body--with-file .folder {
+    grid-column: 3;
+  }
+
+  .progress-side__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .progress-side__title {
+    font-size: 1.375rem;
+    font-weight: 500;
+  }
+
+  .progress-side__count {
+    color: var(--color-subtle);
+    font-size: 1.0625rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress-side__list {
+    padding: var(--space-3) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+  }
+
+  .progress-side__list .toc__item {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .progress-side__list .toc__item[aria-current="step"] {
+    background: transparent;
+    color: var(--color-heading);
+    font-weight: 600;
+  }
+}
+
+@media screen and (min-width: 80rem) {
+  /* Le dossier et le rapport ouverts restent à l'intérieur de la fenêtre, dans la colonne de droite */
+  .app-body--with-file .folder {
+    top: var(--frame-pad);
+    margin: 1.5rem 1.5rem 1.5rem 0;
+    min-width: 0;
+  }
+}

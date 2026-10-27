@@ -33,19 +33,18 @@
 
   <!-- Coquille : colonne de progression à gauche (ordinateur), contenu au centre, dossier patient à droite -->
   <div class="app-body" id="app-body">
-    <nav class="app-sidebar app-sidebar--toc" aria-labelledby="toc-side-title">
+    <nav class="app-sidebar app-sidebar--toc" aria-label="Menu du module">
       <img class="sidebar-logo" id="side-logo" alt="" hidden>
       <p class="sidebar-module" id="side-module" aria-hidden="true"></p>
       <ul class="sidebar-meta" id="side-meta" aria-label="Informations sur le module"></ul>
-      <div class="overall" data-overall>
-        <div class="overall__head">
-          <h2 class="overall__label" id="toc-side-title">Votre progression</h2>
-          <span class="overall__percent" data-overall-percent>0 %</span>
-        </div>
-        <div class="overall__bar" role="progressbar" aria-label="Avancement du module" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="overall__fill"></span></div>
-        <p class="overall__text" data-time-left hidden></p>
-      </div>
-      <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
+      <ul class="side-nav">
+        <li><button type="button" class="side-nav__item" id="side-home"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Accueil</span></button></li>
+        <li><button type="button" class="side-nav__item" id="side-path"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4.5" cy="6" r="1.5" fill="currentColor"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor"/></svg><span>Parcours</span></button></li>
+        <li><button type="button" class="side-nav__item" id="side-file" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12h7M8.5 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Dossier de Mme R.</span></button></li>
+        <li><button type="button" class="side-nav__item" id="side-report" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 3h7l4 4v14H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v4h4M9.5 14l2 2 3.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mon rapport</span></button></li>
+        <li><button type="button" class="side-nav__item" id="side-glossary" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Glossaire</span></button></li>
+        <li><button type="button" class="side-nav__item" id="side-settings"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h9M19 7h1M4 17h1M11 17h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="7" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="17" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Paramètres</span></button></li>
+      </ul>
       <aside class="help-card" id="help-card" aria-labelledby="help-card-title" hidden>
         <div class="help-card__head">
           <span class="help-card__icon" id="help-card-icon" aria-hidden="true"></span>
@@ -171,6 +170,15 @@
       </nav>
     </div>
 
+    <!-- Avancement de la section en cours (ordinateur large) -->
+    <aside class="progress-side" id="progress-side" aria-labelledby="progress-side-title">
+      <div class="progress-side__head">
+        <h2 class="progress-side__title" id="progress-side-title"></h2>
+        <span class="progress-side__count" id="progress-side-count"></span>
+      </div>
+      <ol class="toc__list toc__list--stepper progress-side__list" id="progress-side-list"></ol>
+    </aside>
+
     <!-- Dossier patient : chemise cartonnée qu'on ouvre et referme (ordinateur) -->
     <aside class="folder" id="file-side" aria-labelledby="file-side-title" hidden>
       <div class="folder__tab-top">
@@ -259,6 +267,16 @@
     </div>
     <div class="file-dialog__body glossary" id="glossary-body"></div>
   </dialog>
+  <dialog class="file-dialog path-dialog" id="path-dialog" aria-labelledby="path-dialog-title">
+    <div class="file-dialog__header">
+      <h2 class="file-dialog__title" id="path-dialog-title">Parcours</h2>
+      <button type="button" class="btn btn--ghost btn--small" id="path-close">Fermer</button>
+    </div>
+    <div class="file-dialog__body">
+      <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
+    </div>
+  </dialog>
+
   <dialog class="file-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-dialog-title">
     <div class="file-dialog__header">
       <h2 class="file-dialog__title" id="settings-dialog-title">Paramètres</h2>
