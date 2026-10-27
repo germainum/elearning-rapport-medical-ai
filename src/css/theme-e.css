@@ -1232,3 +1232,12 @@ h3 {
     animation: none;
   }
 }
+
+/* La croix reste au-dessus du contenu animé (sinon l'en-tête de la carte intercepte le clic) et lui réserve sa place */
+.help-dialog__close {
+  z-index: 2;
+}
+
+.help-dialog .help-card__head {
+  padding-right: 3.5rem;
+}
