@@ -146,10 +146,17 @@ export function renderSummary(screen, ctx) {
     resultHtml = `
       <section class="result result--${status}" aria-labelledby="${prefix}-result">
         <h3 class="section-title" id="${prefix}-result">Votre résultat</h3>
-        <p class="result__score">
-          <span class="result__value">${result.score} %</span>
-          <span class="result__detail">${points(result.earned)} sur ${result.max} · seuil de réussite : ${ctx.passingScore} %</span>
-        </p>
+        <div class="result__cards">
+          <p class="result__card result__card--score">
+            <span class="result__label">Votre score</span>
+            <span class="result__value">${result.score}<small>&nbsp;%</small></span>
+          </p>
+          <p class="result__card">
+            <span class="result__label">${result.earned > 1 ? 'Points obtenus' : 'Point obtenu'}</span>
+            <span class="result__value">${result.earned}<small> / ${result.max}</small></span>
+          </p>
+        </div>
+        <p class="result__detail">${points(result.earned)} sur ${result.max} · seuil de réussite : ${ctx.passingScore} %</p>
         <p class="result__status">${result.passed ? 'Module réussi' : 'Seuil de réussite non atteint'}</p>
         <div class="prose">${rich(messages[status])}</div>
       </section>`;
