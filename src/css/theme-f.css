@@ -751,3 +751,43 @@
     animation: none;
   }
 }
+
+/* ================================================================
+   Sommaire : une rubrique d'un seul écran tient sur une seule ligne (pas de titre + sous-titre identiques)
+   ================================================================ */
+
+.toc__section--static {
+  cursor: default;
+}
+
+.toc__section--single {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+/* Écran affiché : même pastille que la rubrique ouverte */
+.toc__section--current {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.toc__section--current:hover {
+  background: var(--color-primary);
+}
+
+.toc__section--current .toc__section-title,
+.toc__section--current .toc__count {
+  color: var(--color-on-primary);
+}
+
+.toc__section--current .toc__ring::before {
+  background: var(--color-primary);
+}
+
+.toc__section--current .toc__ring {
+  background: conic-gradient(var(--color-on-primary) 0%, rgb(255 255 255 / 0.35) 0);
+}
+
+.toc__section--current .toc__ring--done {
+  background: var(--color-on-primary);
+  color: var(--color-primary);
+}

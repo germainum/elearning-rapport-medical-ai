@@ -306,6 +306,7 @@ async function start() {
 
   function show(target, { focus = true, notice = '', stickyNotice = false, focusQuestion = null } = {}) {
     closeSteps({ restoreFocus: false });
+    if (els.pathDialog.open) els.pathDialog.close(); // choisir une destination dans « Parcours » referme la fenêtre
     const previous = index;
     index = target;
     const screen = screens[index];
@@ -1029,7 +1030,36 @@ async function start() {
     return items;
   }
 
+  /** Rubrique d'un seul écran (« Votre résultat », « Merci »…) : une seule ligne, sans sous-titre ni liste à déplier. */
+  function singleGroupItem(group, listId) {
+    const i = group.indexes[0];
+    const current = i === index;
+    const accessible = tracker.canAccess(i) && !current;
+    const done = tracker.isScreenDone(i);
+    const element = document.createElement(accessible ? 'button' : 'span');
+    element.className = `toc__section toc__section--single${current ? ' toc__section--current' : ''}${accessible ? '' : ' toc__section--static'}`;
+    element.dataset.group = String(group.g);
+    if (current) element.setAttribute('aria-current', 'step');
+    const status = current ? 'écran actuel' : done ? 'terminé' : group.locked ? 'à venir' : 'disponible';
+    element.innerHTML = `
+      <span class="toc__ring${done ? ' toc__ring--done' : ''}" aria-hidden="true">${done ? icon('check', 14) : ''}</span>
+      <span class="toc__section-text"><span class="toc__section-title">${escapeHtml(group.label)}</span></span>
+      <span class="toc__count${done ? ' toc__count--done' : ''}"><span aria-hidden="true">${group.locked ? icon('lock', 14) : ''}</span><span class="visually-hidden">${status}</span></span>`;
+    if (accessible) {
+      element.type = 'button';
+      element.addEventListener('click', () => {
+        setTocOpen(false);
+        show(i);
+      });
+    }
+    const li = document.createElement('li');
+    li.className = `toc__group${group.optional ? ' toc__group--optional' : ''}${group.locked ? ' toc__group--locked' : ''}`;
+    li.append(element);
+    return li;
+  }
+
   function groupItem(group, listId) {
+    if (group.indexes.length === 1) return singleGroupItem(group, listId);
     const { g, open, done, complete, optional, locked } = group;
     const subId = `${listId}-groupe-${g}`;
 
