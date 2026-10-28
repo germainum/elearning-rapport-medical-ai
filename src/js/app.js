@@ -646,12 +646,69 @@ async function start() {
   WIDE.addEventListener('change', () => applyPanels());
   WIDE.addEventListener('change', () => placeNextSteps());
 
+  /* Panneaux latéraux : ouverture, fermeture et bascule animées (la colonne de droite s'élargit, le panneau glisse et se fond).
+     Sans animation au premier affichage, sous 1280 px (fenêtre) et avec « moins de mouvement ». */
+  const PANEL_EL = { dossier: els.fileSide, rapport: els.reportSide };
+  const PANEL_ANIMATIONS = ['folder--enter', 'folder--leave', 'folder--swap-in', 'folder--swap-out'];
+  let panelShown = null; // panneau affiché (ou en train de l'être)
+  let panelsPrimed = false;
+  let panelTimer = 0;
+
+  /** Pose l'état final sans animation. */
+  function settlePanels(name) {
+    clearTimeout(panelTimer);
+    for (const [key, element] of Object.entries(PANEL_EL)) {
+      element.hidden = key !== name;
+      element.classList.remove(...PANEL_ANIMATIONS);
+    }
+    els.appBody.classList.toggle('app-body--with-file', Boolean(name));
+    els.appBody.classList.toggle('app-body--col-open', Boolean(name));
+    panelShown = name;
+  }
+
+  function showPanel(name) {
+    const from = panelShown;
+    if (name === from) return;
+    if (!panelsPrimed || REDUCED_MOTION.matches || !WIDE.matches) return settlePanels(name);
+
+    settlePanels(from); // une animation encore en cours est terminée d'un coup avant la suivante
+    const fromElement = from && PANEL_EL[from];
+    const toElement = name && PANEL_EL[name];
+    const hadFocus = Boolean(fromElement?.contains(document.activeElement));
+    panelShown = name;
+
+    if (!from) {
+      // Ouverture : la colonne s'élargit (transition CSS) pendant que le panneau glisse et apparaît
+      toElement.hidden = false;
+      els.appBody.classList.add('app-body--with-file');
+      toElement.classList.add('folder--enter');
+      void els.appBody.offsetWidth; // la colonne part de sa largeur nulle
+      els.appBody.classList.add('app-body--col-open');
+      panelTimer = setTimeout(() => toElement.classList.remove('folder--enter'), 900);
+    } else if (!name) {
+      // Fermeture : le panneau s'efface, la colonne se referme, puis il est retiré
+      fromElement.classList.add('folder--leave');
+      els.appBody.classList.remove('app-body--col-open');
+      panelTimer = setTimeout(() => settlePanels(null), 560);
+    } else {
+      // Bascule Dossier ↔ Rapport : l'ancien se retire, le nouveau arrive, le curseur de la bascule glisse
+      fromElement.classList.add('folder--swap-out');
+      panelTimer = setTimeout(() => {
+        fromElement.hidden = true;
+        fromElement.classList.remove('folder--swap-out');
+        toElement.hidden = false;
+        toElement.classList.add('folder--swap-in');
+        if (hadFocus) toElement.querySelector('.folder__close')?.focus({ preventScroll: true });
+        panelTimer = setTimeout(() => toElement.classList.remove('folder--swap-in'), 900);
+      }, 180);
+    }
+  }
+
   function applyPanels() {
     const showFile = WIDE.matches && openPanel === 'dossier' && isFileAvailable();
     const showReport = WIDE.matches && openPanel === 'rapport' && isReportAvailable();
-    els.fileSide.hidden = !showFile;
-    els.reportSide.hidden = !showReport;
-    els.appBody.classList.toggle('app-body--with-file', showFile || showReport);
+    showPanel(showFile ? 'dossier' : showReport ? 'rapport' : null);
+    panelsPrimed = true;
     for (const [tab, shown] of [
       [els.folderTab, showFile],
       [els.reportTab, showReport],

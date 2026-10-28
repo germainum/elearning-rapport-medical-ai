@@ -169,11 +169,6 @@
     --sidebar-width: 4.75rem;
   }
 
-  /* Plus de colonne de droite : le contenu occupe toute la place, le dossier ou le rapport la rouvre quand on l'ouvre */
-  .app-body:not(.app-body--with-file) {
-    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-  }
-
   .app-main,
   .pager {
     width: 100%;
@@ -578,5 +573,181 @@
 
   .question__collapse {
     transition: none;
+  }
+}
+
+/* ================================================================
+   Dossier patient et Mon rapport : ouverture, fermeture et bascule animées (28.10.2026)
+   La colonne de droite s'élargit en douceur (le contenu se recentre sans saut), le panneau glisse et se fond,
+   les blocs montent l'un après l'autre, le curseur de la bascule « Dossier | Rapport » glisse d'un onglet à l'autre.
+   ================================================================ */
+
+@media screen and (min-width: 80rem) {
+  /* Troisième colonne toujours présente, de largeur nulle quand rien n'est ouvert : c'est elle qui s'anime */
+  .app-body,
+  .app-body--with-file {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) 0px;
+    transition: grid-template-columns 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .app-body.app-body--col-open {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--file-width);
+  }
+
+  /* Largeur fixe : le contenu du panneau ne se réorganise pas pendant que la colonne s'élargit */
+  .app-body--with-file .folder {
+    justify-self: start;
+    width: calc(var(--file-width) - 1.5rem);
+  }
+}
+
+/* Curseur de la bascule : une pastille blanche qui glisse (à la place du fond du bouton actif) */
+@media screen and (min-width: 64rem) {
+  .folder__switch {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .folder__switch::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    left: 0.25rem;
+    width: calc((100% - 0.75rem) / 2);
+    border-radius: 0.75rem;
+    background: var(--color-surface);
+    box-shadow: 0 1px 3px rgb(15 29 150 / 0.12);
+  }
+
+  .folder--report .folder__switch::before {
+    transform: translateX(calc(100% + 0.25rem));
+  }
+
+  .folder__switch-btn[aria-current] {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .folder__switch-btn {
+    transition: color 0.25s ease;
+  }
+
+  /* Le panneau qui arrive : le curseur part de l'autre onglet */
+  .folder.folder--swap-in .folder__switch::before {
+    animation: switch-slide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  #file-side {
+    --switch-from: calc(100% + 0.25rem);
+  }
+
+  #report-side {
+    --switch-from: 0px;
+  }
+}
+
+@keyframes switch-slide {
+  from {
+    transform: translateX(var(--switch-from));
+  }
+}
+
+@keyframes folder-in {
+  from {
+    opacity: 0;
+    transform: translateX(3rem) scale(0.985);
+  }
+}
+
+@keyframes folder-out {
+  to {
+    opacity: 0;
+    transform: translateX(2.5rem) scale(0.985);
+  }
+}
+
+@keyframes folder-swap-in {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+}
+
+@keyframes folder-swap-out {
+  to {
+    opacity: 0;
+    transform: translateX(-1.25rem);
+  }
+}
+
+@keyframes folder-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  .folder.folder--enter {
+    animation: folder-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--leave {
+    animation: folder-out 0.38s cubic-bezier(0.55, 0, 1, 0.45) both;
+    pointer-events: none;
+  }
+
+  .folder.folder--swap-in {
+    animation: folder-swap-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--swap-out {
+    animation: folder-swap-out 0.18s ease-in both;
+    pointer-events: none;
+  }
+
+  /* Les blocs du panneau montent l'un après l'autre */
+  .folder.folder--enter .folder__switch,
+  .folder.folder--swap-in .folder__switch,
+  .folder.folder--enter .folder__close,
+  .folder.folder--swap-in .folder__close {
+    animation: folder-rise 0.55s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--enter .folder__sheet,
+  .folder.folder--swap-in .folder__sheet {
+    animation: folder-rise 0.65s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--enter .record > *,
+  .folder.folder--swap-in .record > *,
+  .folder.folder--enter .report > *,
+  .folder.folder--swap-in .report > * {
+    animation: folder-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.2s + var(--i, 0) * 60ms);
+  }
+
+  .folder .record > :nth-child(2) { --i: 1; }
+  .folder .record > :nth-child(3) { --i: 2; }
+  .folder .record > :nth-child(4) { --i: 3; }
+  .folder .record > :nth-child(5) { --i: 4; }
+  .folder .record > :nth-child(n + 6) { --i: 5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-body,
+  .app-body--with-file {
+    transition: none;
+  }
+
+  .folder.folder--enter,
+  .folder.folder--leave,
+  .folder.folder--swap-in,
+  .folder.folder--swap-out,
+  .folder.folder--enter *,
+  .folder.folder--swap-in * {
+    animation: none;
   }
 }
