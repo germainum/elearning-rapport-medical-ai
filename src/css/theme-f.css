@@ -1181,3 +1181,30 @@
     display: none !important;
   }
 }
+
+/* Une entrée du menu qui apparaît en cours de parcours (Dossier, Mon rapport, Glossaire) se déploie en douceur */
+@keyframes nav-item-in {
+  from { max-height: 0; opacity: 0; transform: translateX(-0.75rem) scale(0.9); }
+  to { max-height: 3rem; opacity: 1; transform: none; }
+}
+
+@keyframes tab-item-in {
+  from { flex-grow: 0; opacity: 0; transform: translateY(0.75rem) scale(0.8); }
+  to { flex-grow: 1; opacity: 1; transform: none; }
+}
+
+.side-nav__li--reveal {
+  animation: nav-item-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (max-width: 47.99rem) {
+  .side-nav__li--reveal {
+    animation-name: tab-item-in;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-nav__li--reveal {
+    animation: none;
+  }
+}

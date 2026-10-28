@@ -396,6 +396,17 @@ async function start() {
 
   const nextState = { index: -1, locked: true }; // état du bouton « Suivant » au dernier affichage
 
+  /** Entrée du menu qui apparaît en cours de parcours : elle se déploie en douceur (rien au chargement ni à la disparition). */
+  function revealNavItem(button, hide) {
+    const appearing = button.hidden && !hide && button.dataset.init === '1';
+    button.hidden = hide;
+    button.dataset.init = '1';
+    if (!appearing) return;
+    const item = button.parentElement;
+    item.classList.add('side-nav__li--reveal');
+    item.addEventListener('animationend', () => item.classList.remove('side-nav__li--reveal'), { once: true });
+  }
+
   function updateChrome() {
     const total = screens.length;
     // Forme courte « 10/35 » sur les très petits écrans ; la forme longue reste lue par les lecteurs d'écran
@@ -472,9 +483,9 @@ async function start() {
     els.reportToFile.hidden = !fileUnlocked;
     refreshReport();
     applyPanels();
-    els.sideFile.hidden = !fileUnlocked;
-    els.sideReport.hidden = !reportAvailable;
-    els.sideGlossary.hidden = els.glossaryToggle.hidden;
+    revealNavItem(els.sideFile, !fileUnlocked);
+    revealNavItem(els.sideReport, !reportAvailable);
+    revealNavItem(els.sideGlossary, els.glossaryToggle.hidden);
     els.sideHome.toggleAttribute('aria-current', index === 0);
     els.sidePath.toggleAttribute('aria-current', index !== 0);
     for (const button of [els.sideHome, els.sidePath]) {
