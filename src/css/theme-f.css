@@ -153,6 +153,15 @@
 @media screen and (min-width: 64rem) {
   :root {
     --measure: 47.5rem; /* largeur de lecture : 760 px, centrée */
+    --frame-pad: 0px; /* plus de cadre sombre autour : le module occupe toute la fenêtre */
+  }
+
+  body {
+    background: var(--color-surface);
+  }
+
+  .app-body {
+    border-radius: 0;
   }
 
   /* Menu de gauche : icônes seules par défaut */
@@ -453,7 +462,7 @@
 /* ≥ 1280 px : le panneau du dossier, collant, descend jusqu'en bas (la barre d'avancement ne l'occupe plus) */
 @media screen and (min-width: 80rem) {
   .app-body--with-file .folder:not([hidden]) {
-    height: calc(100dvh - 4 * var(--frame-pad));
+    height: calc(100dvh - 3rem); /* marges haute et basse de 1,5 rem */
   }
 }
 
