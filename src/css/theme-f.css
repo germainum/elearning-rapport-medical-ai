@@ -911,13 +911,9 @@
     display: none;
   }
 
+  /* Les deux listes (principale et du bas) se fondent en une seule rangée : tous les onglets ont la même largeur */
   .side-nav {
-    display: flex;
-    flex: 1 1 auto;
-    gap: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    display: contents;
   }
 
   .side-nav li {
