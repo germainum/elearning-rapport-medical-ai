@@ -178,9 +178,9 @@ function showRetry(form, question, ids, result, { retake, misses }) {
         ? `<ul class="feedback__notes">${notes.map((option) => `<li><span class="feedback__option">${inline(option.text)}</span> ${inline(option.feedback)}</li>`).join('')}</ul>`
         : '';
   const main = noteHtml || titleHtml(wrongFb.title);
-  // La conséquence est repliée ; l'explication de la bonne réponse n'est donnée qu'après deux erreurs (ou à la reprise), pour laisser chercher
+  // La conséquence est affichée tout de suite (plus de clic au moment où l'on apprend) ; l'explication de la bonne réponse n'est donnée qu'après deux erreurs (ou à la reprise), pour laisser chercher
   const detail = [noteHtml ? titleHtml(wrongFb.title) : '', proseHtml(wrongFb.body)].join('').trim();
-  const more = detail ? `<details class="feedback__more"><summary>Voir l'explication</summary>${detail}</details>` : '';
+  const more = detail ? `<div class="feedback__more">${detail}</div>` : '';
   const why =
     (misses >= 2 || retake >= 1) && (correctFb.title || correctFb.body)
       ? `<div class="feedback__why"><p class="feedback__why-title">Pourquoi c'est la bonne réponse</p>${titleHtml(correctFb.title)}${proseHtml(correctFb.body)}</div>`
@@ -238,7 +238,7 @@ function lock(form, question, ids, result, retake = 0, { compact = false } = {})
   // Niveau 1, toujours visible : le verdict et une phrase.
   //  - bonne réponse : l'explication ;
   //  - mauvaise réponse : pourquoi ce choix ne convient pas (remarque sur l'option choisie), à défaut l'accroche de la conséquence.
-  // Niveau 2, replié sous « Voir l'explication » : la conséquence concrète (« Quelques semaines plus tard… »)
+  // Suite, affichée directement : la conséquence concrète (« Quelques semaines plus tard… »)
   // et pourquoi la bonne réponse est la bonne.
   let main;
   let more = '';
@@ -263,7 +263,7 @@ function lock(form, question, ids, result, retake = 0, { compact = false } = {})
     if (retake >= 1) why = explanation;
 
     const detail = [noteHtml ? titleHtml(wrongFb.title) : '', proseHtml(wrongFb.body), retake >= 1 ? '' : explanation].join('').trim();
-    if (detail) more = `<details class="feedback__more"><summary>Voir l'explication</summary>${detail}</details>`;
+    if (detail) more = `<div class="feedback__more">${detail}</div>`;
   }
 
   const feedback = form.querySelector('.feedback');

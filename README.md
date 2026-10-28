@@ -365,9 +365,9 @@ Pour passer à l'écran suivant, utilisez `continueLabel`.
 ```
 
 **Le retour s'affiche en deux niveaux.** Visible tout de suite : le verdict et une phrase (bonne réponse : le texte de `correct` ;
-mauvaise réponse : le `feedback` de l'option choisie, à défaut le `title` de `incorrect`). Replié sous « Voir l'explication » :
+mauvaise réponse : le `feedback` de l'option choisie, à défaut le `title` de `incorrect`). Affiché juste dessous, sans clic :
 la conséquence (`title` et `body` de `incorrect`) et pourquoi la bonne réponse est la bonne (`correct`). Après une seconde erreur à la
-reprise, l'explication de la bonne réponse reste visible. Gardez donc un `correct` court : c'est la phrase que l'on lit.
+reprise, l'explication de la bonne réponse s'ajoute. Gardez donc un `correct` court : c'est la phrase que l'on lit.
 
 ### Écran « synthèse » (`summary`)
 

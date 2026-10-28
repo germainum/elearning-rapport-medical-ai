@@ -119,8 +119,8 @@ d'écran → `<dialog>` avec recherche insensible aux accents et compteur annonc
 Sur ≤ 360 px, la progression du bandeau passe en forme courte « 10/40 » (forme longue lue par les lecteurs d'écran).
 Feedback d'une question : texte, ou objet `{ "title", "body" }` pour un feedback par conséquence. **Deux niveaux** (20.10.2026) :
 visibles tout de suite, le verdict et **une phrase** (bonne réponse : `feedback.correct` ; mauvaise réponse : la remarque de l'option
-choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'explication » (`<details>`), la conséquence
-(`incorrect`) et l'explication de la bonne réponse. Après une seconde erreur à la reprise, cette explication reste visible.
+choisie, à défaut le `title` de `incorrect`) ; **affichés directement, sans clic** (v0.104.0, le lien « Voir l'explication » est supprimé : l'explication est le moment où l'on apprend), la conséquence
+(`incorrect`) puis l'explication de la bonne réponse (celle-ci seulement après une seconde erreur à la reprise).
 
 ### Couche SCORM isolée
 
