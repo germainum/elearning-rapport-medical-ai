@@ -256,7 +256,8 @@ const BLOCKS = {
   text(block, ctx) {
     const title = block.title ? `<h3 class="block__title">${inline(block.title)}</h3>` : '';
     const body = `<div class="prose">${title}${rich(block.body)}</div>`;
-    if (!block.image) return body;
+    // « image.show: false » : l'illustration reste dans le contenu mais n'est pas affichée
+    if (!block.image || block.image.show === false) return body;
     const position = block.image.position ?? 'top';
     const image = figure(block.image, ctx.asset);
     return `<div class="layout layout--${position}">${position === 'bottom' ? body + image : image + body}</div>`;

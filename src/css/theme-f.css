@@ -1,0 +1,442 @@
+/* ================================================================
+   Design F (28.10.2026) : la tâche d'abord.
+   Chargé après theme-e.css (qui n'est pas modifié). Retour à l'aspect E : retirer le lien vers ce fichier dans index.html.
+   - un seul repère de navigation : « Section 2 · Situation médicale · Étape 1/8 » + fine barre ; les étapes dans un panneau repliable
+   - menu de gauche réduit aux icônes (dépliable)
+   - extrait du formulaire allégé, consigne en un paragraphe, illustration facultative
+   - réponses en liste simple, sans carte autour
+   ================================================================ */
+
+/* ---------- Toutes tailles : l'extrait du formulaire ---------- */
+
+/* Feuille à plat : plus de pile de feuilles ni de coin corné */
+.form-sheet {
+  border: 1px solid #e2dfd2;
+  border-radius: 0.875rem;
+  box-shadow: none;
+}
+
+.form-sheet::after {
+  display: none;
+}
+
+/* En-tête : une petite ligne discrète « 2 SITUATION MÉDICALE · Formulaire 002.099 · v. 09.2023 » */
+.form-sheet__header,
+.form-sheet__header--compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0 0.5rem;
+  padding: 0.75rem var(--space-4) 0;
+  border-bottom: 0;
+}
+
+.form-sheet__title,
+.form-sheet__header--compact .form-sheet__title {
+  color: #5d6170;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.form-sheet__ref {
+  color: #5d6170;
+  font-size: 0.6875rem;
+}
+
+.form-sheet__ref::before {
+  content: "·";
+  margin-right: 0.5rem;
+}
+
+/* Champ de saisie : deux lignes, et des lignes seulement sous le texte écrit (plus de ligne vide finale) */
+.form-sheet__blank {
+  height: 3rem;
+}
+
+.form-sheet__filled {
+  min-height: 3rem;
+  background-image: none;
+}
+
+.form-sheet__filled > p,
+.form-sheet__filled li {
+  background-image: linear-gradient(transparent calc(1.5rem - 1px), #a9aebb calc(1.5rem - 1px), #a9aebb 1.5rem, transparent 1.5rem);
+  background-size: 100% 1.5rem;
+}
+
+/* ---------- Toutes tailles : consigne unique au-dessus de l'extrait ---------- */
+
+.consigne {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.consigne__cue {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+/* Le titre de l'écran fait doublon avec la question de l'extrait : il reste lu par les lecteurs d'écran */
+.screen--scene:has(.form-sheet) > .screen__header {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* La consigne d'interface fait partie du paragraphe de consigne quand il existe */
+.scene__step:has(.consigne) .question__cue {
+  display: none;
+}
+
+/* ---------- Toutes tailles : réponses en liste simple ---------- */
+
+.question,
+.scene__step > .question {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  gap: var(--space-3);
+}
+
+.question__options {
+  gap: 0.25rem;
+}
+
+/* Au repos : ni bordure ni fond ; la ligne entière reste cliquable (au moins 44 px) */
+.option {
+  min-height: 3.25rem;
+  padding: 0.625rem var(--space-4);
+  border-color: transparent;
+  border-radius: 1rem;
+  background: transparent;
+}
+
+.option:hover {
+  border-color: var(--color-border);
+  background: var(--color-surface-muted);
+}
+
+.option:has(.option__input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-selected-bg);
+}
+
+.option:has(.option__input:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Réponse validée : les états restent bien visibles, une réponse neutre ne change plus au survol */
+.question--answered .option:not(.option--correct):not(.option--incorrect):not(.option--missed):hover {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* Bouton « Étapes », menu replié, panneau : ordinateur seulement */
+.steps-toggle,
+.side-toggle,
+.app-header .progress-side {
+  display: none;
+}
+
+/* ---------- Ordinateur (≥ 1024 px) ---------- */
+
+@media screen and (min-width: 64rem) {
+  :root {
+    --measure: 47.5rem; /* largeur de lecture : 760 px, centrée */
+  }
+
+  /* Menu de gauche : icônes seules par défaut */
+  .app-body {
+    --sidebar-width: 4.75rem;
+  }
+
+  .app-body.app-body--nav-open {
+    --sidebar-width: 15.5rem;
+  }
+
+  /* Plus de colonne de droite : le contenu occupe toute la place, le dossier ou le rapport la rouvre quand on l'ouvre */
+  .app-body:not(.app-body--with-file) {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  }
+
+  .app-main,
+  .pager {
+    width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+
+  .app-column {
+    padding-inline: 2rem;
+  }
+
+  /* --- Barre latérale réduite --- */
+
+  .app-sidebar--toc {
+    padding-inline: 0.75rem;
+  }
+
+  .sidebar-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .app-body--nav-open .sidebar-top {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: var(--space-2);
+  }
+
+  /* Logo compact : « AI ▪ » seulement */
+  .sidebar-logo {
+    align-self: center;
+    width: 2.75rem;
+    height: 1.75rem;
+    margin: 0;
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  .app-body--nav-open .sidebar-logo {
+    width: auto;
+    height: 2rem;
+    object-fit: contain;
+  }
+
+  .side-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-surface);
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .side-toggle:hover {
+    background: var(--color-surface-muted);
+  }
+
+  .side-toggle svg {
+    transition: transform 0.2s ease;
+  }
+
+  .app-body--nav-open .side-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .app-body:not(.app-body--nav-open) .sidebar-module,
+  .app-body:not(.app-body--nav-open) .sidebar-meta {
+    display: none;
+  }
+
+  .app-body:not(.app-body--nav-open) .side-nav__item {
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0;
+  }
+
+  .app-body:not(.app-body--nav-open) .side-nav__item span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .app-body:not(.app-body--nav-open) .help__toggle {
+    justify-self: center;
+  }
+
+  /* --- En-tête compact : une ligne + fine barre --- */
+
+  .app-header__inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 1.5rem 0 0;
+  }
+
+  .app-header__logo + .app-header__text,
+  .app-header__text {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .crumbs li + li::before {
+    content: "·";
+    margin: 0 0.5rem;
+    color: var(--color-subtle);
+  }
+
+  /* Le fil rouge (« Rapport de Mme R. ») reste lu par les lecteurs d'écran */
+  .crumbs .crumbs__story {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .crumbs .crumbs__story + li::before {
+    display: none;
+  }
+
+  .crumbs [aria-current="page"] {
+    color: var(--color-subtle);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Fine barre de progression de tout le module, sous la ligne */
+  .app-header .overall--top {
+    position: static;
+    order: 3;
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    margin: 0;
+  }
+
+  .app-header .overall--top .overall__head,
+  .app-header .overall--top .overall__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .app-header .overall--top .overall__bar {
+    height: 0.25rem;
+  }
+
+  /* --- Bouton « Étapes » et panneau repliable --- */
+
+  .steps-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding: 0 var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-heading);
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .steps-toggle:hover,
+  .steps-toggle[aria-expanded="true"] {
+    background: var(--color-surface-muted);
+  }
+
+  .steps-toggle:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .app-header .progress-side {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 40;
+    display: block;
+    width: min(22rem, 100%);
+    max-height: min(70dvh, 34rem);
+    overflow-y: auto;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: 1.25rem;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-float);
+  }
+
+  .app-header .progress-side[hidden] {
+    display: none;
+  }
+
+  .app-header .progress-side__list {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .app-header .progress-side__time {
+    margin: var(--space-3) 0 0;
+    color: var(--color-subtle);
+    font-size: 0.8125rem;
+  }
+
+  /* Dossier ou rapport ouverts : colonne de droite sans la barre d'avancement qui l'occupait */
+  .app-body--with-file .folder {
+    margin-top: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  .steps-toggle,
+  .side-toggle {
+    display: inline-flex;
+  }
+
+  /* Le bandeau suit le menu : le bouton « Étapes » tient la place de la colonne de droite */
+  .steps-toggle {
+    order: 2;
+  }
+}
+
+/* ≥ 1280 px : le panneau du dossier, collant, descend jusqu'en bas (la barre d'avancement ne l'occupe plus) */
+@media screen and (min-width: 80rem) {
+  .app-body--with-file .folder:not([hidden]) {
+    height: calc(100dvh - 4 * var(--frame-pad));
+  }
+}
+
+/* ---------- Impression ---------- */
+
+@media print {
+  .steps-toggle,
+  .side-toggle {
+    display: none !important;
+  }
+}

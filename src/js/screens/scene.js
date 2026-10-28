@@ -30,6 +30,27 @@ function fillSheet(step, question, correct, { animate }) {
   }
 }
 
+const CUE = 'Choisissez la réponse à reporter.';
+
+/**
+ * Consigne d'une étape avec extrait du formulaire : un seul paragraphe court au-dessus de l'extrait.
+ * Si l'écran définit « consigne », c'est ce texte ; sinon, l'accroche (premier bloc « text ») suivie de la consigne d'interface.
+ * Retourne null quand l'étape n'a pas la forme « accroche, extrait, question » (le bloc est alors rendu tel quel).
+ */
+function consigneBlock(screen, stepBlocks, block) {
+  const hasForm = stepBlocks.some((b) => b.type === 'form');
+  const question = stepBlocks.find((b) => b.type === 'question');
+  if (!hasForm || !question || block.type !== 'text' || block.title) return null;
+  const lines = [].concat(screen.consigne ?? block.body);
+  if (lines.some((line) => /^(-|\d+[.)])\s+/.test(String(line).trim()))) return null; // listes : pas de fusion
+  // Avec « consigne », l'auteur écrit tout (y compris la consigne de réponse) ; sinon la consigne d'interface suit l'accroche
+  const cue = screen.consigne === undefined && question.hidePrompt ? ` <span class="consigne__cue">${CUE}</span>` : '';
+  const element = document.createElement('div');
+  element.className = 'block block--consigne';
+  element.innerHTML = `<p class="consigne">${lines.map((line) => inline(line)).join(' ')}${cue}</p>`;
+  return element;
+}
+
 export function renderScene(screen, ctx) {
   const steps = stepsOf(screen);
   const questions = questionsOf(screen);
@@ -40,8 +61,13 @@ export function renderScene(screen, ctx) {
     const step = document.createElement('div');
     step.className = 'scene__step';
     step.tabIndex = -1;
+    let consigneDone = false;
     for (const block of steps[index].blocks) {
-      if (block.type === 'question') {
+      const consigne = !consigneDone ? consigneBlock(screen, steps[index].blocks, block) : null;
+      if (consigne) {
+        consigneDone = true;
+        step.append(consigne);
+      } else if (block.type === 'question') {
         const form = renderQuestion(block, {
           number: questions.indexOf(block) + 1,
           total: questions.length,

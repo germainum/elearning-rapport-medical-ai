@@ -212,6 +212,8 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   Icônes disponibles : `courrier`, `dossier`, `examen`, `redaction`, `envoi`, `decision`.
 - `image` est facultative. `position` : `"top"` (au-dessus, par défaut), `"bottom"` (en dessous)
   ou `"side"` (à côté du texte sur grand écran, au-dessus sur mobile).
+- `"show": false` dans `image` : l'illustration reste dans le contenu mais **n'est pas affichée** (utilisé sur les écrans d'étape du
+  formulaire, pour que la tâche reste au-dessus de la ligne de flottaison). Remplacez par `true` (ou retirez la ligne) pour la réafficher.
 - `alt` est **obligatoire** : décrivez l'information que porte l'image pour une personne qui ne la voit pas.
   Pour une image purement décorative, remplacez `alt` par `"decorative": true`.
 - Les fichiers d'images vont dans `content/images/`. Leur nom ne doit contenir ni espace ni accent.
@@ -240,6 +242,10 @@ qu'après avoir répondu aux questions déjà affichées.
   ]
 }
 ```
+
+**Consigne** : sur un écran qui a un extrait du formulaire (`form`) suivi d'une `question`, le premier bloc `text` est affiché comme **un seul
+paragraphe court**, suivi de la consigne d'interface « Choisissez la réponse à reporter. ». Pour écrire vous-même tout le paragraphe (consigne
+comprise), ajoutez au niveau de l'écran un champ `"consigne"` (texte ou liste de lignes) : il remplace alors l'accroche et la consigne d'interface.
 
 Les blocs possibles :
 

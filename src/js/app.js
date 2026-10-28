@@ -64,6 +64,9 @@ const els = {
   tocList: byId('toc-list'),
   tocSideList: byId('toc-side-list'),
   progressSide: byId('progress-side'),
+  stepsToggle: byId('steps-toggle'),
+  sideToggle: byId('side-toggle'),
+  sideToggleLabel: byId('side-toggle-label'),
   nextSide: byId('next-side'),
   progressTitle: byId('progress-side-title'),
   progressCount: byId('progress-side-count'),
@@ -304,6 +307,7 @@ async function start() {
   }
 
   function show(target, { focus = true, notice = '', stickyNotice = false, focusQuestion = null } = {}) {
+    closeSteps({ restoreFocus: false });
     const previous = index;
     index = target;
     const screen = screens[index];
@@ -401,9 +405,16 @@ async function start() {
 
     // En-tête : le fil rouge seul (ex. « Rapport de Mme R. »)
     const screen = screens[index];
-    els.crumbs.innerHTML = [screen.storyTitle ?? module.storyTitle, ...String(screen.section ?? '').split(' · ')]
-      .filter(Boolean)
-      .map((text, i, all) => `<li${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(text)}</li>`)
+    // En-tête compact : « Section 2 · Situation médicale · Étape 1/8 » (le fil rouge reste lu par les lecteurs d'écran)
+    const sectionScreens = screens.map((_, i) => i).filter((i) => (screens[i].section ?? null) === (screen.section ?? null));
+    const stepLabel = sectionScreens.length > 1 ? `Étape ${sectionScreens.indexOf(index) + 1}/${sectionScreens.length}` : '';
+    els.crumbs.innerHTML = [
+      { text: screen.storyTitle ?? module.storyTitle, story: true },
+      ...String(screen.section ?? '').split(' · ').map((text) => ({ text })),
+      { text: stepLabel },
+    ]
+      .filter((part) => part.text)
+      .map((part, i, all) => `<li${part.story ? ' class="crumbs__story"' : ''}${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(part.text)}</li>`)
       .join('');
 
     els.prev.disabled = index === 0;
@@ -462,6 +473,8 @@ async function start() {
     placeNextSteps();
   }
 
+  const NEXT_IN_SIDE = false; // la colonne de droite n'existe plus : le bloc reste dans l'écran
+
   /** Synthèse : sur ordinateur large, le bloc « Et maintenant ? » passe dans la colonne de droite (à la place de l'avancement). */
   let movedNext = null;
   function placeNextSteps() {
@@ -470,7 +483,7 @@ async function start() {
       movedNext = null;
     }
     const block = els.screen.querySelector('.next-steps') ?? movedNext?.block;
-    if (block && WIDE.matches) {
+    if (block && NEXT_IN_SIDE && WIDE.matches) {
       if (!movedNext) {
         const marker = document.createComment('next-steps');
         block.before(marker);
@@ -480,9 +493,8 @@ async function start() {
     } else if (movedNext) {
       movedNext.marker.after(movedNext.block);
     }
-    const inSide = Boolean(block) && WIDE.matches;
+    const inSide = Boolean(block) && NEXT_IN_SIDE && WIDE.matches;
     els.nextSide.hidden = !inSide;
-    els.progressSide.toggleAttribute('data-away', inSide);
   }
 
   /** Colonne de droite : les écrans de la section en cours, avec leur état (terminé, actuel, à venir). */
@@ -552,6 +564,65 @@ async function start() {
     els.helpToggle.setAttribute('aria-expanded', 'false');
     els.helpToggle.focus();
   });
+  /* ---------- Panneau des étapes (ordinateur) : fermé par défaut, ouvert par le bouton « Étapes » ---------- */
+
+  function closeSteps({ restoreFocus = true } = {}) {
+    if (els.progressSide.hidden) return;
+    els.progressSide.hidden = true;
+    els.stepsToggle.setAttribute('aria-expanded', 'false');
+    if (restoreFocus) els.stepsToggle.focus();
+  }
+
+  els.stepsToggle.addEventListener('click', () => {
+    const open = els.progressSide.hidden;
+    els.progressSide.hidden = !open;
+    els.stepsToggle.setAttribute('aria-expanded', String(open));
+    if (open) els.progressSide.querySelector('[aria-current="step"], button')?.focus?.();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !els.progressSide.hidden) {
+      event.stopPropagation();
+      closeSteps();
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (els.progressSide.hidden) return;
+    if (els.progressSide.contains(event.target) || els.stepsToggle.contains(event.target)) return;
+    closeSteps({ restoreFocus: false });
+  });
+
+  /* ---------- Menu de gauche : icônes seules par défaut, dépliable (préférence propre à ce navigateur) ---------- */
+
+  const NAV_KEY = `menu-deplie:${module.id}`;
+  let navOpen = false;
+  try {
+    navOpen = localStorage.getItem(NAV_KEY) === '1';
+  } catch {
+    // Stockage indisponible : le menu démarre replié
+  }
+
+  function applyNav() {
+    els.appBody.classList.toggle('app-body--nav-open', navOpen);
+    els.sideToggle.setAttribute('aria-expanded', String(navOpen));
+    els.sideToggleLabel.textContent = navOpen ? 'Réduire le menu' : 'Déplier le menu';
+    // Replié : libellé en infobulle (survol et clavier) ; le nom accessible reste le texte du bouton
+    for (const item of document.querySelectorAll('.side-nav__item')) {
+      const label = item.querySelector('span')?.textContent ?? '';
+      if (navOpen) item.removeAttribute('title');
+      else item.setAttribute('title', label);
+    }
+  }
+  els.sideToggle.addEventListener('click', () => {
+    navOpen = !navOpen;
+    try {
+      localStorage.setItem(NAV_KEY, navOpen ? '1' : '0');
+    } catch {
+      // Préférence non enregistrée
+    }
+    applyNav();
+  });
+  applyNav();
+
   els.sideHome.addEventListener('click', () => show(0));
   els.sidePath.addEventListener('click', () => els.pathDialog.showModal());
   els.pathClose.addEventListener('click', () => els.pathDialog.close());
