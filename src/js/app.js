@@ -334,15 +334,16 @@ async function start() {
     els.exitNote.textContent = '';
     // Question précédente de la feuille (avec la réponse écrite), gardée pour la faire « défiler » vers le haut
     const sheetBefore = els.screen.querySelector('.form-sheet');
-    const previousItem = target === previous + 1 ? sheetBefore?.querySelector('.form-sheet__item')?.cloneNode(true) : null;
-    const previousSheet = target === previous + 1 ? sheetBefore?.cloneNode(true) : null;
+    const sheetDirection = target === previous + 1 ? 'forward' : target === previous - 1 ? 'backward' : null;
+    const previousItem = sheetDirection ? sheetBefore?.querySelector('.form-sheet__item')?.cloneNode(true) : null;
+    const previousSheet = sheetDirection ? sheetBefore?.cloneNode(true) : null;
     const previousTitle = sheetBefore?.querySelector('.form-sheet__title')?.textContent;
     const article = render(screen, ctx);
     els.screen.replaceChildren(article);
     const banner = reviewBanner();
     if (banner) els.screen.prepend(banner);
     animateScreenIn(article, target >= previous ? 'forward' : 'backward');
-    if (previousItem && !animateSheetDescent(article, previousItem, previousTitle) && previousSheet) animateSheetTurn(article, previousSheet);
+    if (previousItem && !animateSheetDescent(article, previousItem, previousTitle, sheetDirection) && previousSheet) animateSheetTurn(article, previousSheet, sheetDirection);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     // Le nom du module d'abord : c'est ce qu'on lit dans l'onglet, dont la place est comptée
     document.title = `${plainText(module.title)} · ${plainText(screen.title)}`;
@@ -1405,7 +1406,11 @@ function animateScreenIn(article, direction) {
  * place. Tout est un seul défilement (même durée, même courbe) : la fenêtre de
  * la feuille se resserre pendant que son contenu monte. Seulement d'une question à la suivante d'une même section.
  */
-function animateSheetDescent(article, previousItem, previousTitle) {
+/**
+ * Le papier défile d'une question à l'autre. En avançant, il remonte (la question précédente sort par le haut) ;
+ * en reculant, c'est l'inverse : il redescend et la question précédente revient d'en haut.
+ */
+function animateSheetDescent(article, previousItem, previousTitle, direction = 'forward') {
   if (REDUCED_MOTION.matches) return true; // rien à animer, et pas de page tournée non plus
   const sheet = article.querySelector('.form-sheet');
   const list = sheet?.querySelector('.form-sheet__items');
@@ -1420,22 +1425,30 @@ function animateSheetDescent(article, previousItem, previousTitle) {
   list.replaceWith(window_);
   window_.append(list);
 
+  const backward = direction === 'backward';
   previousItem.classList.add('form-sheet__ghost');
   previousItem.setAttribute('aria-hidden', 'true');
   previousItem.setAttribute('inert', '');
-  list.prepend(previousItem);
+  if (backward) list.append(previousItem);
+  else list.prepend(previousItem);
 
   const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
   const ghostHeight = previousItem.getBoundingClientRect().height;
-  const shift = ghostHeight + gap; // distance dont le papier remonte
-  const fullHeight = window_.getBoundingClientRect().height;
+  const currentHeight = current.getBoundingClientRect().height;
+  // Avancer : la question précédente est au-dessus, le papier monte de sa hauteur. Reculer : elle est en dessous, le papier descend
+  const shift = (backward ? currentHeight : ghostHeight) + gap;
   // La fenêtre montre d'abord la question précédente (comme l'écran d'avant), puis la nouvelle : sa hauteur ne varie que de
   // la différence entre les deux, donc la zone des réponses, juste dessous, reste en place.
-  const startHeight = fullHeight - shift - current.getBoundingClientRect().height + ghostHeight;
-  const endHeight = fullHeight - shift;
+  const startHeight = ghostHeight;
+  const endHeight = currentHeight;
   const timing = { duration: 1150, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'both' };
 
-  const paper = list.animate([{ transform: 'translateY(0)' }, { transform: `translateY(-${shift}px)` }], timing);
+  const paper = list.animate(
+    backward
+      ? [{ transform: `translateY(-${shift}px)` }, { transform: 'translateY(0)' }]
+      : [{ transform: 'translateY(0)' }, { transform: `translateY(-${shift}px)` }],
+    timing,
+  );
   const frame = window_.animate([{ height: `${startHeight}px` }, { height: `${endHeight}px` }], timing);
   // la feuille « tire » légèrement au démarrage, comme un papier qu'on saisit
   sheet.animate(
@@ -1458,7 +1471,11 @@ function animateSheetDescent(article, previousItem, previousTitle) {
  * supérieur du cadre (elle y est coupée, sans passer sur l'accroche), laissant apparaître la nouvelle page déjà en place dessous.
  * Mouvement à plat, sans 3D.
  */
-function animateSheetTurn(article, oldSheet) {
+/**
+ * Changement de section. En avançant, l'ancienne feuille sort par le haut, la nouvelle est déjà en place. En reculant, c'est
+ * l'inverse : l'ancienne reste en place et la feuille de la section précédente redescend par-dessus.
+ */
+function animateSheetTurn(article, oldSheet, direction = 'forward') {
   if (REDUCED_MOTION.matches) return;
   const sheet = article.querySelector('.form-sheet');
   const holder = sheet?.parentElement;
@@ -1485,6 +1502,31 @@ function animateSheetTurn(article, oldSheet) {
   holder.append(oldSheet);
 
   const distance = oldSheet.getBoundingClientRect().height + 24;
+  if (direction === 'backward') {
+    // La nouvelle feuille (celle de la section précédente) revient d'en haut et se pose sur l'ancienne
+    oldSheet.style.zIndex = '1';
+    sheet.style.position = 'relative';
+    sheet.style.zIndex = '5';
+    const settle = () => {
+      oldSheet.remove();
+      sheet.style.position = '';
+      sheet.style.zIndex = '';
+      holder.style.position = '';
+      holder.style.zIndex = '';
+      holder.style.clipPath = '';
+    };
+    sheet
+      .animate(
+        [
+          { transform: `translateY(-${distance}px)`, opacity: 0.85 },
+          { transform: `translateY(-${distance * 0.4}px)`, opacity: 1, offset: 0.4 },
+          { transform: 'translateY(0)', opacity: 1 },
+        ],
+        { duration: 950, delay: 250, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'both' },
+      )
+      .finished.then(settle, settle);
+    return;
+  }
   const slide = oldSheet.animate(
     [
       { transform: 'translateY(0)', opacity: 1 },
