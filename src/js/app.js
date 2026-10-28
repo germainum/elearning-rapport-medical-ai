@@ -604,13 +604,7 @@ async function start() {
   function applyNav() {
     els.appBody.classList.toggle('app-body--nav-open', navOpen);
     els.sideToggle.setAttribute('aria-expanded', String(navOpen));
-    els.sideToggleLabel.textContent = navOpen ? 'Réduire le menu' : 'Déplier le menu';
-    // Replié : libellé en infobulle (survol et clavier) ; le nom accessible reste le texte du bouton
-    for (const item of document.querySelectorAll('.side-nav__item')) {
-      const label = item.querySelector('span')?.textContent ?? '';
-      if (navOpen) item.removeAttribute('title');
-      else item.setAttribute('title', label);
-    }
+    els.sideToggleLabel.textContent = navOpen ? 'Réduire le menu' : 'Garder le menu ouvert';
   }
   els.sideToggle.addEventListener('click', () => {
     navOpen = !navOpen;
