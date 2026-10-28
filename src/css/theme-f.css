@@ -868,3 +868,142 @@
   background: var(--color-on-primary);
   color: var(--color-primary);
 }
+
+/* ================================================================
+   Mobile (< 768 px) : barre d'onglets en bas, à la manière d'Instagram (28.10.2026)
+   Icônes seules (le nom reste lu par les lecteurs d'écran), la page en cours en bleu ; « Précédent / Suivant » juste au-dessus.
+   Le bouton « Menu » du bandeau disparaît : le sommaire s'ouvre par l'onglet « Parcours ».
+   ================================================================ */
+
+@media screen and (max-width: 47.99rem) {
+  :root {
+    --tabbar-h: 3.5rem;
+    --tabbar-total: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+  }
+
+  body {
+    padding-bottom: var(--tabbar-total);
+  }
+
+  /* Le panneau de gauche devient la barre d'onglets */
+  .app-sidebar--toc {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: auto;
+    height: var(--tabbar-total);
+    padding: 0 max(0.25rem, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(0.25rem, env(safe-area-inset-left, 0px));
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    border-radius: 0;
+    background: var(--color-surface);
+    box-shadow: 0 -4px 16px rgb(15 20 40 / 0.06);
+    overflow: visible;
+  }
+
+  .app-sidebar--toc .sidebar-top,
+  .app-sidebar--toc .sidebar-module,
+  .app-sidebar--toc .sidebar-meta,
+  .app-sidebar--toc .help {
+    display: none;
+  }
+
+  .side-nav {
+    display: flex;
+    flex: 1 1 auto;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .side-nav li {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .side-nav li:has(> button[hidden]) {
+    display: none;
+  }
+
+  .side-nav__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--tabbar-h);
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .side-nav__item svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .side-nav__item span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .side-nav__item:active svg {
+    transform: scale(0.88);
+  }
+
+  .side-nav__item svg {
+    transition: transform 0.12s ease;
+  }
+
+  /* Page en cours : icône bleue et petit repère en haut de l'onglet (plus de pastille) */
+  .side-nav__item[aria-current="page"] {
+    background: transparent;
+    color: var(--color-primary);
+  }
+
+  .side-nav__item[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 28%;
+    right: 28%;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: var(--color-primary);
+  }
+
+  .side-nav__item:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: -4px;
+  }
+
+  /* Bandeau : plus de bouton « Menu » ; le logo et l'avancement occupent la largeur */
+  .app-header__actions,
+  #toc-toggle {
+    display: none !important;
+  }
+
+  /* « Précédent / Suivant » au-dessus de la barre d'onglets */
+  .pager {
+    bottom: var(--tabbar-total);
+    padding-bottom: var(--space-2);
+  }
+
+  .notice:not(.notice--sticky) {
+    bottom: calc(6.5rem + var(--tabbar-total));
+  }
+}
