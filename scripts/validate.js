@@ -55,7 +55,7 @@ const ALLOWED_KEYS = {
   attachmentBlock: ['type', 'title', 'src', 'meta', 'label', 'preview'],
   preview: ['title', 'reference', 'fields', 'items', 'footer'],
   videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
-  scene: [...SCREEN_COMMON_KEYS, 'blocks'],
+  scene: [...SCREEN_COMMON_KEYS, 'blocks', 'consigne'],
   quiz: [...SCREEN_COMMON_KEYS, 'body', 'questions'],
   summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'showReport', 'messages'],
   textBlock: ['type', 'title', 'body', 'image'],
@@ -66,7 +66,7 @@ const ALLOWED_KEYS = {
   calloutBlock: ['type', 'title', 'body'],
   revealBlock: ['type', 'label'],
   dataItem: ['label', 'value'],
-  image: ['src', 'alt', 'caption', 'position', 'decorative'],
+  image: ['src', 'alt', 'caption', 'position', 'decorative', 'show'],
   question: ['id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer', 'hidePrompt'],
   questionBlock: ['type', 'id', 'kind', 'prompt', 'options', 'feedback', 'points', 'reportAnswer', 'hidePrompt'],
   option: ['id', 'text', 'correct', 'feedback'],
@@ -124,6 +124,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       const path = join(contentDir, image.src);
       if (!existsSync(path) || !statSync(path).isFile()) error(where, `image introuvable : content/${image.src}`);
     }
+    if (image.show !== undefined && typeof image.show !== 'boolean') error(where, '« show » doit valoir true ou false (false : l\'image reste dans le contenu mais n\'est pas affichée).');
     if (image.decorative === true) {
       if (isText(image.alt)) warn(where, 'image marquée décorative : son texte alternatif ne sera pas lu.');
     } else if (!isText(image.alt)) {
@@ -637,6 +638,7 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
         break;
 
       case 'scene':
+        if (screen.consigne !== undefined && !isRichText(screen.consigne)) error(where, '« consigne » doit être un texte ou une liste de lignes.');
         checkBlocks(screen.blocks, where, questionIds);
         if (screen.blocks?.some?.((block) => block?.type === 'question')) hasQuestions = true;
         break;
