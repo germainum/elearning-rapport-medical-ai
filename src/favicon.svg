@@ -1,7 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <title>Rapport médical AI</title>
-  <rect width="64" height="64" rx="15" fill="#0f1d96"/>
-  <path d="M12 48 24 19 36 48M16.5 38h15" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M47 24v24" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
-  <rect x="42.5" y="9" width="9" height="9" rx="1.5" fill="#009628"/>
+  <title>AI VD</title>
+  <path d="M40.06 17.94H62.50A44.56 44.56 0 0 1 17.94 62.50V40.06A22.12 22.12 0 0 0 40.06 17.94Z" fill="#bec3c3"/>
+  <rect x="1.5" y="1.5" width="22.12" height="22.12" fill="#009628"/>
 </svg>
