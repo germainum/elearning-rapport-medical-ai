@@ -385,13 +385,13 @@ async function start() {
 
   function updateChrome() {
     const total = screens.length;
-    const done = screens.filter((_, i) => tracker.isScreenDone(i)).length;
     // Forme courte « 10/35 » sur les très petits écrans ; la forme longue reste lue par les lecteurs d'écran
     els.progressText.innerHTML = `<span class="progress-text__long">Écran ${index + 1} sur ${total}</span><span class="progress-text__short" aria-hidden="true">${index + 1}/${total}</span>`;
-    const percent = Math.round((done / total) * 100);
+    // Barre d'avancement : la place de l'écran affiché dans le module (elle bouge à chaque écran, en avant comme en arrière)
+    const percent = Math.round(((index + 1) / total) * 100);
     els.progressBar.style.width = `${percent}%`;
     // Avancement d'ensemble, en tête du sommaire (colonne de gauche) et du menu
-    for (const element of document.querySelectorAll('[data-overall]')) updateOverall(element, percent);
+    for (const element of document.querySelectorAll('[data-overall]')) updateOverall(element, percent, `Écran ${index + 1} sur ${total}`);
     els.progressPill.textContent = `${index + 1} / ${total}`;
     // Pastilles de durée / questions : utiles à l'accueil seulement
     els.sideMeta.hidden = screens[index].section !== screens[0].section;
@@ -1319,7 +1319,7 @@ function animateNumber(element, from, to) {
 }
 
 /** Barre d'avancement d'ensemble : remplissage animé, éclat à chaque progression, pourcentage qui défile. */
-function updateOverall(element, percent) {
+function updateOverall(element, percent, text = `${percent} % terminé`) {
   const bar = element.querySelector('.overall__bar');
   const fill = element.querySelector('.overall__fill');
   const label = element.querySelector('[data-overall-percent]');
@@ -1327,7 +1327,7 @@ function updateOverall(element, percent) {
   element.dataset.percent = String(percent);
   fill.style.width = `${percent}%`;
   bar.setAttribute('aria-valuenow', String(percent));
-  bar.setAttribute('aria-valuetext', `${percent} % terminé`);
+  bar.setAttribute('aria-valuetext', text);
   element.classList.toggle('overall--done', percent >= 100);
   if (percent > previous && !REDUCED_MOTION.matches) {
     // l'animation CSS ne repart que si la classe est retirée puis remise
