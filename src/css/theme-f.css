@@ -195,6 +195,7 @@
 
   /* Filet de séparation : il commence sous le logo, qui déborde sur la colonne de contenu */
   .app-sidebar--toc::after {
+    display: none; /* filet retiré (28.10.2026) */
     content: "";
     position: absolute;
     top: 4.75rem;
@@ -314,8 +315,13 @@
     margin: 0;
   }
 
+  /* Toutes les entrées (menu, glossaire, paramètres, aide) forment une seule pile, centrée verticalement */
+  .side-nav li:has(> button[hidden]) {
+    display: none;
+  }
+
   .side-nav--main {
-    margin-block: auto;
+    margin-block: auto 0.25rem;
   }
 
   .side-nav--bottom {
@@ -325,7 +331,8 @@
   .help {
     display: block;
     margin-top: 0;
-    padding-bottom: var(--space-3);
+    margin-bottom: auto;
+    padding-bottom: 0;
   }
 
   /* L'aide a le même gabarit qu'une entrée du menu (icône puis titre) */
