@@ -35,12 +35,13 @@ const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'hideKicker', 'section', 'part', 'optional'];
 
 const ALLOWED_KEYS = {
-  module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'screens'],
+  module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'xapi', 'screens'],
   report: ['title', 'availableFrom', 'fileName', 'header', 'note'],
   survey: [...SCREEN_COMMON_KEYS, 'intro', 'steps', 'scaleLabels', 'submitLabel', 'privacy', 'thanks'],
   surveyStep: ['title', 'items'],
   surveyItem: ['id', 'kind', 'prompt', 'options'],
   logo: ['src', 'alt'],
+  xapi: ['activityId'],
   patientFile: ['title', 'subtitle', 'body', 'data', 'image', 'reference', 'sections', 'journal', 'availableFrom'],
   patientFileBlock: ['type'],
   form: ['title', 'reference'],
@@ -528,6 +529,18 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       checkKeys(module.form, ALLOWED_KEYS.form, 'form');
       for (const key of ['title', 'reference']) {
         if (module.form[key] !== undefined && !isText(module.form[key])) error('form', `« ${key} » doit être un texte.`);
+      }
+    }
+  }
+
+  if (module.xapi !== undefined) {
+    if (!isObject(module.xapi)) {
+      error('module', '« xapi » doit être un objet { "activityId": "https://…" }.');
+    } else {
+      checkKeys(module.xapi, ALLOWED_KEYS.xapi, 'xapi');
+      const id = module.xapi.activityId;
+      if (id !== undefined && !(isText(id) && /^https?:\/\/\S+$/.test(id))) {
+        error('xapi', '« activityId » doit être une adresse complète (https://…), qui identifie ce module dans le LRS. Elle ne doit pas changer d\'une version à l\'autre.');
       }
     }
   }

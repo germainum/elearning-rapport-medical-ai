@@ -21,6 +21,8 @@ const DIST_DIR = join(ROOT, 'dist');
 // Fichiers parasites (Windows, OneDrive, macOS, éditeurs) exclus du paquet.
 const IGNORED = /^(\..*|desktop\.ini|Thumbs\.db|~\$.*|.*\.tmp)$/i;
 
+// --xapi : paquet pour un LRS (tincan.xml à la racine, sans manifeste SCORM) ; le paquet SCORM n'est pas modifié
+const xapiPackage = process.argv.includes('--xapi');
 const scormArg = process.argv.find((arg) => arg.startsWith('--scorm='));
 const scormVersion = scormArg ? scormArg.split('=')[1] : '1.2';
 if (!['1.2', '2004'].includes(scormVersion)) {
@@ -155,21 +157,35 @@ ${fileList}
 `,
 };
 
-writeFileSync(join(STAGE_DIR, 'imsmanifest.xml'), manifests[scormVersion]);
+const activityId = module.xapi?.activityId ?? `https://www.aivd.ch/xapi/${module.id}`;
+const tincan = `<?xml version="1.0" encoding="UTF-8"?>
+<tincan xmlns="http://projecttincan.com/tincan.xsd">
+  <activities>
+    <activity id="${xml(activityId)}" type="http://adlnet.gov/expapi/activities/course">
+      <name lang="fr-CH">${title}</name>
+      <description lang="fr-CH">${xml(module.description ?? module.title)}</description>
+      <launch lang="fr-CH">index.html</launch>
+    </activity>
+  </activities>
+</tincan>
+`;
+
+const descriptor = xapiPackage ? 'tincan.xml' : 'imsmanifest.xml';
+writeFileSync(join(STAGE_DIR, descriptor), xapiPackage ? tincan : manifests[scormVersion]);
 
 /* ---------- 4. Zip ---------- */
 
-const entries = ['imsmanifest.xml', ...files].map((name) => ({
+const entries = [descriptor, ...files].map((name) => ({
   name,
   data: readFileSync(join(STAGE_DIR, ...name.split('/'))),
 }));
 const zip = createZip(entries);
 
 mkdirSync(DIST_DIR, { recursive: true });
-const suffix = scormVersion === '1.2' ? 'scorm12' : 'scorm2004';
+const suffix = xapiPackage ? 'xapi' : scormVersion === '1.2' ? 'scorm12' : 'scorm2004';
 const zipName = `${module.id}-${module.version}-${suffix}.zip`;
 writeFileSync(join(DIST_DIR, zipName), zip);
 
-console.log(`\nPaquet SCORM ${scormVersion} : dist/${zipName}`);
+console.log(`\nPaquet ${xapiPackage ? 'xAPI (tincan.xml)' : `SCORM ${scormVersion}`} : dist/${zipName}`);
 console.log(`  ${entries.length} fichiers, ${(zip.length / 1024).toFixed(1)} Ko`);
 console.log('  Aperçu local du paquet : npm run preview');

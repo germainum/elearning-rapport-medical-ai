@@ -186,6 +186,10 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
 
 Sur le dernier écran (`merci`), « Suivant » devient « Terminer le module » (`exitModule` dans `app.js`) : `finish()` (sync, commit, LMSFinish, protégé contre le double appel), puis `window.close()` ; si la fenêtre reste ouverte, le message « Votre progression est enregistrée. Vous pouvez fermer cette fenêtre. » apparaît dans l'écran (`#exit-note`, `aria-live="polite"`, reçoit le focus). Le bouton reste désactivé une fois la session fermée ; la flèche droite du clavier n'y a pas d'effet. L'écran `merci` a sa propre rubrique « Merci » (sortie de « Votre avis (facultatif) ») ; l'introduction s'appelle « Démarrage · Introduction » (plus « Accueil », nom d'un lien du menu).
 
+### xAPI en plus de SCORM (28.10.2026, v0.93.0)
+
+`src/js/xapi.js` est **la seule couche xAPI** (comme `scorm.js` pour SCORM) ; `app.js` l'appelle à côté de `scorm` (`init`, `screenViewed`, `answered`, `survey`, `status`, `finish`). **Sans paramètres de lancement xAPI, aucun effet** : le paquet SCORM livré à Acamedia ne change pas. Lancement « Tin Can » : `endpoint`, `auth`, `actor` (JSON), `registration`, `activity_id` dans l'adresse ; `?xapi=debug` affiche les statements dans la console sans LRS. Statements : `initialized`/`resumed`, `experienced` (écran, une fois par session), `answered` (première réponse à chaque question, type `choice` avec choix et bonne réponse), `completed` puis `passed`/`failed` (score `scaled`/`raw`, durée ISO 8601), `answered` (questionnaire d'avis), `terminated`/`suspended` (durée). Envoi groupé (1,5 s), file réessayée si le LRS ne répond pas, dernier lot par `sendBeacon` (syntaxe de requête « simple » du formulaire) à la fermeture. **Pas de reprise via l'API State** : la reprise reste SCORM ou navigateur. Identifiant de l'activité : `module.xapi.activityId` (adresse complète, **stable d'une version à l'autre**), sinon `https://www.aivd.ch/xapi/<id>`. **Second paquet** : `npm run build:xapi` → `dist/<id>-<version>-xapi.zip` avec `tincan.xml` à la racine à la place de `imsmanifest.xml` (pour un LRS ou SCORM Cloud-LRS ; **jamais dans Chorus**). Faux LRS de test : `npm run lrs` (`scripts/lrs-test.js`, port 8090). Détail et marche à suivre : `README.md` section 6.
+
 ### Réponse reportée dans le formulaire (28.10.2026, v0.86.0)
 
 Sur les écrans avec un extrait du formulaire et une `reportAnswer` (`retry` dans `renderQuestion`, `question.js`) : **réponse juste** → son texte « part » dans le champ de l'extrait avec un **surlignage jaune pâle** qui s'estompe en ~1,4 s (`form-sheet__filled--flash`, pas d'effet machine à écrire), les options se **replient** et laissent un feedback compact (« ✓ Correct » + l'explication + lien « Revoir les options »). **Réponse fausse** → rien n'est reporté, les options restent, le feedback explique (conséquence repliée) et l'apprenant peut **réessayer** ; l'explication de la bonne réponse n'apparaît qu'après deux erreurs (ou à la reprise de révision). **Seule la première réponse compte** pour le score et SCORM (`submit` n'est appelé qu'une fois ; les essais suivants passent par `evaluate`, sans effet sur le suivi). Les essais ne sont pas gardés : en revenant sur l'écran, on retrouve l'état de la première réponse (juste : formulaire rempli et options repliées ; fausse : options verrouillées et corrigé en gris dans le formulaire). Les autres questions (sans champ de formulaire) gardent « validation → feedback → verrouillage ».
@@ -277,6 +281,7 @@ src/css/base.css           reset, focus visible, utilitaires a11y
 src/css/components.css     composants
 src/css/theme-e.css        design E (surcharge components.css : cadre, arrondis, accent bleu, fil d'Ariane, barre de progression)
 src/js/scorm.js            SEULE couche SCORM (recherche API, adaptateurs 1.2 / 2004, API simulée)
+src/js/xapi.js             SEULE couche xAPI (statements vers un LRS quand le lancement fournit endpoint/auth/actor)
 src/js/tracker.js          état apprenant, score, sérialisation suspend_data
 src/js/app.js              démarrage, navigation, sommaire, liaison tracker ↔ scorm
 src/js/format.js           échappement HTML + mini-formatage
@@ -308,6 +313,8 @@ npm run validate     # vérifie content/module.json, messages d'erreur en franç
 npm start            # serveur local http://localhost:8080 (API SCORM simulée)
 npm run build        # génère dist/<id>-<version>-scorm12.zip
 npm run build:2004   # génère dist/<id>-<version>-scorm2004.zip
+npm run build:xapi   # génère dist/<id>-<version>-xapi.zip (tincan.xml, pour un LRS ; pas pour Chorus)
+npm run lrs          # faux LRS xAPI local (port 8090) pour vérifier les statements envoyés
 npm run preview      # sert build/package (le dernier paquet généré)
 npm run export:rise  # régénère le contenu de la version Rise 360 (docs/rise/)
 ```

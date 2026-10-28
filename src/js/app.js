@@ -4,6 +4,7 @@
  */
 
 import { createScorm } from './scorm.js';
+import { createXapi } from './xapi.js';
 import { buildReport, reportDocument, reportFileName, reportHtml } from './report.js';
 import { createTracker, questionsOf, stepsOf } from './tracker.js';
 import { escapeHtml, inline, plainText, rich } from './format.js';
@@ -150,6 +151,9 @@ async function start() {
   const connected = scorm.init();
   const tracker = createTracker(module);
   const resumed = tracker.restore(scorm.getSuspendData());
+  // xAPI : s'ajoute à SCORM quand un LRS fournit ses paramètres de lancement (voir xapi.js) ; sinon sans effet
+  const xapi = createXapi({ module, debug: debugMode });
+  xapi.init(resumed);
 
   let index = 0;
   let finished = false;
@@ -171,6 +175,7 @@ async function start() {
       if (key !== lastStatus) {
         if (result) scorm.setScore(result.score);
         scorm.setStatus(status);
+        xapi.status(status, result);
         lastStatus = key;
       }
     }
@@ -181,6 +186,7 @@ async function start() {
     if (finished) return;
     finished = true;
     sync();
+    xapi.finish(tracker.isComplete());
     scorm.finish();
   }
 
@@ -243,6 +249,7 @@ async function start() {
         weighting: question.points ?? 1,
         description: [screens.find((s) => questionsOf(s).includes(question))?.kicker, plainText(question.prompt)].filter(Boolean).join(' · '),
       });
+      xapi.answered(question, ids, result, screens.find((s) => questionsOf(s).includes(question)));
       els.pagerMsg.textContent = '';
       sync();
       updateChrome();
@@ -265,6 +272,7 @@ async function start() {
           const type = item.kind === 'scale' ? 'likert' : item.kind === 'text' ? 'text' : 'choice';
           const response = item.kind === 'multiple' ? [...value] : value;
           scorm.recordSurvey({ id: `eval-${item.id}`, type, response, description: plainText(item.prompt) });
+          xapi.survey({ id: `eval-${item.id}`, type, response, description: plainText(item.prompt) });
         }
         tracker.markSurveySent();
         sync();
@@ -313,6 +321,7 @@ async function start() {
     // Synthèse atteinte une fois toutes les questions de la file refaites : la révision est terminée
     if (screen.type === 'summary' && tracker.reviewQueue.length && tracker.isReviewDone()) tracker.clearReview();
     tracker.visit(index);
+    xapi.screenViewed(screen, index + 1, screens.length);
     sync(); // avant le rendu : la synthèse affiche le score qui vient d'être calculé
 
     const render = RENDERERS[screen.type];

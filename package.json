@@ -12,6 +12,8 @@
     "validate": "node scripts/validate.js",
     "build": "node scripts/build.js",
     "build:2004": "node scripts/build.js --scorm=2004",
+    "build:xapi": "node scripts/build.js --xapi",
+    "lrs": "node scripts/lrs-test.js",
     "preview": "node scripts/serve.js build/package",
     "export:rise": "node scripts/export-rise.js"
   }

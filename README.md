@@ -113,6 +113,7 @@ Les réponses d'une question ont un `id` d'**une seule lettre** : `a`, `b`, `c`�
   synthèse ajoute la carte « Votre rapport » (voir, imprimer / PDF, télécharger).
 - Aucun réglage n'est nécessaire pour le **temps restant** (calculé depuis `durationMinutes`), la **taille du texte**, les **raccourcis clavier** ni les **résultats par section** de la synthèse (groupés par le champ `section` des écrans).
 - `logo` : logo affiché en haut à gauche, `{ "src": "images/logo-aivd.png", "alt": "AI VD – Office de l'assurance-invalidité pour le canton de Vaud" }` (facultatif).
+- `xapi` (facultatif) : `{ "activityId": "https://www.aivd.ch/xapi/rapport-medical-ai" }`, l'identifiant de ce module dans un LRS (une adresse complète, **qui ne change pas d'une version à l'autre** ; voir la section 6). Sans ce champ : `https://www.aivd.ch/xapi/<id>`.
 - `form` : en-tête affiché sur chaque « extrait du formulaire » (voir les blocs `form`).
 - `passingScore` : seuil de réussite en pourcentage (80 si absent).
 - `allowRetry` : la synthèse liste les questions fausses (réponse donnée, bonne réponse, explication tirée de
@@ -455,3 +456,37 @@ Les `id` de questions (minuscules, chiffres, tirets) et d'options (un caractère
 
 Pour un journal détaillé des échanges dans la plateforme, ajouter `?debug` à l'URL de lancement
 quand c'est possible : les appels SCORM s'affichent dans la console du navigateur.
+
+## 6. xAPI (en plus de SCORM)
+
+Le paquet SCORM reste la référence pour Acamedia. Le module sait aussi envoyer des **statements xAPI** à un LRS : sans paramètres de
+lancement xAPI, il ne fait rien de plus que SCORM.
+
+**Lancement** : le LRS (ou un LMS compatible) ajoute à l'adresse du module les paramètres habituels : `endpoint`, `auth`, `actor`,
+`registration` (facultatif), `activity_id` (facultatif). Pour un LRS qui lance un paquet xAPI, utiliser `npm run build:xapi`
+→ `dist/<id>-<version>-xapi.zip` (le même module avec un `tincan.xml` à la place du manifeste SCORM). **Ne jamais importer ce zip
+dans Chorus** : c'est le zip `scorm12` qu'on livre à Acamedia.
+
+**Statements envoyés** (verbes ADL, textes en `fr-CH`) :
+
+| Moment | Verbe | Objet |
+|--------|-------|-------|
+| Ouverture, ou reprise de la progression | `initialized` / `resumed` | le module |
+| Chaque écran, une fois par session | `experienced` | l'écran (avec sa section et son rang) |
+| Première réponse à une question | `answered` | la question (choix proposés, bonne réponse, réponse donnée, juste ou fausse) |
+| Tous les écrans jusqu'à la synthèse vus | `completed`, puis `passed` ou `failed` | le module (score brut et pondéré, durée) |
+| Envoi du questionnaire d'avis | `answered` | chaque question de l'évaluation (non notée) |
+| Fermeture, ou « Terminer le module » | `terminated` (module terminé) ou `suspended` | le module (durée) |
+
+Les envois sont groupés (toutes les 1,5 s) ; si le LRS ne répond pas, ils sont réessayés au lot suivant. À la fermeture de la page,
+un dernier envoi part par `sendBeacon`. La reprise de la progression reste gérée par SCORM (ou le navigateur) : le module n'utilise
+pas l'API « State » du LRS.
+
+**Tester** :
+
+1. Sans LRS : ouvrir le module avec `?xapi=debug` dans l'adresse ; chaque statement s'affiche dans la console du navigateur.
+2. Avec un faux LRS local : `npm run lrs` (port 8090), puis ouvrir
+   `http://localhost:8080/?endpoint=http://localhost:8090/&auth=Basic%20dGVzdDp0ZXN0&actor={"name":"Test","mbox":"mailto:test@example.org"}`.
+   Chaque statement reçu s'affiche dans le terminal ; `http://localhost:8090/statements` les liste.
+3. Avec SCORM Cloud (qui fait aussi office de LRS) : importer le zip `xapi` (**Library → Add Content**), lancer, puis consulter
+   les statements de l'inscription (**Registrations → View → xAPI statements**).
