@@ -177,7 +177,7 @@ choisie, à défaut le `title` de `incorrect`) ; **repliés** sous « Voir l'exp
   fichiers XSD embarqués.
 - **Cache** : toutes les adresses de fichiers du contenu (images, vidéo, sous-titres, PDF) sont suffixées de `?v=<version>`
   (`asset()` dans `app.js`). Une image remplacée sous le même nom est donc rechargée dès que la `version` de
-  `module.json` change : **augmenter la version à chaque livraison**. Le manifeste SCORM liste les fichiers sans suffixe.
+  `module.json` change : **augmenter la version à chaque livraison**. Le manifeste SCORM liste les fichiers sans suffixe. **Le build versionne aussi** les feuilles de style, le script et les `import` du paquet (`?v=<version>`, `scripts/build.js`) : un navigateur qui garde l'ancien `app.js` ne le mélange plus avec la nouvelle page (GitHub Pages met les fichiers en cache 10 min) ; `module.json` est chargé sans cache.
 - **Chargement** : modules ES + `fetch('content/module.json')`. Nécessite un serveur http (LMS ou
   `npm start`). Ouvrir `index.html` en double-clic ne fonctionne pas.
 - **Visuel** : thème clair par défaut ; **thème sombre** au choix dans les Paramètres (21.10.2026, v0.46.0) : Clair / Sombre / Automatique (suit l'appareil), `localStorage` `theme-affichage`, attribut `data-theme` sur `html` posé avant le premier rendu (script en tête de `index.html`) puis par `setupTheme` (`comfort.js`). Palette sombre dans `tokens.css` (`@media screen`, impression toujours claire, contrastes ≥ 7:1 pour le texte) ; **tout nouveau composant doit passer par les jetons** (pas de couleur en dur sur un fond de page). Lettre, dossier médical et chemise gardent un aspect "papier" clair (jetons clairs réaffectés dans `components.css`) ; logo sur pastille blanche ; illustrations sur fond blanc.

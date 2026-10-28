@@ -55,6 +55,26 @@ if (!indexHtml.includes('data-scorm-version="1.2"')) {
 }
 writeFileSync(indexPath, indexHtml.replace('data-scorm-version="1.2"', `data-scorm-version="${scormVersion}"`));
 
+/* ---------- 2 bis. Adresses versionnées ----------
+ * Feuilles de style, scripts et imports portent « ?v=<version> » dans le paquet : un navigateur (ou un cache d'hébergeur) qui garde
+ * l'ancien app.js ne le mélange plus avec la nouvelle page. Les noms de fichiers du paquet et du manifeste ne changent pas. */
+const versionQuery = `?v=${module.version}`;
+writeFileSync(
+  indexPath,
+  readFileSync(indexPath, 'utf8')
+    .replace(/(href="css\/[^"?]+\.css)"/g, `$1${versionQuery}"`)
+    .replace(/(src="js\/[^"?]+\.js)"/g, `$1${versionQuery}"`),
+);
+(function versionImports(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) versionImports(path);
+    else if (entry.name.endsWith('.js')) {
+      writeFileSync(path, readFileSync(path, 'utf8').replace(/(from\s+'\.{1,2}\/[^'?]+\.js)'/g, `$1${versionQuery}'`));
+    }
+  }
+})(join(STAGE_DIR, 'js'));
+
 /* ---------- 3. Manifeste ---------- */
 
 function listFiles(dir) {
