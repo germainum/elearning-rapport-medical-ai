@@ -19,14 +19,14 @@ function fillSheet(step, question, correct, { animate }) {
   const blank = step.querySelector('.form-sheet__blank');
   if (!blank || question.reportAnswer === undefined) return;
   const filled = document.createElement('div');
-  filled.className = `form-sheet__filled form-sheet__filled--${correct ? 'correct' : 'corrected'}${animate ? ' form-sheet__filled--write' : ''}`;
+  filled.className = `form-sheet__filled form-sheet__filled--${correct ? 'correct' : 'corrected'}${animate ? ' form-sheet__filled--flash' : ''}`;
   filled.innerHTML = `${rich(question.reportAnswer)}${correct ? '' : '<span class="form-sheet__tag">Corrigé</span>'}`;
   // l'étiquette « Champ à remplir » lue par les lecteurs d'écran n'a plus lieu d'être
   blank.nextElementSibling?.classList.contains('visually-hidden') && blank.nextElementSibling.remove();
   blank.replaceWith(filled);
   if (animate) {
-    // les lignes s'écrivent l'une après l'autre
-    filled.querySelectorAll('p, li').forEach((line, i) => line.style.setProperty('--n', String(i)));
+    // surlignage doux, un coup de surligneur qui s'estompe ; la classe est retirée ensuite (une copie de la feuille ne le rejoue pas)
+    filled.addEventListener('animationend', () => filled.classList.remove('form-sheet__filled--flash'), { once: true });
   }
 }
 
@@ -68,15 +68,15 @@ export function renderScene(screen, ctx) {
         consigneDone = true;
         step.append(consigne);
       } else if (block.type === 'question') {
+        // Écran avec extrait du formulaire et réponse modèle : la bonne réponse est reportée dans le formulaire (voir question.js)
+        const hasSheet = steps[index].blocks.some((b) => b.type === 'form') && block.reportAnswer !== undefined;
         const form = renderQuestion(block, {
           number: questions.indexOf(block) + 1,
           total: questions.length,
           ...ctx,
-          // réponse validée : le champ du formulaire se remplit sous les yeux de l'apprenant
-          submit(question, ids) {
-            const result = ctx.submit(question, ids);
-            fillSheet(step, question, result.correct, { animate: true });
-            return result;
+          retry: hasSheet,
+          onCorrect(question, { animate }) {
+            fillSheet(step, question, true, { animate });
           },
         });
         step.append(form);

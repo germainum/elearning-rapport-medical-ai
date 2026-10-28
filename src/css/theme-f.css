@@ -473,3 +473,101 @@
     transition: none;
   }
 }
+
+/* ================================================================
+   Réponse juste « reportée » dans le formulaire (28.10.2026) :
+   surlignage doux dans le champ, options repliées, feedback compact ; réponse fausse : rien n'est reporté, on peut réessayer
+   ================================================================ */
+
+/* Le texte reporté apparaît avec un coup de surligneur jaune pâle qui s'estompe en une seconde environ */
+.form-sheet__filled--flash {
+  animation: form-highlight 1.4s ease-out;
+}
+
+@keyframes form-highlight {
+  0%,
+  30% {
+    background-color: rgb(255 226 90 / 0.55);
+  }
+
+  100% {
+    background-color: rgb(255 226 90 / 0);
+  }
+}
+
+/* Options qui se replient (la hauteur se referme, puis le bloc est inerte) */
+.question__collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+}
+
+.question__collapse-inner {
+  min-height: 0;
+  /* marge intérieure : le contour de focus des options n'est pas rogné */
+  margin: -4px;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.question--collapsed {
+  gap: 0;
+}
+
+.question--collapsed .question__collapse {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+/* Feedback compact : coche verte, « Correct », une ou deux phrases, lien pour revoir les options */
+.feedback--compact {
+  padding-block: var(--space-3);
+}
+
+.feedback__review {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary);
+  font: inherit;
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.feedback__review:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Après une erreur : le choix est marqué, les options restent disponibles */
+.question--retry .option.option--incorrect {
+  border-width: 2px;
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+.question--retry .option--incorrect .option__status {
+  color: var(--color-error);
+}
+
+.feedback__retry {
+  margin: var(--space-2) 0 0;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-sheet__filled--flash {
+    animation: none;
+  }
+
+  .question__collapse {
+    transition: none;
+  }
+}

@@ -57,7 +57,12 @@ export function shuffledOptions(question, retake = 0) {
   return same ? [...order.slice(1), order[0]] : order;
 }
 
-export function renderQuestion(question, { number, total, getAnswer, submit, retakeCount }) {
+/**
+ * retry : la question a un champ de formulaire à remplir (écran avec extrait). Une réponse juste « part » dans le formulaire
+ * (onCorrect) et les options se replient ; une réponse fausse n'est pas inscrite : les options restent, le feedback explique
+ * et l'apprenant peut réessayer. Seule la première réponse est enregistrée (score, SCORM) ; les essais suivants n'y changent rien.
+ */
+export function renderQuestion(question, { number, total, getAnswer, submit, retakeCount, retry = false, onCorrect }) {
   const retake = retakeCount?.(question.id) ?? 0;
   const id = escapeHtml(`q-${question.id}`);
   const inputType = question.kind === 'multiple' ? 'checkbox' : 'radio';
@@ -67,6 +72,7 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
   form.noValidate = true;
   form.dataset.question = question.id;
   form.innerHTML = `
+    <div class="question__collapse" id="${id}-options"><div class="question__collapse-inner">
     <fieldset class="question__fieldset">
       ${question.hidePrompt ? '<p class="question__cue" aria-hidden="true">Choisissez la réponse à reporter</p>' : ''}
       <legend class="question__legend${question.hidePrompt ? ' visually-hidden' : ''}">
@@ -86,15 +92,19 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
           .join('')}
       </div>
     </fieldset>
+    </div></div>
     <p class="question__error" role="alert"></p>
     <div class="question__actions">
       <button type="submit" class="btn btn--primary">Valider ma réponse</button>
     </div>
     <div class="feedback" tabindex="-1" hidden></div>`;
 
+  let settled = false; // vrai une fois la question verrouillée (réponse juste d'une question « retry », ou toute réponse sinon)
+  let misses = 0;
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    if (getAnswer(question.id)) return;
+    if (settled) return;
 
     const ids = [...form.querySelectorAll('.option__input:checked')].map((input) => input.value);
     const error = form.querySelector('.question__error');
@@ -105,19 +115,92 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
     }
     error.textContent = '';
 
-    const result = submit(question, ids);
-    lock(form, question, ids, result, retake);
-    form.classList.add('question--reveal'); // la réponse « se révèle » : animation de la réponse choisie, de la bonne réponse et du feedback
+    // Première réponse : elle compte (score, SCORM). Les essais suivants, après une erreur, ne changent rien au suivi.
+    const first = !getAnswer(question.id);
+    const result = first ? submit(question, ids) : evaluate(question, ids);
+
+    if (retry && !result.correct) {
+      misses += 1;
+      showRetry(form, question, ids, result, { retake, misses });
+      return;
+    }
+
+    settled = true;
+    lock(form, question, ids, result, retake, { compact: retry && result.correct });
+    if (retry && result.correct) onCorrect?.(question, { animate: true });
+    else form.classList.add('question--reveal'); // la réponse « se révèle » : animation de la réponse choisie, de la bonne réponse et du feedback
     form.querySelector('.feedback').focus();
   });
 
+  // Après une erreur : changer de réponse efface le marquage de l'essai précédent
+  form.querySelector('.question__options').addEventListener('change', () => {
+    if (settled || !form.classList.contains('question--retry')) return;
+    for (const option of form.querySelectorAll('.option--incorrect')) {
+      option.classList.remove('option--incorrect');
+      option.querySelector('.option__status')?.remove();
+    }
+    form.querySelector('.feedback').hidden = true;
+  });
+
   const previous = getAnswer(question.id);
-  if (previous) lock(form, question, previous, evaluate(question, previous), retake);
+  if (previous) {
+    const result = evaluate(question, previous);
+    settled = true;
+    lock(form, question, previous, result, retake, { compact: retry && result.correct });
+  }
 
   return form;
 }
 
-function lock(form, question, ids, result, retake = 0) {
+/** Réponse fausse d'une question « retry » : le texte n'est pas reporté, les options restent, le feedback explique. */
+function showRetry(form, question, ids, result, { retake, misses }) {
+  form.classList.add('question--retry');
+  for (const option of form.querySelectorAll('.option--incorrect')) {
+    option.classList.remove('option--incorrect');
+    option.querySelector('.option__status')?.remove();
+  }
+  for (const option of question.options) {
+    if (!ids.includes(option.id) || result.correctIds.includes(option.id)) continue;
+    const element = form.querySelector(`.option[data-option="${CSS.escape(option.id)}"]`);
+    element.classList.add('option--incorrect');
+    element.insertAdjacentHTML('beforeend', '<span class="option__status">Votre choix : incorrect</span>');
+  }
+
+  const wrongFb = normalizeFeedback(question.feedback?.incorrect);
+  const correctFb = normalizeFeedback(question.feedback?.correct);
+  const notes = question.options.filter((option) => ids.includes(option.id) && option.feedback);
+  const titleHtml = (value) => (value ? `<p class="feedback__title">${inline(value)}</p>` : '');
+  const proseHtml = (value) => (value ? `<div class="prose">${rich(value)}</div>` : '');
+  const noteHtml =
+    notes.length === 1
+      ? `<p class="feedback__note">${inline(notes[0].feedback)}</p>`
+      : notes.length
+        ? `<ul class="feedback__notes">${notes.map((option) => `<li><span class="feedback__option">${inline(option.text)}</span> ${inline(option.feedback)}</li>`).join('')}</ul>`
+        : '';
+  const main = noteHtml || titleHtml(wrongFb.title);
+  // La conséquence est repliée ; l'explication de la bonne réponse n'est donnée qu'après deux erreurs (ou à la reprise), pour laisser chercher
+  const detail = [noteHtml ? titleHtml(wrongFb.title) : '', proseHtml(wrongFb.body)].join('').trim();
+  const more = detail ? `<details class="feedback__more"><summary>Voir l'explication</summary>${detail}</details>` : '';
+  const why =
+    (misses >= 2 || retake >= 1) && (correctFb.title || correctFb.body)
+      ? `<div class="feedback__why"><p class="feedback__why-title">Pourquoi c'est la bonne réponse</p>${titleHtml(correctFb.title)}${proseHtml(correctFb.body)}</div>`
+      : '';
+
+  const feedback = form.querySelector('.feedback');
+  feedback.classList.remove('feedback--correct');
+  feedback.classList.add('feedback--incorrect');
+  feedback.innerHTML = `
+    <p class="feedback__status"><span aria-hidden="true">✗</span> Réponse incorrecte</p>
+    ${main}
+    ${why}
+    ${more}
+    <p class="feedback__retry">Vous pouvez choisir une autre réponse.</p>`;
+  feedback.hidden = false;
+  feedback.focus();
+}
+
+function lock(form, question, ids, result, retake = 0, { compact = false } = {}) {
+  form.classList.remove('question--retry');
   form.classList.add('question--answered');
   form.querySelector('.question__actions')?.remove();
 
@@ -184,7 +267,30 @@ function lock(form, question, ids, result, retake = 0) {
   }
 
   const feedback = form.querySelector('.feedback');
+  feedback.classList.remove('feedback--incorrect');
   feedback.classList.add(result.correct ? 'feedback--correct' : 'feedback--incorrect');
+
+  if (compact) {
+    // Bonne réponse reportée dans le formulaire : les options se replient, il ne reste qu'un feedback compact
+    const collapse = form.querySelector('.question__collapse');
+    feedback.classList.add('feedback--compact');
+    feedback.innerHTML = `
+      <p class="feedback__status"><span aria-hidden="true">✓</span> Correct</p>
+      ${main}
+      <button type="button" class="feedback__review" aria-expanded="false" aria-controls="${collapse.id}">Revoir les options</button>`;
+    form.classList.add('question--collapsed');
+    collapse.inert = true;
+    const review = feedback.querySelector('.feedback__review');
+    review.addEventListener('click', () => {
+      const open = form.classList.toggle('question--collapsed') === false;
+      collapse.inert = !open;
+      review.setAttribute('aria-expanded', String(open));
+      review.textContent = open ? 'Masquer les options' : 'Revoir les options';
+    });
+    feedback.hidden = false;
+    return;
+  }
+
   feedback.innerHTML = `
     <p class="feedback__status"><span aria-hidden="true">${result.correct ? '✓' : '✗'}</span> ${status}</p>
     ${main}
