@@ -1429,7 +1429,8 @@ html {
   /* Un seul rang d'en-tête : la bascule « Dossier | Rapport » et la croix. Le titre reste lu par les lecteurs d'écran
      (et s'affiche seul quand la bascule est absente, ex. second cas). */
   .folder:not([hidden]) {
-    grid-template-areas: "switch close" "sheet sheet";
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "switch pin close" "sheet sheet sheet";
     grid-template-rows: auto minmax(0, 1fr);
     align-items: center;
   }
@@ -1444,7 +1445,7 @@ html {
   }
 
   .folder:not(:has(.folder__switch-btn:not([hidden]))) {
-    grid-template-areas: "title close" "sheet sheet";
+    grid-template-areas: "title pin close" "sheet sheet sheet";
   }
 
   /* Fiche : colonne souple, la zone défilante prend la place restante */

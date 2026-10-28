@@ -92,6 +92,7 @@ const els = {
   progressPill: byId('progress-pill'),
   appBody: byId('app-body'),
   fileSide: byId('file-side'),
+  panelBackdrop: byId('panel-backdrop'),
   fileSideBody: byId('file-side-body'),
   fileSideClose: byId('file-side-close'),
   folderTab: byId('folder-tab'),
@@ -523,7 +524,7 @@ async function start() {
   /* ---------- Menu de gauche (ordinateur) ---------- */
 
   function openFileView() {
-    if (WIDE.matches) {
+    if (DESKTOP.matches) {
       setPanel('dossier');
       els.fileSideClose.focus();
     } else {
@@ -636,15 +637,18 @@ async function start() {
     return tracker.isViewed(screenIndex) && tracker.revealedCount(screens[screenIndex]) >= step;
   }
 
-  // Panneau latéral (ordinateur) : dossier patient ou rapport, un seul ouvert à la fois. Préférence propre à ce navigateur.
+  // Dossier patient et rapport (ordinateur) : une fenêtre par défaut, ou épinglés sur le côté (≥ 1280 px). Un seul ouvert à la fois.
+  // L'épingle est une préférence propre à ce navigateur ; la fenêtre, elle, ne se rouvre pas toute seule.
   const PANEL_KEY = `panneau-ouvert:${module.id}`;
+  const PIN_KEY = `panneau-epingle:${module.id}`;
+  let pinned = false;
   let openPanel = null;
   try {
+    pinned = localStorage.getItem(PIN_KEY) === '1';
     const saved = localStorage.getItem(PANEL_KEY);
-    openPanel =
-      saved === 'dossier' || saved === 'rapport' ? saved : localStorage.getItem(`dossier-ouvert:${module.id}`) === '1' ? 'dossier' : null;
+    openPanel = pinned && (saved === 'dossier' || saved === 'rapport') ? saved : null;
   } catch {
-    // Stockage indisponible : les panneaux démarrent fermés
+    // Stockage indisponible : fenêtre, fermée au démarrage
   }
 
   // « report.availableFrom » (id d'écran) : le rapport n'apparaît qu'à partir de cet écran ; « hideReport » le masque (autre cas)
@@ -654,67 +658,147 @@ async function start() {
   const isFileAvailable = () => isPatientFileUnlocked() && !screens[index].hidePatientFile;
 
   const WIDE = window.matchMedia('(min-width: 80rem)');
+  const DESKTOP = window.matchMedia('(min-width: 64rem)');
   WIDE.addEventListener('change', () => applyPanels());
   WIDE.addEventListener('change', () => placeNextSteps());
+  DESKTOP.addEventListener('change', () => applyPanels());
 
-  /* Panneaux latéraux : ouverture, fermeture et bascule animées (la colonne de droite s'élargit, le panneau glisse et se fond).
-     Sans animation au premier affichage, sous 1280 px (fenêtre) et avec « moins de mouvement ». */
+  /* Dossier et rapport : en fenêtre (fond flouté, le reste de la page est inerte) ou épinglés dans la colonne de droite.
+     Ouverture, fermeture, bascule Dossier ↔ Rapport et passage de l'un à l'autre sont animés ; rien ne s'anime au premier affichage,
+     sous 1024 px (fenêtres séparées) ni avec « moins de mouvement ». */
   const PANEL_EL = { dossier: els.fileSide, rapport: els.reportSide };
   const PANEL_ANIMATIONS = ['folder--enter', 'folder--leave', 'folder--swap-in', 'folder--swap-out'];
+  const BACKGROUND = [document.querySelector('.app-sidebar--toc'), document.querySelector('.app-column')];
   let panelShown = null; // panneau affiché (ou en train de l'être)
+  let panelMode = 'modal'; // 'modal' (fenêtre) ou 'side' (épinglé)
   let panelsPrimed = false;
   let panelTimer = 0;
 
+  /** Fond de la fenêtre : page inerte (ni clic, ni tabulation) et voile qui apparaît en fondu. */
+  function setModalBackground(on, { animate = false } = {}) {
+    for (const element of BACKGROUND) element.inert = on;
+    if (on) {
+      els.panelBackdrop.hidden = false;
+      if (animate) void els.panelBackdrop.offsetWidth; // le voile part de zéro
+      els.panelBackdrop.classList.add('panel-backdrop--on');
+    } else {
+      els.panelBackdrop.classList.remove('panel-backdrop--on');
+      if (!animate) els.panelBackdrop.hidden = true;
+    }
+  }
+
+  function setModeClasses(mode) {
+    for (const element of Object.values(PANEL_EL)) {
+      element.classList.toggle('folder--modal', mode === 'modal');
+      if (mode === 'modal') {
+        element.setAttribute('role', 'dialog');
+        element.setAttribute('aria-modal', 'true');
+      } else {
+        element.removeAttribute('role');
+        element.removeAttribute('aria-modal');
+      }
+    }
+  }
+
   /** Pose l'état final sans animation. */
-  function settlePanels(name) {
+  function settlePanels(name, mode = panelMode) {
     clearTimeout(panelTimer);
+    setModeClasses(mode);
     for (const [key, element] of Object.entries(PANEL_EL)) {
       element.hidden = key !== name;
       element.classList.remove(...PANEL_ANIMATIONS);
     }
-    els.appBody.classList.toggle('app-body--with-file', Boolean(name));
-    els.appBody.classList.toggle('app-body--col-open', Boolean(name));
+    const side = Boolean(name) && mode === 'side';
+    els.appBody.classList.toggle('app-body--with-file', side);
+    els.appBody.classList.toggle('app-body--col-open', side);
+    setModalBackground(Boolean(name) && mode === 'modal');
     panelShown = name;
+    panelMode = mode;
   }
 
-  function showPanel(name) {
-    const from = panelShown;
-    if (name === from) return;
-    if (!panelsPrimed || REDUCED_MOTION.matches || !WIDE.matches) return settlePanels(name);
+  function enterPanel(element, mode) {
+    setModeClasses(mode);
+    element.hidden = false;
+    element.classList.add('folder--enter');
+    if (mode === 'side') {
+      els.appBody.classList.add('app-body--with-file');
+      void els.appBody.offsetWidth; // la colonne part de sa largeur nulle
+      els.appBody.classList.add('app-body--col-open');
+    } else {
+      setModalBackground(true, { animate: true });
+    }
+    panelTimer = setTimeout(() => element.classList.remove('folder--enter'), 900);
+  }
 
-    settlePanels(from); // une animation encore en cours est terminée d'un coup avant la suivante
+  /** Retire le panneau avec son animation ; retourne la durée à attendre avant de le masquer. */
+  function leavePanel(element, mode) {
+    element.classList.add('folder--leave');
+    if (mode === 'side') {
+      els.appBody.classList.remove('app-body--col-open');
+      return 560;
+    }
+    setModalBackground(false, { animate: true }); // la page redevient utilisable tout de suite, le voile se fond
+    return 320;
+  }
+
+  function showPanel(name, mode) {
+    const from = panelShown;
+    const fromMode = panelMode;
+    if (name === from && (mode === fromMode || !name)) {
+      if (!name && mode !== fromMode) settlePanels(null, mode);
+      return;
+    }
+    if (!panelsPrimed || REDUCED_MOTION.matches || !DESKTOP.matches) return settlePanels(name, mode);
+
+    settlePanels(from, fromMode); // une animation encore en cours est terminée d'un coup avant la suivante
     const fromElement = from && PANEL_EL[from];
     const toElement = name && PANEL_EL[name];
     const hadFocus = Boolean(fromElement?.contains(document.activeElement));
+    const hadPinFocus = Boolean(fromElement?.querySelector('.folder__pin')?.matches(':focus'));
     panelShown = name;
+    panelMode = mode;
 
     if (!from) {
-      // Ouverture : la colonne s'élargit (transition CSS) pendant que le panneau glisse et apparaît
-      toElement.hidden = false;
-      els.appBody.classList.add('app-body--with-file');
-      toElement.classList.add('folder--enter');
-      void els.appBody.offsetWidth; // la colonne part de sa largeur nulle
-      els.appBody.classList.add('app-body--col-open');
-      panelTimer = setTimeout(() => toElement.classList.remove('folder--enter'), 900);
+      enterPanel(toElement, mode);
     } else if (!name) {
-      // Fermeture : le panneau s'efface, la colonne se referme, puis il est retiré
-      fromElement.classList.add('folder--leave');
-      els.appBody.classList.remove('app-body--col-open');
-      panelTimer = setTimeout(() => settlePanels(null), 560);
+      const delay = leavePanel(fromElement, fromMode);
+      panelTimer = setTimeout(() => settlePanels(null, mode), delay);
+    } else if (fromMode !== mode) {
+      // Épingler ou détacher : la fenêtre se retire, puis le panneau arrive de l'autre côté
+      const delay = leavePanel(fromElement, fromMode);
+      panelTimer = setTimeout(() => {
+        settlePanels(null, mode);
+        panelShown = name;
+        panelMode = mode;
+        enterPanel(toElement, mode);
+        if (hadFocus) toElement.querySelector(hadPinFocus ? '.folder__pin' : '.folder__close')?.focus({ preventScroll: true });
+      }, delay);
     } else {
       // Bascule Dossier ↔ Rapport : fondu croisé sur place, la bascule et la croix ne bougent pas, le curseur glisse
       fromElement.classList.add('folder--swap-out');
       toElement.hidden = false;
       toElement.classList.add('folder--swap-in');
       if (hadFocus) toElement.querySelector('.folder__close')?.focus({ preventScroll: true });
-      panelTimer = setTimeout(() => settlePanels(name), 700);
+      panelTimer = setTimeout(() => settlePanels(name, mode), 700);
     }
   }
 
+  function updatePinButtons() {
+    document.querySelectorAll('[data-pin]').forEach((button) => {
+      const label = pinned ? 'Détacher du côté' : 'Épingler sur le côté';
+      button.hidden = !WIDE.matches; // l'épingle n'a de sens que s'il y a la place d'une colonne
+      button.setAttribute('aria-pressed', String(pinned));
+      button.setAttribute('aria-label', label);
+      button.title = label;
+    });
+  }
+
   function applyPanels() {
-    const showFile = WIDE.matches && openPanel === 'dossier' && isFileAvailable();
-    const showReport = WIDE.matches && openPanel === 'rapport' && isReportAvailable();
-    showPanel(showFile ? 'dossier' : showReport ? 'rapport' : null);
+    const desktop = DESKTOP.matches;
+    const showFile = desktop && openPanel === 'dossier' && isFileAvailable();
+    const showReport = desktop && openPanel === 'rapport' && isReportAvailable();
+    updatePinButtons();
+    showPanel(showFile ? 'dossier' : showReport ? 'rapport' : null, pinned && WIDE.matches ? 'side' : 'modal');
     panelsPrimed = true;
     for (const [tab, shown] of [
       [els.folderTab, showFile],
@@ -728,12 +812,36 @@ async function start() {
   function setPanel(name) {
     openPanel = name;
     try {
-      localStorage.setItem(PANEL_KEY, name ?? '');
+      localStorage.setItem(PANEL_KEY, pinned ? name ?? '' : '');
     } catch {
       // Préférence non mémorisée : sans conséquence
     }
     applyPanels();
   }
+
+  function setPinned(value) {
+    pinned = value;
+    try {
+      localStorage.setItem(PIN_KEY, value ? '1' : '0');
+      localStorage.setItem(PANEL_KEY, value ? openPanel ?? '' : '');
+    } catch {
+      // Préférence non mémorisée : sans conséquence
+    }
+    applyPanels();
+  }
+
+  document.querySelectorAll('[data-pin]').forEach((button) => button.addEventListener('click', () => setPinned(!pinned)));
+
+  /** Ferme la fenêtre (voile, Échap) et rend le focus à l'entrée du menu qui l'avait ouverte. */
+  function dismissPanel() {
+    const opener = panelShown === 'rapport' ? els.sideReport : els.sideFile;
+    setPanel(null);
+    opener.focus();
+  }
+  els.panelBackdrop.addEventListener('click', dismissPanel);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panelShown && panelMode === 'modal' && !document.querySelector('dialog[open]')) dismissPanel();
+  });
 
   if (module.patientFile) {
     els.fileDialogBody.replaceChildren(renderBlock({ type: 'patientFile', inDialog: true }, ctx));
@@ -809,7 +917,7 @@ async function start() {
 
   /** Ordinateur : panneau latéral ; tablette et mobile : fenêtre. */
   function openReportView() {
-    if (WIDE.matches) {
+    if (DESKTOP.matches) {
       setPanel('rapport');
       els.reportSideClose.focus();
     } else {

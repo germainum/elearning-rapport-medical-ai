@@ -830,6 +830,7 @@
   }
 
   .folder.folder--swap-out .folder__switch,
+  .folder.folder--swap-out .folder__pin,
   .folder.folder--swap-out .folder__close {
     visibility: hidden;
   }
@@ -1046,5 +1047,129 @@
 
   .notice:not(.notice--sticky) {
     bottom: calc(6.5rem + var(--tabbar-total));
+  }
+}
+
+/* ================================================================
+   Dossier et rapport en fenêtre (ordinateur), avec une épingle pour les fixer sur le côté (28.10.2026)
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  /* Épingle : même gabarit que la croix ; enfoncée (bleue, remplie) quand le panneau est fixé sur le côté */
+  .folder__pin {
+    grid-area: pin;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-heading);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .folder__pin[hidden] {
+    display: none;
+  }
+
+  .folder__pin:hover {
+    background: var(--color-surface-muted);
+  }
+
+  .folder__pin:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .folder__pin svg {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .folder__pin[aria-pressed="true"] {
+    border-color: var(--color-primary);
+    background: var(--color-primary-tint);
+    color: var(--color-primary);
+  }
+
+  .folder__pin[aria-pressed="true"] svg {
+    fill: currentColor;
+    transform: rotate(-30deg);
+  }
+
+  /* Voile derrière la fenêtre */
+  .panel-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 85;
+    background: rgb(15 20 40 / 0.42);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .panel-backdrop--on {
+    opacity: 1;
+  }
+
+  /* Le panneau en fenêtre : centré, au-dessus du voile */
+  .folder.folder--modal:not([hidden]) {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    width: min(36rem, calc(100vw - 3rem));
+    height: min(50rem, calc(100dvh - 4rem));
+    margin: auto;
+    padding: var(--space-4);
+    border-radius: 1.75rem;
+    background: var(--color-surface);
+    box-shadow: 0 30px 80px rgb(15 20 40 / 0.35), 0 0 0 1px var(--color-border);
+  }
+
+  .folder.folder--modal.folder--enter {
+    animation: modal-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--modal.folder--leave {
+    animation: modal-out 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+    pointer-events: none;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.96);
+  }
+}
+
+@keyframes modal-out {
+  to {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-backdrop,
+  .folder__pin,
+  .folder__pin svg {
+    transition: none;
+  }
+
+  .folder.folder--modal.folder--enter,
+  .folder.folder--modal.folder--leave {
+    animation: none;
+  }
+}
+
+@media print {
+  .panel-backdrop,
+  .folder__pin {
+    display: none !important;
   }
 }
