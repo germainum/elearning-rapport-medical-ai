@@ -30,7 +30,6 @@ function fillSheet(step, question, correct, { animate }) {
   }
 }
 
-const CUE = 'Choisissez la réponse à reporter.';
 
 /**
  * Consigne d'une étape avec extrait du formulaire : un seul paragraphe court au-dessus de l'extrait.
@@ -43,11 +42,9 @@ function consigneBlock(screen, stepBlocks, block) {
   if (!hasForm || !question || block.type !== 'text' || block.title) return null;
   const lines = [].concat(screen.consigne ?? block.body);
   if (lines.some((line) => /^(-|\d+[.)])\s+/.test(String(line).trim()))) return null; // listes : pas de fusion
-  // Avec « consigne », l'auteur écrit tout (y compris la consigne de réponse) ; sinon la consigne d'interface suit l'accroche
-  const cue = screen.consigne === undefined && question.hidePrompt ? ` <span class="consigne__cue">${CUE}</span>` : '';
   const element = document.createElement('div');
   element.className = 'block block--consigne';
-  element.innerHTML = `<p class="consigne">${lines.map((line) => inline(line)).join(' ')}${cue}</p>`;
+  element.innerHTML = `<p class="consigne">${lines.map((line) => inline(line)).join(' ')}</p>`;
   return element;
 }
 

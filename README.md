@@ -245,8 +245,8 @@ qu'après avoir répondu aux questions déjà affichées.
 ```
 
 **Consigne** : sur un écran qui a un extrait du formulaire (`form`) suivi d'une `question`, le premier bloc `text` est affiché comme **un seul
-paragraphe court**, suivi de la consigne d'interface « Choisissez la réponse à reporter. ». Pour écrire vous-même tout le paragraphe (consigne
-comprise), ajoutez au niveau de l'écran un champ `"consigne"` (texte ou liste de lignes) : il remplace alors l'accroche et la consigne d'interface.
+paragraphe court** (plus de consigne d'interface « Choisissez la réponse à reporter », supprimée en v0.106.0). Pour écrire vous-même tout le paragraphe,
+ajoutez au niveau de l'écran un champ `"consigne"` (texte ou liste de lignes) : il remplace l'accroche.
 
 Les blocs possibles :
 
