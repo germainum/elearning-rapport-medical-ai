@@ -65,8 +65,6 @@ const els = {
   tocSideList: byId('toc-side-list'),
   progressSide: byId('progress-side'),
   stepsToggle: byId('steps-toggle'),
-  sideToggle: byId('side-toggle'),
-  sideToggleLabel: byId('side-toggle-label'),
   nextSide: byId('next-side'),
   progressTitle: byId('progress-side-title'),
   progressCount: byId('progress-side-count'),
@@ -590,32 +588,6 @@ async function start() {
     if (els.progressSide.contains(event.target) || els.stepsToggle.contains(event.target)) return;
     closeSteps({ restoreFocus: false });
   });
-
-  /* ---------- Menu de gauche : icônes seules par défaut, dépliable (préférence propre à ce navigateur) ---------- */
-
-  const NAV_KEY = `menu-deplie:${module.id}`;
-  let navOpen = false;
-  try {
-    navOpen = localStorage.getItem(NAV_KEY) === '1';
-  } catch {
-    // Stockage indisponible : le menu démarre replié
-  }
-
-  function applyNav() {
-    els.appBody.classList.toggle('app-body--nav-open', navOpen);
-    els.sideToggle.setAttribute('aria-expanded', String(navOpen));
-    els.sideToggleLabel.textContent = navOpen ? 'Réduire le menu' : 'Garder le menu ouvert';
-  }
-  els.sideToggle.addEventListener('click', () => {
-    navOpen = !navOpen;
-    try {
-      localStorage.setItem(NAV_KEY, navOpen ? '1' : '0');
-    } catch {
-      // Préférence non enregistrée
-    }
-    applyNav();
-  });
-  applyNav();
 
   els.sideHome.addEventListener('click', () => show(0));
   els.sidePath.addEventListener('click', () => els.pathDialog.showModal());

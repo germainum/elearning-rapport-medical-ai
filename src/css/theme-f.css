@@ -144,7 +144,6 @@
 
 /* Bouton « Étapes », menu replié, panneau : ordinateur seulement */
 .steps-toggle,
-.side-toggle,
 .app-header .progress-side {
   display: none;
 }
@@ -159,10 +158,6 @@
   /* Menu de gauche : icônes seules par défaut */
   .app-body {
     --sidebar-width: 4.75rem;
-  }
-
-  .app-body.app-body--nav-open {
-    --sidebar-width: 15.5rem;
   }
 
   /* Plus de colonne de droite : le contenu occupe toute la place, le dossier ou le rapport la rouvre quand on l'ouvre */
@@ -198,7 +193,7 @@
   .app-sidebar--toc::after {
     content: "";
     position: absolute;
-    top: 6.5rem;
+    top: 4.75rem;
     right: 0;
     bottom: 0;
     width: 1px;
@@ -220,7 +215,7 @@
     opacity: 0;
   }
 
-  /* Logo complet, en haut à gauche ; le bouton de réduction se place dessous, aligné sur les icônes */
+  /* Logo complet, en haut à gauche */
   .sidebar-top {
     display: flex;
     flex-direction: column;
@@ -238,31 +233,6 @@
     object-fit: contain;
   }
 
-  .side-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 50%;
-    background: var(--color-surface);
-    color: var(--color-heading);
-    cursor: pointer;
-  }
-
-  .side-toggle:hover {
-    background: var(--color-surface-muted);
-  }
-
-  .side-toggle svg {
-    transition: transform 0.2s ease;
-  }
-
-  .app-body--nav-open .side-toggle svg {
-    transform: rotate(180deg);
-  }
-
   /* Nom du module : apparaît à l'ouverture */
   .sidebar-module {
     max-height: 0;
@@ -274,7 +244,6 @@
     transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.25s ease;
   }
 
-  .app-body--nav-open .sidebar-module,
   .app-sidebar--toc:hover .sidebar-module,
   .app-sidebar--toc:has(:focus-visible) .sidebar-module {
     max-height: 3rem;
@@ -283,7 +252,7 @@
     transition-delay: 0.1s;
   }
 
-  .app-body:not(.app-body--nav-open) .sidebar-meta {
+  .sidebar-meta {
     display: none;
   }
 
@@ -311,7 +280,6 @@
     transition: opacity 0.12s ease;
   }
 
-  .app-body--nav-open .side-nav__item span,
   .app-sidebar--toc:hover .side-nav__item span,
   .app-sidebar--toc:has(:focus-visible) .side-nav__item span {
     opacity: 1;
@@ -472,8 +440,7 @@
 }
 
 @media screen and (min-width: 64rem) {
-  .steps-toggle,
-  .side-toggle {
+  .steps-toggle {
     display: inline-flex;
   }
 
@@ -493,8 +460,7 @@
 /* ---------- Impression ---------- */
 
 @media print {
-  .steps-toggle,
-  .side-toggle {
+  .steps-toggle {
     display: none !important;
   }
 }
@@ -503,8 +469,7 @@
   .app-sidebar--toc,
   .app-sidebar--toc::after,
   .side-nav__item span,
-  .sidebar-module,
-  .side-toggle svg {
+  .sidebar-module {
     transition: none;
   }
 }
