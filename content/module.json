@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.78.0",
+  "version": "0.79.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -325,7 +325,7 @@
         { "icon": "questions", "text": "{questions} questions" },
         { "icon": "resume", "text": "Reprise là où vous vous arrêtez" }
       ],
-      "section": "Démarrage · Accueil"
+      "section": "Démarrage · Introduction"
     },
     {
       "id": "objectifs",
@@ -343,7 +343,7 @@
           "Séparer le médical du psychosocial et connaître les démarches : pièces jointes, MedAI, secret médical, détection précoce"
         ]
       },
-      "section": "Démarrage · Accueil"
+      "section": "Démarrage · Introduction"
     },
     {
       "id": "parcours",
@@ -366,7 +366,7 @@
           { "icon": "decision", "label": "La suite à l'AI", "text": "Un rapport précis, une décision plus rapide." }
         ]
       },
-      "section": "Démarrage · Accueil"
+      "section": "Démarrage · Introduction"
     },
     {
       "id": "courrier",
@@ -2638,7 +2638,7 @@
     {
       "id": "merci",
       "type": "text",
-      "section": "Votre avis (facultatif)",
+      "section": "Merci",
       "part": "Pour finir",
       "optional": true,
       "hidePatientFile": true,

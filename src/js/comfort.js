@@ -169,7 +169,7 @@ export function setupShortcuts({ screenEl, prev, next }) {
 
     // Dans un groupe de réponses, les flèches changent déjà de choix
     if (onChoice) return;
-    if (event.key === 'ArrowRight' && !next.hidden) {
+    if (event.key === 'ArrowRight' && !next.hidden && !next.hasAttribute('data-exit')) {
       event.preventDefault();
       next.click();
     } else if (event.key === 'ArrowLeft' && !prev.disabled) {

@@ -1334,3 +1334,17 @@ h3 {
     padding-right: 0;
   }
 }
+
+/* Message de fin sous le dernier écran (« Terminer le module ») */
+.exit-note {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.exit-note:empty {
+  display: none;
+}

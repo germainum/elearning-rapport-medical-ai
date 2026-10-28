@@ -22,6 +22,8 @@ setupDialogMotion();
 const CONTENT_URL = 'content/module.json';
 const DEFAULT_PASSING_SCORE = 80;
 const DEFAULT_CONTINUE_LABEL = 'Suivant';
+const EXIT_LABEL = 'Terminer le module';
+const EXIT_MESSAGE = 'Votre progression est enregistrée. Vous pouvez fermer cette fenêtre.';
 
 const RENDERERS = {
   text: renderText,
@@ -84,6 +86,7 @@ const els = {
   helpCardIcon: byId('help-card-icon'),
   helpCardActions: byId('help-card-actions'),
   crumbs: byId('crumbs'),
+  exitNote: byId('exit-note'),
   progressPill: byId('progress-pill'),
   appBody: byId('app-body'),
   fileSide: byId('file-side'),
@@ -178,6 +181,19 @@ async function start() {
     finished = true;
     sync();
     scorm.finish();
+  }
+
+  /** Dernier écran : ferme la session SCORM, tente de fermer la fenêtre, sinon invite à la fermer. */
+  function exitModule() {
+    finish();
+    els.next.disabled = true;
+    try {
+      window.close();
+    } catch {
+      // Fenêtre non fermable par script : le message ci-dessous prend le relais.
+    }
+    els.exitNote.textContent = EXIT_MESSAGE;
+    els.exitNote.focus();
   }
 
   /* ---------- Contexte transmis aux écrans ---------- */
@@ -302,6 +318,7 @@ async function start() {
     setNotice(notice, { sticky: stickyNotice });
     openSection = screen.section ?? null; // le sommaire ouvre la section de l'écran affiché
     els.pagerMsg.textContent = '';
+    els.exitNote.textContent = '';
     // Question précédente de la feuille (avec la réponse écrite), gardée pour la faire « défiler » vers le haut
     const sheetBefore = els.screen.querySelector('.form-sheet');
     const previousItem = target === previous + 1 ? sheetBefore?.querySelector('.form-sheet__item')?.cloneNode(true) : null;
@@ -390,8 +407,13 @@ async function start() {
       .join('');
 
     els.prev.disabled = index === 0;
-    els.next.hidden = index === total - 1;
-    els.next.textContent = reviewNextLabel() ?? plainText(screens[index].continueLabel ?? DEFAULT_CONTINUE_LABEL);
+    // Dernier écran : « Suivant » devient « Terminer le module » (désactivé une fois la session fermée)
+    const isLast = index === total - 1;
+    els.next.toggleAttribute('data-exit', isLast);
+    els.next.disabled = isLast && finished;
+    els.next.textContent = isLast
+      ? EXIT_LABEL
+      : reviewNextLabel() ?? plainText(screens[index].continueLabel ?? DEFAULT_CONTINUE_LABEL);
     const nextLocked = !tracker.isScreenDone(index);
     // Rappel discret (non annoncé) sous le bouton grisé : ce qu'il reste à faire pour continuer
     const hint = byId('pager-hint');
@@ -1033,6 +1055,10 @@ async function start() {
   });
 
   els.next.addEventListener('click', () => {
+    if (index === screens.length - 1) {
+      exitModule();
+      return;
+    }
     if (tracker.isScreenDone(index)) {
       goNext();
       return;
