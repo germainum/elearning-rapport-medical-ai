@@ -246,13 +246,14 @@
     opacity: 0;
     white-space: nowrap;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    color: var(--color-primary);
+    transition: opacity 0.12s ease;
   }
 
   .app-sidebar--toc:hover .sidebar-module,
   .app-sidebar--toc:has(:focus-visible) .sidebar-module {
     opacity: 1;
-    transition-delay: 0.12s;
+    transition-delay: 0s;
   }
 
   .sidebar-meta {
@@ -395,6 +396,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
+    gap: 0;
     color: var(--color-text);
     font-size: 0.9375rem;
     font-weight: 500;
@@ -1207,4 +1209,52 @@
   .side-nav__li--reveal {
     animation: none;
   }
+}
+
+/* Réponse validée : le bouton radio ne paraît plus désactivé, il garde la couleur du verdict (le natif grisé est remplacé) */
+.question--answered .option__input,
+.question--retry .option__input:disabled {
+  appearance: none;
+  display: grid;
+  place-content: center;
+  border: 2px solid var(--color-subtle);
+  border-radius: 50%;
+  background: transparent;
+  opacity: 1;
+}
+
+.question--answered .option__input[type="checkbox"] {
+  border-radius: 0.3rem;
+}
+
+.question--answered .option__input:checked::after {
+  content: "";
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.question--answered .option__input[type="checkbox"]:checked::after {
+  border-radius: 0.1rem;
+}
+
+.question--answered .option__input:checked {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.question--answered .option--incorrect .option__input:checked {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.question--answered .option--correct .option__input,
+.question--answered .option--missed .option__input {
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.question--answered .option--correct .option__input:checked::after {
+  background: var(--color-success);
 }
