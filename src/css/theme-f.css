@@ -269,13 +269,26 @@
     min-width: 0;
   }
 
-  /* Entrées : les icônes ne bougent pas, les titres apparaissent en fondu (lus par les lecteurs d'écran même masqués) */
+  /* Entrées, à la manière du menu d'Instagram : icônes de 24 px, titres de 16 px, lignes de 48 px ; les icônes ne bougent pas,
+     les titres apparaissent en fondu (lus par les lecteurs d'écran même masqués) */
   .side-nav__item {
     justify-content: flex-start;
-    min-height: 2.75rem;
-    padding: 0 0 0 1rem;
+    gap: 1rem;
+    min-height: 3rem;
+    padding: 0 0 0 0.875rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .side-nav__item svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .side-nav__item[aria-current="page"] {
+    font-weight: 600;
   }
 
   .side-nav__item span {
@@ -290,9 +303,72 @@
     transition: opacity 0.2s ease 0.12s;
   }
 
+  /* Placement : le logo en haut, les entrées principales au milieu du rail, glossaire, paramètres et aide collés en bas */
+  .app-sidebar--toc {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .side-nav {
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .side-nav--main {
+    margin-block: auto;
+  }
+
+  .side-nav--bottom {
+    margin-bottom: 0.25rem;
+  }
+
+  .help {
+    display: block;
+    margin-top: 0;
+    padding-bottom: var(--space-3);
+  }
+
+  /* L'aide a le même gabarit qu'une entrée du menu (icône puis titre) */
   .help__toggle {
-    justify-self: start;
-    margin-left: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    justify-self: stretch;
+    gap: 1rem;
+    width: 100%;
+    height: 3rem;
+    margin: 0;
+    padding: 0 0 0 0.875rem;
+    border: 0;
+    border-radius: 0.75rem;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    font-size: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .help__toggle:hover,
+  .help__toggle[aria-expanded="true"] {
+    background: var(--color-surface-muted);
+  }
+
+  .help__toggle svg {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .help__toggle span {
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .app-sidebar--toc:hover .help__toggle span,
+  .app-sidebar--toc:has(:focus-visible) .help__toggle span {
+    opacity: 1;
+    transition: opacity 0.2s ease 0.12s;
   }
 
   /* --- En-tête compact : une ligne + fine barre --- */
@@ -473,6 +549,7 @@
   .app-sidebar--toc,
   .app-sidebar--toc::after,
   .side-nav__item span,
+  .help__toggle span,
   .sidebar-module {
     transition: none;
   }
