@@ -702,16 +702,12 @@ async function start() {
       els.appBody.classList.remove('app-body--col-open');
       panelTimer = setTimeout(() => settlePanels(null), 560);
     } else {
-      // Bascule Dossier ↔ Rapport : l'ancien se retire, le nouveau arrive, le curseur de la bascule glisse
+      // Bascule Dossier ↔ Rapport : fondu croisé sur place, la bascule et la croix ne bougent pas, le curseur glisse
       fromElement.classList.add('folder--swap-out');
-      panelTimer = setTimeout(() => {
-        fromElement.hidden = true;
-        fromElement.classList.remove('folder--swap-out');
-        toElement.hidden = false;
-        toElement.classList.add('folder--swap-in');
-        if (hadFocus) toElement.querySelector('.folder__close')?.focus({ preventScroll: true });
-        panelTimer = setTimeout(() => toElement.classList.remove('folder--swap-in'), 900);
-      }, 180);
+      toElement.hidden = false;
+      toElement.classList.add('folder--swap-in');
+      if (hadFocus) toElement.querySelector('.folder__close')?.focus({ preventScroll: true });
+      panelTimer = setTimeout(() => settlePanels(name), 700);
     }
   }
 

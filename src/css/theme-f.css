@@ -758,6 +758,34 @@
   }
 }
 
+@keyframes sheet-swap-out {
+  to {
+    opacity: 0;
+    transform: translateX(-0.75rem);
+  }
+}
+
+@keyframes sheet-swap-in {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+}
+
+@keyframes switch-label-in {
+  from {
+    color: var(--color-muted);
+    font-weight: 400;
+  }
+}
+
+@keyframes switch-label-out {
+  from {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+}
+
 @keyframes folder-rise {
   from {
     opacity: 0;
@@ -775,34 +803,51 @@
     pointer-events: none;
   }
 
-  .folder.folder--swap-in {
-    animation: folder-swap-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .folder.folder--swap-out {
-    animation: folder-swap-out 0.18s ease-in both;
-    pointer-events: none;
-  }
-
   /* Les blocs du panneau montent l'un après l'autre */
   .folder.folder--enter .folder__switch,
-  .folder.folder--swap-in .folder__switch,
-  .folder.folder--enter .folder__close,
-  .folder.folder--swap-in .folder__close {
+  .folder.folder--enter .folder__close {
     animation: folder-rise 0.55s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .folder.folder--enter .folder__sheet,
-  .folder.folder--swap-in .folder__sheet {
+  .folder.folder--enter .folder__sheet {
     animation: folder-rise 0.65s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .folder.folder--enter .record > *,
-  .folder.folder--swap-in .record > *,
-  .folder.folder--enter .report > *,
-  .folder.folder--swap-in .report > * {
+  .folder.folder--enter .report > * {
     animation: folder-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: calc(0.2s + var(--i, 0) * 60ms);
+  }
+
+  /* Bascule Dossier ↔ Rapport : les deux panneaux se superposent ; la bascule et la croix restent en place (celles de l'ancien
+     panneau sont masquées), le curseur glisse, les étiquettes changent de couleur en douceur, les deux contenus se fondent l'un dans l'autre */
+  .app-body--with-file .folder {
+    grid-row: 1;
+  }
+
+  .folder.folder--swap-out {
+    pointer-events: none;
+  }
+
+  .folder.folder--swap-out .folder__switch,
+  .folder.folder--swap-out .folder__close {
+    visibility: hidden;
+  }
+
+  .folder.folder--swap-out .folder__sheet {
+    animation: sheet-swap-out 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  .folder.folder--swap-in .folder__sheet {
+    animation: sheet-swap-in 0.55s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--swap-in .folder__switch-btn[aria-current] {
+    animation: switch-label-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .folder.folder--swap-in .folder__switch-btn:not([aria-current]) {
+    animation: switch-label-out 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .folder .record > :nth-child(2) { --i: 1; }
@@ -823,7 +868,8 @@
   .folder.folder--swap-in,
   .folder.folder--swap-out,
   .folder.folder--enter *,
-  .folder.folder--swap-in * {
+  .folder.folder--swap-in *,
+  .folder.folder--swap-out * {
     animation: none;
   }
 }
