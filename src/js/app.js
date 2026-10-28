@@ -333,7 +333,8 @@ async function start() {
     animateScreenIn(article, target >= previous ? 'forward' : 'backward');
     if (previousItem && !animateSheetDescent(article, previousItem, previousTitle) && previousSheet) animateSheetTurn(article, previousSheet);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
-    document.title = `${plainText(screen.title)} – ${plainText(module.title)}`;
+    // Le nom du module d'abord : c'est ce qu'on lit dans l'onglet, dont la place est comptée
+    document.title = `${plainText(module.title)} · ${plainText(screen.title)}`;
     updateChrome();
 
     // Reprise d'une question : on l'amène à l'écran et on place le focus sur sa première réponse
