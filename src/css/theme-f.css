@@ -1130,6 +1130,14 @@
     box-shadow: 0 30px 80px rgb(15 20 40 / 0.35), 0 0 0 1px var(--color-border);
   }
 
+  /* Bascule Dossier ↔ Rapport : le cadre (fond, ombre) reste celui du panneau qui part, qui est dessous ; celui qui arrive est
+     transparent et passe au-dessus : sa bascule, son épingle et sa croix sont visibles tout de suite, quel que soit le sens */
+  .folder.folder--modal.folder--swap-in:not([hidden]) {
+    z-index: 91;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .folder.folder--modal.folder--enter {
     animation: modal-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
