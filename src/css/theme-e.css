@@ -1419,3 +1419,81 @@ h3 {
 html {
   scroll-padding-bottom: 7rem;
 }
+
+/* ================================================================
+   Dossier patient et Mon rapport ouverts : la fiche prend toute la hauteur disponible
+   (moins de défilement à l'intérieur), avec des lignes plus compactes
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  /* Un seul rang d'en-tête : la bascule « Dossier | Rapport » et la croix. Le titre reste lu par les lecteurs d'écran
+     (et s'affiche seul quand la bascule est absente, ex. second cas). */
+  .folder:not([hidden]) {
+    grid-template-areas: "switch close" "sheet sheet";
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .folder:has(.folder__switch-btn:not([hidden])) .folder__tab-top {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .folder:not(:has(.folder__switch-btn:not([hidden]))) {
+    grid-template-areas: "title close" "sheet sheet";
+  }
+
+  /* Fiche : colonne souple, la zone défilante prend la place restante */
+  .folder__sheet,
+  .folder__sheet--report {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    align-self: stretch;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  #file-side-body,
+  #report-side-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  /* « Confidentiel » : étiquette posée sur le bord haut de la fiche, ne prend plus de hauteur */
+  .folder__stamp {
+    position: absolute;
+    top: -0.8rem;
+    right: var(--space-4);
+    bottom: auto;
+    margin: 0;
+    background: var(--color-surface);
+  }
+
+  /* Lignes du dossier plus serrées */
+  .folder .record__row dd {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .folder .record__row,
+  .folder .record__journal li {
+    padding: 0.3rem 0;
+  }
+
+  .folder .record__notes {
+    line-height: 1.45;
+  }
+}
+
+/* ≥ 1280 px : le panneau, collant, s'arrête au bas de la fenêtre (sous la barre « Votre progression ») */
+@media screen and (min-width: 80rem) {
+  .app-body--with-file .folder:not([hidden]) {
+    height: calc(100dvh - 3 * var(--frame-pad) - 6rem);
+  }
+}
