@@ -1,5 +1,5 @@
 /**
- * Plein écran sur mobile : au premier toucher (les navigateurs l'exigent, ce n'est pas possible sans geste de l'apprenant),
+ * Plein écran sur mobile : au premier clic sur « Suivant » (les navigateurs l'exigent, ce n'est pas possible sans geste de l'apprenant),
  * la page passe en plein écran si l'appareil le permet. Une seule tentative par session : si l'apprenant en sort, on n'insiste pas.
  * Sans effet sur ordinateur, sur iPhone (Safari n'a pas cette fonction : voir « Sur l'écran d'accueil »), ni dans une iframe
  * de LMS qui n'a pas l'attribut « allowfullscreen ».
@@ -18,8 +18,11 @@ export function setupFullscreen() {
     /* stockage indisponible : on tente quand même */
   }
 
-  const enter = () => {
-    document.removeEventListener('pointerup', enter, true);
+  // Le plein écran est demandé au premier clic sur « Suivant » (écran d'accueil) : un premier toucher quelconque, par exemple sur
+  // « Valider », ne doit pas redimensionner la page en pleine action.
+  const enter = (event) => {
+    if (!event.target.closest?.('#next')) return;
+    document.removeEventListener('click', enter, true);
     try {
       sessionStorage.setItem(KEY, '1');
     } catch {
@@ -27,5 +30,5 @@ export function setupFullscreen() {
     }
     root.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
   };
-  document.addEventListener('pointerup', enter, { capture: true });
+  document.addEventListener('click', enter, { capture: true });
 }

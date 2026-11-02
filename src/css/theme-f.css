@@ -1870,3 +1870,46 @@ li.side-nav__more,
     background: var(--color-surface);
   }
 }
+
+/* ================================================================
+   Mobile : Dossier et Rapport en feuille à mi-hauteur (v0.129.0)
+   La question reste visible au-dessus ; tirer l'en-tête vers le haut agrandit la feuille, vers le bas la rabaisse puis la ferme.
+   ================================================================ */
+
+@media screen and (max-width: 47.99rem) {
+  .file-dialog--sheet[open] {
+    inset: auto 0 0 0;
+    height: 54dvh;
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 -14px 44px rgb(15 20 40 / 0.28);
+    transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .file-dialog--sheet-full[open] {
+    height: calc(100dvh - 1.5rem - env(safe-area-inset-top, 0px));
+  }
+
+  /* Poignée */
+  .file-dialog--sheet .file-dialog__header {
+    padding-top: 1.25rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  .file-dialog--sheet .file-dialog__header::before {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 2.5rem;
+    height: 0.3125rem;
+    border-radius: 999px;
+    background: var(--color-border-strong, #b9bec7);
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .file-dialog--sheet[open] {
+    transition: none;
+  }
+}
