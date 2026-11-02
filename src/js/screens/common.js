@@ -151,10 +151,10 @@ function openCinema(player, opener) {
   dialog.innerHTML = `
     <div class="cinema__bar">
       <p class="cinema__title">${escapeHtml(title)}</p>
+      <button type="button" class="btn btn--primary btn--small cinema__unmute" hidden>Activer le son</button>
       <button type="button" class="cinema__close" aria-label="Fermer le mode cinéma"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="cinema__stage"></div>
-    <div class="cinema__foot"><button type="button" class="btn btn--primary btn--small cinema__unmute" hidden>Activer le son</button></div>`;
+    <div class="cinema__stage"></div>`;
   document.body.append(dialog);
   dialog.querySelector('.cinema__stage').append(player);
 

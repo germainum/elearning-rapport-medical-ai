@@ -2306,9 +2306,11 @@ body[data-summary-failed] #next {
    ================================================================ */
 
 .cinema {
-  width: min(96vw, calc((100dvh - 9rem) * 16 / 9 + 2rem));
+  /* La vidéo (16/9) + la barre du haut tiennent toujours dans la fenêtre du navigateur : jamais de défilement */
+  width: min(96vw, calc((100dvh - 8rem) * 16 / 9 + 2rem));
   max-width: none;
-  max-height: 96dvh;
+  max-height: 98dvh;
+  overflow: hidden;
   margin: auto;
   padding: 1rem;
   border: 0;
@@ -2334,6 +2336,8 @@ body[data-summary-failed] #next {
 }
 
 .cinema__title {
+  flex: 1 1 auto;
+  min-width: 0;
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
@@ -2361,13 +2365,8 @@ body[data-summary-failed] #next {
 
 .cinema__stage .video__player {
   width: 100%;
-  max-height: calc(100dvh - 9rem);
   border-radius: 1rem;
   box-shadow: none;
-}
-
-.cinema__foot:has(.cinema__unmute:not([hidden])) {
-  margin-top: 0.75rem;
 }
 
 .video__placeholder {
