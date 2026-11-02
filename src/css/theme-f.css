@@ -1479,3 +1479,50 @@
     transform: none;
   }
 }
+
+/* Mobile : une flèche de retour à gauche de l'en-tête, comme sur iOS, à la place de la croix (fenêtres du menu, plein écran) */
+@media screen and (max-width: 47.99rem) {
+  .file-dialog__header {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+
+  .file-dialog__header .file-dialog__actions {
+    display: contents;
+  }
+
+  .file-dialog__header .file-dialog__close {
+    order: -1;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: -0.5rem;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-primary);
+  }
+
+  .file-dialog__header .file-dialog__close:hover {
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    color: var(--color-primary);
+  }
+
+  .file-dialog__header .file-dialog__close svg {
+    display: none;
+  }
+
+  .file-dialog__header .file-dialog__close::before {
+    content: "";
+    width: 1.75rem;
+    height: 1.75rem;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 5l-7 7 7 7' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 5l-7 7 7 7' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .file-dialog__header .file-dialog__title {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
