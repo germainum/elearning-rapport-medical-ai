@@ -15,7 +15,7 @@ import { renderScene } from './screens/scene.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderSummary } from './screens/summary.js';
 import { renderSurvey } from './screens/survey.js';
-import { setupShortcuts, setupShortcutsSetting, setupTextSize, setupTheme, timeLeftText } from './comfort.js';
+import { setupShortcuts, setupShortcutsSetting, setupSystemTextSize, setupTextSize, setupTheme, timeLeftText } from './comfort.js';
 import { setupDialogMotion } from './dialog-motion.js';
 import { setupFullscreen } from './fullscreen.js';
 
@@ -1544,6 +1544,7 @@ async function start() {
   setupTextSize(module.id);
   setupTheme(document.querySelectorAll('input[name="theme"]'));
   setupFullscreen();
+  setupSystemTextSize();
   setupTabDrag();
   setupTabMinimize();
   setupDisabledTabs();

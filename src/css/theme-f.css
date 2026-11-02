@@ -1844,3 +1844,29 @@ li.side-nav__more,
   color: var(--color-primary);
   box-shadow: none;
 }
+
+/* ================================================================
+   Transparence réduite / navigateur sans flou (v0.127.0) : les surfaces en verre deviennent opaques, le texte reste lisible
+   ================================================================ */
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .app-sidebar--toc,
+  .more-sheet:not([hidden]) {
+    background: var(--color-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .file-dialog::backdrop,
+  .panel-backdrop {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-sidebar--toc,
+  .more-sheet:not([hidden]) {
+    background: var(--color-surface);
+  }
+}

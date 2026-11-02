@@ -35,9 +35,67 @@ export function setupDialogMotion(root = document) {
       setBackground(true);
       document.dispatchEvent(new CustomEvent('menu-dialog-change'));
     };
+    // Glisser la fenêtre vers le bas pour la fermer (mobile), comme une feuille iOS : depuis l'en-tête, ou depuis le contenu s'il est en haut
+    let drag = null;
+    const resetDrag = () => {
+      dialog.style.animation = '';
+      dialog.style.transition = '';
+      dialog.style.transform = '';
+    };
+    dialog.addEventListener(
+      'touchstart',
+      (event) => {
+        if (!dialog.classList.contains('file-dialog--docked') || event.touches.length !== 1) return;
+        const touch = event.touches[0];
+        const inHeader = Boolean(event.target.closest('.file-dialog__header'));
+        drag = { x: touch.clientX, y: touch.clientY, t: performance.now(), active: false, ok: inHeader || dialog.scrollTop <= 0, dy: 0 };
+      },
+      { passive: true },
+    );
+    dialog.addEventListener(
+      'touchmove',
+      (event) => {
+        if (!drag || !drag.ok) return;
+        const touch = event.touches[0];
+        const dy = touch.clientY - drag.y;
+        const dx = touch.clientX - drag.x;
+        if (!drag.active) {
+          if (dy > 12 && dy > Math.abs(dx) * 1.5 && dialog.scrollTop <= 0) {
+            drag.active = true;
+            dialog.style.animation = 'none';
+            dialog.style.transition = 'none';
+          } else {
+            if (dy < -4 || Math.abs(dx) > 12) drag.ok = false; // c'est un défilement ordinaire
+            return;
+          }
+        }
+        drag.dy = Math.max(0, dy);
+        if (event.cancelable) event.preventDefault();
+        dialog.style.transform = `translateY(${drag.dy * 0.92}px)`;
+      },
+      { passive: false },
+    );
+    const endDrag = (cancelled) => {
+      const current = drag;
+      drag = null;
+      if (!current || !current.active) return;
+      const speed = current.dy / Math.max(1, performance.now() - current.t);
+      if (!cancelled && (current.dy > 120 || speed > 0.7)) {
+        dialog.style.transition = 'transform 0.25s cubic-bezier(0.4, 0, 1, 1)';
+        dialog.style.transform = 'translateY(100%)';
+        setTimeout(() => dialog.close(), 220);
+      } else {
+        dialog.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1)';
+        dialog.style.transform = 'none';
+      }
+    };
+    dialog.addEventListener('touchend', () => endDrag(false));
+    dialog.addEventListener('touchcancel', () => endDrag(true));
+
     dialog.addEventListener('close', () => {
       if (!dialog.classList.contains('file-dialog--docked')) return;
       dialog.classList.remove('file-dialog--docked');
+      resetDrag();
       // une autre fenêtre du menu a pu s'ouvrir entre-temps : la page reste inerte tant qu'il en reste une
       if (!document.querySelector('dialog.file-dialog--docked[open]')) setBackground(false);
       document.dispatchEvent(new CustomEvent('menu-dialog-change'));

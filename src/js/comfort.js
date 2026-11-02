@@ -178,3 +178,29 @@ export function setupShortcuts({ screenEl, prev, next }) {
     }
   });
 }
+
+/**
+ * Taille de texte réglée dans iOS (« Dynamic Type ») : Safari ne la transmet que par la police système « -apple-system-body ».
+ * On mesure sa taille (17 px par défaut) et on en tire un coefficient `--system-scale` appliqué à tout le texte, en plus des
+ * boutons A− / A+ du module. Sans effet ailleurs (Android et les ordinateurs gèrent déjà la taille du texte du navigateur).
+ */
+export function setupSystemTextSize() {
+  const root = document.documentElement;
+  if (!window.CSS?.supports?.('font', '-apple-system-body')) return;
+  const probe = document.createElement('span');
+  probe.setAttribute('aria-hidden', 'true');
+  probe.textContent = 'x';
+  probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;font:-apple-system-body;';
+  document.body.append(probe);
+  const update = () => {
+    const size = parseFloat(getComputedStyle(probe).fontSize);
+    const ratio = size > 0 ? Math.min(1.6, Math.max(0.85, size / 17)) : 1;
+    root.style.setProperty('--system-scale', String(Math.round(ratio * 1000) / 1000));
+  };
+  update();
+  // le réglage peut changer pendant que le module est en arrière-plan
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) update();
+  });
+  window.addEventListener('resize', update);
+}

@@ -1599,7 +1599,7 @@ button.toc__item {
 
 /* Mise à l'échelle choisie par l'apprenant (A− / A+) */
 html {
-  font-size: calc(100% * var(--text-scale, 1));
+  font-size: calc(100% * var(--text-scale, 1) * var(--system-scale, 1));
 }
 
 
@@ -3501,7 +3501,7 @@ html {
  */
 @media (min-width: 90rem) {
   html {
-    font-size: calc(clamp(100%, calc(0.357vw + 0.679rem), 125%) * var(--text-scale, 1));
+    font-size: calc(clamp(100%, calc(0.357vw + 0.679rem), 125%) * var(--text-scale, 1) * var(--system-scale, 1));
   }
 
   /* Colonnes latérales plus larges : sommaire à gauche, dossier patient à droite */
