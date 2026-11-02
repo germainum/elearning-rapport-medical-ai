@@ -518,7 +518,8 @@ async function start() {
    * Mobile : la barre d'onglets se range en une petite gélule quand on lit vers le bas (comme Safari sous iOS 26) et se redéploie
    * dès qu'on remonte, en bas de page, au toucher, au clavier ou à chaque nouvel écran.
    */
-  let expandTabbar = () => {};
+  let holdTabbar = () => {};
+  let frozenUntil = 0;
   function setupTabMinimize() {
     const bar = document.querySelector('.app-sidebar--toc');
     const mobile = window.matchMedia('(max-width: 47.99rem)');
@@ -531,7 +532,10 @@ async function start() {
       document.body.classList.toggle('tabbar-mini', mini);
       if (!mini) moveTabIndicator();
     };
-    expandTabbar = () => set(false);
+    // Changement d'écran : la barre garde l'état où elle est (le retour en haut de page ne la redéploie pas)
+    holdTabbar = () => {
+      frozenUntil = performance.now() + 900;
+    };
 
     document.addEventListener(
       'scroll',
@@ -542,9 +546,10 @@ async function start() {
         const top = target.scrollTop;
         const before = last.get(target) ?? top;
         last.set(target, top);
+        if (performance.now() < frozenUntil) return;
         const delta = top - before;
         const atBottom = target.scrollHeight - top - target.clientHeight < 56;
-        if (atBottom || delta < -6 || top < 24) set(false);
+        if (atBottom || delta < -6) set(false);
         else if (delta > 8) set(true);
       },
       { capture: true, passive: true },
@@ -727,7 +732,7 @@ async function start() {
     revealNavItem(els.sideGlossary, els.glossaryToggle.hidden);
     navIndex = index;
     syncNavCurrent();
-    expandTabbar();
+    holdTabbar();
     renderProgressSide();
     placeNextSteps();
   }
