@@ -1327,6 +1327,19 @@
     animation: dialog-sheet-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  /* Fenêtre du menu ouverte « à côté » de la barre d'onglets : plein écran, la barre flotte par-dessus et reste utilisable */
+  .file-dialog--docked[open] {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    width: auto;
+    height: auto;
+  }
+
+  .file-dialog--docked[open] .file-dialog__body {
+    padding-bottom: calc(var(--tabbar-total) + var(--space-5));
+  }
+
   .file-dialog--closing[open] {
     animation: dialog-sheet-out 0.24s cubic-bezier(0.4, 0, 1, 1) both;
   }
