@@ -1793,17 +1793,19 @@ li.side-nav__more,
   margin-top: calc((1lh - 1.25rem) / 2);
 }
 
-/* « Activer le son » sur la vidéo même (en haut à gauche) : il reste visible avec elle, jamais sous les boutons fixes */
-.video {
-  position: relative;
+/* « Activer le son » sur la vidéo même (en bas à gauche, juste au-dessus de la barre de lecture) : il reste visible avec elle,
+   jamais sous les boutons fixes. Même case de grille que le lecteur, donc aucune ligne en plus. */
+.video__player,
+.video__unmute:not([hidden]) {
+  grid-area: 1 / 1;
 }
 
 .video__unmute:not([hidden]) {
-  position: absolute;
-  top: var(--space-2);
-  left: var(--space-2);
   z-index: 2;
+  align-self: end;
+  justify-self: start;
   min-height: 2.75rem;
+  margin: 0 0 3.5rem var(--space-2);
   padding-inline: var(--space-3);
   font-size: 0.9375rem;
   box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
