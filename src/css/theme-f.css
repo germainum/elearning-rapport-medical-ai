@@ -1837,3 +1837,10 @@ li.side-nav__more,
     transition: none;
   }
 }
+
+/* Après une première erreur, « Suivant » devient l'action principale : « Valider » (nouvel essai) passe en bouton secondaire (v0.126.0) */
+.question--retry .question__actions .btn {
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  box-shadow: none;
+}
