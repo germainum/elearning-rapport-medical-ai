@@ -397,6 +397,26 @@ async function start() {
 
   const nextState = { index: -1, locked: true }; // état du bouton « Suivant » au dernier affichage
 
+  /** Onglet « en cours » du menu : la fenêtre du menu ouverte sur mobile (Parcours, Glossaire…), sinon la page affichée (Accueil ou Parcours). */
+  let navIndex = 0;
+  function syncNavCurrent() {
+    const docked = document.querySelector('dialog.file-dialog--docked[open]:not(.file-dialog--closing)');
+    const byDialog = {
+      'path-dialog': els.sidePath,
+      'glossary-dialog': els.sideGlossary,
+      'settings-dialog': els.sideSettings,
+      'file-dialog': els.sideFile,
+      'report-dialog': els.sideReport,
+    };
+    const current = (docked && byDialog[docked.id]) || (navIndex === 0 ? els.sideHome : els.sidePath);
+    for (const button of document.querySelectorAll('.side-nav__item')) {
+      if (button === current) button.setAttribute('aria-current', 'page');
+      else button.removeAttribute('aria-current');
+    }
+    moveTabIndicator();
+  }
+  document.addEventListener('menu-dialog-change', syncNavCurrent);
+
   /** Barre d'onglets du mobile : la pastille de la page en cours glisse d'un onglet à l'autre (décorative, masquée sur ordinateur). */
   let tabIndicator = null;
   function moveTabIndicator() {
@@ -520,12 +540,8 @@ async function start() {
     revealNavItem(els.sideFile, !fileUnlocked);
     revealNavItem(els.sideReport, !reportAvailable);
     revealNavItem(els.sideGlossary, els.glossaryToggle.hidden);
-    els.sideHome.toggleAttribute('aria-current', index === 0);
-    els.sidePath.toggleAttribute('aria-current', index !== 0);
-    for (const button of [els.sideHome, els.sidePath]) {
-      if (button.hasAttribute('aria-current')) button.setAttribute('aria-current', 'page');
-    }
-    moveTabIndicator();
+    navIndex = index;
+    syncNavCurrent();
     renderProgressSide();
     placeNextSteps();
   }

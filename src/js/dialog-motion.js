@@ -33,12 +33,14 @@ export function setupDialogMotion(root = document) {
       dialog.classList.add('file-dialog--docked');
       dialog.show();
       setBackground(true);
+      document.dispatchEvent(new CustomEvent('menu-dialog-change'));
     };
     dialog.addEventListener('close', () => {
       if (!dialog.classList.contains('file-dialog--docked')) return;
       dialog.classList.remove('file-dialog--docked');
       // une autre fenêtre du menu a pu s'ouvrir entre-temps : la page reste inerte tant qu'il en reste une
       if (!document.querySelector('dialog.file-dialog--docked[open]')) setBackground(false);
+      document.dispatchEvent(new CustomEvent('menu-dialog-change'));
     });
 
     const finish = (value) => {
@@ -54,6 +56,7 @@ export function setupDialogMotion(root = document) {
         return;
       }
       dialog.classList.add('file-dialog--closing');
+      document.dispatchEvent(new CustomEvent('menu-dialog-change'));
       timer = setTimeout(() => finish(value), CLOSE_MS);
     };
 
