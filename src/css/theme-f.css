@@ -2796,3 +2796,31 @@ html:has(dialog.cinema[open])::-webkit-scrollbar,
 .question--retry .option.option--incorrect {
   background: var(--color-surface);
 }
+
+/* Feedback sans contours ni bordures (v0.149.0) : ni cadre, ni liseré, ni filets ; le verdict tient dans l'icône, le panneau gris porte la leçon */
+.feedback {
+  padding: var(--space-3) 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.feedback--correct,
+.feedback--incorrect {
+  background: transparent;
+}
+
+.feedback__more {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.feedback__more .feedback__why {
+  margin-left: 0;
+}
+
+.feedback__retry {
+  padding-top: 0;
+  border-top: 0;
+}
