@@ -206,7 +206,7 @@ function showRetry(form, question, ids, result, { retake, misses }) {
     ${main}
     ${why}
     ${more}
-    <p class="feedback__retry">Vous pouvez choisir une autre réponse.</p>`;
+    <p class="feedback__retry"><span aria-hidden="true">↑</span> Choisissez une autre réponse pour réessayer.</p>`;
   feedback.hidden = false;
   feedback.focus();
 }

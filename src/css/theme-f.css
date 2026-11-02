@@ -653,10 +653,17 @@
   color: var(--color-error);
 }
 
+/* Invitation à réessayer : une vraie ligne d'action (taille du texte, couleur d'accent), pas une note en petit gris (v0.141.0) */
 .feedback__retry {
-  margin: var(--space-2) 0 0;
-  color: var(--color-muted);
-  font-size: 0.875rem;
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2244,5 +2251,32 @@ body[data-summary-failed] #next {
     border-radius: 50%;
     background: var(--color-primary, #0f1d96);
     vertical-align: 0.1em;
+  }
+}
+
+/* ================================================================
+   Ordinateur : en-tête fixe (progression, temps restant, « Étapes » restent visibles) ; après une erreur,
+   « Suivant » passe en secondaire pour que l'invitation à réessayer reste l'action principale (v0.141.0)
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding-bottom: 0.75rem;
+    background: var(--color-surface);
+  }
+
+  .app-header__inner {
+    padding-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  body:has(.question--retry) #next:not([aria-disabled="true"]) {
+    background: var(--color-primary-tint);
+    color: var(--color-primary);
+    box-shadow: none;
   }
 }
