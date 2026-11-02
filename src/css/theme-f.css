@@ -1909,3 +1909,52 @@ li.side-nav__more,
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
+
+/* ================================================================
+   Paramètres : réinitialiser le module (v0.133.0)
+   ================================================================ */
+
+.settings__note {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+}
+
+.btn--danger-outline,
+.btn--danger {
+  border-color: var(--color-error);
+  font-weight: 600;
+}
+
+.btn--danger-outline {
+  background: transparent;
+  color: var(--color-error);
+}
+
+.btn--danger {
+  background: var(--color-error);
+  color: var(--color-bg);
+}
+
+.settings__confirm {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  background: var(--color-error-bg);
+}
+
+.settings__confirm[hidden] {
+  display: none;
+}
+
+.settings__confirm p {
+  margin: 0;
+}
+
+.settings__confirm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

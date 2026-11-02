@@ -39,6 +39,10 @@ const byId = (id) => document.getElementById(id);
 const els = {
   debugBar: byId('debug-bar'),
   debugReset: byId('debug-reset'),
+  resetAsk: byId('reset-ask'),
+  resetConfirm: byId('reset-confirm'),
+  resetCancel: byId('reset-cancel'),
+  resetGo: byId('reset-go'),
   brandLogo: byId('brand-logo'),
   moduleTitle: byId('module-title'),
   storyTitle: byId('story-title'),
@@ -564,6 +568,47 @@ async function start() {
   new MutationObserver(() => {
     if (!els.fileSide.hidden) setTimeout(scrollDossierToFocus, 450);
   }).observe(els.fileSide, { attributes: true, attributeFilter: ['hidden'] });
+
+  /**
+   * Paramètres : « Réinitialiser le module ». Efface la progression (suspend_data et position envoyés à la plateforme, ou API
+   * simulée), puis toutes les données gardées dans ce navigateur pour ce module (textes de rédaction, réglages, panneaux, thème),
+   * et recharge le module au début. Un résultat déjà transmis à la plateforme (statut, score) ne peut pas être repris par le module.
+   */
+  function setupReset() {
+    const ask = () => {
+      els.resetConfirm.hidden = false;
+      els.resetAsk.hidden = true;
+      els.resetCancel.focus();
+    };
+    const cancel = () => {
+      els.resetConfirm.hidden = true;
+      els.resetAsk.hidden = false;
+      els.resetAsk.focus();
+    };
+    els.resetAsk.addEventListener('click', ask);
+    els.resetCancel.addEventListener('click', cancel);
+    els.settingsDialog.addEventListener('close', () => {
+      els.resetConfirm.hidden = true;
+      els.resetAsk.hidden = false;
+    });
+    els.resetGo.addEventListener('click', () => {
+      finished = true; // ne pas réécrire la progression en quittant
+      scorm.setSuspendData('');
+      scorm.setLocation('');
+      scorm.commit();
+      if (scorm.mode === 'mock') scorm.resetMock();
+      scorm.finish();
+      try {
+        for (const key of Object.keys(localStorage)) {
+          if (key.includes(module.id) || key === 'theme-affichage') localStorage.removeItem(key);
+        }
+        sessionStorage.clear();
+      } catch {
+        // Stockage indisponible : rien d'autre à effacer.
+      }
+      window.location.reload();
+    });
+  }
 
   /** Onglet grisé (Dossier ou Rapport hors du cas de Mme R.) : le toucher ne l'ouvre pas, il explique. */
   function setupDisabledTabs() {
@@ -1559,6 +1604,7 @@ async function start() {
   });
   els.settingsDialog.addEventListener('close', () => focusVisible(els.settingsToggle, els.tocToggle));
   setupShortcuts({ screenEl: els.screen, prev: els.prev, next: els.next });
+  setupReset();
 
   els.prev.addEventListener('click', () => {
     if (index > 0) show(index - 1);

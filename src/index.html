@@ -350,6 +350,18 @@
           <li><span class="settings__combo"><kbd>Entrée</kbd></span> valider la réponse</li>
         </ul>
       </section>
+      <section class="settings__section settings__reset" aria-labelledby="settings-reset-title">
+        <h3 class="settings__title" id="settings-reset-title">Réinitialiser</h3>
+        <p class="settings__note">Efface votre progression, vos réponses, vos textes et vos réglages sur cet appareil, puis recommence le module au début.</p>
+        <button type="button" class="btn btn--danger-outline" id="reset-ask">Réinitialiser le module…</button>
+        <div class="settings__confirm" id="reset-confirm" role="group" aria-labelledby="reset-confirm-title" hidden>
+          <p id="reset-confirm-title"><strong>Tout effacer et recommencer ?</strong> Cette action est définitive. Un résultat déjà transmis à la plateforme de formation y reste enregistré.</p>
+          <div class="settings__confirm-actions">
+            <button type="button" class="btn btn--secondary" id="reset-cancel">Annuler</button>
+            <button type="button" class="btn btn--danger" id="reset-go">Oui, tout effacer</button>
+          </div>
+        </div>
+      </section>
     </div>
   </dialog>
   <div id="report-print" aria-hidden="true"></div>
