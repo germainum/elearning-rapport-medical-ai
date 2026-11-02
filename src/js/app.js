@@ -17,6 +17,7 @@ import { renderSummary } from './screens/summary.js';
 import { renderSurvey } from './screens/survey.js';
 import { setupShortcuts, setupShortcutsSetting, setupTextSize, setupTheme, timeLeftText } from './comfort.js';
 import { setupDialogMotion } from './dialog-motion.js';
+import { setupFullscreen } from './fullscreen.js';
 
 setupDialogMotion();
 
@@ -1317,6 +1318,7 @@ async function start() {
 
   setupTextSize(module.id);
   setupTheme(document.querySelectorAll('input[name="theme"]'));
+  setupFullscreen();
   setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
 
   /* ---------- Paramètres : taille du texte, raccourcis clavier ---------- */
