@@ -1779,3 +1779,32 @@ li.side-nav__more,
     transition: none;
   }
 }
+
+/* ================================================================
+   Réponses : le rond est aligné sur la première ligne du texte ; « Activer le son » posé sur la vidéo (v0.123.0)
+   ================================================================ */
+
+.option {
+  align-items: flex-start;
+}
+
+.option__input {
+  margin-top: 0.2rem; /* repli */
+  margin-top: calc((1lh - 1.25rem) / 2);
+}
+
+/* « Activer le son » sur la vidéo même (en haut à gauche) : il reste visible avec elle, jamais sous les boutons fixes */
+.video {
+  position: relative;
+}
+
+.video__unmute:not([hidden]) {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 2;
+  min-height: 2.75rem;
+  padding-inline: var(--space-3);
+  font-size: 0.9375rem;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
+}
