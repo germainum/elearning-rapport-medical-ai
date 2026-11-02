@@ -2216,3 +2216,33 @@ body[data-summary-failed] #next {
     text-wrap: balance;
   }
 }
+
+/* ================================================================
+   Titres sans mot orphelin ; rappel « Répondez à la question… » lisible (v0.140.0)
+   ================================================================ */
+
+.screen__title,
+.hero__lead {
+  text-wrap: balance;
+}
+
+@media screen and (min-width: 48rem) {
+  /* Le bouton « Suivant » grisé reste visible : le rappel à côté dit ce qu'il manque, en texte normal et non en petit gris */
+  .pager__hint {
+    color: var(--color-text);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .pager__hint:not(:empty)::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.375rem;
+    border-radius: 50%;
+    background: var(--color-primary, #0f1d96);
+    vertical-align: 0.1em;
+  }
+}
