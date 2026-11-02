@@ -2662,3 +2662,137 @@ html:has(dialog.cinema[open])::-webkit-scrollbar,
     }
   }
 }
+
+/* ================================================================
+   Feedback : une hiérarchie lisible, une seule couleur de verdict (v0.148.0)
+   Avant : fond rose, verdict rouge, titres bleus, étiquette verte, texte noir.
+   Maintenant : carte neutre, liseré et icône de la couleur du verdict, tout le reste en encre et en gris.
+     1. le verdict (petit, en tête)        2. la phrase qui explique (la plus lisible)
+     3. la conséquence (en retrait, gris)  4. « la bonne réponse » (panneau neutre, titre en gras)
+   ================================================================ */
+
+.feedback {
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: inset 4px 0 0 var(--feedback-accent, var(--color-border-strong));
+}
+
+.feedback--correct {
+  --feedback-accent: var(--color-success);
+  background: var(--color-surface);
+}
+
+.feedback--incorrect {
+  --feedback-accent: var(--color-error);
+  background: var(--color-surface);
+}
+
+/* 1. Le verdict : petit, en encre ; seule l'icône porte la couleur */
+.feedback .feedback__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.feedback--correct .feedback__status,
+.feedback--incorrect .feedback__status {
+  color: var(--color-muted);
+}
+
+.feedback--correct .feedback__status > span,
+.feedback--incorrect .feedback__status > span {
+  color: var(--feedback-accent);
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+/* 2. La phrase qui explique : la plus grande et la plus contrastée */
+.feedback > .feedback__title,
+.feedback > .feedback__note,
+.feedback > .prose {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.feedback > .feedback__title {
+  font-weight: 700;
+}
+
+.feedback > .feedback__note {
+  font-weight: 600;
+}
+
+/* 3. La conséquence : en retrait, en gris, plus petite */
+.feedback__more {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: 0;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.feedback__more > .feedback__title {
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.feedback__more > .prose,
+.feedback__more > .prose p {
+  color: var(--color-muted);
+}
+
+/* 4. La bonne réponse : un panneau neutre, le titre en gras */
+.feedback__why {
+  margin: var(--space-1) 0 0;
+  padding: var(--space-4);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.feedback__more .feedback__why {
+  margin-left: calc(-1 * (var(--space-4) + 2px));
+  margin-right: 0;
+}
+
+.feedback__why-title {
+  margin: 0 0 var(--space-1);
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.feedback__why .feedback__title {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.feedback__why .prose,
+.feedback__why .prose p {
+  color: var(--color-text);
+}
+
+/* Le choix invité à réessayer reste la seule autre couleur : c'est l'action */
+.feedback--compact {
+  padding-block: var(--space-4);
+}
+
+/* Réponse choisie à tort : contour rouge seulement, sans aplat rose (le verdict est déjà dans la carte dessous) */
+.question--retry .option.option--incorrect {
+  background: var(--color-surface);
+}
