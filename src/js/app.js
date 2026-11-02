@@ -515,6 +515,56 @@ async function start() {
   }
 
   /**
+   * Mobile : la barre d'onglets se range en une petite gélule quand on lit vers le bas (comme Safari sous iOS 26) et se redéploie
+   * dès qu'on remonte, en bas de page, au toucher, au clavier ou à chaque nouvel écran.
+   */
+  let expandTabbar = () => {};
+  function setupTabMinimize() {
+    const bar = document.querySelector('.app-sidebar--toc');
+    const mobile = window.matchMedia('(max-width: 47.99rem)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!bar) return;
+    const last = new WeakMap();
+    const set = (mini) => {
+      if (mini && (!mobile.matches || reduced.matches || !els.moreSheet.hidden || bar.classList.contains('app-sidebar--dragging'))) return;
+      bar.classList.toggle('app-sidebar--mini', mini);
+      document.body.classList.toggle('tabbar-mini', mini);
+      if (!mini) moveTabIndicator();
+    };
+    expandTabbar = () => set(false);
+
+    document.addEventListener(
+      'scroll',
+      (event) => {
+        if (!mobile.matches) return;
+        const target = event.target === document ? document.scrollingElement : event.target;
+        if (!target || target.closest?.('.more-sheet')) return;
+        const top = target.scrollTop;
+        const before = last.get(target) ?? top;
+        last.set(target, top);
+        const delta = top - before;
+        const atBottom = target.scrollHeight - top - target.clientHeight < 56;
+        if (atBottom || delta < -6 || top < 24) set(false);
+        else if (delta > 8) set(true);
+      },
+      { capture: true, passive: true },
+    );
+    // le toucher sur la gélule la redéploie au lieu d'activer l'onglet
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (!bar.classList.contains('app-sidebar--mini') || !event.target.closest('.app-sidebar--toc .side-nav__item')) return;
+        event.stopPropagation();
+        event.preventDefault();
+        set(false);
+      },
+      true,
+    );
+    bar.addEventListener('focusin', () => set(false));
+    mobile.addEventListener('change', () => set(false));
+  }
+
+  /**
    * Glisser le doigt sur la barre d'onglets (mobile) : la pastille suit le doigt, grossie comme une loupe, et l'onglet sous le doigt
    * se colore ; on le choisit en relâchant. Un simple toucher garde son comportement normal.
    */
@@ -549,7 +599,7 @@ async function start() {
     };
 
     bar.addEventListener('pointerdown', (event) => {
-      if (!mobile.matches || !event.isPrimary || !event.target.closest('.side-nav__item')) return;
+      if (!mobile.matches || !event.isPrimary || !event.target.closest('.side-nav__item') || bar.classList.contains('app-sidebar--mini')) return;
       start = { x: event.clientX, id: event.pointerId };
     });
     bar.addEventListener('pointermove', (event) => {
@@ -677,6 +727,7 @@ async function start() {
     revealNavItem(els.sideGlossary, els.glossaryToggle.hidden);
     navIndex = index;
     syncNavCurrent();
+    expandTabbar();
     renderProgressSide();
     placeNextSteps();
   }
@@ -1471,6 +1522,7 @@ async function start() {
   setupTheme(document.querySelectorAll('input[name="theme"]'));
   setupFullscreen();
   setupTabDrag();
+  setupTabMinimize();
   setupMoreSheet();
   setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
 

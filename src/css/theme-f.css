@@ -1641,3 +1641,141 @@ li.side-nav__more,
 .file-dialog {
   overscroll-behavior: contain;
 }
+
+/* ================================================================
+   Mobile : plus de place pour le contenu (v0.121.0)
+   A. la barre d'onglets se range en gélule quand on lit vers le bas (comme Safari sous iOS 26) ;
+   B. « Précédent » devient une flèche de retour dans l'en-tête (comme la barre de titre d'iOS), « Suivant » un bouton flottant.
+   ================================================================ */
+
+@media screen and (max-width: 47.99rem) {
+  /* --- A. Barre d'onglets rangée --- */
+  .app-sidebar--toc {
+    transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1), height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .app-sidebar--mini {
+    right: calc(100% - 4.75rem - max(0.75rem, env(safe-area-inset-left, 0px)));
+    height: 3.25rem;
+  }
+
+  .side-nav li {
+    transition: flex-grow 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  }
+
+  .app-sidebar--mini .side-nav li:not(:has(> .side-nav__item[aria-current])) {
+    flex-grow: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .app-sidebar--mini .tab-indicator {
+    opacity: 0;
+  }
+
+  .app-sidebar--mini .side-nav__item[aria-current] {
+    background: color-mix(in srgb, var(--color-primary) 11%, transparent);
+  }
+
+  .app-sidebar--mini .side-nav__item[aria-current] span {
+    display: none;
+  }
+
+  /* --- B. « Suivant » flottant, « Précédent » dans l'en-tête --- */
+  .app-main {
+    padding-bottom: calc(var(--tabbar-total) + 5rem);
+  }
+
+  .pager {
+    position: fixed;
+    inset: auto 0 calc(var(--tabbar-total) + 0.5rem) 0;
+    z-index: 40;
+    padding: 0 max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    pointer-events: none;
+    transition: bottom 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .pager::before {
+    display: none;
+  }
+
+  body.tabbar-mini .pager {
+    bottom: calc(var(--tabbar-gap) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pager__buttons {
+    justify-content: flex-end;
+  }
+
+  #next {
+    pointer-events: auto;
+    min-height: 3.25rem;
+    padding-inline: 1.5rem;
+    border-radius: 999px;
+    box-shadow: 0 8px 22px rgb(15 29 150 / 0.3);
+  }
+
+  /* Bouton pas encore disponible : fond opaque, pour que le texte dessous ne transparaisse pas */
+  #next:disabled,
+  #next[aria-disabled="true"] {
+    background: var(--color-surface-muted);
+    box-shadow: 0 6px 18px rgb(15 20 40 / 0.12);
+    opacity: 1;
+  }
+
+  /* Flèche de retour : fixée à gauche de l'en-tête, nom lu par les lecteurs d'écran */
+  #prev {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: max(0.25rem, env(safe-area-inset-left, 0px));
+    z-index: 45;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-primary);
+    font-size: 0;
+    pointer-events: auto;
+  }
+
+  #prev::before {
+    content: "";
+    width: 1.75rem;
+    height: 1.75rem;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 5l-7 7 7 7' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 5l-7 7 7 7' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  #prev:disabled {
+    visibility: hidden;
+  }
+
+  /* Place de la flèche dans l'en-tête (rien à gauche sur le premier écran) */
+  .app-header__inner {
+    padding-left: calc(var(--gutter) + 2rem);
+  }
+
+  body:has(#prev:disabled) .app-header__inner,
+  body:has(.pager[hidden]) .app-header__inner {
+    padding-left: var(--gutter);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar--toc,
+  .side-nav li,
+  .pager {
+    transition: none;
+  }
+}
