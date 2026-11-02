@@ -131,14 +131,25 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
     form.querySelector('.feedback').focus();
   });
 
-  // Après une erreur : changer de réponse efface le marquage de l'essai précédent
-  form.querySelector('.question__options').addEventListener('change', () => {
+  // Après une erreur : changer de réponse efface le marquage de l'essai précédent. Le bouton « Valider » a disparu : un clic ou un
+  // toucher sur une autre réponse la valide tout de suite (au clavier, les flèches choisissent et Entrée valide, sans validation par mégarde).
+  const optionsBox = form.querySelector('.question__options');
+  let byPointer = false;
+  optionsBox.addEventListener('pointerdown', () => {
+    byPointer = true;
+  });
+  optionsBox.addEventListener('keydown', () => {
+    byPointer = false;
+  });
+  optionsBox.addEventListener('change', () => {
     if (settled || !form.classList.contains('question--retry')) return;
     for (const option of form.querySelectorAll('.option--incorrect')) {
       option.classList.remove('option--incorrect');
       option.querySelector('.option__status')?.remove();
     }
     form.querySelector('.feedback').hidden = true;
+    if (byPointer && question.kind === 'single') form.requestSubmit();
+    byPointer = false;
   });
 
   const previous = getAnswer(question.id);
@@ -154,6 +165,8 @@ export function renderQuestion(question, { number, total, getAnswer, submit, ret
 /** Réponse fausse d'une question « retry » : le texte n'est pas reporté, les options restent, le feedback explique. */
 function showRetry(form, question, ids, result, { retake, misses }) {
   form.classList.add('question--retry');
+  // Réponse unique : plus de bouton « Valider » (il reste présent mais caché, pour que Entrée valide encore au clavier)
+  if (question.kind === 'single') form.querySelector('.question__actions').classList.add('question__actions--auto');
   for (const option of form.querySelectorAll('.option--incorrect')) {
     option.classList.remove('option--incorrect');
     option.querySelector('.option__status')?.remove();

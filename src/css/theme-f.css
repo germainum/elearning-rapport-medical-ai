@@ -1807,6 +1807,17 @@ li.side-nav__more,
   box-shadow: none;
 }
 
+/* Après une première erreur sur une question à réponse unique : plus de bouton « Valider », choisir une autre réponse la valide (v0.138.0).
+   Le bouton reste dans la page, invisible, pour que la touche Entrée continue de valider au clavier. */
+.question__actions--auto:not(:focus-within) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* ================================================================
    Transparence réduite / navigateur sans flou (v0.127.0) : les surfaces en verre deviennent opaques, le texte reste lisible
    ================================================================ */
