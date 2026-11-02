@@ -284,8 +284,8 @@ apparaît agrafé sous la lettre.
 }
 ```
 
-`availableFrom` (facultatif) est l'`id` de l'écran à partir duquel le bouton « Dossier patient » apparaît (ex. `"1-1"` : dès la
-section 1) ; sans lui, le bouton apparaît dès que l'apprenant a découvert le dossier dans la scène.
+`availableFrom` (facultatif) est l'`id` de l'écran à partir duquel le bouton « Dossier patient » apparaît (ex. `"introduction"` : dès l'accueil, réglage actuel ;
+`"1-1"` : dès la section 1) ; sans lui, le bouton apparaît dès que l'apprenant a découvert le dossier dans la scène.
 
 La fiche s'affiche comme un **dossier médical papier** (feuille perforée, marge rouge, photo agrafée,
 tampon « Confidentiel »), glissée dans une chemise cartonnée dans les scènes. `sections` regroupe les

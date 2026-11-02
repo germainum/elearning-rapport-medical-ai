@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.118.0",
+  "version": "0.119.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -230,7 +230,7 @@
   "patientFile": {
     "title": "Mme R., 47 ans",
     "subtitle": "Née en 1979 · patiente du cabinet depuis 2014",
-    "availableFrom": "1-1",
+    "availableFrom": "introduction",
     "reference": "Dossier n° 2014-0387",
     "image": {
       "src": "images/mme-r.jpg",
@@ -282,7 +282,7 @@
   },
   "report": {
     "title": "Rapport médical de Mme R.",
-    "availableFrom": "1-1",
+    "availableFrom": "introduction",
     "fileName": "rapport-medical-mme-r",
     "header": [{"label": "Personne assurée", "value": "Mme R."},{"label": "Date de naissance", "value": "1979"}],
     "note": "Cas fictif, à usage de formation."

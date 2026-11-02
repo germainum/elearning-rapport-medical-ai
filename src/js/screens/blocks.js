@@ -297,14 +297,9 @@ const BLOCKS = {
     const file = medicalRecord(ctx.patientFile, ctx, { folder: !block.inDialog });
     if (block.inDialog) return file;
     // Dans la scène : signaler le bouton « Dossier patient » du bandeau, avec la même icône.
-    // Si le bouton n'apparaît que plus loin (availableFrom), on le dit : « Dès que vous commencerez… »
-    const later = Boolean(ctx.patientFile.availableFrom);
-    const narrow = later
-      ? "Dès que vous commencerez à remplir le formulaire, vous pourrez rouvrir ce dossier à tout moment avec le bouton <strong>Dossier patient</strong>, en haut de l'écran."
-      : "Ce dossier reste consultable à tout moment avec le bouton <strong>Dossier patient</strong>, en haut de l'écran.";
-    const wide = later
-      ? "Dès que vous commencerez à remplir le formulaire, vous pourrez rouvrir ce dossier à tout moment avec l'onglet <strong>Dossier patient</strong>, sur le bord droit de l'écran."
-      : "Vous pouvez rouvrir ce dossier à tout moment avec l'onglet <strong>Dossier patient</strong>, sur le bord droit de l'écran.";
+    // Le dossier (et le rapport) sont consultables dès l'accueil : « Dossier patient » est toujours dans le menu.
+    const narrow = "Ce dossier reste consultable à tout moment avec le bouton <strong>Dossier patient</strong>, en haut de l'écran.";
+    const wide = "Vous pouvez rouvrir ce dossier à tout moment avec l'onglet <strong>Dossier patient</strong>, sur le bord droit de l'écran.";
     return `${file}
       <p class="doc__hint">
         <span class="doc__hint-icon" aria-hidden="true">${ICON_CLIPBOARD}</span>

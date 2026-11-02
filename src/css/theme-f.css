@@ -1533,9 +1533,10 @@
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 5l-7 7 7 7' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
   }
 
+  /* Le titre garde sa place : les boutons d'action (Imprimer, Télécharger) passent à la ligne si besoin */
   .file-dialog__header .file-dialog__title {
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 1 1 8rem;
+    min-width: 8rem;
   }
 }
 
