@@ -1875,3 +1875,37 @@ li.side-nav__more,
     transition: none;
   }
 }
+
+/* ================================================================
+   Dossier patient : les informations utiles à la question en cours sont surlignées (v0.131.0)
+   ================================================================ */
+
+.record__focus {
+  position: relative;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, #ffd54a 42%, transparent);
+  box-shadow: -0.375rem 0 0 color-mix(in srgb, #ffd54a 42%, transparent), 0.375rem 0 0 color-mix(in srgb, #ffd54a 42%, transparent);
+  transition: background-color 0.4s ease;
+}
+
+.record__focus-note {
+  margin: var(--space-3) 0 0;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, #ffd54a 42%, transparent);
+  color: #33373d;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* ================================================================
+   Fenêtres du menu ouvertes « à côté » de la barre d'onglets (mobile) : elles défilent d'elles-mêmes (v0.131.0)
+   Une fenêtre non modale n'est pas défilante par défaut : sans cette règle, c'était la page derrière qui défilait.
+   ================================================================ */
+
+.file-dialog--docked[open] {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}

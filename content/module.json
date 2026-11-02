@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.130.0",
+  "version": "0.131.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -619,6 +619,7 @@
     {
       "id": "1-1",
       "type": "scene",
+      "dossierFocus": ["Traitement", "Suivi", "Mars 2026", "15.06.2026", "05.10.2026"],
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.1 du formulaire",
@@ -682,6 +683,7 @@
     {
       "id": "1-2",
       "type": "scene",
+      "dossierFocus": ["Suivi"],
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.2 du formulaire",
@@ -729,6 +731,7 @@
     {
       "id": "1-3",
       "type": "scene",
+      "dossierFocus": ["Arrêt de travail", "12.01.2026"],
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.3 du formulaire",
@@ -792,6 +795,7 @@
     {
       "id": "2-1",
       "type": "scene",
+      "dossierFocus": ["Principal", "12.01.2026", "10.02.2026", "Mars 2026", "15.06.2026"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.1 du formulaire",
@@ -855,6 +859,7 @@
     {
       "id": "2-2",
       "type": "scene",
+      "dossierFocus": ["notes"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.2 du formulaire",
@@ -906,6 +911,7 @@
     {
       "id": "2-3",
       "type": "scene",
+      "dossierFocus": ["Traitement"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.3 du formulaire",
@@ -957,6 +963,7 @@
     {
       "id": "2-4",
       "type": "scene",
+      "dossierFocus": ["05.10.2026"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.4 du formulaire",
@@ -1011,6 +1018,7 @@
     {
       "id": "2-5",
       "type": "scene",
+      "dossierFocus": ["Principal"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.5 du formulaire",
@@ -1069,6 +1077,7 @@
     {
       "id": "2-6",
       "type": "scene",
+      "dossierFocus": ["Autre"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.6 du formulaire",
@@ -1124,6 +1133,7 @@
     {
       "id": "2-7",
       "type": "scene",
+      "dossierFocus": ["15.06.2026", "notes"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.7 du formulaire",
@@ -1178,6 +1188,7 @@
     {
       "id": "2-8",
       "type": "scene",
+      "dossierFocus": ["Traitement", "Suivi", "15.06.2026"],
       "section": "Section 2 · Situation médicale",
       "part": "Le formulaire 002.099",
       "kicker": "Question 2.8 du formulaire",
@@ -1232,6 +1243,7 @@
     {
       "id": "3-1",
       "type": "scene",
+      "dossierFocus": ["Profession", "Poste", "Arrêt de travail"],
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.1 du formulaire",
@@ -1287,6 +1299,7 @@
     {
       "id": "3-2",
       "type": "scene",
+      "dossierFocus": ["Profession"],
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.2 du formulaire",
@@ -1342,6 +1355,7 @@
     {
       "id": "3-3",
       "type": "scene",
+      "dossierFocus": ["Poste"],
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.3 du formulaire",
@@ -1406,6 +1420,7 @@
     {
       "id": "3-4",
       "type": "scene",
+      "dossierFocus": ["notes", "05.10.2026", "Poste"],
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.4 du formulaire",
@@ -1483,6 +1498,7 @@
     {
       "id": "3-5",
       "type": "scene",
+      "dossierFocus": ["Langues", "Profession", "Famille"],
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.5 du formulaire",
@@ -1541,6 +1557,7 @@
     {
       "id": "3-6",
       "type": "scene",
+      "dossierFocus": ["Trajets", "Traitement"],
       "section": "Section 3 · Situation professionnelle",
       "part": "Le formulaire 002.099",
       "kicker": "Question 3.6 du formulaire",
@@ -1596,6 +1613,7 @@
     {
       "id": "4-1",
       "type": "scene",
+      "dossierFocus": ["Poste", "Arrêt de travail", "notes"],
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.1 du formulaire",
@@ -1647,6 +1665,7 @@
     {
       "id": "4-2",
       "type": "scene",
+      "dossierFocus": ["notes", "05.10.2026"],
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.2 du formulaire",
@@ -1701,6 +1720,7 @@
     {
       "id": "4-3",
       "type": "scene",
+      "dossierFocus": ["15.06.2026", "05.10.2026", "Profession"],
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.3 du formulaire",
@@ -1755,6 +1775,7 @@
     {
       "id": "4-4",
       "type": "scene",
+      "dossierFocus": ["Traitement", "notes"],
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.4 du formulaire",
@@ -1806,6 +1827,7 @@
     {
       "id": "4-5",
       "type": "scene",
+      "dossierFocus": ["Famille", "notes"],
       "section": "Section 4 · Potentiel de réadaptation",
       "part": "Le formulaire 002.099",
       "kicker": "Question 4.5 du formulaire",
@@ -1921,6 +1943,7 @@
     {
       "id": "annexes",
       "type": "scene",
+      "dossierFocus": ["10.02.2026", "15.06.2026"],
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Pièces jointes",
@@ -1978,6 +2001,7 @@
     {
       "id": "exigibles",
       "type": "scene",
+      "dossierFocus": ["notes", "Poste"],
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 5)",
@@ -2041,6 +2065,7 @@
     {
       "id": "reinsertion",
       "type": "scene",
+      "dossierFocus": ["Traitement", "Mars 2026"],
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 1",
@@ -2099,6 +2124,7 @@
     {
       "id": "amelioration",
       "type": "scene",
+      "dossierFocus": ["15.06.2026", "05.10.2026"],
       "section": "Section 5 · Divers et annexes",
       "part": "Le formulaire 002.099",
       "kicker": "Annexe du formulaire (page 6) · question 2",

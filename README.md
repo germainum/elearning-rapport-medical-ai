@@ -287,6 +287,8 @@ apparaît agrafé sous la lettre.
 `availableFrom` (facultatif) est l'`id` de l'écran à partir duquel le bouton « Dossier patient » apparaît (ex. `"introduction"` : dès l'accueil, réglage actuel ;
 `"1-1"` : dès la section 1) ; sans lui, le bouton apparaît dès que l'apprenant a découvert le dossier dans la scène.
 
+**Repères par question** : le champ d'écran `"dossierFocus"` liste ce qui est utile à la question de l'écran : `"notes"`, le libellé d'une rubrique du dossier (`"Principal"`, `"Poste"`…) ou la date d'une consultation du journal (`"05.10.2026"`). Ces éléments sont surlignés dans le dossier, qui s'ouvre directement dessus ; le validateur refuse un repère qui n'existe pas dans le dossier.
+
 La fiche s'affiche comme un **dossier médical papier** (feuille perforée, marge rouge, photo agrafée,
 tampon « Confidentiel »), glissée dans une chemise cartonnée dans les scènes. `sections` regroupe les
 renseignements en rubriques ; `journal` liste les consultations datées ; `data` (sans rubrique) reste

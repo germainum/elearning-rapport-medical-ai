@@ -95,23 +95,23 @@ function wireAttachment(element, block, ctx) {
 function medicalRecord(file, ctx, { folder = false } = {}) {
   const rows = (data) =>
     `<dl class="record__rows">${data
-      .map((item) => `<div class="record__row"><dt>${inline(item.label)}</dt><dd>${inline(item.value)}</dd></div>`)
+      .map((item) => `<div class="record__row" data-focus-key="${escapeHtml(item.label)}"><dt>${inline(item.label)}</dt><dd>${inline(item.value)}</dd></div>`)
       .join('')}</dl>`;
-  const section = (title, content) => `
-    <section class="record__section">
+  const section = (title, content, key = '') => `
+    <section class="record__section"${key ? ` data-focus-key="${key}"` : ''}>
       <h4 class="record__section-title">${inline(title)}</h4>
       ${content}
     </section>`;
 
   const photo = file.image ? `<div class="record__photo">${figure(file.image, ctx.asset, 'portrait')}</div>` : '';
-  const notes = file.body ? section('Notes', `<div class="record__notes">${rich(file.body)}</div>`) : '';
+  const notes = file.body ? section('Notes', `<div class="record__notes">${rich(file.body)}</div>`, 'notes') : '';
   const data = file.data?.length ? section('Renseignements', rows(file.data)) : '';
   const sections = (file.sections ?? []).map((s) => section(s.title, rows(s.data))).join('');
   const journal = file.journal?.length
     ? section(
         'Journal des consultations',
         `<ol class="record__journal">${file.journal
-          .map((entry) => `<li><span class="record__date">${inline(entry.date)}</span><span>${inline(entry.text)}</span></li>`)
+          .map((entry) => `<li data-focus-key="${escapeHtml(entry.date)}"><span class="record__date">${inline(entry.date)}</span><span>${inline(entry.text)}</span></li>`)
           .join('')}</ol>`
       )
     : '';

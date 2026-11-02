@@ -32,7 +32,7 @@ const QUESTION_KINDS = ['single', 'multiple'];
 const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
-const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'hideKicker', 'section', 'part', 'optional'];
+const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'hideKicker', 'dossierFocus', 'section', 'part', 'optional'];
 
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'xapi', 'screens'],
@@ -592,6 +592,18 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     }
     checkKeys(screen, ALLOWED_KEYS[screen.type], where);
     if (screen.hidePatientFile !== undefined && typeof screen.hidePatientFile !== 'boolean') error(where, '« hidePatientFile » doit valoir true ou false.');
+    if (screen.dossierFocus !== undefined) {
+      // repères du dossier patient pour cet écran : « notes », un libellé de rubrique ou la date d'une consultation
+      const known = new Set(['notes']);
+      for (const section of module.patientFile?.sections ?? []) for (const row of section.data ?? []) known.add(row.label);
+      for (const row of module.patientFile?.data ?? []) known.add(row.label);
+      for (const entry of module.patientFile?.journal ?? []) known.add(entry.date);
+      if (!Array.isArray(screen.dossierFocus) || screen.dossierFocus.some((key) => typeof key !== 'string')) {
+        error(where, '« dossierFocus » doit être une liste de textes (« notes », un libellé du dossier, une date du journal).');
+      } else {
+        for (const key of screen.dossierFocus) if (!known.has(key)) error(where, `« dossierFocus » : « ${key} » n'existe pas dans le dossier patient (libellé de rubrique, date du journal ou « notes »).`);
+      }
+    }
     for (const key of ['hideReport', 'showReport', 'hideKicker']) {
       if (screen[key] !== undefined && typeof screen[key] !== 'boolean') error(where, `« ${key} » doit valoir true ou false.`);
     }

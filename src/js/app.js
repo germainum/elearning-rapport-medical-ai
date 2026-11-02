@@ -514,6 +514,57 @@ async function start() {
     );
   }
 
+  /**
+   * Dossier patient : les informations utiles à la question en cours sont mises en évidence (champ d'écran « dossierFocus »,
+   * liste de repères : « notes », un libellé de rubrique ou la date d'une consultation) et le dossier s'ouvre dessus.
+   */
+  function applyDossierFocus() {
+    const screen = screens[index];
+    const keys = screen.dossierFocus ?? [];
+    for (const body of [els.fileDialogBody, els.fileSideBody]) {
+      const record = body.querySelector('.record');
+      if (!record) continue;
+      record.querySelector('.record__focus-note')?.remove();
+      for (const mark of record.querySelectorAll('.record__focus-sr')) mark.remove();
+      for (const element of record.querySelectorAll('.record__focus')) element.classList.remove('record__focus');
+      if (!keys.length) continue;
+      const matches = [...record.querySelectorAll('[data-focus-key]')].filter((element) => keys.includes(element.dataset.focusKey));
+      if (!matches.length) continue;
+      for (const element of matches) {
+        element.classList.add('record__focus');
+        const mark = document.createElement('span');
+        mark.className = 'record__focus-sr visually-hidden';
+        mark.textContent = 'Utile pour cette question : ';
+        element.prepend(mark);
+      }
+      const note = document.createElement('p');
+      note.className = 'record__focus-note';
+      note.textContent = `En surbrillance : ce qui sert à répondre à « ${screen.title} ».`;
+      record.querySelector('.record__identity')?.after(note);
+    }
+  }
+
+  /** Fait défiler le dossier visible jusqu'à la première information utile (seulement dans son propre conteneur, pas la page). */
+  function scrollDossierToFocus() {
+    const body = els.fileDialog.open ? els.fileDialogBody : !els.fileSide.hidden ? els.fileSideBody : null;
+    const target = body?.querySelector('.record__focus');
+    if (!target) return;
+    let container = target.parentElement;
+    while (container && container !== document.body) {
+      const overflow = getComputedStyle(container).overflowY;
+      if ((overflow === 'auto' || overflow === 'scroll') && container.scrollHeight > container.clientHeight + 2) break;
+      container = container.parentElement;
+    }
+    if (!container || container === document.body) return;
+    const offset = target.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop - 120;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    container.scrollTo({ top: Math.max(0, offset), behavior: reduced ? 'auto' : 'smooth' });
+  }
+  document.addEventListener('menu-dialog-change', () => setTimeout(scrollDossierToFocus, 450));
+  new MutationObserver(() => {
+    if (!els.fileSide.hidden) setTimeout(scrollDossierToFocus, 450);
+  }).observe(els.fileSide, { attributes: true, attributeFilter: ['hidden'] });
+
   /** Onglet grisé (Dossier ou Rapport hors du cas de Mme R.) : le toucher ne l'ouvre pas, il explique. */
   function setupDisabledTabs() {
     document.addEventListener(
@@ -694,6 +745,7 @@ async function start() {
     els.sideReport.setAttribute('aria-disabled', String(!reportAvailable));
     revealNavItem(els.sideGlossary, els.glossaryToggle.hidden);
     navIndex = index;
+    applyDossierFocus();
     syncNavCurrent();
     renderProgressSide();
     placeNextSteps();

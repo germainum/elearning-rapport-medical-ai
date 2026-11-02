@@ -27,6 +27,7 @@ export function setupDialogMotion(root = document) {
     dialog.showModal = () => {
       if (!window.matchMedia(MOBILE).matches) {
         nativeShowModal();
+        document.dispatchEvent(new CustomEvent('menu-dialog-change'));
         return;
       }
       dockedClose(document);
