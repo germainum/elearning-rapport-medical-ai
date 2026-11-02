@@ -2374,3 +2374,24 @@ html:has(dialog.cinema[open])::-webkit-scrollbar,
 .cinema {
   scrollbar-width: none;
 }
+
+/* ================================================================
+   En-tête ordinateur (v0.144.0) : la barre mesure le module entier, et le dit
+   « Étape 6/6 » (la section) n'est plus à côté de la barre : elle reste lue par les lecteurs d'écran,
+   et c'est « Écran 23 sur 42 · Environ 20 min restantes » qui accompagne la barre, à droite.
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  .crumbs .crumbs__step {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .crumbs .crumbs__step::before {
+    display: none;
+  }
+}

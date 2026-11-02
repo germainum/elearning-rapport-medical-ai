@@ -291,13 +291,11 @@ const BLOCKS = {
     if (block.inDialog) return file;
     // Dans la scène : signaler le bouton « Dossier patient » du bandeau, avec la même icône.
     // Le dossier (et le rapport) sont consultables dès l'accueil : « Dossier patient » est toujours dans le menu.
-    const narrow = "Ce dossier reste consultable à tout moment avec le bouton <strong>Dossier patient</strong>, en haut de l'écran.";
-    const wide = "Vous pouvez rouvrir ce dossier à tout moment avec l'onglet <strong>Dossier patient</strong>, sur le bord droit de l'écran.";
+    const hint = "Vous pouvez rouvrir ce dossier à tout moment depuis le menu : <strong>Dossier de Mme R.</strong>.";
     return `${file}
       <p class="doc__hint">
         <span class="doc__hint-icon" aria-hidden="true">${ICON_CLIPBOARD}</span>
-        <span class="only-narrow">${narrow}</span>
-        <span class="only-wide">${wide}</span>
+        <span>${hint}</span>
       </p>`;
   },
 

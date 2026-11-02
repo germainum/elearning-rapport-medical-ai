@@ -284,7 +284,7 @@ apparaît agrafé sous la lettre.
 }
 ```
 
-`availableFrom` (facultatif) est l'`id` de l'écran à partir duquel le bouton « Dossier patient » apparaît (ex. `"introduction"` : dès l'accueil, réglage actuel ;
+`availableFrom` (facultatif) est l'`id` de l'écran à partir duquel le bouton « Dossier de Mme R. » apparaît (ex. `"introduction"` : dès l'accueil, réglage actuel ;
 `"1-1"` : dès la section 1) ; sans lui, le bouton apparaît dès que l'apprenant a découvert le dossier dans la scène.
 
 **Astuce affichée une seule fois** : le champ d'écran `"tip"` (`{ "title": …, "body": …, "pointTo": ["dossier", "rapport", "glossaire"] }`) affiche une carte « Astuce » sous le titre, et fait pulser dans le menu les entrées désignées par `pointTo`. Elle disparaît avec « J'ai compris », ou dès que l'apprenant quitte l'écran, et ne revient pas (clé `astuce-vue:<id>:<écran>`). Actuellement sur l'écran 1.1.
@@ -298,7 +298,7 @@ possible. Un bloc `document` de type `"dossier"` (autre patient, ex. M. C.) util
 mêmes champs.
 
 Placez ensuite `{ "type": "patientFile" }` dans la scène où l'apprenant découvre le dossier. À partir
-de ce moment, un bouton « Dossier patient » (icône de presse-papiers) apparaît dans le bandeau et permet de
+de ce moment, un bouton « Dossier de Mme R. » (icône de presse-papiers) apparaît dans le bandeau et permet de
 revoir la fiche dans une fenêtre, jusqu'à la fin du module. Sans bloc `patientFile` dans les scènes,
 le bouton est disponible dès le début.
 
@@ -430,7 +430,7 @@ Les `id` de questions (minuscules, chiffres, tirets) et d'options (un caractère
   toutes les étapes.
 - Une réponse validée affiche son feedback et ne peut plus être modifiée. Seule la première
   réponse compte dans le score.
-- Le **Sommaire** permet de revenir librement aux écrans déjà parcourus.
+- Le **Parcours** (sommaire) permet de revenir librement aux écrans déjà parcourus.
 - En quittant, la progression est enregistrée. À la réouverture, l'apprenant reprend là où il
   s'était arrêté.
 

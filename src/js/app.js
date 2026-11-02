@@ -774,6 +774,10 @@ async function start() {
       element.textContent = timeLeft;
       element.hidden = !timeLeft;
     }
+    // En-tête ordinateur : « Écran 23 sur 42 · Environ 20 min restantes » à côté de la barre, qui mesure le module entier
+    const position = byId('header-position');
+    position.textContent = `Écran ${index + 1} sur ${total}${timeLeft ? ` · ${timeLeft}` : ''}`;
+    position.hidden = false;
 
     // En-tête : le fil rouge seul (ex. « Rapport de Mme R. »)
     const screen = screens[index];
@@ -783,10 +787,10 @@ async function start() {
     els.crumbs.innerHTML = [
       { text: screen.storyTitle ?? module.storyTitle, story: true },
       ...String(screen.section ?? '').split(' · ').map((text) => ({ text })),
-      { text: stepLabel },
+      { text: stepLabel, step: true },
     ]
       .filter((part) => part.text)
-      .map((part, i, all) => `<li${part.story ? ' class="crumbs__story"' : ''}${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(part.text)}</li>`)
+      .map((part, i, all) => `<li${part.story ? ' class="crumbs__story"' : part.step ? ' class="crumbs__step"' : ''}${i === all.length - 1 ? ' aria-current="page"' : ''}>${inline(part.text)}</li>`)
       .join('');
 
     els.prev.disabled = index === 0;
