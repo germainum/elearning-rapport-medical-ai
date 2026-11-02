@@ -564,6 +564,8 @@ async function start() {
     const targets = (screen.tip.pointTo ?? []).map((name) => els[TIP_TARGETS[name]]).filter(Boolean);
     for (const target of targets) target.classList.add('side-nav__item--hint');
     activeTip = { key, element, targets };
+    // Large écran : le dossier s'ouvre à côté, une fois, avec l'astuce (personne ne revient le chercher ensuite)
+    if (screen.tip.pointTo?.includes('dossier') && pinned && WIDE.matches && !openPanel && isFileAvailable()) setPanel('dossier');
   }
 
   /**
@@ -1008,10 +1010,12 @@ async function start() {
   // L'épingle est une préférence propre à ce navigateur ; la fenêtre, elle, ne se rouvre pas toute seule.
   const PANEL_KEY = `panneau-ouvert:${module.id}`;
   const PIN_KEY = `panneau-epingle:${module.id}`;
-  let pinned = false;
+  let pinned = true;
   let openPanel = null;
   try {
-    pinned = localStorage.getItem(PIN_KEY) === '1';
+    // Par défaut le panneau se fixe sur le côté (≥ 1280 px) : la question et le dossier restent visibles ensemble
+    const storedPin = localStorage.getItem(PIN_KEY);
+    pinned = storedPin === null ? true : storedPin === '1';
     const saved = localStorage.getItem(PANEL_KEY);
     openPanel = pinned && (saved === 'dossier' || saved === 'rapport') ? saved : null;
   } catch {

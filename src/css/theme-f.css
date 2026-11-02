@@ -2200,3 +2200,19 @@ body[data-summary-failed] #next {
     white-space: nowrap;
   }
 }
+
+/* ================================================================
+   Accueil sur ordinateur (v0.139.0) : la vidéo tient au-dessus de la barre « Précédent / Suivant »,
+   avec ses sous-titres et le bouton « Activer le son » ; le titre ne laisse plus de mot orphelin.
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  .screen--hero .video__player {
+    max-width: calc((100dvh - 28rem) * 16 / 9);
+  }
+
+  .screen--hero .screen__title {
+    max-width: none;
+    text-wrap: balance;
+  }
+}

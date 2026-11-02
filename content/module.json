@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.138.0",
+  "version": "0.139.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -351,7 +351,7 @@
       "kicker": "Introduction",
       "title": "Comment se déroule la formation",
       "continueLabel": "Ouvrir le courrier de l'office AI",
-      "body": ["Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'office AI à la décision."],
+      "body": ["Vous remplissez le rapport de Mme R. en cinq étapes, du courrier de l'office AI à la décision.", "À tout moment, le menu vous donne accès au dossier de Mme R., à votre rapport, au glossaire, aux paramètres (taille du texte, thème sombre, raccourcis) et à l'aide."],
       "journey": {
         "title": "Votre parcours dans ce module",
         "steps": [
@@ -620,7 +620,7 @@
       "id": "1-1",
       "type": "scene",
       "dossierFocus": ["Traitement", "Suivi", "Mars 2026", "15.06.2026", "05.10.2026"],
-      "tip": {"title": "Deux outils sous la main", "body": "Le **dossier de Mme R.** contient ce qu'il vous faut pour répondre : ouvrez-le depuis le menu, il met en avant les informations utiles à chaque question. **Mon rapport** se remplit au fil de vos réponses.", "pointTo": ["dossier", "rapport"]},
+      "tip": {"title": "Deux outils sous la main", "body": "Le **dossier de Mme R.** contient ce qu'il vous faut pour répondre : il met en avant les informations utiles à chaque question (rouvrez-le depuis le menu si besoin). **Mon rapport** se remplit au fil de vos réponses.", "pointTo": ["dossier", "rapport"]},
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.1 du formulaire",

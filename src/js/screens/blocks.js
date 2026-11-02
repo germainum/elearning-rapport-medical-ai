@@ -18,12 +18,6 @@ const ICON_DOCUMENT = `
     <path d="M14 2v5h5M8.5 12h7M8.5 15.5h7M8.5 19h4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`;
 
-// Même icône que le bouton « Dossier patient » du bandeau (src/index.html)
-const ICON_FOLDER = `
-  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-    <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-  </svg>`;
-
 const ICON_CLIPBOARD = `
   <svg viewBox="0 0 24 24" width="20" height="20" focusable="false">
     <path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -135,7 +129,6 @@ function medicalRecord(file, ctx, { folder = false } = {}) {
   if (!folder) return sheet;
   return `
     <div class="record-folder">
-      <p class="record-folder__tab">${ICON_FOLDER}<span>Dossier patient</span></p>
       ${sheet}
     </div>`;
 }
