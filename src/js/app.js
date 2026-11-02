@@ -351,6 +351,9 @@ async function start() {
     if (banner) els.screen.prepend(banner);
     animateScreenIn(article, target >= previous ? 'forward' : 'backward');
     if (previousItem && !animateSheetDescent(article, previousItem, previousTitle, sheetDirection) && previousSheet) animateSheetTurn(article, previousSheet, sheetDirection);
+    // Repères de mise en page : type d'écran (les écrans à contrôles gardent « Suivant » dans la page) et état « seuil non atteint »
+    document.body.dataset.screenType = screen.type;
+    document.body.toggleAttribute('data-summary-failed', Boolean(article.querySelector('.result__retry')));
     showTip(article, screen);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     // Le nom du module d'abord : c'est ce qu'on lit dans l'onglet, dont la place est comptée

@@ -87,6 +87,11 @@ export function renderSummary(screen, ctx) {
 
   if (result && screen.showScore !== false) {
     const status = result.passed ? 'passed' : 'failed';
+    // Seuil non atteint : l'action principale est de reprendre les questions fausses (« Suivant » devient secondaire)
+    const wrongIds = ctx.allowRetry && !result.passed ? ctx.sectionResults().flatMap((group) => group.wrongIds) : [];
+    const retryAll = wrongIds.length
+      ? `<p class="result__retry"><button type="button" class="btn btn--primary" data-retry-section="${escapeHtml(wrongIds.join(','))}">Reprendre ${wrongIds.length > 1 ? `mes ${wrongIds.length} questions fausses` : 'ma question fausse'}</button></p>`
+      : '';
     resultHtml = `
       <section class="result result--${status}" aria-labelledby="${prefix}-result">
         <h3 class="section-title" id="${prefix}-result">Votre résultat</h3>
@@ -103,6 +108,7 @@ export function renderSummary(screen, ctx) {
         <p class="result__detail">${points(result.earned)} sur ${result.max} · seuil de réussite : ${ctx.passingScore} %</p>
         <p class="result__status">${result.passed ? 'Module réussi' : 'Seuil de réussite non atteint'}</p>
         <div class="prose">${rich(messages[status])}</div>
+        ${retryAll}
       </section>`;
   } else if (!result) {
     resultHtml = `

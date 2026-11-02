@@ -2062,3 +2062,46 @@ li.side-nav__more,
     outline-offset: 2px;
   }
 }
+
+/* ================================================================
+   Fin du parcours (v0.135.0)
+   1. Écrans à contrôles (avis, synthèse) : « Suivant » reste dans la page, sur une barre pleine, au lieu de flotter par-dessus
+      les notes ou les boutons « Revoir » (mobile).
+   2. Seuil non atteint : « Reprendre mes questions fausses » est le bouton principal, « Suivant » devient secondaire.
+   ================================================================ */
+
+@media screen and (max-width: 47.99rem) {
+  body[data-screen-type="survey"] .app-main,
+  body[data-screen-type="summary"] .app-main {
+    padding-bottom: var(--space-6);
+  }
+
+  body[data-screen-type="survey"] .pager,
+  body[data-screen-type="summary"] .pager {
+    position: sticky;
+    inset: auto;
+    bottom: calc(var(--tabbar-total) + 0.25rem);
+    z-index: 40;
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    background: var(--color-bg);
+    pointer-events: auto;
+  }
+
+  /* Cartes du résultat plus basses : le bouton « Reprendre » reste au-dessus de la barre sans défiler */
+  .result__card {
+    min-height: 6.5rem;
+    gap: var(--space-3);
+  }
+}
+
+.result__retry {
+  order: 4; /* après le message du résultat, que l'ordinateur déplace en dernier */
+  margin: var(--space-4) 0 0;
+}
+
+body[data-summary-failed] #next {
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  box-shadow: none;
+}
