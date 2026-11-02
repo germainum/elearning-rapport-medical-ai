@@ -265,7 +265,7 @@
   <dialog class="file-dialog" id="file-dialog" aria-labelledby="file-dialog-title">
     <div class="file-dialog__header">
       <h2 class="file-dialog__title" id="file-dialog-title">Dossier patient</h2>
-      <button type="button" class="btn btn--ghost btn--small" id="file-close">Fermer</button>
+      <button type="button" class="file-dialog__close" id="file-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
     <div class="file-dialog__body" id="file-dialog-body"></div>
   </dialog>
@@ -276,7 +276,7 @@
       <div class="file-dialog__actions">
         <button type="button" class="btn btn--primary btn--small" data-report-print>Imprimer / PDF</button>
         <button type="button" class="btn btn--secondary btn--small" data-report-download>Télécharger</button>
-        <button type="button" class="btn btn--ghost btn--small" id="report-close">Fermer</button>
+        <button type="button" class="file-dialog__close" id="report-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
     </div>
     <div class="file-dialog__body" id="report-dialog-body"></div>
@@ -285,7 +285,7 @@
   <dialog class="file-dialog file-dialog--wide glossary-dialog" id="glossary-dialog" aria-labelledby="glossary-dialog-title">
     <div class="file-dialog__header glossary-dialog__header">
       <h2 class="file-dialog__title" id="glossary-dialog-title">Glossaire</h2>
-      <button type="button" class="btn btn--ghost btn--small" id="glossary-close">Fermer</button>
+      <button type="button" class="file-dialog__close" id="glossary-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <div class="glossary-search">
         <label class="glossary-search__label" for="glossary-search">Rechercher un terme</label>
         <input class="glossary-search__input" id="glossary-search" type="search" autocomplete="off" spellcheck="false">
@@ -309,7 +309,7 @@
   <dialog class="file-dialog path-dialog" id="path-dialog" aria-labelledby="path-dialog-title">
     <div class="file-dialog__header">
       <h2 class="file-dialog__title" id="path-dialog-title">Parcours</h2>
-      <button type="button" class="btn btn--ghost btn--small" id="path-close">Fermer</button>
+      <button type="button" class="file-dialog__close" id="path-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
     <div class="file-dialog__body">
       <ol class="toc__list toc__list--stepper" id="toc-side-list"></ol>
@@ -319,7 +319,7 @@
   <dialog class="file-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-dialog-title">
     <div class="file-dialog__header">
       <h2 class="file-dialog__title" id="settings-dialog-title">Paramètres</h2>
-      <button type="button" class="btn btn--ghost btn--small" id="settings-close">Fermer</button>
+      <button type="button" class="file-dialog__close" id="settings-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
     <div class="file-dialog__body settings">
       <fieldset class="settings__section settings__theme">

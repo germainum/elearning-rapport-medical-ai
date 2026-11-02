@@ -140,7 +140,7 @@ export function openModal({ title, bodyHtml, actionsHtml = '' }) {
       <h2 class="file-dialog__title" id="modal-title">${inline(title)}</h2>
       <div class="file-dialog__actions">
         ${actionsHtml}
-        <button type="button" class="btn btn--ghost btn--small" data-close>Fermer</button>
+        <button type="button" class="file-dialog__close" data-close aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
     </div>
     <div class="file-dialog__body">${bodyHtml}</div>`;

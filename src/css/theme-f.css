@@ -1360,3 +1360,29 @@
     transform: translateY(1.5rem);
   }
 }
+
+/* Fenêtres : une croix à la place du bouton « Fermer » (le nom reste lu par les lecteurs d'écran) */
+.file-dialog__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.file-dialog__close:hover {
+  background: var(--color-surface-muted);
+}
+
+.file-dialog__close:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
