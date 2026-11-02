@@ -396,6 +396,36 @@ async function start() {
 
   const nextState = { index: -1, locked: true }; // état du bouton « Suivant » au dernier affichage
 
+  /** Barre d'onglets du mobile : la pastille de la page en cours glisse d'un onglet à l'autre (décorative, masquée sur ordinateur). */
+  let tabIndicator = null;
+  function moveTabIndicator() {
+    const bar = document.querySelector('.app-sidebar--toc');
+    if (!bar) return;
+    if (!tabIndicator) {
+      tabIndicator = document.createElement('span');
+      tabIndicator.className = 'tab-indicator';
+      tabIndicator.setAttribute('aria-hidden', 'true');
+      bar.prepend(tabIndicator);
+      if (window.ResizeObserver) new ResizeObserver(() => moveTabIndicator()).observe(bar);
+    }
+    const current = bar.querySelector('.side-nav__item[aria-current="page"]');
+    if (!current || !current.offsetWidth) {
+      tabIndicator.style.opacity = '0';
+      return;
+    }
+    const barBox = bar.getBoundingClientRect();
+    const box = current.getBoundingClientRect();
+    const first = tabIndicator.style.opacity !== '1';
+    if (first) tabIndicator.style.transition = 'none';
+    tabIndicator.style.width = `${box.width}px`;
+    tabIndicator.style.transform = `translateX(${box.left - barBox.left}px)`;
+    tabIndicator.style.opacity = '1';
+    if (first) {
+      tabIndicator.getBoundingClientRect();
+      tabIndicator.style.transition = '';
+    }
+  }
+
   /** Entrée du menu qui apparaît en cours de parcours : elle se déploie en douceur (rien au chargement ni à la disparition). */
   function revealNavItem(button, hide) {
     const appearing = button.hidden && !hide && button.dataset.init === '1';
@@ -404,7 +434,10 @@ async function start() {
     if (!appearing) return;
     const item = button.parentElement;
     item.classList.add('side-nav__li--reveal');
-    item.addEventListener('animationend', () => item.classList.remove('side-nav__li--reveal'), { once: true });
+    item.addEventListener('animationend', () => {
+      item.classList.remove('side-nav__li--reveal');
+      moveTabIndicator();
+    }, { once: true });
   }
 
   function updateChrome() {
@@ -491,6 +524,7 @@ async function start() {
     for (const button of [els.sideHome, els.sidePath]) {
       if (button.hasAttribute('aria-current')) button.setAttribute('aria-current', 'page');
     }
+    moveTabIndicator();
     renderProgressSide();
     placeNextSteps();
   }
