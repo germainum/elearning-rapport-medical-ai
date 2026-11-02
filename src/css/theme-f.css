@@ -1456,3 +1456,26 @@
     scale: none;
   }
 }
+
+/* Loupe : l'icône et le nom de l'onglet sous le doigt grossissent pendant le glissement */
+@media screen and (max-width: 47.99rem) {
+  .app-sidebar--dragging .side-nav__item svg,
+  .app-sidebar--dragging .side-nav__item span {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+  }
+
+  .app-sidebar--dragging .side-nav__item--preview svg {
+    transform: translateY(-0.125rem) scale(1.35);
+  }
+
+  .app-sidebar--dragging .side-nav__item--preview span {
+    transform: translateY(0.05rem) scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar--dragging .side-nav__item--preview svg,
+  .app-sidebar--dragging .side-nav__item--preview span {
+    transform: none;
+  }
+}
