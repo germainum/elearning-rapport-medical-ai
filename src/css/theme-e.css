@@ -809,9 +809,11 @@ h3 {
     cursor: pointer;
   }
 
+  @media (hover: hover), (min-width: 48rem) {
   .folder__close:hover {
-    background: var(--color-surface-muted);
-  }
+      background: var(--color-surface-muted);
+    }
+}
 
   /* Bascule à deux onglets : la page en cours est blanche, l'autre est grise */
   .folder__switch {

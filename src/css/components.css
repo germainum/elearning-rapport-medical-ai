@@ -3239,13 +3239,8 @@ html {
     transition: padding 0.2s ease, background-color 0.15s ease;
   }
 
-  /* Au survol,
-l'onglet sort un peu plus du bord {
-    padding-right: var(--space-5);
-    background: var(--color-primary-hover);
-  }
-@media (hover: hover), (min-width: 48rem) {
-  comme une fiche qu'on tire */
+  /* Au survol, l'onglet sort un peu plus du bord, comme une fiche qu'on tire */
+  @media (hover: hover), (min-width: 48rem) {
   .folder-tab:hover {
       padding-right: var(--space-5);
       background: var(--color-primary-hover);
