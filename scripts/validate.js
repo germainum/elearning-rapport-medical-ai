@@ -32,7 +32,7 @@ const QUESTION_KINDS = ['single', 'multiple'];
 const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
 const IMAGE_POSITIONS = ['top', 'bottom', 'side'];
 
-const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'hideKicker', 'dossierFocus', 'section', 'part', 'optional'];
+const SCREEN_COMMON_KEYS = ['id', 'type', 'kicker', 'title', 'continueLabel', 'storyTitle', 'hidePatientFile', 'hideReport', 'hideKicker', 'dossierFocus', 'tip', 'section', 'part', 'optional'];
 
 const ALLOWED_KEYS = {
   module: ['$schema', 'schemaVersion', 'id', 'version', 'title', 'description', 'language', 'author', 'durationMinutes', 'storyTitle', 'help', 'glossary', 'logo', 'form', 'patientFile', 'report', 'scoring', 'xapi', 'screens'],
@@ -592,6 +592,16 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
     }
     checkKeys(screen, ALLOWED_KEYS[screen.type], where);
     if (screen.hidePatientFile !== undefined && typeof screen.hidePatientFile !== 'boolean') error(where, '« hidePatientFile » doit valoir true ou false.');
+    if (screen.tip !== undefined) {
+      // astuce affichée une seule fois à l'apprenant : { "title", "body", "pointTo": ["dossier", "rapport", "glossaire"] }
+      const tip = screen.tip;
+      if (!tip || typeof tip !== 'object' || Array.isArray(tip)) {
+        error(where, '« tip » doit être un objet { "title": …, "body": …, "pointTo": [ … ] }.');
+      } else {
+        for (const key of ['title', 'body']) if (typeof tip[key] !== 'string' || !tip[key].trim()) error(where, `« tip.${key} » doit être un texte non vide.`);
+        for (const target of tip.pointTo ?? []) if (!['dossier', 'rapport', 'glossaire'].includes(target)) error(where, `« tip.pointTo » : « ${target} » inconnu (dossier, rapport ou glossaire).`);
+      }
+    }
     if (screen.dossierFocus !== undefined) {
       // repères du dossier patient pour cet écran : « notes », un libellé de rubrique ou la date d'une consultation
       const known = new Set(['notes']);

@@ -1958,3 +1958,107 @@ li.side-nav__more,
   flex-wrap: wrap;
   gap: var(--space-2);
 }
+
+/* ================================================================
+   Ordinateur : le menu de gauche garde ses titres toujours visibles (v0.134.0)
+   Chaque apprenant ne fait le parcours qu'une fois : rien ne doit dépendre d'un survol pour être découvert.
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  .app-body {
+    --sidebar-width: 15.5rem;
+  }
+
+  .app-sidebar--toc {
+    border-radius: 0 1.5rem 1.5rem 0;
+    box-shadow: 8px 0 32px rgb(15 20 40 / 0.07);
+  }
+
+  .app-sidebar--toc:hover,
+  .app-sidebar--toc:has(:focus-visible) {
+    box-shadow: 8px 0 32px rgb(15 20 40 / 0.07);
+  }
+
+  .sidebar-module,
+  .side-nav__item span,
+  .help__toggle span {
+    opacity: 1;
+  }
+}
+
+/* ================================================================
+   Astuce affichée une seule fois (champ d'écran « tip ») et entrées du menu qu'elle désigne (v0.134.0)
+   ================================================================ */
+
+.tip {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-tint);
+  animation: tip-in 0.5s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tip__kicker {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tip__title {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.tip__body {
+  margin: 0;
+  max-width: 60ch;
+}
+
+@keyframes tip-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Entrées du menu désignées par l'astuce : un halo qui pulse doucement tant qu'elle est affichée */
+.side-nav__item--hint {
+  animation: hint-ring 1.8s ease-out infinite;
+}
+
+@keyframes hint-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 45%, transparent);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.75rem transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tip {
+    animation: none;
+  }
+
+  .side-nav__item--hint {
+    animation: none;
+    outline: 2px dashed var(--color-primary);
+    outline-offset: 2px;
+  }
+}

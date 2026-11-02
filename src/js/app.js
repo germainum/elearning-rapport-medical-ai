@@ -351,6 +351,7 @@ async function start() {
     if (banner) els.screen.prepend(banner);
     animateScreenIn(article, target >= previous ? 'forward' : 'backward');
     if (previousItem && !animateSheetDescent(article, previousItem, previousTitle, sheetDirection) && previousSheet) animateSheetTurn(article, previousSheet, sheetDirection);
+    showTip(article, screen);
     wireVideos(els.screen); // une fois dans la page : début à la seconde voulue, sous-titres, lecture automatique
     // Le nom du module d'abord : c'est ce qu'on lit dans l'onglet, dont la place est comptée
     document.title = `${plainText(module.title)} · ${plainText(screen.title)}`;
@@ -516,6 +517,50 @@ async function start() {
       },
       true,
     );
+  }
+
+  /**
+   * Astuce affichée une seule fois à l'apprenant (champ d'écran « tip ») : une carte sous le titre, et les entrées du menu
+   * qu'elle désigne (« pointTo ») pulsent tant qu'elle est là. Vue = fermée par le bouton, ou écran quitté.
+   */
+  const TIP_TARGETS = { dossier: 'sideFile', rapport: 'sideReport', glossaire: 'sideGlossary' };
+  let activeTip = null;
+
+  function endTip() {
+    if (!activeTip) return;
+    const { key, element, targets } = activeTip;
+    activeTip = null;
+    try {
+      localStorage.setItem(key, '1');
+    } catch {
+      // Sans stockage, l'astuce reviendra : sans gravité.
+    }
+    for (const target of targets) target.classList.remove('side-nav__item--hint');
+    element.remove();
+  }
+
+  function showTip(article, screen) {
+    endTip();
+    if (!screen.tip) return;
+    const key = `astuce-vue:${module.id}:${screen.id}`;
+    try {
+      if (localStorage.getItem(key)) return;
+    } catch {
+      // Stockage indisponible : on affiche quand même.
+    }
+    const element = document.createElement('aside');
+    element.className = 'tip';
+    element.setAttribute('role', 'note');
+    element.innerHTML = `
+      <p class="tip__kicker">Astuce</p>
+      <p class="tip__title">${inline(screen.tip.title)}</p>
+      <p class="tip__body">${inline(screen.tip.body)}</p>
+      <button type="button" class="btn btn--secondary btn--small tip__ok">J'ai compris</button>`;
+    element.querySelector('.tip__ok').addEventListener('click', endTip);
+    article.querySelector('.screen__header')?.after(element);
+    const targets = (screen.tip.pointTo ?? []).map((name) => els[TIP_TARGETS[name]]).filter(Boolean);
+    for (const target of targets) target.classList.add('side-nav__item--hint');
+    activeTip = { key, element, targets };
   }
 
   /**

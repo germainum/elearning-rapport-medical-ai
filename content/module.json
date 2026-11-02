@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rapport-medical-ai",
-  "version": "0.133.0",
+  "version": "0.134.0",
   "title": "Le rapport médical AI",
   "description": "Remplir le rapport médical somatique de l'AI (formulaire 002.099), point par point, à partir d'un cas fictif.",
   "language": "fr",
@@ -620,6 +620,7 @@
       "id": "1-1",
       "type": "scene",
       "dossierFocus": ["Traitement", "Suivi", "Mars 2026", "15.06.2026", "05.10.2026"],
+      "tip": {"title": "Deux outils sous la main", "body": "Le **dossier de Mme R.** contient ce qu'il vous faut pour répondre : ouvrez-le depuis le menu, il met en avant les informations utiles à chaque question. **Mon rapport** se remplit au fil de vos réponses.", "pointTo": ["dossier", "rapport"]},
       "section": "Section 1 · Informations générales",
       "part": "Le formulaire 002.099",
       "kicker": "Question 1.1 du formulaire",
