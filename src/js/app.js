@@ -21,7 +21,9 @@ import { setupFullscreen } from './fullscreen.js';
 
 setupDialogMotion();
 
-const CONTENT_URL = 'content/module.json';
+// « ?demo=exercices » charge content/demo-exercices.json (prototype des exercices natifs) à la place du module
+const demoName = new URLSearchParams(window.location.search).get('demo');
+const CONTENT_URL = demoName && /^[a-z0-9-]+$/.test(demoName) ? `content/demo-${demoName}.json` : 'content/module.json';
 const DEFAULT_PASSING_SCORE = 80;
 const DEFAULT_CONTINUE_LABEL = 'Suivant';
 const EXIT_LABEL = 'Terminer le module';

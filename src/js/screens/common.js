@@ -1,6 +1,7 @@
 /** Éléments partagés par les écrans. */
 
 import { escapeHtml, inline, rich } from '../format.js';
+import { wireCheckpoints } from './exercises.js';
 import { renderQuestion } from './question.js';
 
 /**
@@ -51,7 +52,8 @@ export function videoFigure(video, asset) {
   // Début à une seconde donnée : fragment média (#t=) + repositionnement au chargement (voir wireVideos)
   const start = Number(video.start) > 0 ? Number(video.start) : 0;
   const src = asset(video.src) + (start ? `#t=${start}` : '');
-  const data = `${start ? ` data-start="${start}"` : ''}${video.autoplay ? ' data-autoplay' : ''}`;
+  const checkpoints = Array.isArray(video.checkpoints) && video.checkpoints.length ? video.checkpoints : null;
+  const data = `${start ? ` data-start="${start}"` : ''}${video.autoplay ? ' data-autoplay' : ''}${checkpoints ? ` data-checkpoints="${escapeHtml(JSON.stringify(checkpoints))}"` : ''}`;
   return `
     <figure class="video">
       <video class="video__player" controls preload="metadata" playsinline${data}
@@ -63,10 +65,10 @@ export function videoFigure(video, asset) {
       <figcaption class="video__caption">${meta}</figcaption>
       <div class="video__actions">
         <button type="button" class="btn btn--primary btn--small video__unmute" hidden>Activer le son</button>
-        <button type="button" class="btn btn--secondary btn--small video__cinema" aria-haspopup="dialog">
+        ${checkpoints ? '' : `<button type="button" class="btn btn--secondary btn--small video__cinema" aria-haspopup="dialog">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Mode cinéma
-        </button>
+        </button>`}
       </div>
       ${transcript}
     </figure>`;
@@ -87,6 +89,13 @@ export function wireVideos(root) {
   for (const player of root.querySelectorAll('.video__player')) {
     const start = Number(player.dataset.start) || 0;
     const unmute = player.parentElement.querySelector('.video__unmute');
+    if (player.dataset.checkpoints) {
+      try {
+        wireCheckpoints(player, player.parentElement, JSON.parse(player.dataset.checkpoints));
+      } catch {
+        // Questions illisibles : la vidéo se lit normalement
+      }
+    }
     player.parentElement.querySelector('.video__cinema')?.addEventListener('click', (event) => openCinema(player, event.currentTarget));
 
     const showCaptions = () => {

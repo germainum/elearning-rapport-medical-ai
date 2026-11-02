@@ -5,6 +5,7 @@
 
 import { escapeHtml, inline, rich } from '../format.js';
 import { figure, openModal, videoFigure } from './common.js';
+import { blanksHtml, sequenceHtml, wireBlanks, wireSequence } from './exercises.js';
 
 const DOCUMENT_LABELS = {
   dossier: 'Dossier patient',
@@ -30,6 +31,8 @@ export function renderBlock(block, ctx) {
   element.innerHTML = BLOCKS[block.type]?.(block, ctx) ?? '';
   if (block.type === 'attachment') wireAttachment(element, block, ctx);
   if (block.type === 'writing') wireWriting(element, block, ctx);
+  if (block.type === 'blanks') wireBlanks(element, block);
+  if (block.type === 'sequence') wireSequence(element);
   return element;
 }
 
@@ -361,6 +364,16 @@ const BLOCKS = {
           ${checklist}
         </div>
       </section>`;
+  },
+
+  /** Texte à trous : mots à placer dans une phrase (exercice non noté, voir exercises.js). */
+  blanks(block) {
+    return blanksHtml(block);
+  },
+
+  /** Remise en ordre d'étapes (exercice non noté, voir exercises.js). */
+  sequence(block) {
+    return sequenceHtml(block);
   },
 
   /** Encadré « À retenir ». */

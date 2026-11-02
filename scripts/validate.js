@@ -26,7 +26,7 @@ const VIDEO_SIZE_WARNING = 50 * 1024 * 1024;
 
 const SCREEN_TYPES = ['text', 'scene', 'quiz', 'summary', 'survey'];
 const SURVEY_KINDS = ['scale', 'choice', 'multiple', 'text'];
-const BLOCK_TYPES = ['text', 'video', 'attachment', 'writing', 'document', 'patientFile', 'form', 'callout', 'question', 'reveal'];
+const BLOCK_TYPES = ['text', 'video', 'attachment', 'writing', 'blanks', 'sequence', 'document', 'patientFile', 'form', 'callout', 'question', 'reveal'];
 const DOCUMENT_KINDS = ['dossier', 'courrier', 'note'];
 const QUESTION_KINDS = ['single', 'multiple'];
 const JOURNEY_ICONS = ['courrier', 'dossier', 'examen', 'redaction', 'envoi', 'decision'];
@@ -51,11 +51,16 @@ const ALLOWED_KEYS = {
   objectives: ['title', 'items'],
   journey: ['title', 'steps'],
   journeyStep: ['icon', 'label', 'text'],
-  video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
+  video: ['src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay', 'checkpoints'],
   writingBlock: ['type', 'id', 'prompt', 'placeholder', 'model', 'checklist'],
+  blanksBlock: ['type', 'id', 'prompt', 'text', 'distractors', 'feedback'],
+  sequenceBlock: ['type', 'id', 'prompt', 'items', 'feedback'],
+  checkpoint: ['at', 'question'],
+  checkpointQuestion: ['prompt', 'options', 'feedback'],
+  checkpointOption: ['id', 'text', 'correct', 'hint'],
   attachmentBlock: ['type', 'title', 'src', 'meta', 'label', 'preview'],
   preview: ['title', 'reference', 'fields', 'items', 'footer'],
-  videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay'],
+  videoBlock: ['type', 'src', 'captions', 'title', 'duration', 'poster', 'transcript', 'start', 'autoplay', 'checkpoints'],
   scene: [...SCREEN_COMMON_KEYS, 'blocks', 'consigne'],
   quiz: [...SCREEN_COMMON_KEYS, 'body', 'questions'],
   summary: [...SCREEN_COMMON_KEYS, 'body', 'keyPoints', 'showScore', 'showReport', 'messages'],
@@ -167,6 +172,32 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
       error(where, '« start » doit être un nombre de secondes (ex. 8).');
     }
     if (video.autoplay !== undefined && typeof video.autoplay !== 'boolean') error(where, '« autoplay » doit valoir true ou false.');
+    if (video.checkpoints !== undefined) {
+      if (!Array.isArray(video.checkpoints)) {
+        error(where, '« checkpoints » doit être une liste de questions posées pendant la vidéo : [{ "at": 21, "question": {…} }].');
+      } else {
+        video.checkpoints.forEach((checkpoint, i) => {
+          const cp = `${where} › checkpoints › ${i + 1}`;
+          if (!isObject(checkpoint)) return error(cp, 'doit être un objet { "at": secondes, "question": {…} }.');
+          checkKeys(checkpoint, ALLOWED_KEYS.checkpoint, cp);
+          if (!(typeof checkpoint.at === 'number' && checkpoint.at > 0)) error(cp, '« at » : instant en secondes où la vidéo s\'arrête (ex. 31).');
+          const q = checkpoint.question;
+          if (!isObject(q)) return error(cp, '« question » est obligatoire : { "prompt": …, "options": […], "feedback": … }.');
+          checkKeys(q, ALLOWED_KEYS.checkpointQuestion, cp);
+          if (!isText(q.prompt)) error(cp, '« prompt » (énoncé) est obligatoire.');
+          if (!(Array.isArray(q.options) && q.options.length >= 2)) return error(cp, '« options » : au moins 2 réponses.');
+          const ids = new Set();
+          q.options.forEach((option) => {
+            if (!isObject(option) || !isText(option.id) || !/^[a-z0-9]$/.test(option.id) || !isText(option.text)) error(cp, 'chaque option : { "id": "a", "text": … } (identifiant d\'un caractère).');
+            else if (ids.has(option.id)) error(cp, `identifiant « ${option.id} » en double.`);
+            else ids.add(option.id);
+            if (isObject(option)) checkKeys(option, ALLOWED_KEYS.checkpointOption, cp);
+          });
+          if (q.options.filter((option) => isObject(option) && option.correct === true).length !== 1) error(cp, 'une seule option doit porter "correct": true.');
+          if (q.feedback !== undefined && !isRichText(q.feedback)) error(cp, '« feedback » doit être un texte.');
+        });
+      }
+    }
     if (video.transcript === undefined) {
       warn(where, 'pas de « transcript » : ajoutez la transcription pour les personnes qui ne peuvent pas regarder la vidéo.');
     } else if (!isRichText(video.transcript)) {
@@ -380,6 +411,25 @@ export function validateModule(module, { contentDir = CONTENT_DIR } = {}) {
           if (!isRichText(block.model)) error(at, '« model » (exemple de réponse) est obligatoire.');
           if (block.placeholder !== undefined && !isText(block.placeholder)) error(at, '« placeholder » doit être un texte.');
           if (block.checklist !== undefined && !(Array.isArray(block.checklist) && block.checklist.every(isText))) error(at, '« checklist » doit être une liste de textes.');
+          break;
+
+        case 'blanks': {
+          checkKeys(block, ALLOWED_KEYS.blanksBlock, at);
+          if (!isText(block.id) || !ID_PATTERN.test(block.id)) error(at, '« id » obligatoire : lettres sans accents, chiffres, « - » ou « _ ».');
+          if (!isText(block.prompt)) error(at, '« prompt » (consigne) est obligatoire.');
+          const gaps = isText(block.text) ? [...block.text.matchAll(/\{([^}]+)\}/g)] : [];
+          if (!isText(block.text) || !gaps.length) error(at, '« text » est obligatoire et doit contenir au moins un trou écrit entre accolades : « Elle ne peut plus {porter de charges} ».');
+          if (block.distractors !== undefined && !(Array.isArray(block.distractors) && block.distractors.every(isText))) error(at, '« distractors » doit être une liste de mots en trop.');
+          if (block.feedback !== undefined && !isRichText(block.feedback)) error(at, '« feedback » doit être un texte.');
+          break;
+        }
+
+        case 'sequence':
+          checkKeys(block, ALLOWED_KEYS.sequenceBlock, at);
+          if (!isText(block.id) || !ID_PATTERN.test(block.id)) error(at, '« id » obligatoire : lettres sans accents, chiffres, « - » ou « _ ».');
+          if (!isText(block.prompt)) error(at, '« prompt » (consigne) est obligatoire.');
+          if (!(Array.isArray(block.items) && block.items.length >= 3 && block.items.every(isText))) error(at, '« items » : liste d\'au moins 3 étapes, écrites dans le BON ordre (le module les mélange).');
+          if (block.feedback !== undefined && !isRichText(block.feedback)) error(at, '« feedback » doit être un texte.');
           break;
 
         case 'attachment':

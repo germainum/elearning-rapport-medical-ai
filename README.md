@@ -18,6 +18,17 @@ produit par l'Office AI du canton de Vaud.
 
 ---
 
+
+## Exercices interactifs (prototype, v0.146.0)
+
+Trois blocs non notés, détaillés dans `docs/proposition-exercices.md` (démonstration : `?demo=exercices`) :
+
+- **`blanks`** (texte à trous) : `id`, `prompt`, `text` (les trous s'écrivent entre accolades : `Elle ne peut plus {porter de charges}`),
+  `distractors` (mots en trop, facultatif), `feedback` (affiché quand tout est juste).
+- **`sequence`** (remise en ordre) : `id`, `prompt`, `items` (les étapes **dans le bon ordre**, le module les mélange), `feedback`.
+- **`checkpoints`** d'une `video` : `[{ "at": 31, "question": { "prompt", "options": [{ "id": "a", "text", "correct": true, "hint" }], "feedback" } }]`
+  (`at` en secondes ; une seule option `correct`).
+
 ## 1. Démarrage rapide
 
 Prérequis : [Node.js](https://nodejs.org) version 18 ou plus récente. Aucune installation de paquet n'est nécessaire.

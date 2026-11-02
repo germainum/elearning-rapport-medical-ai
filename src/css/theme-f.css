@@ -2372,3 +2372,266 @@ html:has(dialog.cinema[open])::-webkit-scrollbar,
     display: none;
   }
 }
+
+/* ================================================================
+   Exercices natifs (v0.146.0) : texte à trous, remise en ordre, questions dans la vidéo
+   Tout passe par les jetons (thème sombre compris).
+   ================================================================ */
+
+.exercise,
+.checkpoint {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-tint);
+}
+
+@media (min-width: 48rem) {
+  .exercise,
+  .checkpoint {
+    padding: var(--space-5) var(--space-6);
+  }
+}
+
+.checkpoint {
+  grid-column: 1 / -1;
+}
+
+.exercise__kicker {
+  justify-self: start;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.exercise__prompt {
+  margin: 0;
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.exercise__hint {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+}
+
+.exercise__actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.exercise__status:empty {
+  display: none;
+}
+
+.exercise__status {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* --- Texte à trous --- */
+
+.blanks__sentence {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 2.7;
+}
+
+.blank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6.5rem;
+  min-height: 2.75rem;
+  margin: 0 0.15rem;
+  padding: 0 var(--space-3);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.blank--filled {
+  border-style: solid;
+  border-color: var(--color-primary);
+  color: var(--color-heading);
+}
+
+.blank--active,
+.blank--over {
+  border-style: solid;
+  border-color: var(--color-primary);
+  background: var(--color-selected-bg);
+}
+
+.blank--correct {
+  border-style: solid;
+  border-color: var(--color-success);
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.blank--incorrect {
+  border-style: solid;
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.blank:focus-visible,
+.chip:focus-visible,
+.sequence__move:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.blanks__bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: grab;
+}
+
+.chip--selected {
+  border-color: var(--color-primary);
+  border-width: 2px;
+  background: var(--color-selected-bg);
+  color: var(--color-heading);
+}
+
+@media (hover: hover), (min-width: 48rem) {
+  .chip:not(:disabled):hover,
+  .blank:not(:disabled):hover {
+    border-color: var(--color-primary);
+  }
+}
+
+/* --- Remise en ordre --- */
+
+.sequence__list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sequence__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.sequence__item--correct {
+  border-color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+.sequence__item--incorrect {
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+.sequence__rank {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-primary-tint);
+  color: var(--color-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.sequence__text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.sequence__moves {
+  display: flex;
+  flex: none;
+  gap: var(--space-1);
+}
+
+.sequence__move {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.sequence__move:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* --- Question dans la vidéo --- */
+
+.checkpoint__fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.checkpoint__options {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .checkpoint {
+    animation: checkpoint-in 0.35s ease-out;
+  }
+
+  @keyframes checkpoint-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+  }
+}
