@@ -2381,3 +2381,19 @@ body[data-summary-failed] #next {
     background: rgb(255 255 255 / 0.16);
   }
 }
+
+/* Mode cinéma ouvert : la page derrière ne défile pas et sa barre de défilement disparaît (v0.142.2) */
+html:has(dialog.cinema[open]),
+html:has(dialog.cinema[open]) body {
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+html:has(dialog.cinema[open])::-webkit-scrollbar,
+.cinema::-webkit-scrollbar {
+  display: none;
+}
+
+.cinema {
+  scrollbar-width: none;
+}
