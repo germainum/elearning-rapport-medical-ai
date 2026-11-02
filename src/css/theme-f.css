@@ -1361,8 +1361,10 @@
   }
 }
 
-/* Fenêtres : une croix à la place du bouton « Fermer » (le nom reste lu par les lecteurs d'écran) */
-.file-dialog__close {
+/* Bouton « Fermer » partout : une croix bleue entourée d'un rond bleu ; elle se remplit au survol (le nom reste lu par les lecteurs d'écran) */
+.file-dialog__close,
+.folder .folder__close,
+.help-dialog .help-dialog__close {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -1370,19 +1372,24 @@
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  border: 0;
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-primary);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.file-dialog__close:hover {
-  background: var(--color-surface-muted);
+.file-dialog__close:hover,
+.folder .folder__close:hover,
+.help-dialog .help-dialog__close:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary, #fff);
 }
 
-.file-dialog__close:focus-visible {
+.file-dialog__close:focus-visible,
+.folder .folder__close:focus-visible,
+.help-dialog .help-dialog__close:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
