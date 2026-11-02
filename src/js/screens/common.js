@@ -60,8 +60,14 @@ export function videoFigure(video, asset) {
         ${captions}
         <p>Votre navigateur ne peut pas lire cette vidéo : sa transcription est disponible ci-dessous.</p>
       </video>
-      <button type="button" class="btn btn--primary btn--small video__unmute" hidden>Activer le son</button>
       <figcaption class="video__caption">${meta}</figcaption>
+      <div class="video__actions">
+        <button type="button" class="btn btn--primary btn--small video__unmute" hidden>Activer le son</button>
+        <button type="button" class="btn btn--secondary btn--small video__cinema" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Mode cinéma
+        </button>
+      </div>
       ${transcript}
     </figure>`;
 }
@@ -81,6 +87,7 @@ export function wireVideos(root) {
   for (const player of root.querySelectorAll('.video__player')) {
     const start = Number(player.dataset.start) || 0;
     const unmute = player.parentElement.querySelector('.video__unmute');
+    player.parentElement.querySelector('.video__cinema')?.addEventListener('click', (event) => openCinema(player, event.currentTarget));
 
     const showCaptions = () => {
       for (const track of player.textTracks) {
@@ -124,6 +131,67 @@ export function wireVideos(root) {
         });
     });
   }
+}
+
+/**
+ * Mode cinéma (ordinateur) : la vidéo, la même, passe dans une grande fenêtre modale centrée sur fond sombre.
+ * Un élément vidéo déplacé est mis en pause par le navigateur : la lecture reprend si elle était en cours.
+ * À la fermeture (Échap, croix, clic à côté), la vidéo retrouve sa place et le focus revient au bouton.
+ */
+function openCinema(player, opener) {
+  const wasPlaying = !player.paused && !player.ended;
+  const title = player.getAttribute('aria-label') ?? '';
+  const holder = document.createElement('div');
+  holder.className = 'video__placeholder';
+  player.before(holder);
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'cinema';
+  dialog.setAttribute('aria-label', `${title} (mode cinéma)`);
+  dialog.innerHTML = `
+    <div class="cinema__bar">
+      <p class="cinema__title">${escapeHtml(title)}</p>
+      <button type="button" class="cinema__close" aria-label="Fermer le mode cinéma"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="cinema__stage"></div>
+    <div class="cinema__foot"><button type="button" class="btn btn--primary btn--small cinema__unmute" hidden>Activer le son</button></div>`;
+  document.body.append(dialog);
+  dialog.querySelector('.cinema__stage').append(player);
+
+  const unmute = dialog.querySelector('.cinema__unmute');
+  const syncUnmute = () => {
+    unmute.hidden = !player.muted;
+  };
+  syncUnmute();
+  player.addEventListener('volumechange', syncUnmute);
+  unmute.addEventListener('click', () => {
+    player.muted = false;
+    player.focus();
+  });
+
+  dialog.querySelector('.cinema__close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.addEventListener('close', () => {
+    const resume = !player.paused && !player.ended;
+    player.removeEventListener('volumechange', syncUnmute);
+    holder.replaceWith(player);
+    dialog.remove();
+    for (const track of player.textTracks) {
+      if (track.kind === 'captions') track.mode = 'showing';
+    }
+    // Le bouton « Activer le son » de la page reste cohérent avec l'état du son
+    const pageUnmute = player.parentElement.querySelector('.video__unmute');
+    if (pageUnmute && !player.muted) pageUnmute.hidden = true;
+    if (resume || wasPlaying) player.play().catch(() => {});
+    opener?.focus?.();
+  });
+  dialog.showModal();
+  for (const track of player.textTracks) {
+    if (track.kind === 'captions') track.mode = 'showing';
+  }
+  if (wasPlaying) player.play().catch(() => {});
 }
 
 /**

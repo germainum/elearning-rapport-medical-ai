@@ -1762,22 +1762,41 @@ li.side-nav__more,
   margin-top: calc((1lh - 1.25rem) / 2);
 }
 
-/* « Activer le son » sur la vidéo même (en bas à gauche, juste au-dessus de la barre de lecture) : il reste visible avec elle,
-   jamais sous les boutons fixes. Même case de grille que le lecteur, donc aucune ligne en plus. */
-.video__player,
-.video__unmute:not([hidden]) {
-  grid-area: 1 / 1;
+/* Sous la vidéo : légende à gauche, boutons « Activer le son » et « Mode cinéma » à droite (v0.142.0).
+   Jamais sur l'image : ni devant les sous-titres, ni sous la barre du bas. */
+.video {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--space-3);
 }
 
-.video__unmute:not([hidden]) {
-  z-index: 2;
-  align-self: end;
-  justify-self: start;
+.video__player,
+.video__transcript {
+  grid-column: 1 / -1;
+}
+
+.video__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.video__actions .btn {
   min-height: 2.75rem;
-  margin: 0 0 3.5rem var(--space-2);
   padding-inline: var(--space-3);
   font-size: 0.9375rem;
-  box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
+}
+
+.video__actions .btn svg {
+  flex: none;
+}
+
+/* Le mode cinéma n'a de sens que sur grand écran */
+@media screen and (max-width: 63.99rem) {
+  .video__cinema {
+    display: none;
+  }
 }
 
 /* ================================================================
@@ -2214,8 +2233,8 @@ body[data-summary-failed] #next {
    ================================================================ */
 
 @media screen and (min-width: 64rem) {
-  .screen--hero .video__player {
-    max-width: calc((100dvh - 28rem) * 16 / 9);
+  .screen--hero .video {
+    max-width: calc((100dvh - 30rem) * 16 / 9);
   }
 
   .screen--hero .screen__title {
@@ -2278,5 +2297,88 @@ body[data-summary-failed] #next {
     background: var(--color-primary-tint);
     color: var(--color-primary);
     box-shadow: none;
+  }
+}
+
+/* ================================================================
+   Mode cinéma (v0.142.0) : la vidéo en grand dans une fenêtre modale sombre, centrée.
+   Fond sombre voulu dans les deux thèmes (salle de cinéma) : couleurs propres au composant.
+   ================================================================ */
+
+.cinema {
+  width: min(96vw, calc((100dvh - 9rem) * 16 / 9 + 2rem));
+  max-width: none;
+  max-height: 96dvh;
+  margin: auto;
+  padding: 1rem;
+  border: 0;
+  border-radius: 1.5rem;
+  background: #0b0d14;
+  color: #ffffff;
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.6);
+  overscroll-behavior: contain;
+}
+
+.cinema::backdrop {
+  background: rgb(4 6 16 / 0.88);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.cinema__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.cinema__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.cinema__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.cinema__close:focus-visible,
+.cinema__unmute:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.cinema__stage .video__player {
+  width: 100%;
+  max-height: calc(100dvh - 9rem);
+  border-radius: 1rem;
+  box-shadow: none;
+}
+
+.cinema__foot:has(.cinema__unmute:not([hidden])) {
+  margin-top: 0.75rem;
+}
+
+.video__placeholder {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-muted);
+}
+
+@media (hover: hover), (min-width: 48rem) {
+  .cinema__close:hover {
+    background: rgb(255 255 255 / 0.16);
   }
 }
