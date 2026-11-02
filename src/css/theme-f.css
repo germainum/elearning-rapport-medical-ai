@@ -2824,3 +2824,75 @@ html:has(dialog.cinema[open])::-webkit-scrollbar,
   padding-top: 0;
   border-top: 0;
 }
+
+/* ================================================================
+   Logo en haut à gauche (v0.150.0) : une pastille blanche avec le logo AI VD, un filet fin, puis
+   « FORMATION » (petit, en capitales grises) et le nom du module sur deux lignes
+   ================================================================ */
+
+@media screen and (min-width: 64rem) {
+  .sidebar-top {
+    padding-left: 0;
+  }
+
+  .sidebar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.875rem 0.625rem 0.75rem;
+    border-radius: 0.875rem;
+    background: var(--color-surface);
+    box-shadow: 0 1px 2px rgb(15 20 40 / 0.06), 0 4px 14px rgb(15 20 40 / 0.07);
+  }
+
+  .sidebar-brand .sidebar-logo {
+    height: 1.5rem;
+    flex: none;
+  }
+
+  .sidebar-brand .sidebar-module {
+    position: static;
+    display: grid;
+    gap: 0.125rem;
+    min-width: 0;
+    margin: 0;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--color-border);
+    opacity: 1;
+    white-space: normal;
+    color: var(--color-text);
+  }
+
+  .sidebar-module__kicker {
+    color: var(--color-muted);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .sidebar-module__title {
+    max-width: 5.5rem;
+    color: var(--color-text);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+}
+
+/* La pastille reste blanche dans les deux thèmes (le logo AI VD est conçu pour un fond blanc) : jetons clairs réaffectés */
+@media screen and (min-width: 64rem) {
+  .sidebar-brand {
+    --color-surface: #ffffff;
+    --color-text: #12141a;
+    --color-muted: #4a4f5c;
+    --color-border: #e4e7ee;
+  }
+
+  .sidebar-brand .sidebar-logo {
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+}

@@ -45,9 +45,11 @@
   <div class="app-body" id="app-body">
     <nav class="app-sidebar app-sidebar--toc" aria-label="Menu du module">
       <div class="sidebar-top">
-        <img class="sidebar-logo" id="side-logo" alt="" hidden>
+        <div class="sidebar-brand">
+          <img class="sidebar-logo" id="side-logo" alt="" hidden>
+          <p class="sidebar-module" id="side-module" aria-hidden="true"><span class="sidebar-module__kicker">Formation</span><span class="sidebar-module__title" id="side-module-title"></span></p>
+        </div>
       </div>
-      <p class="sidebar-module" id="side-module" aria-hidden="true"></p>
       <ul class="sidebar-meta" id="side-meta" aria-label="Informations sur le module"></ul>
       <ul class="side-nav side-nav--main">
         <li><button type="button" class="side-nav__item" id="side-home"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Accueil</span></button></li>

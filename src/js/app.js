@@ -1914,7 +1914,7 @@ function updateOverall(element, percent, text = `${percent} % terminé`) {
 
 /** Colonne de gauche : titre, pastilles d'information (dérivées du contenu), carte d'aide. */
 function renderSidebarIntro(module) {
-  els.sideModule.textContent = plainText(module.title);
+  byId('side-module-title').textContent = plainText(module.title);
   const questionCount = module.screens.reduce((n, screen) => n + questionsOf(screen).length, 0);
   const chips = [
     module.durationMinutes ? [icon('clock'), `${module.durationMinutes} min`] : null,
