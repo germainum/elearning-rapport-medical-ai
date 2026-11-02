@@ -111,3 +111,19 @@ a:hover {
     scroll-behavior: auto !important;
   }
 }
+
+/* Pas de flash bleu de Safari au toucher : le retour se fait par l'état « actif » de chaque composant */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  .btn:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+
+  .option:active {
+    background: var(--color-surface-muted);
+  }
+}

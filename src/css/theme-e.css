@@ -57,8 +57,10 @@ h3 {
   color: var(--color-text);
 }
 
-.btn--secondary:hover {
-  background: var(--color-primary-tint);
+@media (hover: hover), (min-width: 48rem) {
+  .btn--secondary:hover {
+    background: var(--color-primary-tint);
+  }
 }
 
 /* ---------- Barres de progression : aplats, sans dégradé ni reflet ---------- */
@@ -660,8 +662,10 @@ h3 {
   cursor: pointer;
 }
 
-.next-steps__action:hover {
-  background: var(--color-primary-tint);
+@media (hover: hover), (min-width: 48rem) {
+  .next-steps__action:hover {
+    background: var(--color-primary-tint);
+  }
 }
 
 /* ≥ 1280 px, synthèse : « Et maintenant ? » en colonne de droite, message en grand titre (maquette E) */
@@ -1133,8 +1137,10 @@ h3 {
   cursor: pointer;
 }
 
-.help-dialog__close:hover {
-  background: var(--color-surface-muted);
+@media (hover: hover), (min-width: 48rem) {
+  .help-dialog__close:hover {
+    background: var(--color-surface-muted);
+  }
 }
 
 /* Le contenu monte en cascade, après l'ouverture de la fenêtre */

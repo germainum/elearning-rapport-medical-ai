@@ -121,9 +121,11 @@
   background: transparent;
 }
 
-.option:hover {
-  border-color: var(--color-border);
-  background: var(--color-surface-muted);
+@media (hover: hover), (min-width: 48rem) {
+  .option:hover {
+    border-color: var(--color-border);
+    background: var(--color-surface-muted);
+  }
 }
 
 .option:has(.option__input:checked) {
@@ -136,10 +138,16 @@
   outline-offset: 2px;
 }
 
-/* Réponse validée : les états restent bien visibles, une réponse neutre ne change plus au survol */
-.question--answered .option:not(.option--correct):not(.option--incorrect):not(.option--missed):hover {
+/* Réponse validée : les états restent bien visibles {
   border-color: transparent;
   background: transparent;
+}
+@media (hover: hover), (min-width: 48rem) {
+  une réponse neutre ne change plus au survol */
+.question--answered .option:not(.option--correct):not(.option--incorrect):not(.option--missed):hover {
+    border-color: transparent;
+    background: transparent;
+  }
 }
 
 /* Bouton « Étapes », menu replié, panneau : ordinateur seulement */
@@ -902,8 +910,10 @@
   color: var(--color-on-primary);
 }
 
-.toc__section--current:hover {
-  background: var(--color-primary);
+@media (hover: hover), (min-width: 48rem) {
+  .toc__section--current:hover {
+    background: var(--color-primary);
+  }
 }
 
 .toc__section--current .toc__section-title,
@@ -1393,11 +1403,13 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.file-dialog__close:hover,
-.folder .folder__close:hover,
-.help-dialog .help-dialog__close:hover {
-  background: var(--color-primary);
-  color: var(--color-on-primary, #fff);
+@media (hover: hover), (min-width: 48rem) {
+  .file-dialog__close:hover,
+  .folder .folder__close:hover,
+  .help-dialog .help-dialog__close:hover {
+    background: var(--color-primary);
+    color: var(--color-on-primary, #fff);
+  }
 }
 
 .file-dialog__close:focus-visible,
@@ -1525,4 +1537,102 @@
     flex: 1 1 0;
     min-width: 0;
   }
+}
+
+/* ================================================================
+   Mobile : « Plus » (cinq entrées au plus dans la barre d'onglets, comme le veut Apple) (v0.118.0)
+   ================================================================ */
+
+li.side-nav__more,
+.more-sheet {
+  display: none;
+}
+
+@media screen and (max-width: 47.99rem) {
+  li.side-nav__more {
+    display: flex;
+  }
+
+  /* Glossaire et Paramètres passent sous « Plus » */
+  .side-nav--bottom {
+    display: none;
+  }
+
+  .more-sheet:not([hidden]) {
+    position: fixed;
+    right: max(0.75rem, env(safe-area-inset-right, 0px));
+    bottom: calc(var(--tabbar-total) + 0.5rem);
+    z-index: 65;
+    display: grid;
+    min-width: 13.5rem;
+    padding: 0.375rem;
+    border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+    border-radius: 1.5rem;
+    background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    backdrop-filter: blur(18px) saturate(1.6);
+    box-shadow: 0 12px 36px rgb(15 20 40 / 0.22);
+    transform-origin: 90% 100%;
+    animation: more-sheet-in 0.32s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  }
+
+  .more-sheet__row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 3rem;
+    padding: 0 var(--space-4);
+    border: 0;
+    border-radius: 1.125rem;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    font-size: 1.0625rem;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .more-sheet__row[hidden] {
+    display: none;
+  }
+
+  .more-sheet__row:active {
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  }
+
+  .more-sheet__row:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: -3px;
+  }
+}
+
+@keyframes more-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .more-sheet:not([hidden]) {
+    animation: none;
+  }
+}
+
+/* ================================================================
+   Réglages d'après l'audit Apple (v0.118.0) : zone de sécurité en haut, pas de flash au toucher, pas de défilement qui fuit
+   ================================================================ */
+
+.app-header {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.file-dialog {
+  overscroll-behavior: contain;
 }

@@ -38,8 +38,10 @@
   box-shadow: 0 2px 6px rgb(15 29 150 / 0.25);
 }
 
-.btn--primary:hover {
-  background: var(--color-primary-hover);
+@media (hover: hover), (min-width: 48rem) {
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+  }
 }
 
 .btn--secondary {
@@ -47,8 +49,10 @@
   color: var(--color-primary);
 }
 
-.btn--secondary:hover {
-  background: var(--color-primary-tint-hover);
+@media (hover: hover), (min-width: 48rem) {
+  .btn--secondary:hover {
+    background: var(--color-primary-tint-hover);
+  }
 }
 
 .btn--ghost {
@@ -57,9 +61,11 @@
   color: var(--color-text);
 }
 
-.btn--ghost:hover {
-  background: var(--color-surface-muted);
-  border-color: var(--color-step);
+@media (hover: hover), (min-width: 48rem) {
+  .btn--ghost:hover {
+    background: var(--color-surface-muted);
+    border-color: var(--color-step);
+  }
 }
 
 .btn--small {
@@ -358,8 +364,10 @@ body.menu-open {
   cursor: pointer;
 }
 
-.menu-action:hover {
-  background: var(--color-primary-tint-hover);
+@media (hover: hover), (min-width: 48rem) {
+  .menu-action:hover {
+    background: var(--color-primary-tint-hover);
+  }
 }
 
 .menu-action[hidden] {
@@ -492,8 +500,10 @@ body.menu-open {
   cursor: pointer;
 }
 
-.toc__done-toggle:hover {
-  background: var(--color-primary-tint);
+@media (hover: hover), (min-width: 48rem) {
+  .toc__done-toggle:hover {
+    background: var(--color-primary-tint);
+  }
 }
 
 .toc__done-toggle .toc__ring {
@@ -566,8 +576,10 @@ body.menu-open {
   transition: background-color 0.15s ease;
 }
 
-.toc__section:hover {
-  background: var(--color-surface-muted);
+@media (hover: hover), (min-width: 48rem) {
+  .toc__section:hover {
+    background: var(--color-surface-muted);
+  }
 }
 
 /* Section de l'écran affiché : fond teinté */
@@ -708,8 +720,10 @@ button.toc__item {
   cursor: pointer;
 }
 
-button.toc__item:hover {
-  background: var(--color-surface-muted);
+@media (hover: hover), (min-width: 48rem) {
+  button.toc__item:hover {
+    background: var(--color-surface-muted);
+  }
 }
 
 .toc__item[aria-current="step"] {
@@ -876,8 +890,10 @@ button.toc__item:hover {
   transition: background-color 0.15s ease;
 }
 
-.help-card__action:hover {
-  background: var(--color-primary-tint-hover);
+@media (hover: hover), (min-width: 48rem) {
+  .help-card__action:hover {
+    background: var(--color-primary-tint-hover);
+  }
 }
 
 .help-card__action--primary {
@@ -887,8 +903,10 @@ button.toc__item:hover {
   font-weight: 700;
 }
 
-.help-card__action--primary:hover {
-  background: var(--color-primary-hover);
+@media (hover: hover), (min-width: 48rem) {
+  .help-card__action--primary:hover {
+    background: var(--color-primary-hover);
+  }
 }
 
 .help-card__action svg {
@@ -1677,8 +1695,10 @@ html {
   transition: background-color 0.15s ease;
 }
 
-.likert__option:hover .likert__box {
-  background: var(--color-primary-tint);
+@media (hover: hover), (min-width: 48rem) {
+  .likert__option:hover .likert__box {
+    background: var(--color-primary-tint);
+  }
 }
 
 .likert__option input:checked + .likert__box {
@@ -2741,9 +2761,11 @@ html {
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.option:hover {
-  border-color: var(--color-step);
-  background: var(--color-surface-muted);
+@media (hover: hover), (min-width: 48rem) {
+  .option:hover {
+    border-color: var(--color-step);
+    background: var(--color-surface-muted);
+  }
 }
 
 .option:has(.option__input:checked) {
@@ -2785,9 +2807,11 @@ html {
   cursor: default;
 }
 
-.question--answered .option:hover {
-  border-color: var(--color-border);
-  background: var(--color-surface);
+@media (hover: hover), (min-width: 48rem) {
+  .question--answered .option:hover {
+    border-color: var(--color-border);
+    background: var(--color-surface);
+  }
 }
 
 /* États après validation : plus prioritaires que le style « sélectionné » (:has(:checked)) */
@@ -3215,11 +3239,18 @@ html {
     transition: padding 0.2s ease, background-color 0.15s ease;
   }
 
-  /* Au survol, l'onglet sort un peu plus du bord, comme une fiche qu'on tire */
-  .folder-tab:hover {
+  /* Au survol,
+l'onglet sort un peu plus du bord {
     padding-right: var(--space-5);
     background: var(--color-primary-hover);
   }
+@media (hover: hover), (min-width: 48rem) {
+  comme une fiche qu'on tire */
+  .folder-tab:hover {
+      padding-right: var(--space-5);
+      background: var(--color-primary-hover);
+    }
+}
 
   /* Vignette de la patiente dans l'onglet */
   .folder-tab__photo {
@@ -3373,9 +3404,11 @@ html {
     box-shadow: -4px 6px 18px rgb(15 29 150 / 0.18);
   }
 
+  @media (hover: hover), (min-width: 48rem) {
   .folder-tab--report:hover {
-    background: var(--color-primary-tint);
-  }
+      background: var(--color-primary-tint);
+    }
+}
 
   /* Sans l'onglet du dossier (autre écran), celui du rapport prend sa place */
   .folder-tab[hidden] ~ .folder-tab--report {
@@ -4334,8 +4367,10 @@ html {
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-#next:not([aria-disabled="true"]):hover::after {
-  transform: translateX(0.3rem);
+@media (hover: hover), (min-width: 48rem) {
+  #next:not([aria-disabled="true"]):hover::after {
+    transform: translateX(0.3rem);
+  }
 }
 
 #next:not([aria-disabled="true"]):active {

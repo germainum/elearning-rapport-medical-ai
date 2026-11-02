@@ -79,6 +79,8 @@ const els = {
   sideReport: byId('side-report'),
   sideGlossary: byId('side-glossary'),
   sideSettings: byId('side-settings'),
+  sideMore: byId('side-more'),
+  moreSheet: byId('more-sheet'),
   sideLogo: byId('side-logo'),
   sideModule: byId('side-module'),
   sideMeta: byId('side-meta'),
@@ -403,12 +405,13 @@ async function start() {
     const docked = document.querySelector('dialog.file-dialog--docked[open]:not(.file-dialog--closing)');
     const byDialog = {
       'path-dialog': els.sidePath,
-      'glossary-dialog': els.sideGlossary,
-      'settings-dialog': els.sideSettings,
+      'glossary-dialog': els.sideMore,
+      'settings-dialog': els.sideMore,
       'file-dialog': els.sideFile,
       'report-dialog': els.sideReport,
     };
-    const current = (docked && byDialog[docked.id]) || (navIndex === 0 ? els.sideHome : els.sidePath);
+    const moreOpen = !els.moreSheet.hidden;
+    const current = moreOpen ? els.sideMore : (docked && byDialog[docked.id]) || (navIndex === 0 ? els.sideHome : els.sidePath);
     for (const button of document.querySelectorAll('.side-nav__item')) {
       if (button === current) button.setAttribute('aria-current', 'page');
       else button.removeAttribute('aria-current');
@@ -445,6 +448,70 @@ async function start() {
       tabIndicator.getBoundingClientRect();
       tabIndicator.style.transition = '';
     }
+  }
+
+  /**
+   * Mobile : la barre d'onglets n'a que cinq entrées au plus (Apple). Glossaire, Paramètres et Aide passent sous « Plus »,
+   * une petite feuille posée au-dessus de la barre. Les boutons d'origine restent la seule source des actions.
+   */
+  function setupMoreSheet() {
+    const sheet = els.moreSheet;
+    const rows = [
+      { source: els.sideGlossary, label: 'Glossaire' },
+      { source: els.sideSettings, label: 'Paramètres' },
+      { source: els.helpToggle, label: 'Aide' },
+    ];
+    for (const { source, label } of rows) {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'more-sheet__row';
+      row.setAttribute('role', 'menuitem');
+      row.innerHTML = `${source.querySelector('svg').outerHTML}<span>${label}</span>`;
+      row.querySelector('svg').setAttribute('width', '24');
+      row.querySelector('svg').setAttribute('height', '24');
+      row.addEventListener('click', () => {
+        closeMore();
+        source.click();
+      });
+      row.hidden = source.hidden;
+      row.dataset.sourceId = source.id;
+      sheet.append(row);
+    }
+    const sync = () => {
+      for (const row of sheet.children) row.hidden = document.getElementById(row.dataset.sourceId).hidden;
+    };
+    function openMore() {
+      sync();
+      sheet.hidden = false;
+      els.sideMore.setAttribute('aria-expanded', 'true');
+      void sheet.offsetWidth;
+      sheet.classList.add('more-sheet--on');
+      syncNavCurrent();
+    }
+    function closeMore({ restoreFocus = false } = {}) {
+      if (sheet.hidden) return;
+      sheet.classList.remove('more-sheet--on');
+      els.sideMore.setAttribute('aria-expanded', 'false');
+      sheet.hidden = true;
+      syncNavCurrent();
+      if (restoreFocus) els.sideMore.focus();
+    }
+    els.sideMore.addEventListener('click', () => (sheet.hidden ? openMore() : closeMore()));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMore({ restoreFocus: true });
+    });
+    document.addEventListener('pointerdown', (event) => {
+      if (!sheet.hidden && !event.target.closest('#more-sheet, #side-more')) closeMore();
+    });
+    // toucher un autre onglet referme la feuille
+    document.querySelector('.app-sidebar--toc').addEventListener(
+      'click',
+      (event) => {
+        const item = event.target.closest('.side-nav__item');
+        if (item && item !== els.sideMore) closeMore();
+      },
+      true,
+    );
   }
 
   /**
@@ -1404,6 +1471,7 @@ async function start() {
   setupTheme(document.querySelectorAll('input[name="theme"]'));
   setupFullscreen();
   setupTabDrag();
+  setupMoreSheet();
   setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
 
   /* ---------- Paramètres : taille du texte, raccourcis clavier ---------- */
