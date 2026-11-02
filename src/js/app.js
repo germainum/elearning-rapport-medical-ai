@@ -1703,15 +1703,23 @@ function animateSheetDescent(article, previousItem, previousTitle, direction = '
   if (backward) list.append(previousItem);
   else list.prepend(previousItem);
 
-  const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
-  const ghostHeight = previousItem.getBoundingClientRect().height;
-  const currentHeight = current.getBoundingClientRect().height;
-  // Avancer : la question précédente est au-dessus, le papier monte de sa hauteur. Reculer : elle est en dessous, le papier descend
-  const shift = (backward ? currentHeight : ghostHeight) + gap;
-  // La fenêtre montre d'abord la question précédente (comme l'écran d'avant), puis la nouvelle : sa hauteur ne varie que de
-  // la différence entre les deux, donc la zone des réponses, juste dessous, reste en place.
-  const startHeight = ghostHeight;
-  const endHeight = currentHeight;
+  // Mesures réelles de la liste (marges internes, filets et espacement compris) : la fenêtre part de la hauteur de la liste
+  // avec la seule question précédente et finit sur celle de la liste avec la seule nouvelle question, donc rien ne saute
+  // quand la question fantôme est retirée à la fin.
+  // (on retire réellement l'autre question le temps de la mesure : un élément masqué compte encore comme « dernier enfant »
+  // et garderait son filet et sa marge du bas)
+  current.remove();
+  const startHeight = list.getBoundingClientRect().height;
+  if (backward) list.prepend(current);
+  else list.append(current);
+  previousItem.remove();
+  const endHeight = list.getBoundingClientRect().height;
+  if (backward) list.append(previousItem);
+  else list.prepend(previousItem);
+  // Avancer : la question précédente est au-dessus, le papier monte de la distance qui la sépare de la nouvelle. Reculer : l'inverse
+  const shift = backward
+    ? previousItem.getBoundingClientRect().top - current.getBoundingClientRect().top
+    : current.getBoundingClientRect().top - previousItem.getBoundingClientRect().top;
   const timing = { duration: 1150, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'both' };
 
   const paper = list.animate(
