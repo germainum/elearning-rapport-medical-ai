@@ -150,6 +150,8 @@ export function wireVideos(root) {
 function openCinema(player, opener) {
   const wasPlaying = !player.paused && !player.ended;
   const title = player.getAttribute('aria-label') ?? '';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const origin = player.getBoundingClientRect(); // où se trouve la vidéo dans la page, pour partir de là
   const holder = document.createElement('div');
   holder.className = 'video__placeholder';
   player.before(holder);
@@ -165,7 +167,8 @@ function openCinema(player, opener) {
     </div>
     <div class="cinema__stage"></div>`;
   document.body.append(dialog);
-  dialog.querySelector('.cinema__stage').append(player);
+  const stage = dialog.querySelector('.cinema__stage');
+  stage.append(player);
 
   const unmute = dialog.querySelector('.cinema__unmute');
   const syncUnmute = () => {
@@ -178,9 +181,47 @@ function openCinema(player, opener) {
     player.focus();
   });
 
-  dialog.querySelector('.cinema__close').addEventListener('click', () => dialog.close());
+  /**
+   * Transition « à la Apple » : la fenêtre grandit à partir de la vidéo de la page (ou y retourne), avec une courbe
+   * à ressort léger ; le décor (fond, barre du titre) apparaît pendant ce temps. Rien de tout cela avec « moins de mouvement ».
+   */
+  const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
+  const transformOnto = (target) => {
+    const d = dialog.getBoundingClientRect();
+    const s = stage.getBoundingClientRect();
+    const k = target.width / s.width;
+    const od = { x: d.left + d.width / 2, y: d.top + d.height / 2 };
+    const cs = { x: s.left + s.width / 2, y: s.top + s.height / 2 };
+    const cp = { x: target.left + target.width / 2, y: target.top + target.height / 2 };
+    return `translate(${cp.x - od.x - k * (cs.x - od.x)}px, ${cp.y - od.y - k * (cs.y - od.y)}px) scale(${k})`;
+  };
+  const bar = dialog.querySelector('.cinema__bar');
+  const CHROME_OFF = { backgroundColor: 'rgba(11, 13, 20, 0)', boxShadow: '0 0 0 rgba(0, 0, 0, 0)' };
+  const CHROME_ON = { backgroundColor: 'rgb(11, 13, 20)', boxShadow: '0 30px 80px rgba(0, 0, 0, 0.6)' };
+
+  let closing = false;
+  function closeAnimated() {
+    if (closing) return;
+    closing = true;
+    if (reduced) return dialog.close();
+    for (const animation of dialog.getAnimations({ subtree: true })) animation.cancel();
+    const target = holder.getBoundingClientRect();
+    dialog.classList.add('cinema--closing');
+    bar.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: 'ease-out', fill: 'forwards' });
+    const move = dialog.animate(
+      [{ transform: 'none', ...CHROME_ON }, { transform: transformOnto(target), ...CHROME_OFF }],
+      { duration: 380, easing: EASE, fill: 'forwards' },
+    );
+    move.finished.then(() => dialog.close(), () => dialog.close());
+  }
+
+  dialog.querySelector('.cinema__close').addEventListener('click', closeAnimated);
   dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) dialog.close();
+    if (event.target === dialog) closeAnimated();
+  });
+  dialog.addEventListener('cancel', (event) => {
+    event.preventDefault(); // Échap : on referme avec la transition
+    closeAnimated();
   });
   dialog.addEventListener('close', () => {
     const resume = !player.paused && !player.ended;
@@ -197,6 +238,10 @@ function openCinema(player, opener) {
     opener?.focus?.();
   });
   dialog.showModal();
+  if (!reduced && origin.width > 0) {
+    dialog.animate([{ transform: transformOnto(origin), ...CHROME_OFF }, { transform: 'none', ...CHROME_ON }], { duration: 560, easing: EASE });
+    bar.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 320, delay: 220, easing: 'ease-out', fill: 'backwards' });
+  }
   for (const track of player.textTracks) {
     if (track.kind === 'captions') track.mode = 'showing';
   }

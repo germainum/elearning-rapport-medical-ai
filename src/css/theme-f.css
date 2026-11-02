@@ -2635,3 +2635,30 @@ html:has(dialog.cinema[open])::-webkit-scrollbar,
     }
   }
 }
+
+/* Mode cinéma : le fond assombri et flouté apparaît (et s'efface) en douceur, en même temps que la fenêtre grandit (v0.147.0) */
+@media (prefers-reduced-motion: no-preference) {
+  .cinema[open]::backdrop {
+    animation: cinema-backdrop-in 0.5s cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  }
+
+  .cinema--closing::backdrop {
+    animation: cinema-backdrop-out 0.38s ease-in forwards;
+  }
+
+  @keyframes cinema-backdrop-in {
+    from {
+      background: rgb(4 6 16 / 0);
+      -webkit-backdrop-filter: blur(0);
+      backdrop-filter: blur(0);
+    }
+  }
+
+  @keyframes cinema-backdrop-out {
+    to {
+      background: rgb(4 6 16 / 0);
+      -webkit-backdrop-filter: blur(0);
+      backdrop-filter: blur(0);
+    }
+  }
+}
