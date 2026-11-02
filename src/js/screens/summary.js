@@ -45,10 +45,18 @@ function sectionResultsSection(prefix, ctx) {
         </li>`;
     })
     .join('');
+  // Replié par défaut sur les petits écrans (la page est longue) : la ligne de résumé dit déjà où en est l'apprenant
+  const toReview = groups.filter((group) => levelOf(group.correct, group.total).key === 'low').length;
+  const summary = toReview ? `${toReview} section${toReview > 1 ? 's' : ''} à revoir sur ${groups.length}` : `${groups.length} sections, aucune à revoir`;
   return `
     <section class="by-section" aria-labelledby="${prefix}-by-section">
-      <h3 class="section-title" id="${prefix}-by-section">Vos résultats par section</h3>
-      <ol class="by-section__list" role="list">${items}</ol>
+      <details class="by-section__details" data-open-wide>
+        <summary class="by-section__summary">
+          <span class="section-title" id="${prefix}-by-section">Vos résultats par section</span>
+          <span class="by-section__hint">${summary}</span>
+        </summary>
+        <ol class="by-section__list" role="list">${items}</ol>
+      </details>
     </section>`;
 }
 
@@ -128,6 +136,8 @@ export function renderSummary(screen, ctx) {
 
   const reportSection = screen.showReport && ctx.report ? nextStepsCard(prefix, ctx) : '';
   const element = createScreen(screen, 'summary', resultHtml + reportSection + (result ? sectionResultsSection(prefix, ctx) : '') + keyPoints + body);
+  // Ouvert sur grand écran, replié sur mobile et tablette
+  for (const details of element.querySelectorAll('[data-open-wide]')) details.open = window.matchMedia('(min-width: 64rem)').matches;
   element.querySelector('[data-report-open]')?.addEventListener('click', () => ctx.report.open());
   element.querySelector('[data-report-print]')?.addEventListener('click', () => ctx.report.print());
   element.querySelector('[data-report-download]')?.addEventListener('click', () => ctx.report.download());

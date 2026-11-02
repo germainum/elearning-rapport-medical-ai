@@ -758,7 +758,14 @@ async function start() {
   function updateChrome() {
     const total = screens.length;
     // Forme courte « 10/35 » sur les très petits écrans ; la forme longue reste lue par les lecteurs d'écran
-    els.progressText.innerHTML = `<span class="progress-text__long">Écran ${index + 1} sur ${total}</span><span class="progress-text__short" aria-hidden="true">${index + 1}/${total}</span>`;
+    // Temps restant, en forme courte à côté de l'écran (« · 25 min ») ; la phrase complète reste lue par les lecteurs d'écran
+    const timeLeft = timeLeftText(module, tracker, index);
+    const minutes = timeLeft.match(/\d+/)?.[0];
+    const timeShort = timeLeft ? (minutes ? `${minutes} min` : '< 1 min') : '';
+    const timeHtml = timeLeft
+      ? `<span class="progress-text__time"><span aria-hidden="true"> · ${timeShort}</span><span class="visually-hidden">, ${escapeHtml(timeLeft.toLowerCase())}</span></span>`
+      : '';
+    els.progressText.innerHTML = `<span class="progress-text__long">Écran ${index + 1} sur ${total}</span><span class="progress-text__short" aria-hidden="true">${index + 1}/${total}</span>${timeHtml}`;
     // Barre d'avancement : la place de l'écran affiché dans le module (elle bouge à chaque écran, en avant comme en arrière)
     const percent = Math.round(((index + 1) / total) * 100);
     els.progressBar.style.width = `${percent}%`;
@@ -767,7 +774,6 @@ async function start() {
     els.progressPill.textContent = `${index + 1} / ${total}`;
     // Pastilles de durée / questions : utiles à l'accueil seulement
     els.sideMeta.hidden = screens[index].section !== screens[0].section;
-    const timeLeft = timeLeftText(module, tracker, index);
     for (const element of document.querySelectorAll('[data-time-left]')) {
       element.textContent = timeLeft;
       element.hidden = !timeLeft;
