@@ -146,12 +146,6 @@
   }
 }
 
-/* Bouton « Étapes », menu replié, panneau : ordinateur seulement */
-.steps-toggle,
-.app-header .progress-side {
-  display: none;
-}
-
 /* ---------- Ordinateur (≥ 1024 px) ---------- */
 
 @media screen and (min-width: 64rem) {
@@ -535,17 +529,6 @@
   }
 }
 
-@media screen and (min-width: 64rem) {
-  .steps-toggle {
-    display: inline-flex;
-  }
-
-  /* Le bandeau suit le menu : le bouton « Étapes » tient la place de la colonne de droite */
-  .steps-toggle {
-    order: 2;
-  }
-}
-
 /* ≥ 1280 px : le panneau du dossier, collant, descend jusqu'en bas (la barre d'avancement ne l'occupe plus) */
 @media screen and (min-width: 80rem) {
   .app-body--with-file .folder:not([hidden]) {
@@ -554,12 +537,6 @@
 }
 
 /* ---------- Impression ---------- */
-
-@media print {
-  .steps-toggle {
-    display: none !important;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .app-sidebar--toc,

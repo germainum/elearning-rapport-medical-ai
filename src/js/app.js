@@ -69,12 +69,7 @@ const els = {
   toc: byId('toc'),
   tocList: byId('toc-list'),
   tocSideList: byId('toc-side-list'),
-  progressSide: byId('progress-side'),
-  stepsToggle: byId('steps-toggle'),
   nextSide: byId('next-side'),
-  progressTitle: byId('progress-side-title'),
-  progressCount: byId('progress-side-count'),
-  progressList: byId('progress-side-list'),
   pathDialog: byId('path-dialog'),
   pathClose: byId('path-close'),
   sideHome: byId('side-home'),
@@ -321,7 +316,6 @@ async function start() {
   }
 
   function show(target, { focus = true, notice = '', stickyNotice = false, focusQuestion = null } = {}) {
-    closeSteps({ restoreFocus: false });
     if (els.pathDialog.open) els.pathDialog.close(); // choisir une destination dans « Parcours » referme la fenêtre
     const previous = index;
     index = target;
@@ -848,7 +842,6 @@ async function start() {
     navIndex = index;
     applyDossierFocus();
     syncNavCurrent();
-    renderProgressSide();
     placeNextSteps();
   }
 
@@ -874,20 +867,6 @@ async function start() {
     }
     const inSide = Boolean(block) && NEXT_IN_SIDE && WIDE.matches;
     els.nextSide.hidden = !inSide;
-  }
-
-  /** Colonne de droite : les écrans de la section en cours, avec leur état (terminé, actuel, à venir). */
-  function renderProgressSide() {
-    const section = screens[index].section ?? null;
-    const indexes = screens.map((_, i) => i).filter((i) => (screens[i].section ?? null) === section);
-    const [overline, ...rest] = plainText(section ?? 'Écrans').split(' · ');
-    els.progressTitle.textContent = overline;
-    const position = indexes.indexOf(index) + 1;
-    els.progressCount.textContent = `${position}/${indexes.length}`;
-    els.progressCount.setAttribute('aria-label', `écran ${position} sur ${indexes.length} de cette partie`);
-    els.progressSide.setAttribute('aria-label', rest.length ? rest.join(' · ') : overline);
-    els.progressList.replaceChildren(...indexes.map((i) => stepItem(screens[i], i, 'progress-side-list')));
-    stepsPrimed.add('progress-side-list');
   }
 
   /* ---------- Menu de gauche (ordinateur) ---------- */
@@ -943,33 +922,6 @@ async function start() {
     els.helpToggle.setAttribute('aria-expanded', 'false');
     els.helpToggle.focus();
   });
-  /* ---------- Panneau des étapes (ordinateur) : fermé par défaut, ouvert par le bouton « Étapes » ---------- */
-
-  function closeSteps({ restoreFocus = true } = {}) {
-    if (els.progressSide.hidden) return;
-    els.progressSide.hidden = true;
-    els.stepsToggle.setAttribute('aria-expanded', 'false');
-    if (restoreFocus) els.stepsToggle.focus();
-  }
-
-  els.stepsToggle.addEventListener('click', () => {
-    const open = els.progressSide.hidden;
-    els.progressSide.hidden = !open;
-    els.stepsToggle.setAttribute('aria-expanded', String(open));
-    if (open) els.progressSide.querySelector('[aria-current="step"], button')?.focus?.();
-  });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !els.progressSide.hidden) {
-      event.stopPropagation();
-      closeSteps();
-    }
-  });
-  document.addEventListener('click', (event) => {
-    if (els.progressSide.hidden) return;
-    if (els.progressSide.contains(event.target) || els.stepsToggle.contains(event.target)) return;
-    closeSteps({ restoreFocus: false });
-  });
-
   els.sideHome.addEventListener('click', () => show(0));
   els.sidePath.addEventListener('click', () => els.pathDialog.showModal());
   els.pathClose.addEventListener('click', () => els.pathDialog.close());
