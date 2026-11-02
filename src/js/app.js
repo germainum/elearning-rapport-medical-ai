@@ -563,8 +563,9 @@ async function start() {
   }
 
   /**
-   * Dossier patient : les informations utiles à la question en cours sont mises en évidence (champ d'écran « dossierFocus »,
-   * liste de repères : « notes », un libellé de rubrique ou la date d'une consultation) et le dossier s'ouvre dessus.
+   * Dossier patient : le dossier s'ouvre sur les informations utiles à la question en cours (champ d'écran « dossierFocus »,
+   * liste de repères : « notes », un libellé de rubrique ou la date d'une consultation). Plus de surlignage depuis v0.145.0 :
+   * le repère « record__focus » ne sert qu'à faire défiler le dossier jusque-là.
    */
   function applyDossierFocus() {
     const screen = screens[index];
@@ -572,23 +573,11 @@ async function start() {
     for (const body of [els.fileDialogBody, els.fileSideBody]) {
       const record = body.querySelector('.record');
       if (!record) continue;
-      record.querySelector('.record__focus-note')?.remove();
-      for (const mark of record.querySelectorAll('.record__focus-sr')) mark.remove();
       for (const element of record.querySelectorAll('.record__focus')) element.classList.remove('record__focus');
       if (!keys.length) continue;
       const matches = [...record.querySelectorAll('[data-focus-key]')].filter((element) => keys.includes(element.dataset.focusKey));
       if (!matches.length) continue;
-      for (const element of matches) {
-        element.classList.add('record__focus');
-        const mark = document.createElement('span');
-        mark.className = 'record__focus-sr visually-hidden';
-        mark.textContent = 'Utile pour cette question : ';
-        element.prepend(mark);
-      }
-      const note = document.createElement('p');
-      note.className = 'record__focus-note';
-      note.textContent = `En surbrillance : ce qui sert à répondre à « ${screen.title} ».`;
-      record.querySelector('.record__identity')?.after(note);
+      for (const element of matches) element.classList.add('record__focus');
     }
   }
 

@@ -289,7 +289,7 @@ apparaît agrafé sous la lettre.
 
 **Astuce affichée une seule fois** : le champ d'écran `"tip"` (`{ "title": …, "body": …, "pointTo": ["dossier", "rapport", "glossaire"] }`) affiche une carte « Astuce » sous le titre, et fait pulser dans le menu les entrées désignées par `pointTo`. Elle disparaît avec « J'ai compris », ou dès que l'apprenant quitte l'écran, et ne revient pas (clé `astuce-vue:<id>:<écran>`). Actuellement sur l'écran 1.1.
 
-**Repères par question** : le champ d'écran `"dossierFocus"` liste ce qui est utile à la question de l'écran : `"notes"`, le libellé d'une rubrique du dossier (`"Principal"`, `"Poste"`…) ou la date d'une consultation du journal (`"05.10.2026"`). Ces éléments sont surlignés dans le dossier, qui s'ouvre directement dessus ; le validateur refuse un repère qui n'existe pas dans le dossier.
+**Repères par question** : le champ d'écran `"dossierFocus"` liste ce qui est utile à la question de l'écran : `"notes"`, le libellé d'une rubrique du dossier (`"Principal"`, `"Poste"`…) ou la date d'une consultation du journal (`"05.10.2026"`). Le dossier défile directement jusqu'à ces éléments (sans surlignage) ; le validateur refuse un repère qui n'existe pas dans le dossier.
 
 La fiche s'affiche comme un **dossier médical papier** (feuille perforée, marge rouge, photo agrafée,
 tampon « Confidentiel »), glissée dans une chemise cartonnée dans les scènes. `sections` regroupe les
