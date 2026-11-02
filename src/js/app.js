@@ -514,6 +514,21 @@ async function start() {
     );
   }
 
+  /** Onglet grisé (Dossier ou Rapport hors du cas de Mme R.) : le toucher ne l'ouvre pas, il explique. */
+  function setupDisabledTabs() {
+    document.addEventListener(
+      'click',
+      (event) => {
+        const item = event.target.closest?.('.side-nav__item[aria-disabled="true"]');
+        if (!item) return;
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        setNotice('Disponible pendant le cas de Mme R.');
+      },
+      true,
+    );
+  }
+
   /**
    * Mobile : la barre d'onglets se range en une petite gélule quand on lit vers le bas (comme Safari sous iOS 26) et se redéploie
    * dès qu'on remonte, en bas de page, au toucher, au clavier ou à chaque nouvel écran.
@@ -727,8 +742,11 @@ async function start() {
     els.reportToFile.hidden = !fileUnlocked;
     refreshReport();
     applyPanels();
-    revealNavItem(els.sideFile, !fileUnlocked);
-    revealNavItem(els.sideReport, !reportAvailable);
+    // Dossier et Rapport restent toujours dans le menu ; hors du cas de Mme R. ils sont grisés (et le toucher explique pourquoi)
+    revealNavItem(els.sideFile, false);
+    revealNavItem(els.sideReport, false);
+    els.sideFile.setAttribute('aria-disabled', String(!fileUnlocked));
+    els.sideReport.setAttribute('aria-disabled', String(!reportAvailable));
     revealNavItem(els.sideGlossary, els.glossaryToggle.hidden);
     navIndex = index;
     syncNavCurrent();
@@ -1528,6 +1546,7 @@ async function start() {
   setupFullscreen();
   setupTabDrag();
   setupTabMinimize();
+  setupDisabledTabs();
   setupMoreSheet();
   setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
 
