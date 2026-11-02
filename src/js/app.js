@@ -447,6 +447,74 @@ async function start() {
     }
   }
 
+  /**
+   * Glisser le doigt sur la barre d'onglets (mobile) : la pastille suit le doigt, grossie comme une loupe, et l'onglet sous le doigt
+   * se colore ; on le choisit en relâchant. Un simple toucher garde son comportement normal.
+   */
+  function setupTabDrag() {
+    const bar = document.querySelector('.app-sidebar--toc');
+    const mobile = window.matchMedia('(max-width: 47.99rem)');
+    if (!bar) return;
+    let start = null;
+    let dragging = false;
+    let target = null;
+
+    const items = () => [...bar.querySelectorAll('.side-nav__item')].filter((item) => item.offsetWidth);
+    const itemAt = (x) => {
+      const list = items();
+      return list.find((item) => x < item.getBoundingClientRect().right) ?? list[list.length - 1];
+    };
+    const clearPreview = () => {
+      for (const item of bar.querySelectorAll('.side-nav__item--preview')) item.classList.remove('side-nav__item--preview');
+    };
+    const follow = (x) => {
+      if (!tabIndicator) return;
+      const barBox = bar.getBoundingClientRect();
+      const list = items();
+      const first = list[0].getBoundingClientRect();
+      const last = list[list.length - 1].getBoundingClientRect();
+      const width = tabIndicator.offsetWidth;
+      const left = Math.min(Math.max(x - width / 2, first.left), last.right - width);
+      tabIndicator.style.transform = `translateX(${left - barBox.left}px)`;
+      target = itemAt(x);
+      clearPreview();
+      target.classList.add('side-nav__item--preview');
+    };
+
+    bar.addEventListener('pointerdown', (event) => {
+      if (!mobile.matches || !event.isPrimary || !event.target.closest('.side-nav__item')) return;
+      start = { x: event.clientX, id: event.pointerId };
+    });
+    bar.addEventListener('pointermove', (event) => {
+      if (!start || event.pointerId !== start.id) return;
+      if (!dragging) {
+        if (Math.abs(event.clientX - start.x) < 8) return;
+        dragging = true;
+        bar.setPointerCapture(event.pointerId);
+        bar.classList.add('app-sidebar--dragging');
+      }
+      follow(event.clientX);
+    });
+    const end = (event, cancelled) => {
+      if (!start || event.pointerId !== start.id) return;
+      const chosen = dragging && !cancelled ? target : null;
+      start = null;
+      if (dragging) {
+        dragging = false;
+        bar.classList.remove('app-sidebar--dragging');
+        clearPreview();
+        if (chosen) chosen.click();
+        else moveTabIndicator();
+        // le doigt qui se relève ne doit pas aussi déclencher le clic de l'onglet touché au départ
+        const block = (clickEvent) => clickEvent.stopPropagation();
+        bar.addEventListener('click', block, true);
+        setTimeout(() => bar.removeEventListener('click', block, true), 80);
+      }
+    };
+    bar.addEventListener('pointerup', (event) => end(event, false));
+    bar.addEventListener('pointercancel', (event) => end(event, true));
+  }
+
   /** Entrée du menu qui apparaît en cours de parcours : elle se déploie en douceur (rien au chargement ni à la disparition). */
   function revealNavItem(button, hide) {
     const appearing = button.hidden && !hide && button.dataset.init === '1';
@@ -1335,6 +1403,7 @@ async function start() {
   setupTextSize(module.id);
   setupTheme(document.querySelectorAll('input[name="theme"]'));
   setupFullscreen();
+  setupTabDrag();
   setupShortcutsSetting(module.id, byId('shortcuts-enabled'));
 
   /* ---------- Paramètres : taille du texte, raccourcis clavier ---------- */

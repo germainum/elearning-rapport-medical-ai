@@ -1424,3 +1424,35 @@
     transition: none;
   }
 }
+
+/* Glisser le doigt sur la barre d'onglets (mobile) : la pastille grossit comme une loupe et suit le doigt ; l'onglet visé se colore */
+@media screen and (max-width: 47.99rem) {
+  .app-sidebar--toc {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .app-sidebar--dragging .tab-indicator {
+    transition: width 0.2s ease, opacity 0.2s ease, scale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    scale: 1.14 1.22;
+    background: color-mix(in srgb, var(--color-primary) 16%, transparent);
+    box-shadow: 0 6px 18px rgb(15 29 150 / 0.22);
+  }
+
+  .side-nav__item--preview,
+  .app-sidebar--dragging .side-nav__item--preview[aria-current] {
+    color: var(--color-primary);
+  }
+
+  /* pendant le glissement, seul l'onglet sous le doigt est coloré */
+  .app-sidebar--dragging .side-nav__item[aria-current]:not(.side-nav__item--preview) {
+    color: var(--color-text);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar--dragging .tab-indicator {
+    scale: none;
+  }
+}
