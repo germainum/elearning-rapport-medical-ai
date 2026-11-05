@@ -19,6 +19,12 @@ produit par l'Office AI du canton de Vaud.
 ---
 
 
+
+## Version de relecture
+
+Une version avec un bouton « Commenter » sur chaque écran (commentaires partagés, export Markdown), hébergée à part : voir `docs/relecture.md`.
+`npm run review` la lance en local. Elle n'est **jamais** dans le paquet SCORM livré.
+
 ## Exercices interactifs (prototype, v0.146.0)
 
 Trois blocs non notés, détaillés dans `docs/proposition-exercices.md` (démonstration : `?demo=exercices`) :

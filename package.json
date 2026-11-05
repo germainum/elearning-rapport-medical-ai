@@ -14,6 +14,7 @@
     "build:2004": "node scripts/build.js --scorm=2004",
     "build:xapi": "node scripts/build.js --xapi",
     "lrs": "node scripts/lrs-test.js",
+    "review": "node scripts/build.js --review && node review/server.js --dev",
     "preview": "node scripts/serve.js build/package",
     "export:rise": "node scripts/export-rise.js"
   }

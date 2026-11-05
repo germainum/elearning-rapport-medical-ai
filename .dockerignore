@@ -1,0 +1,8 @@
+node_modules
+build
+dist
+.git
+.github
+review-data
+*.zip
+docs

@@ -1,0 +1,37 @@
+# Construit l'image Docker de la version de RELECTURE (module + mode relecture + serveur de commentaires) et la publie
+# sur le registre GitHub : ghcr.io/<propriétaire>/formation-germain. À ne pas confondre avec le paquet SCORM livré à Acamedia.
+name: Publier l'image de relecture
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: review-image
+  cancel-in-progress: true
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construire et publier l'image
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          IMAGE="ghcr.io/${OWNER}/formation-germain"
+          VERSION="$(node -p "JSON.parse(require('fs').readFileSync('content/module.json','utf8')).version")"
+          echo "$REGISTRY_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker build \
+            --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
+            --label "org.opencontainers.image.version=${VERSION}" \
+            -t "${IMAGE}:latest" -t "${IMAGE}:v${VERSION}" -t "${IMAGE}:${GITHUB_SHA::7}" .
+          docker push --all-tags "${IMAGE}"
+          echo "Image publiée : ${IMAGE}:latest (module v${VERSION})" >> "$GITHUB_STEP_SUMMARY"

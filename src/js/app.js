@@ -155,6 +155,9 @@ async function start() {
   });
   const connected = scorm.init();
   const tracker = createTracker(module);
+  // Mode relecture (?review) : tous les écrans sont accessibles depuis « Parcours » ; le code du mode vit dans review/ (hors paquet SCORM)
+  const reviewMode = new URLSearchParams(window.location.search).has('review');
+  if (reviewMode) tracker.canAccess = () => true;
   const resumed = tracker.restore(scorm.getSuspendData());
   // xAPI : s'ajoute à SCORM quand un LRS fournit ses paramètres de lancement (voir xapi.js) ; sinon sans effet
   const xapi = createXapi({ module, debug: debugMode });
@@ -1676,6 +1679,15 @@ async function start() {
 
   els.pager.hidden = false;
   show(startIndex, { focus: false, notice, stickyNotice });
+
+  if (reviewMode) {
+    document.addEventListener('review-goto', (event) => show(event.detail.index));
+    import(`../review/review.js?v=${module.version}`)
+      .then((review) => review.startReview({ module }))
+      .catch(() => {
+        // Paquet sans mode relecture (paquet SCORM livré, version publique) : rien ne se passe
+      });
+  }
 }
 
 /** Donne le focus au premier élément réellement affiché (un bouton masqué par la mise en page ne peut pas le recevoir). */

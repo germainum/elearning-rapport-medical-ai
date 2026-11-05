@@ -23,6 +23,8 @@ const IGNORED = /^(\..*|desktop\.ini|Thumbs\.db|~\$.*|.*\.tmp)$/i;
 
 // --xapi : paquet pour un LRS (tincan.xml à la racine, sans manifeste SCORM) ; le paquet SCORM n'est pas modifié
 const xapiPackage = process.argv.includes('--xapi');
+// --review : ajoute le mode relecture (review/client) au paquet. Réservé à la version de relecture (Docker) : jamais dans le paquet livré à Acamedia.
+const reviewPackage = process.argv.includes('--review');
 const scormArg = process.argv.find((arg) => arg.startsWith('--scorm='));
 const scormVersion = scormArg ? scormArg.split('=')[1] : '1.2';
 if (!['1.2', '2004'].includes(scormVersion)) {
@@ -48,6 +50,7 @@ mkdirSync(STAGE_DIR, { recursive: true });
 const copyFilter = (source) => !IGNORED.test(source.split(sep).pop());
 cpSync(SRC_DIR, STAGE_DIR, { recursive: true, filter: copyFilter });
 cpSync(CONTENT_DIR, join(STAGE_DIR, 'content'), { recursive: true, filter: copyFilter });
+if (reviewPackage) cpSync(join(ROOT, 'review', 'client'), join(STAGE_DIR, 'review'), { recursive: true, filter: copyFilter });
 
 const indexPath = join(STAGE_DIR, 'index.html');
 const indexHtml = readFileSync(indexPath, 'utf8');
@@ -182,10 +185,10 @@ const entries = [descriptor, ...files].map((name) => ({
 const zip = createZip(entries);
 
 mkdirSync(DIST_DIR, { recursive: true });
-const suffix = xapiPackage ? 'xapi' : scormVersion === '1.2' ? 'scorm12' : 'scorm2004';
+const suffix = reviewPackage ? 'review' : xapiPackage ? 'xapi' : scormVersion === '1.2' ? 'scorm12' : 'scorm2004';
 const zipName = `${module.id}-${module.version}-${suffix}.zip`;
 writeFileSync(join(DIST_DIR, zipName), zip);
 
-console.log(`\nPaquet ${xapiPackage ? 'xAPI (tincan.xml)' : `SCORM ${scormVersion}`} : dist/${zipName}`);
+console.log(reviewPackage ? `\nPaquet de RELECTURE (pour l'image Docker, à ne PAS livrer à Acamedia) : dist/${zipName}` : `\nPaquet ${xapiPackage ? 'xAPI (tincan.xml)' : `SCORM ${scormVersion}`} : dist/${zipName}`);
 console.log(`  ${entries.length} fichiers, ${(zip.length / 1024).toFixed(1)} Ko`);
 console.log('  Aperçu local du paquet : npm run preview');
