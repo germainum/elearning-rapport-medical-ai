@@ -225,7 +225,10 @@ function formRows(block) {
     if (item.section) lines.push(para(`**${item.section}**`, { size: 19, before: 40, after: 40, color: COLORS.labelText }));
     else {
       lines.push(para(`**${item.number}**  ${item.label}`, { size: 19, after: 30 }));
-      for (const detail of item.details ?? []) lines.push(para(`☐ ${detail}`, { size: 18, color: COLORS.muted, after: 20, indent: { left: 200 } }));
+      // « details » est une liste, ou un seul texte ; certains commencent déjà par la case ☐
+      for (const detail of [].concat(item.details ?? [])) {
+        lines.push(para(String(detail).startsWith('☐') ? detail : `☐ ${detail}`, { size: 18, color: COLORS.muted, after: 20, indent: { left: 200 } }));
+      }
     }
   }
   return lines;
