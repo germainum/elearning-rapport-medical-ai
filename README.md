@@ -20,6 +20,14 @@ produit par l'Office AI du canton de Vaud.
 
 
 
+## Document de relecture (Word)
+
+`npm run export:relecture` génère `docs/relecture-elearning-v<version>.docx` : tout le contenu du module écran par écran, un cadre « Votre avis »
+par écran et un formulaire de retours généraux, à envoyer aux relecteurs. À relancer après chaque changement de contenu.
+Outil de génération : `npm install --no-save docx` (une fois ; ce n'est pas une dépendance du module). Option `--review-url=https://…` pour ajouter
+le lien de la version de relecture. Les captures viennent de `docs/relecture-images/` (à refaire avec `node scripts/capture-relecture.js`, qui demande Playwright
+et `npm start` en marche).
+
 ## Version de relecture
 
 Une version avec un bouton « Commenter » sur chaque écran (commentaires partagés, export Markdown), hébergée à part : voir `docs/relecture.md`.
