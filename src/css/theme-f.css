@@ -1742,14 +1742,29 @@ li.side-nav__more,
 /* Sous la vidéo : légende à gauche, boutons « Activer le son » et « Mode cinéma » à droite (v0.142.0).
    Jamais sur l'image : ni devant les sous-titres, ni sous la barre du bas. */
 .video {
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  column-gap: var(--space-3);
+  gap: var(--space-3);
 }
 
 .video__player,
-.video__transcript {
-  grid-column: 1 / -1;
+.video__transcript,
+.video__placeholder,
+.checkpoint {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Légende à gauche, boutons à droite ; si la vidéo est étroite, les boutons passent sous la légende (elle ne s'écrase jamais) */
+.video__caption {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.video__actions {
+  flex: 0 1 auto;
+  margin-left: auto;
 }
 
 .video__actions {
@@ -2187,8 +2202,9 @@ body[data-summary-failed] #next {
    ================================================================ */
 
 @media screen and (min-width: 64rem) {
+  /* La vidéo s'adapte à la hauteur de la fenêtre, sans jamais descendre sous 32 rem (fenêtre basse : elle défile plutôt que de rétrécir) */
   .screen--hero .video {
-    max-width: calc((100dvh - 30rem) * 16 / 9);
+    max-width: max(32rem, calc((100dvh - 30rem) * 16 / 9));
   }
 
   .screen--hero .screen__title {
