@@ -18,6 +18,7 @@
     "preview": "node scripts/serve.js build/package",
     "export:rise": "node scripts/export-rise.js",
     "export:relecture": "node scripts/export-relecture.js",
-    "export:squelette": "node scripts/export-squelette.js"
+    "export:squelette": "node scripts/export-squelette.js",
+    "export:modele": "node scripts/export-modele-squelette.js"
   }
 }
