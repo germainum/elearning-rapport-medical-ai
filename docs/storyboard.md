@@ -1,5 +1,7 @@
 # Storyboard : « Remplir le rapport médical AI » (formulaire 002.099)
 
+> **Squelette à jour de la formation : `docs/squelette.md`** (généré depuis `content/module.json`, `npm run export:squelette`). Ce storyboard garde l'historique des décisions et des hypothèses.
+
 > **14.10.2026 : la formation suit désormais le « Rapport médical somatique : Réadaptation
 > professionnelle / Rente » (002.099, 6 pages).** Voir la dernière section. Les sections plus anciennes
 > décrivent l'ancienne version fondée sur le 002.099 MT (questions 1 à 12) et restent pour l'historique.
